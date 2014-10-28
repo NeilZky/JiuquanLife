@@ -10,12 +10,6 @@ import com.jiuquanlife.app.App;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.StringUtils;
 
-/**
- * CopyRight 任我行软件股份有限公司
- * 
- * @author 张开宇
- * 
- */
 public class SpCache {
 
 	private static SharedPreferences sp;
