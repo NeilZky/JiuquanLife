@@ -1,26 +1,48 @@
 package com.jiuquanlife.activity;
 
-import com.jiuquanlife.R;
-import com.jiuquanlife.R.layout;
-import com.jiuquanlife.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.widget.Toast;
+
+import com.jiuquanlife.R;
+import com.jiuquanlife.view.SexangleImageView;
+import com.jiuquanlife.view.SexangleImageView.OnSexangleImageClickListener;
 
 public class MainActivity extends Activity {
 
+	SexangleImageView homeSiv;
+	SexangleImageView flightSiv;
+	SexangleImageView hotelSiv;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		initView();
+	}
+	
+	public void initView(){
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		homeSiv = (SexangleImageView) findViewById(R.id.siv_main);
+		flightSiv = (SexangleImageView) findViewById(R.id.siv_fight);
+		hotelSiv = (SexangleImageView) findViewById(R.id.siv_hotel);
+		homeSiv.setOnSexangleImageClick(listener);
+		flightSiv.setOnSexangleImageClick(listener);
+		hotelSiv.setOnSexangleImageClick(listener);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
+	
+	OnSexangleImageClickListener listener=new OnSexangleImageClickListener() {
+		
+		@Override
+		public void onClick(View view) {
+			switch (view.getId()) {
+			case R.id.siv_main:
+				Toast.makeText(MainActivity.this,"µã»÷Ö÷Ò³", Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+	};
 }
