@@ -27,7 +27,7 @@ public class SexangleViewGroup extends ViewGroup {
 		Vheight = (float) (length/2 * Math.cos(radian30));//正六边形中连接对角线形成的正三角形的垂直线长度
 		bottomSpace=(int) (length/2-Vheight);
 		
-		SPACE=bottomSpace*2;
+		SPACE=bottomSpace/2;
 	
 		
 /*		double radian60 = 60 * Math.PI / 180;
@@ -38,7 +38,7 @@ public class SexangleViewGroup extends ViewGroup {
 		
 		int offsetX = length * 3 / 4 + SPACE;// X轴每次偏移的长度
 		//int offsetX = lenght * 3 / 4 + bottomSpace;// X轴每次偏移的长度
-		int offsetY = length / 2;// Y轴每次偏移的长度
+		int offsetY = length / 2  -  SPACE;// Y轴每次偏移的长度
 		
 		int rowIndex = 0;//行下标  
 //		int childCount = 3;
