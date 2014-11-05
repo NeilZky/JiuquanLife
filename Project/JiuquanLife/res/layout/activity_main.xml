@@ -2,7 +2,12 @@
     xmlns:and="http://schemas.android.com/apk/res/com.jiuquanlife"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgg" >
+     >
+	<com.jiuquanlife.view.MovingView 
+	    android:id="@+id/mv"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    />    
 
     <com.jiuquanlife.view.SexangleViewGroup
         android:id="@+id/sexangleView"
