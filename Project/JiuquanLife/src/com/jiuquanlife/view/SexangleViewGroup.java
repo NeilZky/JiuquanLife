@@ -1,9 +1,13 @@
 package com.jiuquanlife.view;
 
+import com.jiuquanlife.R;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 public class SexangleViewGroup extends ViewGroup {
 
@@ -11,6 +15,7 @@ public class SexangleViewGroup extends ViewGroup {
 	
 	private float Vheight;
 	private int bottomSpace;//六边形离底部的间隔
+	private boolean isFirst = true;
 	
 	double leftSpace;
 	public SexangleViewGroup(Context context, AttributeSet attrs) {
@@ -124,12 +129,17 @@ public class SexangleViewGroup extends ViewGroup {
 //			}
 	
 
-			
+
 			//child.layout(startL, startT + rowIndex * lenght-(rowIndex)*bottomSpace,startL + lenght, startT + lenght+ rowIndex * lenght-(rowIndex)*bottomSpace );
 //			child.layout(startL, startT + rowIndex * length,startL + lenght, startT + lenght+ rowIndex * lenght );
 			child.layout(startL, startT, startL + length, startT + length);
+			if(isFirst) {
+				Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.tranlate_in);
+				animation.setDuration(800+i*100);
+				child.startAnimation(animation);
+			}
 		}
-
+		isFirst = false;
 	}
 
 /*	@Override

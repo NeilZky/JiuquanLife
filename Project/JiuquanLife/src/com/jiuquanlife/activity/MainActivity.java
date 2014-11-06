@@ -47,12 +47,9 @@ public class MainActivity extends Activity {
 	private void initMovingView() {
 		
 		mv = (MovingView) findViewById(R.id.mv);
-		int screenHeight = ScreenUtil.getScreenHeight(this);
 		Rect rect= new Rect();  
 		this.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);  
-		int statusBarHeight = rect.top; 
-		int screenWidth = ScreenUtil.getScreenWidth(this);
-		mv.setBitmap(R.drawable.sunset, screenHeight - statusBarHeight ,screenWidth);
+		mv.setBitmap(R.drawable.sunset);
 	}
 	
 	OnSexangleImageClickListener listener=new OnSexangleImageClickListener() {

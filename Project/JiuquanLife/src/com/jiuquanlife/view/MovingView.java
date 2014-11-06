@@ -1,16 +1,12 @@
 package com.jiuquanlife.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 
 public class MovingView extends View {
 
@@ -19,38 +15,34 @@ public class MovingView extends View {
 	private int dx;
 	private boolean moveToRight = true;
 	private Matrix matrix;
+	private boolean isFirst = true;
 
 	public MovingView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public void setBitmap(int resId, int fatherViewHeight, int fatherWidth) {
+	public void setBitmap(int resId) {
 
 		bitmap = ((BitmapDrawable) getContext().getResources().getDrawable(
 				resId)).getBitmap();
 		matrix = new Matrix();
-		float scale = fatherViewHeight * 1.0f / bitmap.getHeight();
-		matrix.postScale(scale, scale);
-		dx = (int) (bitmap.getWidth() * scale - fatherWidth);
-		matrix.postTranslate(-dx, 0);
-		move();
-		
+		invalidate();
 	}
 
 	
 	private void move() {
 
 		if (moveToRight) {
-			margin += 2;
-			matrix.postTranslate(2, 0);
-			if (margin >= dx) {
+			margin += 3;
+			matrix.postTranslate(3, 0);
+			if ((margin +3) >= dx) {
 				margin = dx;
 				moveToRight = false;
 			}
 		} else {
-			matrix.postTranslate(-2, 0);
-			margin -= 2;
-			if (margin < 0) {
+			matrix.postTranslate(-3, 0);
+			margin -= 3;
+			if ((margin -3)< 0) {
 				margin = 0;
 				moveToRight = true;
 			}
@@ -69,24 +61,20 @@ public class MovingView extends View {
 	protected void onDraw(Canvas canvas) {
 
 		super.onDraw(canvas);
+		
 		if (bitmap != null) {
+			if(isFirst) {
+				isFirst = false;
+				int height = getMeasuredHeight();
+				int width = getMeasuredWidth();
+				float scale = height * 1.0f / bitmap.getHeight();
+				matrix.postScale(scale, scale);
+				dx = (int) (bitmap.getWidth() * scale - width);
+				matrix.postTranslate(-dx, 0);
+				move();
+			}
 			canvas.drawBitmap(bitmap, matrix, null);
 		}
 	}
 
-	public static int getScreenHeight(Context context) {
-		Display display = ((WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		DisplayMetrics metrics = new DisplayMetrics();
-		display.getMetrics(metrics);
-		return metrics.heightPixels;
-	}
-
-	public static int getScreenWidth(Context context) {
-		Display display = ((WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		DisplayMetrics metrics = new DisplayMetrics();
-		display.getMetrics(metrics);
-		return metrics.widthPixels;
-	}
 }
