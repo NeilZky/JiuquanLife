@@ -3,12 +3,13 @@ package com.jiuquanlife.activity;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.utils.ScreenUtil;
+import com.jiuquanlife.activity.adapter.HomeAdapter;
 import com.jiuquanlife.view.MovingView;
 import com.jiuquanlife.view.SexangleImageView;
 import com.jiuquanlife.view.SexangleImageView.OnSexangleImageClickListener;
@@ -19,6 +20,11 @@ public class MainActivity extends Activity {
 	private SexangleImageView flightSiv;
 	private SexangleImageView hotelSiv;
 	private MovingView mv;
+	private ViewPager homeVp;
+	private View leftHomeView ;
+	private View rightHomeView ;
+	private HomeAdapter homeAdapter;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +35,29 @@ public class MainActivity extends Activity {
 	public void initView(){
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_home);
+		initViewPager();
 		initSixAngelView();
 		initMovingView();
 	}
 	
+	private void initViewPager() {
+		
+		homeVp = (ViewPager) findViewById(R.id.vp_home);
+		homeAdapter = new HomeAdapter();
+		leftHomeView = getLayoutInflater().inflate(R.layout.view_home_left, null);
+		rightHomeView = getLayoutInflater().inflate(R.layout.view_home_left, null);
+		homeAdapter.addView(leftHomeView);
+		homeAdapter.addView(rightHomeView);
+		homeVp.setAdapter(homeAdapter);
+	}
+	
+	
 	private void initSixAngelView() {
 		
-		homeSiv = (SexangleImageView) findViewById(R.id.siv_main);
-		flightSiv = (SexangleImageView) findViewById(R.id.siv_fight);
-		hotelSiv = (SexangleImageView) findViewById(R.id.siv_hotel);
+		homeSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_main);
+		flightSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_fight);
+		hotelSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_hotel);
 		homeSiv.setOnSexangleImageClick(listener);
 		flightSiv.setOnSexangleImageClick(listener);
 		hotelSiv.setOnSexangleImageClick(listener);
