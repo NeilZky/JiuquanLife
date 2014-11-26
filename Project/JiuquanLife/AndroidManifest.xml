@@ -7,7 +7,11 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-
+	
+    <uses-permission 
+        android:name="android.permission.INTERNET"
+        />
+    
     <application
         android:name="com.jiuquanlife.app.App"
         android:allowBackup="true"

@@ -1,12 +1,12 @@
 package com.jiuquanlife.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.activity.adapter.HomeAdapter;
@@ -77,9 +77,15 @@ public class MainActivity extends Activity {
 		public void onClick(View view) {
 			switch (view.getId()) {
 			case R.id.siv_main:
-				Toast.makeText(MainActivity.this,"µã»÷Ö÷Ò³", Toast.LENGTH_SHORT).show();
+				onClickFocus();
 				break;
 			}
+		}
+
+		private void onClickFocus() {
+			
+			Intent intent = new Intent(MainActivity.this, FocusActivity.class);
+			startActivity(intent);
 		}
 	};
 }
