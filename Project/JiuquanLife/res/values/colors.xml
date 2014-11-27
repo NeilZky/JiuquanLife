@@ -5,7 +5,6 @@
     <color name="unwhite">#ffffff</color>
     <color name="FlightCXListInfoActivityBg">#DCDCDC</color>
 	<color name="popup_char_color">#99ff00ff</color>
-	<color name="yellow">#ffffff00</color>
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="dark_gray">#ff585858</color>
@@ -16,8 +15,10 @@
     <color name="transparent">#00000000</color>
     <color name="blue">#ff124e96</color>
     <color name="light_blue">#ffacd7ff</color>
-    <color name="dark_orange">#fff85d00</color>
+    <color name="dark_orange">#f58220</color>
    	<color name="orange">#FBB327</color>
+   	<color name="yellow">#decb00</color>
+   	<color name="pink">#f05b72</color>
     <color name="red">#fff85d00</color>
     <color name="brown">#ff654019</color>
     <color name="light_gray">#ff9b9b9b</color>
