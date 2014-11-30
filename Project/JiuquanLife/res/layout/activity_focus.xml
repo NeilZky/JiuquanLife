@@ -444,22 +444,26 @@
                     android:layout_width="0dp"
                     android:layout_height="1px"
                     android:layout_weight="1"
-                    android:src="@drawable/divider" />
-	
-                <TextView 
+                    android:src="@color/gray_2" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="您的好友也订阅过他们"
-                    />
-                
+                    android:padding="10dp"
+                    android:text="您的好友也订阅过他们" />
+
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="1px"
                     android:layout_weight="1"
-                    android:src="@drawable/divider" />
+                    android:src="@color/gray_2" />
             </LinearLayout>
+
+            <com.jiuquanlife.view.HorizontalListView
+                android:id="@+id/hlv_ltdr_focus"
+                android:layout_width="match_parent"
+                android:layout_height="90dp" 
+                />
 
             <include layout="@layout/divider" />
 
