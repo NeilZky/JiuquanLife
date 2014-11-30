@@ -1,4 +1,4 @@
-package com.jiuquanlife.activity.adapter;
+package com.jiuquanlife.module.home.adapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.jiuquanlife.activity.SplashActivity"
+            android:name="com.jiuquanlife.module.splash.activity.SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,11 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jiuquanlife.activity.MainActivity"
+            android:name="com.jiuquanlife.module.home.activity.HomeActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.jiuquanlife.activity.FocusActivity"
+            android:name="com.jiuquanlife.module.focus.activity.FocusActivity"
             >
         </activity>
     </application>

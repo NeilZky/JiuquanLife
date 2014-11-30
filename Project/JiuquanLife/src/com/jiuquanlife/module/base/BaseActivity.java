@@ -1,4 +1,4 @@
-package com.jiuquanlife.activity;
+package com.jiuquanlife.module.base;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -1,6 +1,7 @@
-package com.jiuquanlife.activity;
+package com.jiuquanlife.module.splash.activity;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.module.home.activity.HomeActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +26,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 Intent intent = new Intent();
-                intent.setClass(SplashActivity.this, MainActivity.class);
+                intent.setClass(SplashActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 SplashActivity.this.startActivity(intent);
                 SplashActivity.this.finish();

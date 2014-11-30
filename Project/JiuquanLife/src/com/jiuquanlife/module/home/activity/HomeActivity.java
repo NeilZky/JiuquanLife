@@ -1,4 +1,4 @@
-package com.jiuquanlife.activity;
+package com.jiuquanlife.module.home.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,12 +9,13 @@ import android.view.View;
 import android.view.Window;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.activity.adapter.HomeAdapter;
+import com.jiuquanlife.module.focus.activity.FocusActivity;
+import com.jiuquanlife.module.home.adapter.HomeAdapter;
 import com.jiuquanlife.view.MovingView;
 import com.jiuquanlife.view.SexangleImageView;
 import com.jiuquanlife.view.SexangleImageView.OnSexangleImageClickListener;
 
-public class MainActivity extends Activity {
+public class HomeActivity extends Activity {
 
 	private SexangleImageView homeSiv;
 	private SexangleImageView flightSiv;
@@ -84,7 +85,7 @@ public class MainActivity extends Activity {
 
 		private void onClickFocus() {
 			
-			Intent intent = new Intent(MainActivity.this, FocusActivity.class);
+			Intent intent = new Intent(HomeActivity.this, FocusActivity.class);
 			startActivity(intent);
 		}
 	};

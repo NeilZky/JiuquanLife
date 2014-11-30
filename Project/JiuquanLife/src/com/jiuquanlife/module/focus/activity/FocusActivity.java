@@ -1,4 +1,4 @@
-package com.jiuquanlife.activity;
+package com.jiuquanlife.module.focus.activity;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.activity.adapter.FocusTopAdapter;
+import com.jiuquanlife.module.base.BaseActivity;
+import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.vo.PhotoInfo;
 
 /**
