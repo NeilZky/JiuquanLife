@@ -10,9 +10,12 @@ import android.widget.TextView;
 import com.jiuquanlife.R;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
+import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
 import com.jiuquanlife.view.HorizontalListView;
+import com.jiuquanlife.view.UnScrollListView;
 import com.jiuquanlife.vo.PhotoInfo;
+import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.UserInfo;
 
 /**
@@ -28,6 +31,8 @@ public class FocusActivity extends BaseActivity{
 	private TextView vpTitleTv;
 	private HorizontalListView ltdrHlv;
 	private LtdrAdapter ltdrAdapter;
+	private UnScrollListView jhtLv;
+	private JhtAdapter jhtAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,7 @@ public class FocusActivity extends BaseActivity{
 		dotLl = (LinearLayout) findViewById(R.id.ll_dot_top_focus);
 		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_focus);
 		ltdrHlv = (HorizontalListView) findViewById(R.id.hlv_ltdr_focus);
+		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_focus);
 		focusTopAdapter = new FocusTopAdapter(FocusActivity.this, dotLl, topVp, vpTitleTv);
 		topVp.setAdapter(focusTopAdapter);
 		topVp.setOnPageChangeListener(focusTopAdapter);
@@ -59,6 +65,9 @@ public class FocusActivity extends BaseActivity{
 		
 		ltdrAdapter = new LtdrAdapter(this);
 		ltdrHlv.setAdapter(ltdrAdapter);
+		
+		jhtAdapter = new JhtAdapter(this);
+		jhtLv.setAdapter(jhtAdapter);
 	}
 
 	private void initData() {
@@ -77,5 +86,21 @@ public class FocusActivity extends BaseActivity{
 		userInfos.add(userInfo);
 		userInfos.add(userInfo);
 		ltdrAdapter.refresh(userInfos);
+		
+		ArrayList<PostInfo> postInfos = new ArrayList<PostInfo>();
+		PostInfo postInfo = new PostInfo();
+		postInfo.title = "这些奇葩名字的楼盘真的在酒泉？";
+		postInfo.time = "2014-12-10 17:45";
+		postInfo.forwardCount = 22;
+		postInfo.replyCount = 44;
+		postInfos.add(postInfo);
+		postInfos.add(postInfo);
+		postInfos.add(postInfo);
+		postInfos.add(postInfo);
+		postInfos.add(postInfo);
+		postInfos.add(postInfo);
+		postInfos.add(postInfo);
+		postInfos.add(postInfo);
+		jhtAdapter.refresh(postInfos);
 	}
 }
