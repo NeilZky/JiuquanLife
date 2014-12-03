@@ -60,10 +60,11 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
+    <com.jiuquanlife.view.CircleImageView
         android:id="@+id/iv_photo_jht_dapter"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_margin="10dp"
         android:padding="10dp"
         android:src="@drawable/photo_default" />
 

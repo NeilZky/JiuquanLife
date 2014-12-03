@@ -135,7 +135,7 @@ public class SexangleViewGroup extends ViewGroup {
 			child.layout(startL, startT, startL + length, startT + length);
 			if(isFirst) {
 				Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.tranlate_in);
-				animation.setDuration(800+i*100);
+				animation.setDuration(1500+i*100);
 				child.startAnimation(animation);
 			}
 		}

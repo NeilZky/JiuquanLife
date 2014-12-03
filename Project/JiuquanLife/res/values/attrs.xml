@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     	<declare-styleable name="sexangleImageView">
-    	<attr name="src" format="reference" />
-    	<attr name="bgcolor" format="color" />
-    	<attr name="pressedcolor" format="color" />
-    	<attr name="backcolor" format="integer" />  
-        <attr name="textSize" format="dimension" />  
-        <attr name="big" format="boolean" />  
-        <attr name="home" format="integer" />  
-        <attr name="texts" format="string" />
+    		<attr name="src" format="reference" />
+    		<attr name="bgcolor" format="color" />
+    		<attr name="pressedcolor" format="color" />
+    		<attr name="backcolor" format="integer" />  
+        	<attr name="textSize" format="dimension" />  
+        	<attr name="big" format="boolean" />  
+        	<attr name="home" format="integer" />  
+        	<attr name="texts" format="string" />
+    	</declare-styleable>
+    	
+    	<declare-styleable name="CircleImageView">
+        	<attr name="border_width" format="dimension" />
+        	<attr name="border_color" format="color" />
     	</declare-styleable>
 </resources>

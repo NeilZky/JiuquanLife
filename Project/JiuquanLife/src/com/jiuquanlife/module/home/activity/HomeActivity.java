@@ -69,7 +69,7 @@ public class HomeActivity extends Activity {
 		mv = (MovingView) findViewById(R.id.mv);
 		Rect rect= new Rect();  
 		this.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);  
-		mv.setBitmap(R.drawable.sunset);
+		mv.setBitmap(R.drawable.bg_nav);
 	}
 	
 	OnSexangleImageClickListener listener=new OnSexangleImageClickListener() {
