@@ -32,7 +32,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.jiuquanlife.module.focus.activity.FocusActivity"
+            android:name="com.jiuquanlife.module.tab.NavTabActivity"
             >
         </activity>
     </application>

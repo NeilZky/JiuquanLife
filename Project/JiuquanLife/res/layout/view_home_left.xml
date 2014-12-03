@@ -27,14 +27,14 @@
             and:texts="@string/home" />
 
         <com.jiuquanlife.view.SexangleImageView
-            android:id="@+id/siv_hotel"
+            android:id="@+id/siv_community"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/color_hotel"
             and:pressedcolor="@color/color_setting"
             and:src="@drawable/icon_hotel"
             and:textSize="12sp"
-            and:texts="@string/hotel" />
+            and:texts="@string/community" />
 
         <com.jiuquanlife.view.SexangleImageView
             android:id="@+id/siv_fight"

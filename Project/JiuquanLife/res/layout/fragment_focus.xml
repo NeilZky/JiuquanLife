@@ -6,12 +6,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="50dp" >
 
         <Button
             android:id="@+id/btn_search_focus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
@@ -23,18 +25,24 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/btn_search_focus"
+                        android:minWidth="0dp"
+            android:minHeight="0dp"
             android:text="扫描" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="聚焦" />
+            android:padding="8dp"
+            android:text="聚焦"
+            android:textSize="17sp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+                        android:minWidth="0dp"
+            android:minHeight="0dp"
             android:text="让红包飞" />
     </RelativeLayout>
 
@@ -462,8 +470,7 @@
             <com.jiuquanlife.view.HorizontalListView
                 android:id="@+id/hlv_ltdr_focus"
                 android:layout_width="match_parent"
-                android:layout_height="90dp" 
-                />
+                android:layout_height="90dp" />
 
             <include layout="@layout/divider" />
 
@@ -474,13 +481,12 @@
                 android:text="精华帖" />
 
             <include layout="@layout/divider" />
-            
-            <com.jiuquanlife.view.UnScrollListView 
+
+            <com.jiuquanlife.view.UnScrollListView
                 android:id="@+id/uslv_jht_focus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
-                />
+                android:scrollbars="none" />
         </LinearLayout>
     </ScrollView>
 

@@ -1,14 +1,17 @@
-package com.jiuquanlife.module.focus.activity;
+package com.jiuquanlife.module.focus.fragment;
 
 import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.module.base.BaseActivity;
+import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
@@ -18,12 +21,7 @@ import com.jiuquanlife.vo.PhotoInfo;
 import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.UserInfo;
 
-/**
- * 
- * ¾Û½¹Ò³Ãæ
- *
- */
-public class FocusActivity extends BaseActivity{
+public class FocusFragment extends BaseFragment{
 
 	private ViewPager topVp;
 	private FocusTopAdapter focusTopAdapter;
@@ -35,11 +33,15 @@ public class FocusActivity extends BaseActivity{
 	private JhtAdapter jhtAdapter;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+		View content = inflater.inflate(R.layout.fragment_focus, null);
+		setContent(content);
 		init();
+		return content;
 	}
+	
 
 	private void init() {
 		
@@ -49,13 +51,12 @@ public class FocusActivity extends BaseActivity{
 
 	private void initViews() {
 		
-		setContentView(R.layout.activity_focus);
 		topVp = (ViewPager) findViewById(R.id.vp_top_focus);
 		dotLl = (LinearLayout) findViewById(R.id.ll_dot_top_focus);
 		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_focus);
 		ltdrHlv = (HorizontalListView) findViewById(R.id.hlv_ltdr_focus);
 		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_focus);
-		focusTopAdapter = new FocusTopAdapter(FocusActivity.this, dotLl, topVp, vpTitleTv);
+		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp, vpTitleTv);
 		topVp.setAdapter(focusTopAdapter);
 		topVp.setOnPageChangeListener(focusTopAdapter);
 		ArrayList<PhotoInfo> photoInfos = new ArrayList<PhotoInfo>();
@@ -63,10 +64,10 @@ public class FocusActivity extends BaseActivity{
 		photoInfos.add(new PhotoInfo("http://bbs.unpcn.com/attachment.aspx?attachmentid=3927433", "title2"));
 		focusTopAdapter.setPhotoInfos(photoInfos);
 		
-		ltdrAdapter = new LtdrAdapter(this);
+		ltdrAdapter = new LtdrAdapter(getActivity());
 		ltdrHlv.setAdapter(ltdrAdapter);
 		
-		jhtAdapter = new JhtAdapter(this);
+		jhtAdapter = new JhtAdapter(getActivity());
 		jhtLv.setAdapter(jhtAdapter);
 	}
 

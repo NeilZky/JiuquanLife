@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.Window;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.module.focus.activity.FocusActivity;
+import com.jiuquanlife.module.community.fragment.CommunityFragment;
+import com.jiuquanlife.module.focus.fragment.FocusFragment;
 import com.jiuquanlife.module.home.adapter.HomeAdapter;
+import com.jiuquanlife.module.tab.NavTabActivity;
 import com.jiuquanlife.view.MovingView;
 import com.jiuquanlife.view.SexangleImageView;
 import com.jiuquanlife.view.SexangleImageView.OnSexangleImageClickListener;
@@ -58,7 +60,7 @@ public class HomeActivity extends Activity {
 		
 		homeSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_main);
 		flightSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_fight);
-		hotelSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_hotel);
+		hotelSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_community);
 		homeSiv.setOnSexangleImageClick(listener);
 		flightSiv.setOnSexangleImageClick(listener);
 		hotelSiv.setOnSexangleImageClick(listener);
@@ -80,12 +82,23 @@ public class HomeActivity extends Activity {
 			case R.id.siv_main:
 				onClickFocus();
 				break;
+			case R.id.siv_community:
+				onClickCommunity();
+				break;
 			}
 		}
 
 		private void onClickFocus() {
 			
-			Intent intent = new Intent(HomeActivity.this, FocusActivity.class);
+			Intent intent = new Intent(HomeActivity.this, NavTabActivity.class);
+			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG, FocusFragment.class.getSimpleName());
+			startActivity(intent);
+		}
+
+		private void onClickCommunity() {
+			
+			Intent intent = new Intent(HomeActivity.this, NavTabActivity.class);
+			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG, CommunityFragment.class.getSimpleName());
 			startActivity(intent);
 		}
 	};
