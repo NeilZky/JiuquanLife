@@ -61,4 +61,22 @@ public class RequestHelper {
 		requestQueue.add(sRequest);
 	}
 	
+	public void getRequest(Context context,String url, final  Response.Listener<String> listener) {
+		
+		RequestQueue requestQueue = Volley.newRequestQueue(context);
+		StringRequest sRequest = new StringRequest(Request.Method.GET,
+				url, listener, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						
+						ToastHelper.showL("ÍøÂç´íÎó");
+
+					}
+				}) {
+		};
+		sRequest.setShouldCache(false);
+		requestQueue.add(sRequest);
+	}
+
+	
 }

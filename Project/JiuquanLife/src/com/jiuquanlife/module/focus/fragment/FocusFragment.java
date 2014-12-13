@@ -10,16 +10,24 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
+import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
+import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.HorizontalListView;
 import com.jiuquanlife.view.UnScrollListView;
+import com.jiuquanlife.vo.FocusInfo;
 import com.jiuquanlife.vo.PhotoInfo;
 import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.UserInfo;
+import com.jiuquanlife.vo.convertor.ConvertUtils;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 public class FocusFragment extends BaseFragment{
 
@@ -47,6 +55,7 @@ public class FocusFragment extends BaseFragment{
 		
 		initViews();
 		initData();
+		getData();
 	}
 
 	private void initViews() {
@@ -57,13 +66,7 @@ public class FocusFragment extends BaseFragment{
 		ltdrHlv = (HorizontalListView) findViewById(R.id.hlv_ltdr_focus);
 		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_focus);
 		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp, vpTitleTv);
-		topVp.setAdapter(focusTopAdapter);
 		topVp.setOnPageChangeListener(focusTopAdapter);
-		ArrayList<PhotoInfo> photoInfos = new ArrayList<PhotoInfo>();
-		photoInfos.add(new PhotoInfo("http://bbs.unpcn.com/attachment.aspx?attachmentid=3927433", "title1"));
-		photoInfos.add(new PhotoInfo("http://bbs.unpcn.com/attachment.aspx?attachmentid=3927433", "title2"));
-		focusTopAdapter.setPhotoInfos(photoInfos);
-		
 		ltdrAdapter = new LtdrAdapter(getActivity());
 		ltdrHlv.setAdapter(ltdrAdapter);
 		
@@ -103,5 +106,20 @@ public class FocusFragment extends BaseFragment{
 		postInfos.add(postInfo);
 		postInfos.add(postInfo);
 		jhtAdapter.refresh(postInfos);
+	}
+	
+	public void getData() {
+		
+		RequestHelper.getInstance().getRequest(getActivity(), "http://www.5ijq.cn/App/Index/getFocusList", new Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				
+				FocusInfo info = GsonUtils.toObj(response, FocusInfo.class);
+				ArrayList<PhotoInfo> focusTopPhotoInfos = ConvertUtils.convertToPhotoInfos(info);
+				focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
+				topVp.setAdapter(focusTopAdapter);
+			}
+		});
 	}
 }
