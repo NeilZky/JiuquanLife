@@ -12,11 +12,4 @@ public class PostInfo {
 	public String replies;
 	public String fName;
 	
-	public UserInfo userInfo;
-	public String title;
-	public String content;
-	public String time;
-	public int forwardCount;
-	public int replyCount;
-	
 }

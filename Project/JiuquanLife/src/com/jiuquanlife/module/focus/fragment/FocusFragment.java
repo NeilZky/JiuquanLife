@@ -55,7 +55,6 @@ public class FocusFragment extends BaseFragment{
 	private void init() {
 		
 		initViews();
-		initData();
 		getData();
 	}
 
@@ -75,25 +74,6 @@ public class FocusFragment extends BaseFragment{
 		jhtLv.setAdapter(jhtAdapter);
 	}
 
-	private void initData() {
-		
-		
-		ArrayList<PostInfo> postInfos = new ArrayList<PostInfo>();
-		PostInfo postInfo = new PostInfo();
-		postInfo.title = "这些奇葩名字的楼盘真的在酒泉？";
-		postInfo.time = "2014-12-10 17:45";
-		postInfo.forwardCount = 22;
-		postInfo.replyCount = 44;
-		postInfos.add(postInfo);
-		postInfos.add(postInfo);
-		postInfos.add(postInfo);
-		postInfos.add(postInfo);
-		postInfos.add(postInfo);
-		postInfos.add(postInfo);
-		postInfos.add(postInfo);
-		postInfos.add(postInfo);
-		jhtAdapter.refresh(postInfos);
-	}
 	
 	public void getData() {
 		
@@ -111,6 +91,7 @@ public class FocusFragment extends BaseFragment{
 				focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
 				topVp.setAdapter(focusTopAdapter);
 				ltdrAdapter.refresh(info.data.userStar);
+				jhtAdapter.refresh(info.data.focusPost);
 			}
 		});
 	}

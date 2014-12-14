@@ -3,6 +3,7 @@ package com.jiuquanlife.module.focus.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.utils.BitmapHelper;
+import com.jiuquanlife.utils.UrlUtils;
 import com.jiuquanlife.vo.PostInfo;
+import com.lidroid.xutils.BitmapUtils;
 
 /**
  * 
@@ -22,10 +26,16 @@ public class JhtAdapter extends BaseAdapter{
 	private ArrayList<PostInfo> data;
 	private Context context;
 	private LayoutInflater inflater;
+	private BitmapUtils bitmapUtils;
 	
 	public JhtAdapter(Context context) {
 		
 		inflater = LayoutInflater.from(context);
+		bitmapUtils = BitmapHelper.getBitmapUtils(context
+				.getApplicationContext());
+		bitmapUtils.configDefaultLoadingImage(R.drawable.ic_launcher);
+		bitmapUtils.configDefaultLoadFailedImage(R.drawable.ic_launcher);
+		bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
 	}
 	
 	@Override
@@ -60,11 +70,10 @@ public class JhtAdapter extends BaseAdapter{
 		}
 		PostInfo postInfo = getItem(position);
 		holder.titleTv.setText(postInfo.subject);
-		holder.forwardCountTv.setText(String.valueOf(postInfo.forwardCount));
-		holder.replyCountTv.setText(String.valueOf(postInfo.replyCount));
-		holder.timeTv.setText(postInfo.time);
-		//TODO LOAD URLIMAGE
-		holder.photoIv.setImageResource(R.drawable.photo_default);
+		holder.forwardCountTv.setText(String.valueOf(postInfo.views));
+		holder.replyCountTv.setText(String.valueOf(postInfo.replies));
+		holder.timeTv.setText(postInfo.dateline);
+		bitmapUtils.display(holder.photoIv, UrlUtils.getPhotoUrl(postInfo.authorid));
 		return convertView;
 	}
 
