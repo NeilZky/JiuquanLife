@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.jiuquanlife.vo.FocusImg;
 import com.jiuquanlife.vo.FocusInfo;
 import com.jiuquanlife.vo.PhotoInfo;
+import com.jiuquanlife.vo.UserInfo;
 
 public class ConvertUtils {
 
@@ -16,7 +17,7 @@ public class ConvertUtils {
 			ArrayList<FocusImg> focusImgs = focusInfo.data.focusImgs;
 			ArrayList<PhotoInfo> res = new ArrayList<PhotoInfo>();
 			for(FocusImg temp : focusImgs) {
-				PhotoInfo photoInfo = new PhotoInfo("http://www.5ijq.cn"+temp.img, temp.tid);
+				PhotoInfo photoInfo = new PhotoInfo(temp.tid,"http://www.5ijq.cn"+temp.img, temp.subject);
 				res.add(photoInfo);
 			}
 			return res;

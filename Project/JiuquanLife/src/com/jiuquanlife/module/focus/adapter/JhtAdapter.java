@@ -59,7 +59,7 @@ public class JhtAdapter extends BaseAdapter{
 			holder = (Holder) convertView.getTag();
 		}
 		PostInfo postInfo = getItem(position);
-		holder.titleTv.setText(postInfo.title);
+		holder.titleTv.setText(postInfo.subject);
 		holder.forwardCountTv.setText(String.valueOf(postInfo.forwardCount));
 		holder.replyCountTv.setText(String.valueOf(postInfo.replyCount));
 		holder.timeTv.setText(postInfo.time);

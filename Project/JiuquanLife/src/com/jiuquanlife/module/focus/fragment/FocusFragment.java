@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
+import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
@@ -76,20 +77,6 @@ public class FocusFragment extends BaseFragment{
 
 	private void initData() {
 		
-		ArrayList<UserInfo> userInfos = new ArrayList<UserInfo>();
-		UserInfo userInfo = new UserInfo();
-		userInfo.id = 1;
-		userInfo.name = "steven";
-		userInfos.add(userInfo);
-		userInfos.add(userInfo);
-		userInfos.add(userInfo);
-		userInfos.add(userInfo);
-		userInfos.add(userInfo);
-		userInfos.add(userInfo);
-		userInfos.add(userInfo);
-		userInfos.add(userInfo);
-		userInfos.add(userInfo);
-		ltdrAdapter.refresh(userInfos);
 		
 		ArrayList<PostInfo> postInfos = new ArrayList<PostInfo>();
 		PostInfo postInfo = new PostInfo();
@@ -116,9 +103,14 @@ public class FocusFragment extends BaseFragment{
 			public void onResponse(String response) {
 				
 				FocusInfo info = GsonUtils.toObj(response, FocusInfo.class);
+				if(info == null || info.data == null || !CommonConstance.REQUEST_CODE_SUCCESS.equals(info.code)) {
+					//ÇëÇóÊý¾ÝÊ§°Ü
+					return;
+				}
 				ArrayList<PhotoInfo> focusTopPhotoInfos = ConvertUtils.convertToPhotoInfos(info);
 				focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
 				topVp.setAdapter(focusTopAdapter);
+				ltdrAdapter.refresh(info.data.userStar);
 			}
 		});
 	}
