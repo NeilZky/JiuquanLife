@@ -2,11 +2,14 @@ package com.jiuquanlife.module.focus.fragment;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
+import com.jiuquanlife.module.userhome.activity.UserHomeActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.HorizontalListView;
 import com.jiuquanlife.view.UnScrollListView;
@@ -72,8 +76,22 @@ public class FocusFragment extends BaseFragment{
 		
 		jhtAdapter = new JhtAdapter(getActivity());
 		jhtLv.setAdapter(jhtAdapter);
+		ltdrHlv.setOnItemClickListener(onItemClickListener);
 	}
 
+	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			
+			UserInfo userInfo = ltdrAdapter.getItem(position);
+			Intent intent = new Intent(getActivity(), UserHomeActivity.class);
+			intent.putExtra(UserHomeActivity.KEY_INTENT_UID, userInfo.uid);
+			startActivity(intent);
+		}
+	};
+	
 	
 	public void getData() {
 		

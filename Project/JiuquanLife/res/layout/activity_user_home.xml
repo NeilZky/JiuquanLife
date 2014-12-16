@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="返回" />
+    </RelativeLayout>
+
+    <include layout="@layout/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#55555555"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/photo_default" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tv_username_user_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:padding="3dp"
+                    android:text="username"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_register_time_user_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_username_user_home"
+                    android:padding="3dp"
+                    android:text="注册时间：2014-03-03"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_level_user_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_register_time_user_home"
+                    android:padding="3dp"
+                    android:text="等级：初中三年级|积分：748"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:text="加关注"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+        
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="35dp"
+		    android:background="#30000000"
+		    android:orientation="horizontal"
+		    >
+		    
+		    <Button 
+		        android:layout_width="0dp"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+				android:text="热闹"		        
+		        />
+		    <Button 
+		        android:layout_width="0dp"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+				android:text="发帖"		        
+		        />		    
+		    <Button 
+		        android:layout_width="0dp"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+				android:text="回帖"		        
+		        />		    
+		    <Button 
+		        android:layout_width="0dp"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+				android:text="订阅"		        
+		        />
+		    <Button 
+		        android:layout_width="0dp"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+				android:text="读者"		        
+		        />		    		    
+		</LinearLayout>
+        
+    </LinearLayout>
+    
+	
+    <ListView 
+        android:id="@+id/lv_posts_user_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    
+</LinearLayout>
