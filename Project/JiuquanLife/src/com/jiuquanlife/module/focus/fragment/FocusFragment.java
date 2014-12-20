@@ -22,6 +22,7 @@ import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
+import com.jiuquanlife.module.post.PostDetailActivity;
 import com.jiuquanlife.module.userhome.activity.UserHomeActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.HorizontalListView;
@@ -76,6 +77,7 @@ public class FocusFragment extends BaseFragment{
 		
 		jhtAdapter = new JhtAdapter(getActivity());
 		jhtLv.setAdapter(jhtAdapter);
+		jhtLv.setOnItemClickListener(onItemClickListener);
 		ltdrHlv.setOnItemClickListener(onItemClickListener);
 	}
 
@@ -85,9 +87,32 @@ public class FocusFragment extends BaseFragment{
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			
+			switch (parent.getId()) {
+			case R.id.uslv_jht_focus:
+				onClickJhtItem(position);
+				break;
+			case R.id.hlv_ltdr_focus:
+				onClickLtdrItem(position);
+				break;
+			default:
+				break;
+			}
+			
+		}
+
+		private void onClickLtdrItem(int position) {
+			
 			UserInfo userInfo = ltdrAdapter.getItem(position);
 			Intent intent = new Intent(getActivity(), UserHomeActivity.class);
 			intent.putExtra(UserHomeActivity.KEY_INTENT_UID, userInfo.uid);
+			startActivity(intent);
+		}
+
+		private void onClickJhtItem(int position) {
+			
+			PostInfo postInfo = jhtAdapter.getItem(position);
+			Intent intent = new Intent(getActivity(), PostDetailActivity.class);
+			intent.putExtra(PostDetailActivity.INTENT_KEY_TID, postInfo.tid);
 			startActivity(intent);
 		}
 	};
