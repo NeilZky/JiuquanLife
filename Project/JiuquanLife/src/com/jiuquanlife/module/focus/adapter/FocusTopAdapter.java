@@ -58,6 +58,14 @@ public class FocusTopAdapter extends PagerAdapter implements OnPageChangeListene
 		}
 	}
 	
+	public PhotoInfo getItem(int position) {
+		
+		if(this.photoInfos!=null) {
+			return this.photoInfos.get(position);
+		}
+		return null;
+	}
+	
 	private Runnable autoChangeItemRunnable = new Runnable() {
 		
 		@Override
@@ -138,7 +146,25 @@ public class FocusTopAdapter extends PagerAdapter implements OnPageChangeListene
 		((ViewPager) container).addView(iv, 0);
 		PhotoInfo photoInfo = photoInfos.get(position);
 		bitmapUtils.display(iv, photoInfo.url);
+		iv.setOnClickListener(onClickImageListener);
 		return iv;
+	}
+
+	private OnClickListener onClickImageListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			
+			if(onClickItemListener!=null) {
+				onClickItemListener.onClick(v);
+			}
+		}
+	};
+	
+	private OnClickListener onClickItemListener;
+	
+	public void setOnClickItemListener(OnClickListener onClickItemListener) {
+		this.onClickItemListener = onClickItemListener;
 	}
 
 	@Override
@@ -173,5 +199,10 @@ public class FocusTopAdapter extends PagerAdapter implements OnPageChangeListene
 		currentItem = position;
 		handler.removeCallbacks(autoChangeItemRunnable);
 		handler.postDelayed(autoChangeItemRunnable, 3000L);
+	}
+	
+	public PhotoInfo getCurrentItem() {
+		
+		return getItem(currentItem);
 	}
 }

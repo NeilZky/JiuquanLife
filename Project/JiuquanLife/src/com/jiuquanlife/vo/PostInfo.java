@@ -1,5 +1,7 @@
 package com.jiuquanlife.vo;
 
+import java.util.ArrayList;
+
 public class PostInfo {
 	
 	public String fid;
@@ -11,5 +13,5 @@ public class PostInfo {
 	public String views;
 	public String replies;
 	public String fName;
-	
+	public ArrayList<ContentInfo> content;
 }
