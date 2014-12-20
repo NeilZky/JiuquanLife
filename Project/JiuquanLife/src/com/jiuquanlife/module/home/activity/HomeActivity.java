@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.Window;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.module.community.fragment.CommunityFragment;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
+import com.jiuquanlife.module.forum.fragment.ForumFragment;
 import com.jiuquanlife.module.home.adapter.HomeAdapter;
 import com.jiuquanlife.module.tab.NavTabActivity;
 import com.jiuquanlife.view.MovingView;
@@ -98,7 +98,7 @@ public class HomeActivity extends Activity {
 		private void onClickCommunity() {
 			
 			Intent intent = new Intent(HomeActivity.this, NavTabActivity.class);
-			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG, CommunityFragment.class.getSimpleName());
+			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG, ForumFragment.class.getSimpleName());
 			startActivity(intent);
 		}
 	};
