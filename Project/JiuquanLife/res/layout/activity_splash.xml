@@ -1,11 +1,18 @@
-<LinearLayout android:orientation="vertical" 
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageView 
-        android:id="@+id/activity_splash_logo" 
-        android:layout_width="fill_parent" 
-        android:layout_height="fill_parent" 
-        android:src="@drawable/rootblock_main_bg" 
-        android:scaleType="fitXY" />
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:ignore="ContentDescription" >
+
+    <ImageView
+        android:id="@+id/activity_splash_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:src="@drawable/ic_jiuquan_logo" />
+
 </LinearLayout>
