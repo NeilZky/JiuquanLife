@@ -27,7 +27,7 @@ public class NavTabActivity extends FragmentActivity{
         View focusIndicator = getLayoutInflater().inflate(R.layout.indicator_focus, null);
         mTabHost.addTab(mTabHost.newTabSpec(FocusFragment.class.getSimpleName()).setIndicator(focusIndicator),
                 FocusFragment.class, null);
-        View communityIndicator = getLayoutInflater().inflate(R.layout.indicator_community, null);
+        View communityIndicator = getLayoutInflater().inflate(R.layout.indicator_forum, null);
         mTabHost.addTab(mTabHost.newTabSpec(MainForumFragment.class.getSimpleName()).setIndicator(communityIndicator),
         		MainForumFragment.class, null);
         mTabHost.setOnTabChangedListener(onTabChangeListener);
