@@ -16,10 +16,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="社区"
+        android:text="论坛"
         android:textColor="@color/text_tab"
         android:layout_marginTop="-5dp"
         android:layout_marginBottom="3dp"
-         android:textSize="14sp" />
+        android:textSize="14sp" />
 
 </LinearLayout>

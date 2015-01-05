@@ -8,8 +8,8 @@ import android.view.Window;
 import android.widget.TabHost.OnTabChangeListener;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.module.community.fragment.CommunityFragment;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
+import com.jiuquanlife.module.forum.fragment.MainForumFragment;
 
 public class NavTabActivity extends FragmentActivity{
 	
@@ -27,9 +27,9 @@ public class NavTabActivity extends FragmentActivity{
         View focusIndicator = getLayoutInflater().inflate(R.layout.indicator_focus, null);
         mTabHost.addTab(mTabHost.newTabSpec(FocusFragment.class.getSimpleName()).setIndicator(focusIndicator),
                 FocusFragment.class, null);
-        View communityIndicator = getLayoutInflater().inflate(R.layout.indicator_community, null);
-        mTabHost.addTab(mTabHost.newTabSpec(CommunityFragment.class.getSimpleName()).setIndicator(communityIndicator),
-        		CommunityFragment.class, null);
+        View communityIndicator = getLayoutInflater().inflate(R.layout.indicator_forum, null);
+        mTabHost.addTab(mTabHost.newTabSpec(MainForumFragment.class.getSimpleName()).setIndicator(communityIndicator),
+        		MainForumFragment.class, null);
         mTabHost.setOnTabChangedListener(onTabChangeListener);
         mTabHost.getTabWidget().setDividerDrawable(null);
         String tag = getIntent().getStringExtra(INTENT_KEY_TAB_TAG);
