@@ -8,26 +8,27 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" >
 
-        <Button
+        <ImageView
             android:id="@+id/btn_search_focus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:text="搜索" />
-
-        <Button
-            android:id="@+id/btn_scan_focus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/btn_search_focus"
-                        android:minWidth="0dp"
             android:minHeight="0dp"
-            android:text="扫描" />
+            android:minWidth="0dp"
+            android:src="@drawable/icn_search" />
+
+        <ImageView
+            android:id="@+id/btn_scan_focus"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/btn_search_focus"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:src="@drawable/icn_scan" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,21 +42,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-                        android:minWidth="0dp"
             android:minHeight="0dp"
+            android:minWidth="0dp"
             android:text="让红包飞" />
     </RelativeLayout>
 
     <com.jiuquanlife.view.MyScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         >
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" 
-            >
+            android:orientation="vertical" >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -80,10 +79,10 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:singleLine="true"
-                        android:text="14sp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="14sp"
                         android:textColor="@android:color/white" />
 
                     <LinearLayout
@@ -106,7 +105,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icn_announce" 
+                        android:layout_marginLeft="10dp"
+                        />
 
                     <TextView
                         android:layout_width="0dp"
@@ -193,7 +200,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/new_report_focus" />
+                        android:src="@drawable/xrbd" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -213,13 +220,13 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/new_report_focus" />
+                        android:src="@drawable/hdyg" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="活动报道" />
+                        android:text="活动预告" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -233,7 +240,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/new_report_focus" />
+                        android:src="@drawable/lgs" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -253,7 +260,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/new_report_focus" />
+                        android:src="@drawable/zpdr" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -280,7 +287,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/new_report_focus" />
+                        android:src="@drawable/mssp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -300,7 +307,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/new_report_focus" />
+                        android:src="@drawable/cwx" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -320,7 +327,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/new_report_focus" />
+                        android:src="@drawable/hsx" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -340,7 +347,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/new_report_focus" />
+                        android:src="@drawable/wszx" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -390,7 +397,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/kdcx" />
+                        android:src="@drawable/cydh" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -412,7 +419,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/kdcx" />
+                        android:src="@drawable/hycx" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -434,7 +441,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/kdcx" />
+                        android:src="@drawable/cjcx" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -474,9 +481,7 @@
             <com.jiuquanlife.view.HorizontalListView
                 android:id="@+id/hlv_ltdr_focus"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                 />
-
+                android:layout_height="120dp" />
 
             <include layout="@layout/divider" />
 
