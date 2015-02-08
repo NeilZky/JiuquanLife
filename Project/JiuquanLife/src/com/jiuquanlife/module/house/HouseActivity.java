@@ -1,14 +1,13 @@
-package com.jiuquanlife.module.focus.fragment;
+package com.jiuquanlife.module.house;
 
 import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -18,42 +17,38 @@ import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
-import com.jiuquanlife.module.base.BaseFragment;
+import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
-import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
 import com.jiuquanlife.module.post.PostDetailActivity;
-import com.jiuquanlife.module.userhome.activity.UserHomeActivity;
 import com.jiuquanlife.utils.GsonUtils;
-import com.jiuquanlife.view.HorizontalListView;
 import com.jiuquanlife.view.UnScrollListView;
 import com.jiuquanlife.vo.FocusInfo;
 import com.jiuquanlife.vo.PhotoInfo;
 import com.jiuquanlife.vo.PostInfo;
-import com.jiuquanlife.vo.UserInfo;
 import com.jiuquanlife.vo.convertor.ConvertUtils;
 
-public class FocusFragment extends BaseFragment {
-
+public class HouseActivity extends BaseActivity{
+	
 	private ViewPager topVp;
 	private FocusTopAdapter focusTopAdapter;
 	private LinearLayout dotLl;
 	private TextView vpTitleTv;
-	private HorizontalListView ltdrHlv;
-	private LtdrAdapter ltdrAdapter;
 	private UnScrollListView jhtLv;
 	private JhtAdapter jhtAdapter;
-
+	private LinearLayout rentMenuLl;
+	private LinearLayout sellMenuLl;
+	private LinearLayout applyRentMenuLl;
+	private LinearLayout buyMenuLl;
+	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 
-		View content = inflater.inflate(R.layout.fragment_focus, null);
-		setContent(content);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_house);
 		init();
-		return content;
 	}
-
+	
 	private void init() {
 
 		initViews();
@@ -62,21 +57,21 @@ public class FocusFragment extends BaseFragment {
 
 	private void initViews() {
 
-		topVp = (ViewPager) findViewById(R.id.vp_top_focus);
-		dotLl = (LinearLayout) findViewById(R.id.ll_dot_top_focus);
-		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_focus);
-		ltdrHlv = (HorizontalListView) findViewById(R.id.hlv_ltdr_focus);
-		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_focus);
-		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp,
+		rentMenuLl = (LinearLayout) findViewById(R.id.ll_menu_rent_house);
+		sellMenuLl = (LinearLayout) findViewById(R.id.ll_menu_sell_house);
+		applyRentMenuLl = (LinearLayout) findViewById(R.id.ll_menu_apply_rent_house);
+		buyMenuLl = (LinearLayout) findViewById(R.id.ll_menu_buy_house);
+		topVp = (ViewPager) findViewById(R.id.vp_top_house);
+		dotLl = (LinearLayout) findViewById(R.id.ll_dot_top_house);
+		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_house);
+		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_house);
+		focusTopAdapter = new FocusTopAdapter(this, dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
-		ltdrAdapter = new LtdrAdapter(getActivity());
-		ltdrHlv.setAdapter(ltdrAdapter);
 
-		jhtAdapter = new JhtAdapter(getActivity());
+		jhtAdapter = new JhtAdapter(this);
 		jhtLv.setAdapter(jhtAdapter);
 		jhtLv.setOnItemClickListener(onItemClickListener);
-		ltdrHlv.setOnItemClickListener(onItemClickListener);
 		focusTopAdapter.setOnClickItemListener(onClickListener);
 	}
 
@@ -87,7 +82,7 @@ public class FocusFragment extends BaseFragment {
 
 			PhotoInfo photoInfo = focusTopAdapter.getCurrentItem();
 			if (photoInfo != null) {
-				Intent intent = new Intent(getActivity(),
+				Intent intent = new Intent(HouseActivity.this,
 						PostDetailActivity.class);
 				intent.putExtra(PostDetailActivity.INTENT_KEY_TID,
 						photoInfo.tid);
@@ -95,7 +90,53 @@ public class FocusFragment extends BaseFragment {
 			}
 		}
 	};
-
+	
+	public void onClick(View v) {
+		
+		switch (v.getId()) {
+		case R.id.ll_rent_house:
+			showSenconaryMenu(rentMenuLl);
+			break;
+		case R.id.ll_sell_house:
+			showSenconaryMenu(sellMenuLl);
+			break;
+		case R.id.ll_apply_rent_house:
+			showSenconaryMenu(applyRentMenuLl);
+			break;
+		case R.id.ll_buy_house:
+			showSenconaryMenu(buyMenuLl);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void showSenconaryMenu(View view) {
+		
+		closeOtherMenu(view);
+		if(view.getVisibility() == View.VISIBLE) {
+			view.setVisibility(View.GONE);
+		} else{
+			view.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	
+	
+	
+	private void closeOtherMenu(View view) {
+		
+		ViewGroup parent = (ViewGroup)view.getParent();
+		for(int i = 0 ; i < parent.getChildCount(); i ++) {
+			View child = parent.getChildAt(i);
+			if(child != view) {
+				child.setVisibility(View.GONE);
+			}
+		}
+	}
+	
+	
+	
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
 
 		@Override
@@ -106,35 +147,26 @@ public class FocusFragment extends BaseFragment {
 			case R.id.uslv_jht_focus:
 				onClickJhtItem(position);
 				break;
-			case R.id.hlv_ltdr_focus:
-				onClickLtdrItem(position);
-				break;
 			default:
 				break;
 			}
 
 		}
 
-		private void onClickLtdrItem(int position) {
-
-			UserInfo userInfo = ltdrAdapter.getItem(position);
-			Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-			intent.putExtra(UserHomeActivity.KEY_INTENT_UID, userInfo.uid);
-			startActivity(intent);
-		}
 
 		private void onClickJhtItem(int position) {
 
 			PostInfo postInfo = jhtAdapter.getItem(position);
-			Intent intent = new Intent(getActivity(), PostDetailActivity.class);
+			Intent intent = new Intent(HouseActivity.this, PostDetailActivity.class);
 			intent.putExtra(PostDetailActivity.INTENT_KEY_TID, postInfo.tid);
 			startActivity(intent);
 		}
 	};
+	
 
 	public void getData() {
 
-		RequestHelper.getInstance().getRequest(getActivity(),
+		RequestHelper.getInstance().getRequest(HouseActivity.this,
 				"http://www.5ijq.cn/App/Index/getFocusList",
 				new Listener<String>() {
 
@@ -154,9 +186,9 @@ public class FocusFragment extends BaseFragment {
 								.convertToPhotoInfos(info);
 						focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
 						topVp.setAdapter(focusTopAdapter);
-						ltdrAdapter.refresh(info.data.userStar);
 						jhtAdapter.refresh(info.data.focusPost);
 					}
 				});
 	}
+	
 }

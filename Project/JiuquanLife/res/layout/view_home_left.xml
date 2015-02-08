@@ -37,14 +37,14 @@
             and:texts="@string/community" />
 
         <com.jiuquanlife.view.SexangleImageView
-            android:id="@+id/siv_fight"
+            android:id="@+id/siv_house"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/color_flight"
             and:pressedcolor="@color/color_setting"
             and:src="@drawable/icon_flight"
             and:textSize="12sp"
-            and:texts="@string/flight" />
+            and:texts="@string/house" />
 
         <com.jiuquanlife.view.SexangleImageView
             android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
             and:pressedcolor="@color/color_setting"
             and:src="@drawable/icon_flight"
             and:textSize="12sp"
-            and:texts="@string/flight" />
+            and:texts="@string/house" />
 
         <com.jiuquanlife.view.SexangleImageView
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             and:pressedcolor="@color/color_setting"
             and:src="@drawable/icon_flight"
             and:textSize="12sp"
-            and:texts="@string/flight" />
+            and:texts="@string/house" />
 
         <com.jiuquanlife.view.SexangleImageView
             android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
             and:pressedcolor="@color/color_setting"
             and:src="@drawable/icon_flight"
             and:textSize="12sp"
-            and:texts="@string/flight" />
+            and:texts="@string/house" />
 
 	</com.jiuquanlife.view.SexangleViewGroup>
 </FrameLayout>

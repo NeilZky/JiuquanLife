@@ -31,7 +31,7 @@
         </activity>
         <activity android:name="com.jiuquanlife.module.tab.NavTabActivity" />
         <activity android:name="com.jiuquanlife.module.userhome.activity.UserHomeActivity" />
-        <activity android:name="com.jiuquanlife.module.post.PostDetailActivity" />
+        <activity android:name="com.jiuquanlife.module.house.HouseActivity" />
     </application>
 
 </manifest>
