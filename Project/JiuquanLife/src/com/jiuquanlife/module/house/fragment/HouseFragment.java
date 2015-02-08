@@ -42,6 +42,10 @@ public class HouseFragment extends BaseFragment{
 	private LinearLayout sellMenuLl;
 	private LinearLayout applyRentMenuLl;
 	private LinearLayout buyMenuLl;
+	private View rentView;
+	private View sellView;
+	private View applyView;
+	private View buyView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +64,11 @@ public class HouseFragment extends BaseFragment{
 	}
 
 	private void initViews() {
-
+		
+		rentView = findViewById(R.id.ll_rent_house);
+		sellView = findViewById(R.id.ll_sell_house);
+		applyView = findViewById(R.id.ll_apply_rent_house);
+		buyView = findViewById(R.id.ll_buy_house);
 		rentMenuLl = (LinearLayout) findViewById(R.id.ll_menu_rent_house);
 		sellMenuLl = (LinearLayout) findViewById(R.id.ll_menu_sell_house);
 		applyRentMenuLl = (LinearLayout) findViewById(R.id.ll_menu_apply_rent_house);
@@ -76,7 +84,11 @@ public class HouseFragment extends BaseFragment{
 		jhtAdapter = new JhtAdapter(getActivity());
 		jhtLv.setAdapter(jhtAdapter);
 		jhtLv.setOnItemClickListener(onItemClickListener);
-		focusTopAdapter.setOnClickItemListener(onClickListener);
+		focusTopAdapter.setOnClickItemListener(onClickItemListener);
+		rentView.setOnClickListener(onClickListener);
+		sellView.setOnClickListener(onClickListener);
+		applyView.setOnClickListener(onClickListener);
+		buyView.setOnClickListener(onClickListener);
 	}
 
 	private OnClickListener onClickListener = new OnClickListener() {
@@ -84,6 +96,31 @@ public class HouseFragment extends BaseFragment{
 		@Override
 		public void onClick(View v) {
 
+			switch (v.getId()) {
+			case R.id.ll_rent_house:
+				showSenconaryMenu(rentMenuLl);
+				break;
+			case R.id.ll_sell_house:
+				showSenconaryMenu(sellMenuLl);
+				break;
+			case R.id.ll_apply_rent_house:
+				showSenconaryMenu(applyRentMenuLl);
+				break;
+			case R.id.ll_buy_house:
+				showSenconaryMenu(buyMenuLl);
+				break;
+			default:
+				break;
+			}
+			
+		}
+	};
+	
+	private OnClickListener onClickItemListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			
 			PhotoInfo photoInfo = focusTopAdapter.getCurrentItem();
 			if (photoInfo != null) {
 				Intent intent = new Intent(getActivity(),
