@@ -16,9 +16,9 @@
 
 package com.android.volley;
 
-import android.os.Process;
-
 import java.util.concurrent.BlockingQueue;
+
+import android.os.Process;
 
 import com.android.volley.toolbox.VolleyConfig;
 

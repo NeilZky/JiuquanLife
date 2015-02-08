@@ -1,6 +1,7 @@
 package com.jiuquanlife.utils;
 
 import android.content.Context;
+
 import com.lidroid.xutils.BitmapUtils;
 
 public class BitmapHelper {

@@ -1,13 +1,13 @@
 package com.jiuquanlife.view;
 
-import com.jiuquanlife.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import com.jiuquanlife.R;
 
 public class SexangleViewGroup extends ViewGroup {
 

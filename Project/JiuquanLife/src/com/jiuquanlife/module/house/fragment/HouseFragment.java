@@ -1,13 +1,14 @@
-package com.jiuquanlife.module.house;
+package com.jiuquanlife.module.house.fragment;
 
 import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -17,18 +18,19 @@ import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
-import com.jiuquanlife.module.base.BaseActivity;
+import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.post.PostDetailActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.UnScrollListView;
-import com.jiuquanlife.vo.FocusInfo;
 import com.jiuquanlife.vo.PhotoInfo;
 import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.convertor.ConvertUtils;
+import com.jiuquanlife.vo.house.HouseInfo;
 
-public class HouseActivity extends BaseActivity{
+public class HouseFragment extends BaseFragment{
+
 	
 	private ViewPager topVp;
 	private FocusTopAdapter focusTopAdapter;
@@ -42,13 +44,15 @@ public class HouseActivity extends BaseActivity{
 	private LinearLayout buyMenuLl;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_house);
+		View content = inflater.inflate(R.layout.fragment_house, null);
+		setContent(content);
 		init();
+		return content;
 	}
-	
+
 	private void init() {
 
 		initViews();
@@ -65,11 +69,11 @@ public class HouseActivity extends BaseActivity{
 		dotLl = (LinearLayout) findViewById(R.id.ll_dot_top_house);
 		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_house);
 		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_house);
-		focusTopAdapter = new FocusTopAdapter(this, dotLl, topVp,
+		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
 
-		jhtAdapter = new JhtAdapter(this);
+		jhtAdapter = new JhtAdapter(getActivity());
 		jhtLv.setAdapter(jhtAdapter);
 		jhtLv.setOnItemClickListener(onItemClickListener);
 		focusTopAdapter.setOnClickItemListener(onClickListener);
@@ -82,7 +86,7 @@ public class HouseActivity extends BaseActivity{
 
 			PhotoInfo photoInfo = focusTopAdapter.getCurrentItem();
 			if (photoInfo != null) {
-				Intent intent = new Intent(HouseActivity.this,
+				Intent intent = new Intent(getActivity(),
 						PostDetailActivity.class);
 				intent.putExtra(PostDetailActivity.INTENT_KEY_TID,
 						photoInfo.tid);
@@ -157,7 +161,7 @@ public class HouseActivity extends BaseActivity{
 		private void onClickJhtItem(int position) {
 
 			PostInfo postInfo = jhtAdapter.getItem(position);
-			Intent intent = new Intent(HouseActivity.this, PostDetailActivity.class);
+			Intent intent = new Intent(getActivity(), PostDetailActivity.class);
 			intent.putExtra(PostDetailActivity.INTENT_KEY_TID, postInfo.tid);
 			startActivity(intent);
 		}
@@ -166,15 +170,15 @@ public class HouseActivity extends BaseActivity{
 
 	public void getData() {
 
-		RequestHelper.getInstance().getRequest(HouseActivity.this,
-				"http://www.5ijq.cn/App/Index/getFocusList",
+		RequestHelper.getInstance().getRequest(getActivity(),
+				"http://www.5ijq.cn/App/House",
 				new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
 
-						FocusInfo info = GsonUtils.toObj(response,
-								FocusInfo.class);
+						HouseInfo info = GsonUtils.toObj(response,
+								HouseInfo.class);
 						if (info == null
 								|| info.data == null
 								|| !CommonConstance.REQUEST_CODE_SUCCESS
@@ -183,10 +187,10 @@ public class HouseActivity extends BaseActivity{
 							return;
 						}
 						ArrayList<PhotoInfo> focusTopPhotoInfos = ConvertUtils
-								.convertToPhotoInfos(info);
+								.convertToPhotoInfos(info.data.HouseImgs);
 						focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
 						topVp.setAdapter(focusTopAdapter);
-						jhtAdapter.refresh(info.data.focusPost);
+						jhtAdapter.refresh(info.data.HousePost);
 					}
 				});
 	}

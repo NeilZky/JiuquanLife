@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class FocusDataInfo {
 
-	public ArrayList<FocusImg> focusImgs;
+	public ArrayList<ImgData> focusImgs;
 	public ArrayList<UserInfo> userStar;
 	public ArrayList<PostInfo> focusPost;
 

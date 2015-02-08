@@ -12,7 +12,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
 import com.jiuquanlife.module.forum.fragment.MainForumFragment;
 import com.jiuquanlife.module.home.adapter.HomeAdapter;
-import com.jiuquanlife.module.house.HouseActivity;
+import com.jiuquanlife.module.house.fragment.HouseFragment;
 import com.jiuquanlife.module.tab.NavTabActivity;
 import com.jiuquanlife.view.MovingView;
 import com.jiuquanlife.view.SexangleImageView;
@@ -94,7 +94,8 @@ public class HomeActivity extends Activity {
 
 		private void onClickHouse() {
 			
-			Intent intent = new Intent(HomeActivity.this, HouseActivity.class);
+			Intent intent = new Intent(HomeActivity.this, NavTabActivity.class);
+			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG, HouseFragment.class.getSimpleName());
 			startActivity(intent);
 		}
 

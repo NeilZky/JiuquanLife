@@ -1,6 +1,6 @@
 package com.jiuquanlife.vo;
 
-public class FocusImg {
+public class ImgData {
 	
 	public String tid;
 	public String img;

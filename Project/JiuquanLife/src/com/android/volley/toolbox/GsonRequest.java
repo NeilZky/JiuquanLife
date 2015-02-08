@@ -1,7 +1,7 @@
 package com.android.volley.toolbox;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -10,9 +10,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
-
-import java.io.UnsupportedEncodingException;
-import java.util.Map;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * Volley adapter for JSON requests that will be parsed into Java objects by Gson.

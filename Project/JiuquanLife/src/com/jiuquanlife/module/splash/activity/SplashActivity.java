@@ -1,13 +1,13 @@
 package com.jiuquanlife.module.splash.activity;
 
-import com.jiuquanlife.R;
-import com.jiuquanlife.module.home.activity.HomeActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
+
+import com.jiuquanlife.R;
+import com.jiuquanlife.module.home.activity.HomeActivity;
 
 public class SplashActivity extends Activity {
 

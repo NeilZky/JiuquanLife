@@ -1,11 +1,11 @@
 package com.jiuquanlife.module.base;
 
-import com.jiuquanlife.utils.StringUtils;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.TextView;
+
+import com.jiuquanlife.utils.StringUtils;
 
 public class BaseActivity extends Activity{
 
