@@ -60,6 +60,29 @@ public class RequestHelper {
 		requestQueue.add(sRequest);
 	}
 	
+	public void postRequest(Context context,String url, final Map<String, String> params, final  Response.Listener<String> listener) {
+		
+		RequestQueue requestQueue = Volley.newRequestQueue(context);
+		StringRequest sRequest = new StringRequest(Request.Method.POST,
+				url, listener, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						
+						ToastHelper.showL("ÍøÂç´íÎó");
+
+					}
+				}) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				
+				return params;
+			}
+
+		};
+		sRequest.setShouldCache(false);
+		requestQueue.add(sRequest);
+	}
+	
 	public void getRequest(Context context,String url, final  Response.Listener<String> listener) {
 		
 		RequestQueue requestQueue = Volley.newRequestQueue(context);

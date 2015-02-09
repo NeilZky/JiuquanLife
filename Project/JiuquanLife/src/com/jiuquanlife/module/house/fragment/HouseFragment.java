@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
+import com.jiuquanlife.module.house.activity.SecondaryHouseActivity;
 import com.jiuquanlife.module.post.PostDetailActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.UnScrollListView;
@@ -46,6 +48,7 @@ public class HouseFragment extends BaseFragment{
 	private View sellView;
 	private View applyView;
 	private View buyView;
+	private Button sellSecondaryHouse;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,6 +92,9 @@ public class HouseFragment extends BaseFragment{
 		sellView.setOnClickListener(onClickListener);
 		applyView.setOnClickListener(onClickListener);
 		buyView.setOnClickListener(onClickListener);
+		
+		sellSecondaryHouse =(Button) findViewById(R.id.btn_sell_secondary_house);
+		sellSecondaryHouse.setOnClickListener(onClickListener);
 	}
 
 	private OnClickListener onClickListener = new OnClickListener() {
@@ -109,10 +115,18 @@ public class HouseFragment extends BaseFragment{
 			case R.id.ll_buy_house:
 				showSenconaryMenu(buyMenuLl);
 				break;
+			case R.id.btn_sell_secondary_house:
+				onClickSellerSecondaryHouse();
+				break;
 			default:
 				break;
 			}
+		}
+		
+		private void onClickSellerSecondaryHouse() {
 			
+			Intent intent = new Intent(getActivity(), SecondaryHouseActivity.class);
+			startActivity(intent);
 		}
 	};
 	
