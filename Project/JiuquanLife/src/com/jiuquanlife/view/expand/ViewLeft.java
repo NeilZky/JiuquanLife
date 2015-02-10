@@ -1,5 +1,7 @@
 package com.jiuquanlife.view.expand;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -21,13 +23,22 @@ public class ViewLeft extends RelativeLayout implements ViewBaseAction{
 	private String mDistance;
 	private String showText = "item1";
 	private Context mContext;
-
+	private ArrayList<?> data;
+	private ArrayList<String> label;
+	
 	public String getShowText() {
 		return showText;
 	}
 
 	public ViewLeft(Context context) {
 		super(context);
+		init(context);
+	}
+	
+	public ViewLeft(Context context,ArrayList<String> label, ArrayList<?> data) {
+		
+		super(context);
+		refreshMenu(label, data);
 		init(context);
 	}
 
@@ -47,7 +58,8 @@ public class ViewLeft extends RelativeLayout implements ViewBaseAction{
 		inflater.inflate(R.layout.view_distance, this, true);
 		setBackgroundDrawable(getResources().getDrawable(R.drawable.choosearea_bg_mid));
 		mListView = (ListView) findViewById(R.id.listView);
-		adapter = new TextAdapter(context, items, R.drawable.choose_item_right, R.drawable.choose_eara_item_selector);
+//		adapter = new TextAdapter(context, items, R.drawable.choose_item_right, R.drawable.choose_eara_item_selector);
+		adapter = new TextAdapter(context, label.toArray(new String[data.size()]), R.drawable.choose_item_right, R.drawable.choose_eara_item_selector);
 		adapter.setTextSize(17);
 		if (mDistance != null) {
 			for (int i = 0; i < itemsVaule.length; i++) {
@@ -65,11 +77,18 @@ public class ViewLeft extends RelativeLayout implements ViewBaseAction{
 			public void onItemClick(View view, int position) {
 
 				if (mOnSelectListener != null) {
-					showText = items[position];
-					mOnSelectListener.getValue(itemsVaule[position], items[position]);
+//					showText = items[position];
+					showText = label.get(position);
+					mOnSelectListener.getValue(data.get(position));
 				}
 			}
 		});
+	}
+	
+	public void refreshMenu(ArrayList<String> label, ArrayList<?> data) {
+		
+		this.data = data;
+		this.label = label;
 	}
 
 	public void setOnSelectListener(OnSelectListener onSelectListener) {
@@ -77,7 +96,8 @@ public class ViewLeft extends RelativeLayout implements ViewBaseAction{
 	}
 
 	public interface OnSelectListener {
-		public void getValue(String distance, String showText);
+//		public void getValue(String distance, String showText);
+		public void getValue(Object obj);
 	}
 
 	@Override
