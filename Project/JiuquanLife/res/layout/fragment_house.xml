@@ -33,7 +33,10 @@
             android:layout_alignParentRight="true"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:text="发布" />
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_create_new"
+            />
     </RelativeLayout>
 
     <com.jiuquanlife.view.MyScrollView
@@ -107,7 +110,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/xrbd" />
+                        android:src="@drawable/icn_rent" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -129,7 +132,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/hdyg" />
+                        android:src="@drawable/icn_sale" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -151,7 +154,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/lgs" />
+                        android:src="@drawable/icn_borrow" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -173,7 +176,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/zpdr" />
+                        android:src="@drawable/icn_buy" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -479,7 +482,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/mssp" />
+                        android:src="@drawable/icn_village" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -499,7 +502,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/cwx" />
+                        android:src="@drawable/icn_broker" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -519,7 +522,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/hsx" />
+                        android:src="@drawable/icn_furnishing" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -539,7 +542,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/wszx" />
+                        android:src="@drawable/icn_decorate" />
 
                     <TextView
                         android:layout_width="wrap_content"
