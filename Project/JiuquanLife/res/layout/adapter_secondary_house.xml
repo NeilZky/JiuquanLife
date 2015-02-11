@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/iv_img_adapater_secondary_house"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3.2"
+        android:orientation="vertical" >
+        
+        	<TextView
+        	    android:id="@+id/tv_title_adapater_secondary_house"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="金地 小区   2室2厅   169m2"
+        	/>
+        	<TextView 
+        	    android:id="@+id/tv_towawrds_adapater_secondary_house"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:text="最适合的婚房  家具家电全 拎包入住"
+        	    />
+        	<LinearLayout 
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:orientation="horizontal"
+        	    >
+        	    <TextView 
+        	        android:id="@+id/tv_price_adapter_secondary_house"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:text="38万"
+        	        />
+        	    
+        	     <TextView 
+        	        android:id="@+id/tv_fromtype_adapter_secondary_house"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:text="个人"
+        	        />
+        	       <TextView 
+        	        android:id="@+id/tv_create_date_adapter_secondary_house"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:text="今天"
+        	        />
+        	</LinearLayout>
+        	
+    </LinearLayout>
+
+</LinearLayout>

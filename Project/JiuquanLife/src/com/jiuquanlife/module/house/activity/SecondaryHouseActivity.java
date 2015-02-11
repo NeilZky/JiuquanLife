@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Response.Listener;
@@ -11,6 +12,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
+import com.jiuquanlife.module.house.adapter.SecondaryHouseAdapter;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.expand.ExpandTabView;
 import com.jiuquanlife.view.expand.ViewLeft;
@@ -33,6 +35,8 @@ public class SecondaryHouseActivity extends BaseActivity {
 	private ViewLeft areaTab;
 	private ViewLeft fromTypeTab;
 	private ViewRight viewRight;
+	private SecondaryHouseAdapter adapter;
+	private ListView houseListLv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,9 @@ public class SecondaryHouseActivity extends BaseActivity {
 
 		setContentView(R.layout.activity_secondary);
 		expandTabView = (ExpandTabView) findViewById(R.id.etv_secondary_house);
+		houseListLv = (ListView) findViewById(R.id.lv_seconary_house);
+		adapter = new SecondaryHouseAdapter(this);
+		houseListLv.setAdapter(adapter);
 		// priceTab = new ViewLeft(this);
 		// viewRight = new ViewRight(this);
 	}
@@ -90,6 +97,7 @@ public class SecondaryHouseActivity extends BaseActivity {
 							return;
 						}
 						initMenu(info.data);
+						adapter.refresh(info.data.houseList);
 					}
 				});
 	}

@@ -9,4 +9,5 @@ public class GetSellHouseListData {
 	public ArrayList<LayoutRange> houseLayoutRangeList;
 	public ArrayList<AreaRange> areaRangeList;
 	public ArrayList<FromType> fromTypeList;
+	public ArrayList<HouseItem> houseList;
 }
