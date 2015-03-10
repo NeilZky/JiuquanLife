@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.utils.BitmapHelper;
+import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.vo.house.HouseItem;
+import com.jiuquanlife.vo.house.Img;
 import com.lidroid.xutils.BitmapUtils;
 
 public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
@@ -19,8 +22,7 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 	
 	public SecondaryHouseAdapter(Context context) {
 		super(context);
-		bitmapUtils = BitmapHelper.getBitmapUtils(context
-				.getApplicationContext());
+		bitmapUtils = BitmapHelper.getBitmapUtils(context.getApplicationContext());
 		bitmapUtils.configDefaultLoadingImage(R.drawable.ic_launcher);
 		bitmapUtils.configDefaultLoadFailedImage(R.drawable.ic_launcher);
 		bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
@@ -51,7 +53,10 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 		holder.fromTypeTv.setText("¸öÈË");
 		holder.housePriceTv.setText(String.valueOf(houseItem.housePrice));
 		holder.createdateTv.setText(String.valueOf(houseItem.createdate));
-//		bitmapUtils.display(holder.img, "www.5ijq.cn/Public/Uploads/" +houseItem.img.pic);
+		if(houseItem.img!=null && !StringUtils.isNullOrEmpty(houseItem.img.pic)) {
+			bitmapUtils.display(holder.img, "www.5ijq.cn/Public/Uploads/" +houseItem.img.pic);
+			
+		}
 		return convertView;
 	}
 

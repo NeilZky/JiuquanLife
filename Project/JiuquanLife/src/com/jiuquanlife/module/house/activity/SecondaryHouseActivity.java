@@ -2,8 +2,11 @@ package com.jiuquanlife.module.house.activity;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -59,6 +62,7 @@ public class SecondaryHouseActivity extends BaseActivity {
 		houseListLv = (ListView) findViewById(R.id.lv_seconary_house);
 		adapter = new SecondaryHouseAdapter(this);
 		houseListLv.setAdapter(adapter);
+		houseListLv.setOnItemClickListener(onItemClickListener);
 		// priceTab = new ViewLeft(this);
 		// viewRight = new ViewRight(this);
 	}
@@ -73,11 +77,19 @@ public class SecondaryHouseActivity extends BaseActivity {
 		mTextArray.add("º€∏Ò");
 		mTextArray.add("æ‡¿Î");
 		expandTabView.setValue(mTextArray, mViewArray);
-		// expandTabView.setTitle(viewLeft.getShowText(), 0);
-		// expandTabView.setTitle(viewMiddle.getShowText(), 1);
-		// expandTabView.setTitle(viewRight.getShowText(), 2);
 	}
+	
+	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
 
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			
+			Intent intent = new Intent(SecondaryHouseActivity.this, SellerHouseDetail.class);
+			startActivity(intent);
+		}
+	};
+	
 	private void getData() {
 
 		RequestHelper.getInstance().postRequest(SecondaryHouseActivity.this,
