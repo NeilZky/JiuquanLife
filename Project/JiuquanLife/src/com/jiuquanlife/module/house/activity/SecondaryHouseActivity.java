@@ -25,6 +25,7 @@ import com.jiuquanlife.vo.house.AreaRange;
 import com.jiuquanlife.vo.house.FromType;
 import com.jiuquanlife.vo.house.GetSellHouseListData;
 import com.jiuquanlife.vo.house.GetSellHouseListInfo;
+import com.jiuquanlife.vo.house.HouseItem;
 import com.jiuquanlife.vo.house.LayoutRange;
 import com.jiuquanlife.vo.house.PriceRange;
 
@@ -84,8 +85,9 @@ public class SecondaryHouseActivity extends BaseActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			
-			Intent intent = new Intent(SecondaryHouseActivity.this, SellerHouseDetail.class);
+			HouseItem houseItem = adapter.getItem(position);
+			Intent intent = new Intent(SecondaryHouseActivity.this, SellerHouseDetailActivity.class);
+			intent.putExtra(SellerHouseDetailActivity.INTENT_KEY_HOUSE_ID, houseItem.houseid);
 			startActivity(intent);
 		}
 	};

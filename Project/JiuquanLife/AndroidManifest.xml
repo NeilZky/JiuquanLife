@@ -34,7 +34,7 @@
         <activity android:name="com.jiuquanlife.module.userhome.activity.UserHomeActivity" />
         <activity android:name="com.jiuquanlife.module.post.PostDetailActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.SecondaryHouseActivity" />
-        <activity android:name="com.jiuquanlife.module.house.activity.SellerHouseDetail" />
+        <activity android:name="com.jiuquanlife.module.house.activity.SellerHouseDetailActivity" />
     </application>
 
 </manifest>
