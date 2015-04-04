@@ -3,7 +3,6 @@ package com.jiuquanlife.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,28 +10,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
-import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
-import com.jiuquanlife.utils.BitmapHelper;
 import com.jiuquanlife.utils.StringUtils;
-import com.lidroid.xutils.BitmapUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SampleImagePagerAdapter extends PagerAdapter{
 
-	private BitmapUtils bitmapUtils;
 	private ArrayList<String> urls;
 	private ViewPager viewPager;
 	private Context context;
+	private ImageLoader imageLoader;
 	
 	public SampleImagePagerAdapter(Context context, ViewPager viewPager) {
 	
 		this.context = context;
 		this.viewPager = viewPager;
-		bitmapUtils = BitmapHelper.getBitmapUtils(context
-				.getApplicationContext());
-		bitmapUtils.configDefaultLoadingImage(R.drawable.ic_launcher);
-		bitmapUtils.configDefaultLoadFailedImage(R.drawable.ic_launcher);
-		bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
+		imageLoader = ImageLoader.getInstance();
 	}
 	
 	
@@ -45,6 +38,10 @@ public class SampleImagePagerAdapter extends PagerAdapter{
 		}
 	}
 
+	@Override
+	public void destroyItem(View container, int position, Object object) {
+	}
+	
 	@Override
 	public int getCount() {
 		
@@ -66,7 +63,7 @@ public class SampleImagePagerAdapter extends PagerAdapter{
 				ImageView iv = new ImageView(context);
 				iv.setScaleType(ScaleType.FIT_XY);
 				((ViewPager) container).addView(iv, 0);
-				bitmapUtils.display(iv, CommonConstance.PHOTO_URL_PREFIX + url);
+				imageLoader.displayImage( CommonConstance.PHOTO_URL_PREFIX + url, iv);
 				return iv;
 			}
 		}

@@ -17,6 +17,7 @@ import com.jiuquanlife.view.CircleImageView;
 import com.jiuquanlife.view.LinearListView;
 import com.jiuquanlife.vo.GetPostByTidInfo;
 import com.lidroid.xutils.BitmapUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class PostDetailActivity extends BaseActivity{
 
@@ -30,7 +31,8 @@ public class PostDetailActivity extends BaseActivity{
 	private TextView viewCountTv;
 	private TextView replayCounTv;
 	private ContentAdapter contentAdapter;
-	private BitmapUtils bitmapUtils;
+
+	private ImageLoader imageLoader;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,8 @@ public class PostDetailActivity extends BaseActivity{
 		subjectTv = (TextView) findViewById(R.id.tv_subject_post_detail);
 		viewCountTv = (TextView) findViewById(R.id.tv_view_count_post_detail);
 		replayCounTv = (TextView) findViewById(R.id.tv_reply_count_post_detail);
-		bitmapUtils = BitmapUtilsFactory.create(this);
+		imageLoader = ImageLoader.getInstance();
+
 	}
 	
 	private void getData(String tid) {
@@ -84,7 +87,7 @@ public class PostDetailActivity extends BaseActivity{
 				}
 				
 				if(!StringUtils.isNullOrEmpty(info.data.authorid)) {
-					bitmapUtils.display(photoCiv, UrlUtils.getPhotoUrl(info.data.authorid));
+					imageLoader.displayImage( UrlUtils.getPhotoUrl(info.data.authorid), photoCiv);
 				}
 				
 				setText(replayCounTv, info.data.replies);

@@ -1,7 +1,6 @@
 package com.jiuquanlife.module.house.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,23 +8,17 @@ import android.widget.TextView;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
-import com.jiuquanlife.utils.BitmapHelper;
-import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.vo.house.HouseItem;
-import com.jiuquanlife.vo.house.Img;
-import com.lidroid.xutils.BitmapUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 
-	private BitmapUtils bitmapUtils;
+	private ImageLoader imageLoader;
 	
 	public SecondaryHouseAdapter(Context context) {
 		super(context);
-		bitmapUtils = BitmapHelper.getBitmapUtils(context.getApplicationContext());
-		bitmapUtils.configDefaultLoadingImage(R.drawable.ic_launcher);
-		bitmapUtils.configDefaultLoadFailedImage(R.drawable.ic_launcher);
-		bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
+		imageLoader = ImageLoader.getInstance();
 	}
 
 	@Override
@@ -40,7 +33,6 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 			holder.createdateTv = (TextView) convertView.findViewById(R.id.tv_create_date_adapter_secondary_house);
 			holder.housePriceTv = (TextView) convertView.findViewById(R.id.tv_price_adapter_secondary_house);
 			holder.fromTypeTv = (TextView) convertView.findViewById(R.id.tv_fromtype_adapter_secondary_house);
-			
 			holder.img = (ImageView) convertView
 					.findViewById(R.id.iv_img_adapater_secondary_house);
 			convertView.setTag(holder);
@@ -54,7 +46,7 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 		holder.housePriceTv.setText(String.valueOf(houseItem.housePrice));
 		holder.createdateTv.setText(String.valueOf(houseItem.createdate));
 		if(houseItem.img!=null && !StringUtils.isNullOrEmpty(houseItem.img.pic)) {
-			bitmapUtils.display(holder.img, "www.5ijq.cn/Public/Uploads/" +houseItem.img.pic);
+			imageLoader.displayImage("http://www.5ijq.cn/Public/Uploads/" +houseItem.img.pic,holder.img);
 			
 		}
 		return convertView;

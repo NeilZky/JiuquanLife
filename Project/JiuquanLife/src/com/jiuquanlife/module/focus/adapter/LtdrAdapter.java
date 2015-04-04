@@ -3,7 +3,6 @@ package com.jiuquanlife.module.focus.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.utils.BitmapHelper;
 import com.jiuquanlife.utils.UrlUtils;
 import com.jiuquanlife.vo.UserInfo;
-import com.lidroid.xutils.BitmapUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -27,16 +25,13 @@ public class LtdrAdapter extends BaseAdapter{
 	private ArrayList<UserInfo> data;
 	private Context context;
 	private LayoutInflater inflater;
-	private BitmapUtils bitmapUtils;
+	private ImageLoader imageLoader;
 	
 	public LtdrAdapter(Context context) {
 		
 		inflater = LayoutInflater.from(context);
-		bitmapUtils = BitmapHelper.getBitmapUtils(context
-				.getApplicationContext());
-		bitmapUtils.configDefaultLoadingImage(R.drawable.ic_launcher);
-		bitmapUtils.configDefaultLoadFailedImage(R.drawable.ic_launcher);
-		bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
+		imageLoader = ImageLoader.getInstance();
+
 	}
 	
 	@Override
@@ -70,7 +65,7 @@ public class LtdrAdapter extends BaseAdapter{
 		holder.nameTv.setText(userInfo.username);
 		//TODO LOAD URLIMAGE
 		String photoUrl = UrlUtils.getPhotoUrl(userInfo.uid);
-		bitmapUtils.display(holder.potoIv, photoUrl );
+		imageLoader.displayImage(photoUrl, holder.potoIv);
 		return convertView;
 	}
 

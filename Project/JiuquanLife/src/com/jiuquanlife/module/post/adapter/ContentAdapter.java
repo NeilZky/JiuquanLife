@@ -15,17 +15,19 @@ import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.factory.BitmapUtilsFactory;
 import com.jiuquanlife.vo.ContentInfo;
 import com.lidroid.xutils.BitmapUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ContentAdapter extends BaseAdapter{
 
 	private ArrayList<ContentInfo> data;
 	private LayoutInflater inflater;
-	private BitmapUtils bitmapUtils;
+	private ImageLoader imageLoader;
 
 	public ContentAdapter(Context context) {
 		
 		inflater = LayoutInflater.from(context);
-		bitmapUtils = BitmapUtilsFactory.create(context);
+		imageLoader = ImageLoader.getInstance();
+
 	}
 	
 	@Override
@@ -55,7 +57,7 @@ public class ContentAdapter extends BaseAdapter{
 			return tv;
 		} else if("0".equals(contentInfo.isText)) {
 			ImageView iv = (ImageView) inflater.inflate(R.layout.adapter_iv, null);
-			bitmapUtils.display(iv, CommonConstance.URL_PREFIX + contentInfo.photoUrl);
+			imageLoader.displayImage( CommonConstance.URL_PREFIX + contentInfo.photoUrl,iv);
 			return iv;
 		}
 		return null;

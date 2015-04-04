@@ -3,7 +3,6 @@ package com.jiuquanlife.module.focus.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,21 +15,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.utils.BitmapHelper;
 import com.jiuquanlife.vo.PhotoInfo;
-import com.lidroid.xutils.BitmapUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class FocusTopAdapter extends PagerAdapter implements OnPageChangeListener{
 
 	private Context context;
 	private ArrayList<PhotoInfo> photoInfos;
-	private BitmapUtils bitmapUtils;
 	private LinearLayout dotLl;
 	private ArrayList<ImageView> dots;
 	private ViewPager viewPager;
 	private int currentItem;
 	private Handler handler = new Handler();
 	private TextView titleTv;
+	private ImageLoader imageLoader;
 	
 	public FocusTopAdapter(Context context, LinearLayout dotLl, ViewPager viewPager, TextView titleTv) {
 
@@ -38,11 +36,7 @@ public class FocusTopAdapter extends PagerAdapter implements OnPageChangeListene
 		this.dotLl = dotLl;
 		this.viewPager = viewPager;
 		this.titleTv = titleTv;
-		bitmapUtils = BitmapHelper.getBitmapUtils(context
-				.getApplicationContext());
-		bitmapUtils.configDefaultLoadingImage(R.drawable.ic_launcher);
-		bitmapUtils.configDefaultLoadFailedImage(R.drawable.ic_launcher);
-		bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
+		imageLoader = ImageLoader.getInstance();
 	}
 
 	public void setPhotoInfos(ArrayList<PhotoInfo> photoInfos) {
@@ -145,7 +139,7 @@ public class FocusTopAdapter extends PagerAdapter implements OnPageChangeListene
 		iv.setScaleType(ScaleType.FIT_XY);
 		((ViewPager) container).addView(iv, 0);
 		PhotoInfo photoInfo = photoInfos.get(position);
-		bitmapUtils.display(iv, photoInfo.url);
+		imageLoader.displayImage(photoInfo.url, iv);
 		iv.setOnClickListener(onClickImageListener);
 		return iv;
 	}
