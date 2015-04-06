@@ -1,6 +1,7 @@
 package com.jiuquanlife.module.house.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,9 +9,13 @@ import android.widget.TextView;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
+import com.jiuquanlife.app.App;
 import com.jiuquanlife.utils.StringUtils;
+import com.jiuquanlife.view.UrlTagImageView;
+import com.jiuquanlife.view.UrlTagImageView.OnBitmapLoadedListener;
 import com.jiuquanlife.vo.house.HouseItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 
@@ -33,7 +38,7 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 			holder.createdateTv = (TextView) convertView.findViewById(R.id.tv_create_date_adapter_secondary_house);
 			holder.housePriceTv = (TextView) convertView.findViewById(R.id.tv_price_adapter_secondary_house);
 			holder.fromTypeTv = (TextView) convertView.findViewById(R.id.tv_fromtype_adapter_secondary_house);
-			holder.img = (ImageView) convertView
+			holder.img = (UrlTagImageView) convertView
 					.findViewById(R.id.iv_img_adapater_secondary_house);
 			convertView.setTag(holder);
 		} else {
@@ -44,14 +49,45 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 		holder.towardsTv.setText(houseItem.towards);
 		holder.fromTypeTv.setText("¸öÈË");
 		holder.housePriceTv.setText(String.valueOf(houseItem.housePrice));
-		holder.createdateTv.setText(String.valueOf(houseItem.createdate));
+		holder.createdateTv.setText(String.valueOf(houseItem.dateline));
+
 		if(houseItem.img!=null && !StringUtils.isNullOrEmpty(houseItem.img.pic)) {
-			imageLoader.displayImage("http://www.5ijq.cn/Public/Uploads/" +houseItem.img.pic,holder.img);
-			
+			final String url = "http://www.5ijq.cn/Public/Uploads/" +houseItem.img.pic;
+			holder.img.setTag(url);
+			holder.img.loadImage(url, new OnBitmapLoadedListener() {
+				
+				@Override
+				public void onBitmapLoaded(ImageView imageView, Bitmap bitmap) {
+					
+					if (imageView.getTag() != null
+							&& imageView.getTag().equals(url)) {
+						imageView.setImageBitmap(bitmap);
+					} else {
+						imageView.setImageResource(R.drawable.ic_launcher);
+					}
+				}
+			});
+//			imageLoader.displayImage(url, holder.img, App.getOptions());
+//			final ImageView mImageView = holder.img;
+//			mImageView.setTag(url);
+//			imageLoader.loadImage(url, new SimpleImageLoadingListener(){
+//
+//	            @Override
+//	            public void onLoadingComplete(String imageUrl, View view,
+//	                                          Bitmap loadedImage) {
+//	                super.onLoadingComplete(imageUrl, view, loadedImage);
+//	                if (imageUrl.equals(mImageView.getTag())) {
+//	                    mImageView.setImageBitmap(loadedImage);
+//	                }
+//	            }
+//	        });
+		} else {
+			holder.img.setImageResource(R.drawable.ic_launcher);
 		}
 		return convertView;
 	}
 
+	
 	private static class Holder {
 
 		TextView titleTv;
@@ -59,7 +95,7 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 		TextView fromTypeTv;
 		TextView housePriceTv;
 		TextView createdateTv;
-		ImageView img;
+		UrlTagImageView img;
 		
 	}
 

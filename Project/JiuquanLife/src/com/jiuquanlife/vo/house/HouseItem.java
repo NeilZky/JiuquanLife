@@ -18,7 +18,6 @@ public class HouseItem {
 	public String dateline;
 	public String addressName;
 	public String subAddressName;
-	public String createdate;
 	public Img img;
 	public String imgCount;
 }

@@ -19,7 +19,7 @@ import com.jiuquanlife.vo.house.HouseDetailData;
 import com.jiuquanlife.vo.house.HouseDetailInfo;
 import com.jiuquanlife.vo.house.Img;
 
-public class SellerHouseDetailActivity extends BaseActivity {
+public class WantedBuyHouseDetailActivity extends BaseActivity {
 
 	public static final String INTENT_KEY_HOUSE_ID = "INTENT_KEY_HOUSE_ID";
 	
@@ -96,7 +96,7 @@ public class SellerHouseDetailActivity extends BaseActivity {
 	private void getData() {
 
 		String houseid = getIntent().getStringExtra(INTENT_KEY_HOUSE_ID);
-		RequestHelper.getInstance().postRequest(SellerHouseDetailActivity.this,
+		RequestHelper.getInstance().postRequest(WantedBuyHouseDetailActivity.this,
 				"http://www.5ijq.cn/App/House/getHoustById/id/" + houseid,
 				null, new Listener<String>() {
 

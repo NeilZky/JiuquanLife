@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,7 +15,7 @@ import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.utils.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class SampleImagePagerAdapter extends PagerAdapter{
+public class SampleImagePagerAdapter extends PagerAdapter {
 
 	private ArrayList<String> urls;
 	private ViewPager viewPager;
@@ -51,7 +52,7 @@ public class SampleImagePagerAdapter extends PagerAdapter{
 	@Override
 	public boolean isViewFromObject(View arg0, Object arg1) {
 	
-		return false;
+		return arg0 == arg1;
 	}
 
 	@Override
@@ -69,5 +70,8 @@ public class SampleImagePagerAdapter extends PagerAdapter{
 		}
 		return null;
 	}
+
+
+
 	
 }

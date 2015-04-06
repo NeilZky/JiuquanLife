@@ -11,6 +11,7 @@
     <color name="light_gray2">#ffbdbdbd</color>
     <color name="gray">#ff333333</color>
     <color name="gray_2">#929292</color>
+    <color name="gray_light">#CFCFCF</color>
     <color name="lighter_gray">#ff666666</color>
     <color name="transparent">#00000000</color>
     <color name="blue">#42b5e8</color>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response.Listener;
@@ -29,7 +30,7 @@ import com.jiuquanlife.vo.house.HouseItem;
 import com.jiuquanlife.vo.house.LayoutRange;
 import com.jiuquanlife.vo.house.PriceRange;
 
-public class SecondaryHouseActivity extends BaseActivity {
+public class WantedRentHouseListActivity extends BaseActivity {
 
 	private ExpandTabView expandTabView;
 	private ArrayList<View> mViewArray = new ArrayList<View>();
@@ -41,7 +42,8 @@ public class SecondaryHouseActivity extends BaseActivity {
 	private ViewRight viewRight;
 	private SecondaryHouseAdapter adapter;
 	private ListView houseListLv;
-
+	private TextView tv_title_house_list;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,12 +60,14 @@ public class SecondaryHouseActivity extends BaseActivity {
 
 	private void initView() {
 
-		setContentView(R.layout.activity_secondary);
+		setContentView(R.layout.activity_house_list);
 		expandTabView = (ExpandTabView) findViewById(R.id.etv_secondary_house);
 		houseListLv = (ListView) findViewById(R.id.lv_seconary_house);
 		adapter = new SecondaryHouseAdapter(this);
 		houseListLv.setAdapter(adapter);
 		houseListLv.setOnItemClickListener(onItemClickListener);
+		tv_title_house_list = (TextView) findViewById(R.id.tv_title_house_list);
+		tv_title_house_list.setText("·¿ÎÝÇó×â");
 		// priceTab = new ViewLeft(this);
 		// viewRight = new ViewRight(this);
 	}
@@ -86,21 +90,22 @@ public class SecondaryHouseActivity extends BaseActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			HouseItem houseItem = adapter.getItem(position);
-			Intent intent = new Intent(SecondaryHouseActivity.this, SellerHouseDetailActivity.class);
-			intent.putExtra(SellerHouseDetailActivity.INTENT_KEY_HOUSE_ID, houseItem.houseid);
+			Intent intent = new Intent(WantedRentHouseListActivity.this, WantedRentHouseDetailActivity.class);
+			intent.putExtra(WantedRentHouseDetailActivity.INTENT_KEY_HOUSE_ID, houseItem.houseid);
 			startActivity(intent);
 		}
 	};
 	
 	private void getData() {
 
-		RequestHelper.getInstance().postRequest(SecondaryHouseActivity.this,
-				"http://www.5ijq.cn/App/House/getSellHouseList", null,
+		RequestHelper.getInstance().postRequest(WantedRentHouseListActivity.this,
+				"http://www.5ijq.cn/App/House/getRentalHouseList", null,
 				new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
 
+						System.out.println(response);
 						GetSellHouseListInfo info = GsonUtils.toObj(response,
 								GetSellHouseListInfo.class);
 						if (info == null
@@ -181,7 +186,6 @@ public class SecondaryHouseActivity extends BaseActivity {
 		expandTabView.setValue(mTextArray, mViewArray);
 
 		
-		
 		initListener();
 
 	}
@@ -216,7 +220,7 @@ public class SecondaryHouseActivity extends BaseActivity {
 		if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
 			expandTabView.setTitle(showText, position);
 		}
-		Toast.makeText(SecondaryHouseActivity.this, showText,
+		Toast.makeText(WantedRentHouseListActivity.this, showText,
 				Toast.LENGTH_SHORT).show();
 
 	}
