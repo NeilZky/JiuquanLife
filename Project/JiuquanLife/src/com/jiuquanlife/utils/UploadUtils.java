@@ -23,7 +23,7 @@ public class UploadUtils {
 	  private final static String CHARSET = "utf-8";
 	  private final static String CONTENTTYPE = "application/octet-stream";
 	
-	public static String queryParam(String hostUrl,String filePath,  HashMap<String, String> values)  
+	public static String upload(String hostUrl,String filePath,  HashMap<String, String> values)  
     {  
 		String end = "\r\n";
         String twoHyphens = "--";

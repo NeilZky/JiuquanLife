@@ -74,7 +74,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity{
 				if(files!=null) {
 					for (File file : files) {
 						String filePath = file.getPath();
-						String res = UploadUtils.queryParam("http://www.5ijq.cn/App/House/addHouseImg", filePath, null);
+						String res = UploadUtils.upload("http://www.5ijq.cn/App/House/addHouseImg", filePath, null);
 						file.delete();
 					}
 					handler.sendEmptyMessage(0);
