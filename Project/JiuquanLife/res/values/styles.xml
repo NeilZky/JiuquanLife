@@ -22,4 +22,8 @@
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>  
     </style>
     
+       <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent_white</item>
+    </style>
+    
 </resources>

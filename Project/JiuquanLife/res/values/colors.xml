@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    
+
     <drawable name="blank">#00000000</drawable>
+
     <color name="unwhite">#ffffff</color>
     <color name="FlightCXListInfoActivityBg">#DCDCDC</color>
-	<color name="popup_char_color">#99ff00ff</color>
+    <color name="popup_char_color">#99ff00ff</color>
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="dark_gray">#ff585858</color>
@@ -17,9 +18,9 @@
     <color name="blue">#42b5e8</color>
     <color name="light_blue">#ffacd7ff</color>
     <color name="dark_orange">#f58220</color>
-   	<color name="orange">#FBB327</color>
-   	<color name="yellow">#decb00</color>
-   	<color name="pink">#f05b72</color>
+    <color name="orange">#FBB327</color>
+    <color name="yellow">#decb00</color>
+    <color name="pink">#f05b72</color>
     <color name="red">#fff85d00</color>
     <color name="brown">#ff654019</color>
     <color name="light_gray">#ff9b9b9b</color>
@@ -39,18 +40,21 @@
     <color name="blacks">#000000</color>
     <color name="aliceblue">#696969</color>
     <color name="text_selected_color">#FF8F8E</color>
-  
-    
-    <color name="color_flight">#0cb1f5</color>	 
-    <color name="color_user">#ab67ce</color>	 
-    <color name="color_hotel">#ed3d3d</color>	 
-    <color name="color_train">#99cc01</color>	 
+    <color name="color_flight">#0cb1f5</color>
+    <color name="color_user">#ab67ce</color>
+    <color name="color_hotel">#ed3d3d</color>
+    <color name="color_train">#99cc01</color>
     <color name="color_sales">#fbc436</color>
- 	<color name="color_remind">#3dce70</color>
+    <color name="color_remind">#3dce70</color>
     <color name="color_setting">#40e0d0</color>
-    
-     <color name="popup_main_background">#b0000000</color>
+    <color name="popup_main_background">#b0000000</color>
     <color name="choose_eara_item_press_color">#f4f4f4</color>
     <color name="no_color">#00000000</color>
+    <color name="half_transparent_dark_white">#dddddddd</color>
+    <color name="half_transparent_white">#ddffffff</color>
+    <color name="blue_bg">#42b5e8</color>
+    <color name="blue_bg_pressed">#8fc2fc</color>
+    <color name="grey_text">#919191</color>
+    <color name="transparent_white">#00ffffff</color>
     
 </resources>

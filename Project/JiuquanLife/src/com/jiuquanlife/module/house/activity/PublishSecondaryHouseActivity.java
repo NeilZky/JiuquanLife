@@ -18,6 +18,7 @@ import com.jiuquanlife.utils.PhotoManager;
 import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UploadUtils;
 import com.jiuquanlife.view.LinearListView;
+import com.jiuquanlife.view.ListDialog;
 
 public class PublishSecondaryHouseActivity extends BaseActivity{
 	
@@ -99,7 +100,22 @@ public class PublishSecondaryHouseActivity extends BaseActivity{
 	private void onClickAddPhoto() {
 		
 		//TODO 拆分菜单，从相册里选择图片，图片多选控件等等
-		startCamera();
+		ListDialog.Builder builder = new ListDialog.Builder(this);
+		builder.addItem(R.string.start_camera, new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startCamera();
+			}
+		})
+		.addItem(R.string.add_pic_from_local, new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		}).create().show();
 	}
 
 	private void startCamera() {
