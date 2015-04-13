@@ -17,7 +17,7 @@
         android:layout_marginBottom="3dp"
         android:layout_marginTop="-5dp"
         android:text="聚焦"
-        android:textColor="@color/text_tab"
+        android:textColor="@drawable/text_tab"
         android:textSize="14sp" />
 
 </LinearLayout>

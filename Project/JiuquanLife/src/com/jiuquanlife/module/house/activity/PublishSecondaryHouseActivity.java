@@ -19,6 +19,7 @@ import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UploadUtils;
 import com.jiuquanlife.view.LinearListView;
 import com.jiuquanlife.view.ListDialog;
+import com.photoselector.ui.PhotoSelectorActivity;
 
 public class PublishSecondaryHouseActivity extends BaseActivity{
 	
@@ -112,8 +113,9 @@ public class PublishSecondaryHouseActivity extends BaseActivity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				
+				Intent intent  = new Intent(PublishSecondaryHouseActivity.this, PhotoSelectorActivity.class);
+				startActivity(intent);
 			}
 		}).create().show();
 	}

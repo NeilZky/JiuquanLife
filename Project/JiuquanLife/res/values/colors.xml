@@ -56,5 +56,6 @@
     <color name="blue_bg_pressed">#8fc2fc</color>
     <color name="grey_text">#919191</color>
     <color name="transparent_white">#00ffffff</color>
-    
+    <color name="bg">#65BBF6</color>
+
 </resources>
