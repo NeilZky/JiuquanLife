@@ -1,6 +1,7 @@
 package com.jiuquanlife.module.house.activity;
 
 import java.io.File;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,11 +20,13 @@ import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UploadUtils;
 import com.jiuquanlife.view.LinearListView;
 import com.jiuquanlife.view.ListDialog;
+import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
 
 public class PublishSecondaryHouseActivity extends BaseActivity{
 	
 	private static final int REQUEST_CODE_CAMERA = 1;
+	protected static final int REQUEST_SELECT_PHOTOS = 2;
 	private PhotoAdapter photoAdapter;
 	private PhotoManager photoManager = PhotoManager.getInstance();
 	private LinearListView llv_photo_aps;
@@ -115,7 +118,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity{
 			public void onClick(View v) {
 				
 				Intent intent  = new Intent(PublishSecondaryHouseActivity.this, PhotoSelectorActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, REQUEST_SELECT_PHOTOS);
 			}
 		}).create().show();
 	}
@@ -139,11 +142,22 @@ public class PublishSecondaryHouseActivity extends BaseActivity{
 		case REQUEST_CODE_CAMERA:
 			onResultCamera();
 			break;
+		case REQUEST_SELECT_PHOTOS:
+			onResultSelectPhotos(data);
 		default:
 			break;
 		}
 	}
 	
+	private void onResultSelectPhotos(Intent data) {
+		
+		if (data != null && data.getExtras() != null) {
+            @SuppressWarnings("unchecked")
+            List<PhotoModel> photos = (List<PhotoModel>) data.getExtras().getSerializable("photos");
+            System.out.println(photos);
+        }
+	}
+
 	private void onResultCamera() {
 		
 		photoManager.compressPicture(PhotoManager.TEMP_PHOTO_BITMAP, PhotoManager.UPLOAD_PHOTO_PATH);

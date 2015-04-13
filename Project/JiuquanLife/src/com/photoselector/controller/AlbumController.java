@@ -47,7 +47,7 @@ public class AlbumController {
 		if (cursor == null || !cursor.moveToNext())
 			return new ArrayList<AlbumModel>();
 		cursor.moveToLast();
-		AlbumModel current = new AlbumModel("æ‰€æœ‰å›¾ç‰‡", 0, cursor.getString(cursor.getColumnIndex(ImageColumns.DATA)), true); 
+		AlbumModel current = new AlbumModel("ËùÓÐÍ¼Æ¬", 0, cursor.getString(cursor.getColumnIndex(ImageColumns.DATA)), true); 
 		albums.add(current);
 		do {
 			if (cursor.getInt(cursor.getColumnIndex(ImageColumns.SIZE)) < 1024 * 10)
