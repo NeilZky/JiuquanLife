@@ -6,7 +6,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.jiuquanlife.R;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -37,7 +36,6 @@ public class App extends Application{
 		File cacheDir = StorageUtils.getOwnCacheDirectory(instance, "cache_folder");
 		ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
 		config.threadPriority(Thread.NORM_PRIORITY - 2);
-		config.discCache(new UnlimitedDiskCache(cacheDir));
 		config.discCacheFileNameGenerator(new HashCodeFileNameGenerator());
 		config.denyCacheImageMultipleSizesInMemory();
 		config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
