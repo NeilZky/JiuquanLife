@@ -44,6 +44,8 @@
         <activity android:name="com.jiuquanlife.module.house.activity.WantedBuyHouseListActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.WantedBuyHouseDetailActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.PublishHouseActivity" />
+        <activity android:name="com.jiuquanlife.module.house.activity.SelectAreaActivity" />
+        <activity android:name="com.jiuquanlife.module.house.activity.SelectSubAreaActivity" />
         <activity
             android:name="com.jiuquanlife.module.house.activity.PublishSecondaryHouseActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />

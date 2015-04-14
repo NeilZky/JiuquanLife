@@ -23,4 +23,9 @@ public class BaseActivity extends Activity{
 		}
 	}
 	
+	protected Activity getActivity() {
+		
+		return this;
+	}
+	
 }
