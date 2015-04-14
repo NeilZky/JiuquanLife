@@ -83,6 +83,23 @@ public class RequestHelper {
 		requestQueue.add(sRequest);
 	}
 	
+	public void postRequest(Context context,String url, final Map<String, String> params, final  Response.Listener<String> listener, final Response.ErrorListener onError) {
+		
+		RequestQueue requestQueue = Volley.newRequestQueue(context);
+		StringRequest sRequest = new StringRequest(Request.Method.POST,
+				url, listener, onError) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				
+				return params;
+			}
+
+		};
+		sRequest.setShouldCache(false);
+		requestQueue.add(sRequest);
+	}
+	
+	
 	public void getRequest(Context context,String url, final  Response.Listener<String> listener) {
 		
 		RequestQueue requestQueue = Volley.newRequestQueue(context);

@@ -2,6 +2,7 @@ package com.jiuquanlife.module.house.fragment;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
+import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
@@ -27,8 +29,10 @@ import com.jiuquanlife.module.house.activity.RentHouseListActivity;
 import com.jiuquanlife.module.house.activity.SecondaryHouseListActivity;
 import com.jiuquanlife.module.house.activity.WantedBuyHouseListActivity;
 import com.jiuquanlife.module.house.activity.WantedRentHouseListActivity;
+import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.module.post.PostDetailActivity;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.view.UnScrollListView;
 import com.jiuquanlife.vo.PhotoInfo;
 import com.jiuquanlife.vo.PostInfo;
@@ -57,6 +61,9 @@ public class HouseFragment extends BaseFragment{
 	private Button btn_rent_house;
 	private Button btn_wanted_buy_secondary_house;
 	private Button btn_publish_fh;
+	
+	private static final int REQUEST_LOGIN = 1;
+	private static final int REQUEST_PUBLISH = 2;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -153,10 +160,17 @@ public class HouseFragment extends BaseFragment{
 		
 		private void onClickPublish() {
 			
-			Intent intent = new Intent(getActivity(), PublishHouseActivity.class);
-			startActivity(intent);
+			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+			if(user == null) {
+				Intent intent = new Intent(getActivity(), LoginActivity.class);
+				startActivityForResult(intent, REQUEST_LOGIN);
+			} else {
+				startPublishActivity();
+			}
 		}
 
+		
+		
 		private void onClickWantedBuySecondary() {
 			
 			Intent intent = new Intent(getActivity(), WantedBuyHouseListActivity.class);
@@ -197,6 +211,33 @@ public class HouseFragment extends BaseFragment{
 			}
 		}
 	};
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(resultCode!=Activity.RESULT_OK) {
+			return;
+		}
+		
+		switch (requestCode) {
+		case REQUEST_LOGIN:
+			onResultLogin(data);
+			break;
+		default:
+			break;
+		}
+	};
+	
+	private void onResultLogin(Intent data) {
+		
+		startPublishActivity();
+	}
+
+	private void startPublishActivity() {
+		
+		Intent intent = new Intent(getActivity(), PublishHouseActivity.class);
+		startActivityForResult(intent, REQUEST_PUBLISH);
+	}
 	
 	public void onClick(View v) {
 		

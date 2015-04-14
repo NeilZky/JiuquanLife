@@ -1,6 +1,5 @@
 package com.jiuquanlife.adapter;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -30,7 +29,6 @@ public class PhotoAdapter extends BaseAdapter implements OnItemClickListener {
 	private Context context;
 	private ArrayList<Photo> photos;
 	private PhotoManager photoManager = PhotoManager.getInstance();
-	private String photoFolderPath;
 	private AlertDialog dialog;
 	private ImageView photoIv;
 	private ImageButton deletePhotoBtn;
@@ -39,12 +37,10 @@ public class PhotoAdapter extends BaseAdapter implements OnItemClickListener {
 	private int screenHeight;
 	private LinearListView llv;
 	
-	public PhotoAdapter(Context context, String photoFolderPath) {
+	public PhotoAdapter(Context context) {
 		
 		this.context = context;
-		this.photoFolderPath = photoFolderPath;
 		inflater = LayoutInflater.from(context);
-		photos = photoManager.getThumbnailPhotos(photoFolderPath);
 		DisplayMetrics dm = new DisplayMetrics();
 		Activity activity = (Activity) context;;
 		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -110,11 +106,10 @@ public class PhotoAdapter extends BaseAdapter implements OnItemClickListener {
 
 	public void refreshData() {
 		
-		photos = photoManager.getThumbnailPhotos(photoFolderPath);
 		notifyDataSetChanged();
 		llv.notifyDataSetChanged();
 	}
-
+	
 	private static class ViewHolder {
 
 		private ImageView photo;
@@ -171,9 +166,36 @@ public class PhotoAdapter extends BaseAdapter implements OnItemClickListener {
 	private void deletePhoto() {
 
 		Photo photo = getItem(position);
-		String filePath = photo.getFilePath();
-		File file = new File(filePath);
-		file.delete();
+		if(photos!=null && photo != null) {
+			photos.remove(photo);
+		}
+		refreshData();
 	}
-
+	
+	public void addPhoto(String path) {
+		
+		if(!containPhoto(path)) {
+			Photo photo = photoManager.getThumbnailPhoto(path);
+			if(photo!=null) {
+				if(photos == null) {
+					photos = new ArrayList<Photo>();
+				}
+				photos.add(photo);
+				refreshData();
+			}
+		}
+	}
+	
+	private boolean containPhoto(String path) {
+		
+		if(photos!=null&& path !=null) {
+			for(Photo photo : photos) {
+				if(path.equals(photo.getFilePath())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 }

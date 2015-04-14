@@ -47,10 +47,10 @@ public class PublishSecondaryHouseActivity extends BaseActivity{
 		
 		setContentView(R.layout.activity_publish_secondary);
 		llv_photo_aps = (LinearListView) findViewById(R.id.llv_photo_aps);
-		photoAdapter = new PhotoAdapter(this, PhotoManager.UPLOAD_PHOTO_PATH);
+		photoAdapter = new PhotoAdapter(this);
 		photoAdapter.setLlv(llv_photo_aps);
 		llv_photo_aps.setAdapter(photoAdapter);
-		photoAdapter.refreshData();
+		photoManager.deletePhotos(PhotoManager.UPLOAD_PHOTO_PATH);
 	}
 
 	public void onClick(View v) {
@@ -154,19 +154,19 @@ public class PublishSecondaryHouseActivity extends BaseActivity{
 		if (data != null && data.getExtras() != null) {
             @SuppressWarnings("unchecked")
             List<PhotoModel> photos = (List<PhotoModel>) data.getExtras().getSerializable("photos");
-            System.out.println(photos);
+            if(photos!=null) {
+            	for(PhotoModel pm : photos) {
+            		photoAdapter.addPhoto(pm.getOriginalPath());
+            	}
+            }
         }
 	}
 
 	private void onResultCamera() {
 		
-		photoManager.compressPicture(PhotoManager.TEMP_PHOTO_BITMAP, PhotoManager.UPLOAD_PHOTO_PATH);
-		refreshThumbnailPhotos();
+		String photoPath = photoManager.compressPicture(PhotoManager.TEMP_PHOTO_BITMAP, PhotoManager.UPLOAD_PHOTO_PATH);
+		photoAdapter.addPhoto(photoPath);
 	}
 
-	public void refreshThumbnailPhotos() {
-
-		photoAdapter.refreshData();
-	}
 	
 }

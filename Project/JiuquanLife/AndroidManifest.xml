@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -31,6 +31,7 @@
             android:name="com.jiuquanlife.module.home.activity.HomeActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity android:name="com.jiuquanlife.module.login.LoginActivity" />
         <activity android:name="com.jiuquanlife.module.tab.NavTabActivity" />
         <activity android:name="com.jiuquanlife.module.userhome.activity.UserHomeActivity" />
         <activity android:name="com.jiuquanlife.module.post.PostDetailActivity" />

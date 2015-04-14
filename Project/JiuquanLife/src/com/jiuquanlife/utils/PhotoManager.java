@@ -103,7 +103,20 @@ public class PhotoManager {
 		}
 		return result;
 	}
-
+	
+	public Photo getThumbnailPhoto(String path) {
+		
+		Bitmap bitmap = decodeSampledBitmapFromResource(path,
+				THUMBNAIL_PHOTO_WIDTH, THUMBNAIL_PHOTO_HEIGHT);
+		if (null != bitmap) {
+			Photo photo = new Photo();
+			photo.setBitmap(bitmap);
+			photo.setFilePath(path);
+			return photo;
+		}
+		return null;
+	}
+	
 	
 	public void moveTempFiles() {
 
@@ -131,9 +144,6 @@ public class PhotoManager {
 		}
 	}
 
-	/**
-	 * 将照片文件名中添加gpsdataId信息
-	 */
 	public void renamePhoto(int gpsDataID, String folder) {
 
 		File file = new File(folder);
@@ -219,7 +229,7 @@ public class PhotoManager {
 		}
 	}
 	
-	public void compressPicture(String path, 
+	public String compressPicture(String path, 
 			 String distPath) {
 
 		if (path != null) {
@@ -267,16 +277,19 @@ public class PhotoManager {
 						+ "." + srcFile.getName();
 				File file = new File(path);
 				long fileLength = file.length();
+				String res =  null;
 				if (fileLength > 1024 * 1024) {
-					saveToSdcard(bitmap, name, distPath,
+					res = saveToSdcard(bitmap, name, distPath,
 							COMPRESS_MIN);
 				} else {
-					saveToSdcard(bitmap, name, distPath, COMPRESS_30);
+					res= saveToSdcard(bitmap, name, distPath, COMPRESS_30);
 				}
 				deletePhotos(path);
 				bitmap.recycle();
+				return res;
 			}
 		}
+		return null;
 	}
 	
 
@@ -496,7 +509,7 @@ public class PhotoManager {
 		saveToSdcard(bitmap, name, folder, COMPRESS_MIN);
 	}
 
-	private void saveToSdcard(Bitmap bitmap, String name, String folder,
+	private String saveToSdcard(Bitmap bitmap, String name, String folder,
 			int rate) {
 
 		File path = new File(folder);
@@ -520,6 +533,7 @@ public class PhotoManager {
 			}
 
 		}
+		return file.getPath();
 	}
 
 	private int computeCompressRate(Bitmap bitmap) {
