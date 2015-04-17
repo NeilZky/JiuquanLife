@@ -126,9 +126,11 @@
                 <include layout="@layout/divider_ver" />
 
                 <LinearLayout
+                    android:id="@+id/ll_community_aps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:onClick="onClick"
                     android:padding="10dp" >
 
                     <TextView
@@ -140,6 +142,7 @@
                     <include layout="@layout/divider_hor" />
 
                     <TextView
+                        android:id="@+id/tv_community_aps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

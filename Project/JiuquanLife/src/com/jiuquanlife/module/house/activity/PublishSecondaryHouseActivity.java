@@ -27,11 +27,9 @@ import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UploadUtils;
 import com.jiuquanlife.view.LinearListView;
 import com.jiuquanlife.view.ListDialog;
-import com.jiuquanlife.vo.PhotoInfo;
-import com.jiuquanlife.vo.convertor.ConvertUtils;
 import com.jiuquanlife.vo.house.AddHouseInfo;
 import com.jiuquanlife.vo.house.AddressRange;
-import com.jiuquanlife.vo.house.HouseInfo;
+import com.jiuquanlife.vo.house.Community;
 import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
 
@@ -40,12 +38,15 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private static final int REQUEST_CODE_CAMERA = 1;
 	protected static final int REQUEST_SELECT_PHOTOS = 2;
 	protected static final int REQUEST_SELECT_AREA = 3;
+	protected static final int REQUEST_SELECT_COMMUNITY = 4;
 	private PhotoAdapter photoAdapter;
 	private PhotoManager photoManager = PhotoManager.getInstance();
 	private LinearListView llv_photo_aps;
 	private TextView tv_area_aps;
+	private TextView tv_community_aps;
 	private ArrayList<AddressRange> addressList;
 	private AddressRange addressRange;
+	private Community community;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		setContentView(R.layout.activity_publish_secondary);
 		llv_photo_aps = (LinearListView) findViewById(R.id.llv_photo_aps);
 		tv_area_aps = (TextView) findViewById(R.id.tv_area_aps);
+		tv_community_aps = (TextView) findViewById(R.id.tv_community_aps);
 		photoAdapter = new PhotoAdapter(this);
 		photoAdapter.setLlv(llv_photo_aps);
 		llv_photo_aps.setAdapter(photoAdapter);
@@ -82,8 +84,23 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			break;
 		case R.id.ll_area_aps:
 			onClickSelectArea();
+			break;
+		case R.id.ll_community_aps:
+			onClickCommunity();
+			break;
 		default:
 			break;
+		}
+	}
+
+	private void onClickCommunity() {
+		
+		if(addressRange==null) {
+			ToastHelper.showL("«Îœ»—°‘Ò«¯”Ú");
+		} else {
+			Intent intent = new Intent(this, SelectCommunityActivity.class);
+			intent.putExtra(SelectCommunityActivity.INTENT_KEY_AID, addressRange.aid);
+			startActivityForResult(intent, REQUEST_SELECT_COMMUNITY);
 		}
 	}
 
@@ -174,8 +191,21 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		case REQUEST_SELECT_AREA:
 			onResultSelectArea(data);
 			break;
+		case REQUEST_SELECT_COMMUNITY:
+			onResultSelectCommunity(data);
+			break;
 		default:
 			break;
+		}
+	}
+
+	private void onResultSelectCommunity(Intent data) {
+		
+		if (data != null && data.getExtras() != null) {
+			community = (Community) data.getSerializableExtra(SelectCommunityActivity.RESULT_DATA_COMUUNITY);
+			if(community!=null && community.communityName !=null) {
+				tv_community_aps.setText(community.communityName);
+			}
 		}
 	}
 
@@ -185,6 +215,8 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			addressRange = (AddressRange) data.getSerializableExtra(SelectSubAreaActivity.RESULT_DATA_ADDRESS_RANGE);
 			if(addressRange!=null && addressRange.addressName !=null) {
 				tv_area_aps.setText(addressRange.addressName);
+				tv_community_aps.setText("");
+				community = null;
 			}
 		}
 	}
