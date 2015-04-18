@@ -1,5 +1,6 @@
 package com.jiuquanlife.http;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,6 +100,46 @@ public class RequestHelper {
 		requestQueue.add(sRequest);
 	}
 	
+	public void postRequestEntity(Context context,String url, Object entity, final Response.Listener<String> listener) {
+		
+		final Map<String, String> params = convertObjToMap(entity);
+		RequestQueue requestQueue = Volley.newRequestQueue(context);
+		StringRequest sRequest = new StringRequest(Request.Method.POST,
+				url, listener,  new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						
+						ToastHelper.showL("ÍøÂç´íÎó");
+
+					}
+				} ) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				
+				return params;
+			}
+
+		};
+		sRequest.setShouldCache(false);
+		requestQueue.add(sRequest);
+	}
+	
+	public void postRequestEntity(Context context,String url, Object entity, final  Response.Listener<String> listener, final Response.ErrorListener onError) {
+		
+		final Map<String, String> params = convertObjToMap(entity);
+		RequestQueue requestQueue = Volley.newRequestQueue(context);
+		StringRequest sRequest = new StringRequest(Request.Method.POST,
+				url, listener, onError) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				
+				return params;
+			}
+
+		};
+		sRequest.setShouldCache(false);
+		requestQueue.add(sRequest);
+	}
 	
 	public void getRequest(Context context,String url, final  Response.Listener<String> listener) {
 		
@@ -117,5 +158,31 @@ public class RequestHelper {
 		requestQueue.add(sRequest);
 	}
 
+	private HashMap<String, String> convertObjToMap(Object input) {
+		
+		Field[] fields = input.getClass().getFields();
+		if(fields!=null) {
+			HashMap<String, String> res = new HashMap<String, String>();
+			for(Field field : fields) {
+				String key = field.getName();
+				field.setAccessible(true);
+				 try {
+					Object value = field.get(input);
+					if(value!=null) {
+						String hashValue = value.toString();
+						res.put(key, hashValue);
+					}
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+	
 	
 }
