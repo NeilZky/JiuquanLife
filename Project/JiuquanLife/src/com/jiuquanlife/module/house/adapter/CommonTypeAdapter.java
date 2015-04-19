@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jiuquanlife.view.ChoiceDialogAdapter;
-import com.jiuquanlife.vo.house.CommmonType;
+import com.jiuquanlife.vo.house.CommonType;
 
 public class CommonTypeAdapter extends ChoiceDialogAdapter{
 	
-	private List<CommmonType> data;
+	private List<CommonType> data;
 	
-	public CommonTypeAdapter(List<CommmonType> data) {
+	public CommonTypeAdapter(List<CommonType> data) {
 		
 		this.data = data;
 	}
@@ -20,7 +20,7 @@ public class CommonTypeAdapter extends ChoiceDialogAdapter{
 		
 		if(data!=null) {
 			ArrayList<String> res = new ArrayList<String>();
-			for(CommmonType temp : data) {
+			for(CommonType temp : data) {
 				res.add(temp.name);
 			}
 			return res;

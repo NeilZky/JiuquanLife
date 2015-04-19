@@ -138,6 +138,10 @@ public class PhotoAdapter extends BaseAdapter implements OnItemClickListener {
 		dialog.show();
 	}
 	
+	public ArrayList<Photo> getPhotos() {
+		return photos;
+	}
+
 	private DialogInterface.OnDismissListener onDismissListener = new DialogInterface.OnDismissListener() {
 
 		@Override

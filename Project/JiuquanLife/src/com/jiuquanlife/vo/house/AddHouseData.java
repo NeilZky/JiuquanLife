@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class AddHouseData {
 	
 	public ArrayList<AddressRange> addressList;
-	public ArrayList<CommmonType> houseLayoutList;
-	public ArrayList<CommmonType> houseTypeList;
-	public ArrayList<CommmonType> houseFitList;
+	public ArrayList<CommonType> houseLayoutList;
+	public ArrayList<CommonType> houseTypeList;
+	public ArrayList<CommonType> houseFitList;
+	public ArrayList<CommonType> properLongList;
+	public String token;
 }

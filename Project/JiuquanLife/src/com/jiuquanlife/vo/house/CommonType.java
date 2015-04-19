@@ -1,6 +1,6 @@
 package com.jiuquanlife.vo.house;
 
-public class CommmonType {
+public class CommonType {
 	
 	public String id;
 	public String name;

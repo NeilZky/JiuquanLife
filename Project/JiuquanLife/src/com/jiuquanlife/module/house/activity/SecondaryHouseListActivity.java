@@ -94,7 +94,7 @@ public class SecondaryHouseListActivity extends BaseActivity {
 	
 	private void getData() {
 
-		RequestHelper.getInstance().postRequest(SecondaryHouseListActivity.this,
+		RequestHelper.getInstance().postRequestMap(SecondaryHouseListActivity.this,
 				"http://www.5ijq.cn/App/House/getSellHouseList", null,
 				new Listener<String>() {
 

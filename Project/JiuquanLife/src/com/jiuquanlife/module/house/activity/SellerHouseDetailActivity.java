@@ -96,7 +96,7 @@ public class SellerHouseDetailActivity extends BaseActivity {
 	private void getData() {
 
 		String houseid = getIntent().getStringExtra(INTENT_KEY_HOUSE_ID);
-		RequestHelper.getInstance().postRequest(SellerHouseDetailActivity.this,
+		RequestHelper.getInstance().postRequestMap(SellerHouseDetailActivity.this,
 				"http://www.5ijq.cn/App/House/getHoustById/id/" + houseid,
 				null, new Listener<String>() {
 

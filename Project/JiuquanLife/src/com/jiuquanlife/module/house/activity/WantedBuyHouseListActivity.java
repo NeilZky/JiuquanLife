@@ -98,7 +98,7 @@ public class WantedBuyHouseListActivity extends BaseActivity {
 	
 	private void getData() {
 
-		RequestHelper.getInstance().postRequest(WantedBuyHouseListActivity.this,
+		RequestHelper.getInstance().postRequestMap(WantedBuyHouseListActivity.this,
 				"http://www.5ijq.cn/App/House/getRentalHouseList", null,
 				new Listener<String>() {
 

@@ -61,7 +61,7 @@ public class RequestHelper {
 		requestQueue.add(sRequest);
 	}
 	
-	public void postRequest(Context context,String url, final Map<String, String> params, final  Response.Listener<String> listener) {
+	public void postRequestMap(Context context,String url, final Map<String, String> params, final  Response.Listener<String> listener) {
 		
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
 		StringRequest sRequest = new StringRequest(Request.Method.POST,
@@ -180,6 +180,7 @@ public class RequestHelper {
 					e.printStackTrace();
 				}
 			}
+			return res;
 		}
 		return null;
 	}
