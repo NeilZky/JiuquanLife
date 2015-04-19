@@ -258,11 +258,13 @@
                     <include layout="@layout/divider_hor" />
 
                     <EditText
+                        android:id="@+id/et_area_aps"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:inputType="number"
                         android:textSize="14sp" />
 
                     <TextView
@@ -439,7 +441,35 @@
                 </LinearLayout>
 
                 <include layout="@layout/divider_ver" />
+				
+                 <LinearLayout
+                    android:id="@+id/ll_select_towards_aps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClick"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
 
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="朝    向"
+                        android:textSize="14sp" />
+
+                    <include layout="@layout/divider_hor" />
+
+                    <TextView
+                        android:id="@+id/tv_towards_aps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:hint="请选择朝向"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <include layout="@layout/divider_ver" />
+                
                 <LinearLayout
                     android:id="@+id/ll_proper_long_aps"
                     android:layout_width="match_parent"
@@ -493,6 +523,35 @@
                         android:hint="请选择类型"
                         android:textSize="14sp" />
                 </LinearLayout>
+                
+                <include layout="@layout/divider_ver" />
+
+                <LinearLayout
+                    android:id="@+id/ll_proper_type_aps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClick"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="产权性质"
+                        android:textSize="14sp" />
+
+                    <include layout="@layout/divider_hor" />
+
+                    <TextView
+                        android:id="@+id/tv_proper_type_aps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:hint="请选择类型"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                
             </LinearLayout>
 
             <LinearLayout
@@ -662,10 +721,10 @@
                             android:textSize="15sp" />
 
                         <RadioButton
+                            android:id="@+id/rb_agent_aps"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:checked="true"
                             android:text="中介"
                             android:textSize="15sp" />
                     </RadioGroup>

@@ -19,9 +19,11 @@ public class SelectSubAreaActivity extends BaseActivity {
 
 	public static final String INTENT_KEY_ADDRESS_ITEM = "INTENT_KEY_ADDRESS_ITEM";
 	public static final String RESULT_DATA_ADDRESS_RANGE = "RESULT_DATA_ADDRESS_RANGE";
+	public static final String RESULT_DATA_FATHER_ADDRESS_RANGE = "RESULT_DATA_FATHER_ADDRESS_RANGE";
 
 	private ListView lv_activity_select_area;
 	private AreaAdapter areaAdapter;
+	private AddressRange fatherAr; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +49,11 @@ public class SelectSubAreaActivity extends BaseActivity {
 
 	private void initData() {
 
-		AddressRange ar = (AddressRange) getIntent()
+		fatherAr = (AddressRange) getIntent()
 				.getSerializableExtra(INTENT_KEY_ADDRESS_ITEM);
 		ArrayList<AddressRange> ars = new ArrayList<AddressRange>();
-		ar.addressName = "ȫ" + ar.addressName;
-		ars.add(ar);
-		if(ar.subAddressList!=null) {
-			ars.addAll(ar.subAddressList);
+		if(fatherAr.subAddressList!=null) {
+			ars.addAll(fatherAr.subAddressList);
 		}
 		areaAdapter.refresh(ars);
 	}
@@ -66,6 +66,7 @@ public class SelectSubAreaActivity extends BaseActivity {
 			AddressRange ar = areaAdapter.getItem(position);
 			Intent data = new Intent();
 			data.putExtra(RESULT_DATA_ADDRESS_RANGE, ar);
+			data.putExtra(RESULT_DATA_FATHER_ADDRESS_RANGE, fatherAr);
 			setResult(Activity.RESULT_OK, data);
 			finish();
 		}
