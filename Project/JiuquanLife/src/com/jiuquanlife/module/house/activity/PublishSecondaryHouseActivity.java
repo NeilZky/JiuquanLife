@@ -274,7 +274,10 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	}
 
 	private void onClickPublish() {
-
+		ArrayList<Photo> uploadPhotos = photoAdapter.getPhotos();
+		if(uploadPhotos == null || uploadPhotos.isEmpty()) {
+			publishData(null);
+		}
 		new Thread() {
 
 			@Override
