@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+
+        <ImageView
+            android:id="@+id/btn_search_focus"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:src="@drawable/icn_search" />
+
+        <TextView
+            android:id="@+id/tv_title_house_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="8dp"
+            android:text="经纪人"
+            android:textSize="17sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="返回" />
+    </RelativeLayout>
+	
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <EditText 
+            android:id="@+id/et_search_aal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="搜索经纪人"
+            />
+        <Button 
+            android:id="@+id/btn_search_aal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:onClick="onClick"
+            />
+        
+    </LinearLayout>
+	    
+    <com.jiuquanlife.view.expand.ExpandTabView
+        android:id="@+id/etv_agent_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ListView 
+        android:id="@+id/lv_agent_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>

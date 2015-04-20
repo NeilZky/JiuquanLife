@@ -1,0 +1,92 @@
+package com.jiuquanlife.module.house.adapter;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.jiuquanlife.R;
+import com.jiuquanlife.adapter.BaseListAdapter;
+import com.jiuquanlife.utils.StringUtils;
+import com.jiuquanlife.view.UrlTagImageView;
+import com.jiuquanlife.view.UrlTagImageView.OnBitmapLoadedListener;
+import com.jiuquanlife.vo.house.Agent;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+public class AgentAdapter extends BaseListAdapter<Agent> {
+
+	private ImageLoader imageLoader;
+	
+	public AgentAdapter(Context context) {
+		super(context);
+		imageLoader = ImageLoader.getInstance();
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+
+		Holder holder = null;
+		if (convertView == null) {
+			convertView = getInflater().inflate(R.layout.adapter_agent, null);
+			holder = new Holder();
+			holder.trueName = (TextView) convertView.findViewById(R.id.tv_true_name);
+			holder.companyName = (TextView) convertView.findViewById(R.id.tv_company_name);
+			holder.shopName = (TextView) convertView.findViewById(R.id.tv_shop_name);
+			holder.img = (UrlTagImageView) convertView
+					.findViewById(R.id.iv_img_adapater_agent);
+			convertView.setTag(holder);
+		} else {
+			holder = (Holder) convertView.getTag();
+		}
+		Agent houseItem = getItem(position);
+		holder.trueName.setText(houseItem.trueName);
+		holder.companyName.setText(houseItem.compName);
+		holder.shopName.setText(houseItem.shopName);
+		if(houseItem.headimg!=null && !StringUtils.isNullOrEmpty(houseItem.headimg.pic)) {
+			final String url = "http://www.5ijq.cn/Public/Uploads/" +houseItem.headimg.pic;
+			holder.img.setTag(url);
+			holder.img.loadImage(url, new OnBitmapLoadedListener() {
+				
+				@Override
+				public void onBitmapLoaded(ImageView imageView, Bitmap bitmap) {
+					
+					if (imageView.getTag() != null
+							&& imageView.getTag().equals(url)) {
+						imageView.setImageBitmap(bitmap);
+					} else {
+						imageView.setImageResource(R.drawable.ic_launcher);
+					}
+				}
+			});
+//			imageLoader.displayImage(url, holder.img, App.getOptions());
+//			final ImageView mImageView = holder.img;
+//			mImageView.setTag(url);
+//			imageLoader.loadImage(url, new SimpleImageLoadingListener(){
+//
+//	            @Override
+//	            public void onLoadingComplete(String imageUrl, View view,
+//	                                          Bitmap loadedImage) {
+//	                super.onLoadingComplete(imageUrl, view, loadedImage);
+//	                if (imageUrl.equals(mImageView.getTag())) {
+//	                    mImageView.setImageBitmap(loadedImage);
+//	                }
+//	            }
+//	        });
+		} else {
+			holder.img.setImageResource(R.drawable.ic_launcher);
+		}
+		return convertView;
+	}
+
+	
+	private static class Holder {
+
+		TextView trueName;
+		TextView companyName;
+		TextView shopName;
+		UrlTagImageView img;
+	}
+
+}

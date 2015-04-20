@@ -6,4 +6,5 @@ public class UrlConstance {
 	public static final String ADD_HOUSE_CONFIG = "http://www.5ijq.cn/App/House/addHouse";//添加房源时的区域信息
 	public static final String GET_COMMUNITY_BY_ADDRESS_ID = "http://www.5ijq.cn/App/House/community/addressId/";//根据区域获取小区列表
 	public static final String NEW_HOUSE = "http://www.5ijq.cn/App/House/newHouse";//添加房源
+	public static final String AGENT_LIST = "http://www.5ijq.cn/App/House/agentList";//经纪人列表
 }

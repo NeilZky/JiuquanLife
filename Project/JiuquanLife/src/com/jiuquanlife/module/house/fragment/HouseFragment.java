@@ -24,6 +24,7 @@ import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
+import com.jiuquanlife.module.house.activity.AgentListAcitivity;
 import com.jiuquanlife.module.house.activity.PublishHouseActivity;
 import com.jiuquanlife.module.house.activity.RentHouseListActivity;
 import com.jiuquanlife.module.house.activity.SecondaryHouseListActivity;
@@ -61,6 +62,7 @@ public class HouseFragment extends BaseFragment{
 	private Button btn_rent_house;
 	private Button btn_wanted_buy_secondary_house;
 	private Button btn_publish_fh;
+	private LinearLayout ll_agent_fragment_house;
 	
 	private static final int REQUEST_LOGIN = 1;
 	private static final int REQUEST_PUBLISH = 2;
@@ -98,6 +100,7 @@ public class HouseFragment extends BaseFragment{
 		btn_apply_rent_house = (Button) findViewById(R.id.btn_apply_rent_house);
 		btn_rent_house = (Button) findViewById(R.id.btn_rent_house);
 		btn_wanted_buy_secondary_house = (Button) findViewById(R.id.btn_wanted_buy_secondary_house);
+		ll_agent_fragment_house = (LinearLayout) findViewById(R.id.ll_agent_fragment_house);
 		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
@@ -113,6 +116,7 @@ public class HouseFragment extends BaseFragment{
 		btn_apply_rent_house.setOnClickListener(onClickListener);
 		btn_rent_house.setOnClickListener(onClickListener);
 		btn_wanted_buy_secondary_house.setOnClickListener(onClickListener);
+		ll_agent_fragment_house.setOnClickListener(onClickListener);
 		
 		sellSecondaryHouse =(Button) findViewById(R.id.btn_sell_secondary_house);
 		btn_publish_fh = (Button) findViewById(R.id.btn_publish_fh);
@@ -152,6 +156,9 @@ public class HouseFragment extends BaseFragment{
 				break;
 			case R.id.btn_publish_fh:
 				onClickPublish();
+				break;
+			case R.id.ll_agent_fragment_house:
+				onClickAgent();
 				break;
 			default:
 				break;
@@ -259,6 +266,12 @@ public class HouseFragment extends BaseFragment{
 		}
 	}
 	
+	private void onClickAgent() {
+		
+		Intent intent = new Intent(getActivity(), AgentListAcitivity.class);
+		startActivity(intent);
+	}
+
 	private void showSenconaryMenu(View view) {
 		
 		closeOtherMenu(view);

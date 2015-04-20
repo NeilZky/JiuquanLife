@@ -160,6 +160,9 @@ public class RequestHelper {
 
 	private HashMap<String, String> convertObjToMap(Object input) {
 		
+		if(input == null) {
+			return null;
+		}
 		Field[] fields = input.getClass().getFields();
 		if(fields!=null) {
 			HashMap<String, String> res = new HashMap<String, String>();
