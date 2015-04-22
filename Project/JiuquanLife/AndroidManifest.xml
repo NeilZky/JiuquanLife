@@ -48,6 +48,7 @@
         <activity android:name="com.jiuquanlife.module.house.activity.SelectSubAreaActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.SelectCommunityActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.AgentListAcitivity" />
+        <activity android:name="com.jiuquanlife.module.house.activity.AgentDetailActivity" />
         <activity
             android:name="com.jiuquanlife.module.house.activity.PublishSecondaryHouseActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />

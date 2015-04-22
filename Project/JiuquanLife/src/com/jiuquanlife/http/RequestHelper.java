@@ -2,7 +2,9 @@ package com.jiuquanlife.http;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import android.content.Context;
 
@@ -140,6 +142,65 @@ public class RequestHelper {
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
+	
+	
+	public void getRequestEntity(Context context,String hostUrl, Object entity, final Response.Listener<String> listener) {
+		
+		final Map<String, String> values = convertObjToMap(entity);
+		  StringBuffer sb = new StringBuffer();
+	        sb.append(hostUrl);
+	        if(values!=null) {
+	        	 Set<String> keys = values.keySet();
+	             Iterator<String> iterator = keys.iterator();
+	             boolean first = true;
+	             while(iterator.hasNext()) {
+	             	String paramKey = iterator.next();
+	             	if(first) {
+	             		first = false;
+	             		sb.append("?" + paramKey+"=" + values.get(paramKey));
+	             	} else {
+	             		sb.append("&" + paramKey+"=" + values.get(paramKey));
+	             	}
+	             }
+	        }
+	        String url = sb.toString();
+		RequestQueue requestQueue = Volley.newRequestQueue(context);
+		StringRequest sRequest = new StringRequest(Request.Method.GET,
+				url, listener,  new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						
+						ToastHelper.showL("ÍøÂç´íÎó");
+
+					}
+				} ) {
+		};
+		sRequest.setShouldCache(false);
+		requestQueue.add(sRequest);
+	}
+	
+public void getRequestEntity(Context context,String hostUrl, Object entity, final  Response.Listener<String> listener, final Response.ErrorListener onError) {
+		
+	final Map<String, String> values = convertObjToMap(entity);
+	  StringBuffer sb = new StringBuffer();
+      sb.append(hostUrl);
+      if(values!=null) {
+      	 Set<String> keys = values.keySet();
+           Iterator<String> iterator = keys.iterator();
+           while(iterator.hasNext()) {
+           	String paramKey = iterator.next();
+           	sb.append("&" + paramKey+"=" + values.get(paramKey));
+           }
+      }
+      String url = sb.toString();
+		RequestQueue requestQueue = Volley.newRequestQueue(context);
+		StringRequest sRequest = new StringRequest(Request.Method.POST,
+				url, listener, onError) {
+		};
+		sRequest.setShouldCache(false);
+		requestQueue.add(sRequest);
+	}
+	
 	
 	public void getRequest(Context context,String url, final  Response.Listener<String> listener) {
 		
