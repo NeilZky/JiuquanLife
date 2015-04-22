@@ -57,5 +57,8 @@
     <color name="grey_text">#919191</color>
     <color name="transparent_white">#00ffffff</color>
     <color name="bg">#65BBF6</color>
+    <color name="login_btn">#f9671e</color>
+    <color name="login_btn_pressed">#d85d1f</color>
+    <color name="login_divider">#c8c8c8</color>
 
 </resources>
