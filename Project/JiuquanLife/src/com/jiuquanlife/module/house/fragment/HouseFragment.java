@@ -25,6 +25,7 @@ import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.house.activity.AgentListAcitivity;
+import com.jiuquanlife.module.house.activity.CommunityListAcitivity;
 import com.jiuquanlife.module.house.activity.PublishHouseActivity;
 import com.jiuquanlife.module.house.activity.RentHouseListActivity;
 import com.jiuquanlife.module.house.activity.SecondaryHouseListActivity;
@@ -63,6 +64,7 @@ public class HouseFragment extends BaseFragment{
 	private Button btn_wanted_buy_secondary_house;
 	private Button btn_publish_fh;
 	private LinearLayout ll_agent_fragment_house;
+	private LinearLayout ll_community_house_fragment;
 	
 	private static final int REQUEST_LOGIN = 1;
 	private static final int REQUEST_PUBLISH = 2;
@@ -101,6 +103,7 @@ public class HouseFragment extends BaseFragment{
 		btn_rent_house = (Button) findViewById(R.id.btn_rent_house);
 		btn_wanted_buy_secondary_house = (Button) findViewById(R.id.btn_wanted_buy_secondary_house);
 		ll_agent_fragment_house = (LinearLayout) findViewById(R.id.ll_agent_fragment_house);
+		ll_community_house_fragment = (LinearLayout) findViewById(R.id.ll_community_house_fragment);
 		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
@@ -117,6 +120,7 @@ public class HouseFragment extends BaseFragment{
 		btn_rent_house.setOnClickListener(onClickListener);
 		btn_wanted_buy_secondary_house.setOnClickListener(onClickListener);
 		ll_agent_fragment_house.setOnClickListener(onClickListener);
+		ll_community_house_fragment.setOnClickListener(onClickListener);
 		
 		sellSecondaryHouse =(Button) findViewById(R.id.btn_sell_secondary_house);
 		btn_publish_fh = (Button) findViewById(R.id.btn_publish_fh);
@@ -160,11 +164,20 @@ public class HouseFragment extends BaseFragment{
 			case R.id.ll_agent_fragment_house:
 				onClickAgent();
 				break;
+			case R.id.ll_community_house_fragment:
+				onClickCommunity();
+				break;
 			default:
 				break;
 			}
 		}
 		
+		private void onClickCommunity() {
+			
+			Intent intent = new Intent(getActivity(), CommunityListAcitivity.class);
+			startActivity(intent);
+		}
+
 		private void onClickPublish() {
 			
 			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);

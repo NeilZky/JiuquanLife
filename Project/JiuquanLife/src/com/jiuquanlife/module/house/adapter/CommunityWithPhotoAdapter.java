@@ -13,13 +13,15 @@ import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.view.UrlTagImageView;
 import com.jiuquanlife.view.UrlTagImageView.OnBitmapLoadedListener;
 import com.jiuquanlife.vo.house.Agent;
+import com.jiuquanlife.vo.house.Community;
+import com.jiuquanlife.vo.house.Img;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class AgentAdapter extends BaseListAdapter<Agent> {
+public class CommunityWithPhotoAdapter extends BaseListAdapter<Community> {
 
 	private ImageLoader imageLoader;
 	
-	public AgentAdapter(Context context) {
+	public CommunityWithPhotoAdapter(Context context) {
 		super(context);
 		imageLoader = ImageLoader.getInstance();
 	}
@@ -40,26 +42,30 @@ public class AgentAdapter extends BaseListAdapter<Agent> {
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
-		Agent houseItem = getItem(position);
-		holder.trueName.setText(houseItem.trueName);
-		holder.companyName.setText(houseItem.compName);
-		holder.shopName.setText(houseItem.shopName);
-		if(houseItem.headimg!=null && !StringUtils.isNullOrEmpty(houseItem.headimg.pic)) {
-			final String url = "http://www.5ijq.cn/Public/Uploads/" +houseItem.headimg.pic;
-			holder.img.setTag(url);
-			holder.img.loadImage(url, new OnBitmapLoadedListener() {
-				
-				@Override
-				public void onBitmapLoaded(ImageView imageView, Bitmap bitmap) {
+		Community houseItem = getItem(position);
+		holder.trueName.setText(houseItem.communityName);
+		holder.companyName.setText(houseItem.shequName);
+		holder.shopName.setText(houseItem.address);
+		if(houseItem.img!=null  && !houseItem.img.isEmpty()) {
+			Img img = houseItem.img.get(0);
+			if(img != null && StringUtils.isNullOrEmpty(img.pic)) {
+				final String url = "http://www.5ijq.cn/Public/Uploads/" +img.pic;
+				holder.img.setTag(url);
+				holder.img.loadImage(url, new OnBitmapLoadedListener() {
 					
-					if (imageView.getTag() != null
-							&& imageView.getTag().equals(url)) {
-						imageView.setImageBitmap(bitmap);
-					} else {
-						imageView.setImageResource(R.drawable.ic_launcher);
+					@Override
+					public void onBitmapLoaded(ImageView imageView, Bitmap bitmap) {
+						
+						if (imageView.getTag() != null
+								&& imageView.getTag().equals(url)) {
+							imageView.setImageBitmap(bitmap);
+						} else {
+							imageView.setImageResource(R.drawable.ic_launcher);
+						}
 					}
-				}
-			});
+				});
+			}
+			
 //			imageLoader.displayImage(url, holder.img, App.getOptions());
 //			final ImageView mImageView = holder.img;
 //			mImageView.setTag(url);

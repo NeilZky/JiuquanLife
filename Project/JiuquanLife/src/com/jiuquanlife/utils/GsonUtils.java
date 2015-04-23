@@ -17,6 +17,9 @@ public class GsonUtils {
 	
 	public static <T> T  toObj(String json, Class<T> cls) {
 		
+		if(json == null|| json.isEmpty() || cls == null) {
+			return null;
+		}
 		return gson.fromJson(json, cls);
 	}
 

@@ -18,6 +18,7 @@ import com.jiuquanlife.module.house.adapter.CommunityAdapter;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.vo.house.Community;
 import com.jiuquanlife.vo.house.CommunityInfo;
+import com.jiuquanlife.vo.house.CommunityListInfo;
 
 public class SelectCommunityActivity extends BaseActivity {
 
