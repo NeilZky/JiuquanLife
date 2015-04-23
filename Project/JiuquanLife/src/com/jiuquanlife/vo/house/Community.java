@@ -1,7 +1,6 @@
 package com.jiuquanlife.vo.house;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Community implements Serializable{
 
@@ -20,7 +19,7 @@ public class Community implements Serializable{
 	public String chuzuCount;
 	public String locationName;
 	public String partLocationName;
-	public ArrayList<Img> img;
+	public Img img;
 	public String imgCount;
 	
 }

@@ -46,9 +46,9 @@ public class CommunityWithPhotoAdapter extends BaseListAdapter<Community> {
 		holder.trueName.setText(houseItem.communityName);
 		holder.companyName.setText(houseItem.shequName);
 		holder.shopName.setText(houseItem.address);
-		if(houseItem.img!=null  && !houseItem.img.isEmpty()) {
-			Img img = houseItem.img.get(0);
-			if(img != null && StringUtils.isNullOrEmpty(img.pic)) {
+		if(houseItem.img!=null ) {
+			Img img = houseItem.img;
+			if(img != null && !StringUtils.isNullOrEmpty(img.pic)) {
 				final String url = "http://www.5ijq.cn/Public/Uploads/" +img.pic;
 				holder.img.setTag(url);
 				holder.img.loadImage(url, new OnBitmapLoadedListener() {
