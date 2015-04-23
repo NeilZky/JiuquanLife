@@ -362,17 +362,13 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		newHouse.housePrice = et_price_aps.getText().toString().trim();
 		newHouse.monthPay = et_month_pay_aps.getText().toString().trim();
 		newHouse.firstPay = et_first_pay_aps.getText().toString().trim();
-		newHouse.isLoan = String.valueOf(cb_is_loan_aps.isChecked());
+		newHouse.isLoan =cb_is_loan_aps.isChecked()? "1" : "0";
 		newHouse.title = et_title_aps.getText().toString().trim();
 		newHouse.intro = et_intro_aps.getText().toString().trim();
 		newHouse.contactor = et_contactor_aps.getText().toString().trim();
 		newHouse.contactPhone = et_contact_phone_aps.getText().toString().trim();
 		newHouse.qq = et_qq_aps.getText().toString().trim();
-		if(rb_agent_aps.isChecked()) {
-			newHouse.fromType = "1";
-		} else {
-			newHouse.fromType = "0";
-		}
+		newHouse.isLoan = rb_agent_aps.isChecked()? "1" : "0";
 		if(imgs!=null) {
 			boolean first = true;
 			StringBuffer sb = new StringBuffer();
