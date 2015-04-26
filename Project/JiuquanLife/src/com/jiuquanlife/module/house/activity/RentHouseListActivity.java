@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
+import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
@@ -29,8 +30,9 @@ import com.jiuquanlife.vo.house.GetSellHouseListInfo;
 import com.jiuquanlife.vo.house.HouseItem;
 import com.jiuquanlife.vo.house.LayoutRange;
 import com.jiuquanlife.vo.house.PriceRange;
+import com.jiuquanlife.vo.house.out.GetRentHouseListOut;
 
-public class RentHouseListActivity extends BaseActivity {
+public class RentHouseListActivity extends BaseHouseListActivity {
 
 	private ExpandTabView expandTabView;
 	private ArrayList<View> mViewArray = new ArrayList<View>();
@@ -53,8 +55,7 @@ public class RentHouseListActivity extends BaseActivity {
 
 	private void init() {
 		initView();
-		// initVaule();
-		// initListener();
+		initActionType();
 		getData();
 	}
 
@@ -98,8 +99,11 @@ public class RentHouseListActivity extends BaseActivity {
 	
 	private void getData() {
 
-		RequestHelper.getInstance().postRequestMap(RentHouseListActivity.this,
-				"http://www.5ijq.cn/App/House/getRentalHouseList", null,
+		GetRentHouseListOut out = new GetRentHouseListOut();
+		out.actionRelation = "1";
+		out.actionType = actionType;
+		RequestHelper.getInstance().getRequestEntity(RentHouseListActivity.this,
+				"http://www.5ijq.cn/App/House/getRentalHouseList", out,
 				new Listener<String>() {
 
 					@Override

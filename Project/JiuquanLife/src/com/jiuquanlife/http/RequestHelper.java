@@ -179,7 +179,7 @@ public class RequestHelper {
 		requestQueue.add(sRequest);
 	}
 	
-public void getRequestEntity(Context context,String hostUrl, Object entity, final  Response.Listener<String> listener, final Response.ErrorListener onError) {
+	public void getRequestEntity(Context context,String hostUrl, Object entity, final  Response.Listener<String> listener, final Response.ErrorListener onError) {
 		
 	final Map<String, String> values = convertObjToMap(entity);
 	  StringBuffer sb = new StringBuffer();
@@ -200,6 +200,8 @@ public void getRequestEntity(Context context,String hostUrl, Object entity, fina
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
+	
+
 	
 	
 	public void getRequest(Context context,String url, final  Response.Listener<String> listener) {

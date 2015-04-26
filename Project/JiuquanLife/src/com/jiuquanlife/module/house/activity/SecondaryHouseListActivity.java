@@ -28,9 +28,11 @@ import com.jiuquanlife.vo.house.GetSellHouseListInfo;
 import com.jiuquanlife.vo.house.HouseItem;
 import com.jiuquanlife.vo.house.LayoutRange;
 import com.jiuquanlife.vo.house.PriceRange;
+import com.jiuquanlife.vo.house.out.GetSellerHoustListOut;
 
-public class SecondaryHouseListActivity extends BaseActivity {
-
+public class SecondaryHouseListActivity extends BaseHouseListActivity {
+	
+	
 	private ExpandTabView expandTabView;
 	private ArrayList<View> mViewArray = new ArrayList<View>();
 	private ViewLeft addressTab;
@@ -53,8 +55,10 @@ public class SecondaryHouseListActivity extends BaseActivity {
 		initView();
 		// initVaule();
 		// initListener();
+		initActionType();
 		getData();
 	}
+
 
 	private void initView() {
 
@@ -94,8 +98,11 @@ public class SecondaryHouseListActivity extends BaseActivity {
 	
 	private void getData() {
 
-		RequestHelper.getInstance().postRequestMap(SecondaryHouseListActivity.this,
-				"http://www.5ijq.cn/App/House/getSellHouseList", null,
+		GetSellerHoustListOut out = new GetSellerHoustListOut();
+		out.actionRelation="2";
+		out.actionType = actionType;
+		RequestHelper.getInstance().getRequestEntity (SecondaryHouseListActivity.this,
+				"http://www.5ijq.cn/App/House/getSellHouseList", out,
 				new Listener<String>() {
 
 					@Override

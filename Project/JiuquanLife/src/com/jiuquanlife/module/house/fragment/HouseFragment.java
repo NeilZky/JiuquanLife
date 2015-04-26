@@ -25,6 +25,7 @@ import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.house.activity.AgentListAcitivity;
+import com.jiuquanlife.module.house.activity.BaseHouseListActivity;
 import com.jiuquanlife.module.house.activity.CommunityListAcitivity;
 import com.jiuquanlife.module.house.activity.PublishHouseActivity;
 import com.jiuquanlife.module.house.activity.RentHouseListActivity;
@@ -58,10 +59,6 @@ public class HouseFragment extends BaseFragment{
 	private View sellView;
 	private View applyView;
 	private View buyView;
-	private Button sellSecondaryHouse;
-	private Button btn_apply_rent_house;
-	private Button btn_rent_house;
-	private Button btn_wanted_buy_secondary_house;
 	private Button btn_publish_fh;
 	private LinearLayout ll_agent_fragment_house;
 	private LinearLayout ll_community_house_fragment;
@@ -99,15 +96,11 @@ public class HouseFragment extends BaseFragment{
 		dotLl = (LinearLayout) findViewById(R.id.ll_dot_top_house);
 		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_house);
 		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_house);
-		btn_apply_rent_house = (Button) findViewById(R.id.btn_apply_rent_house);
-		btn_rent_house = (Button) findViewById(R.id.btn_rent_house);
-		btn_wanted_buy_secondary_house = (Button) findViewById(R.id.btn_wanted_buy_secondary_house);
 		ll_agent_fragment_house = (LinearLayout) findViewById(R.id.ll_agent_fragment_house);
 		ll_community_house_fragment = (LinearLayout) findViewById(R.id.ll_community_house_fragment);
 		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
-
 		jhtAdapter = new JhtAdapter(getActivity());
 		jhtLv.setAdapter(jhtAdapter);
 		jhtLv.setOnItemClickListener(onItemClickListener);
@@ -116,17 +109,53 @@ public class HouseFragment extends BaseFragment{
 		sellView.setOnClickListener(onClickListener);
 		applyView.setOnClickListener(onClickListener);
 		buyView.setOnClickListener(onClickListener);
-		btn_apply_rent_house.setOnClickListener(onClickListener);
-		btn_rent_house.setOnClickListener(onClickListener);
-		btn_wanted_buy_secondary_house.setOnClickListener(onClickListener);
 		ll_agent_fragment_house.setOnClickListener(onClickListener);
 		ll_community_house_fragment.setOnClickListener(onClickListener);
 		
-		sellSecondaryHouse =(Button) findViewById(R.id.btn_sell_secondary_house);
 		btn_publish_fh = (Button) findViewById(R.id.btn_publish_fh);
 		btn_publish_fh.setOnClickListener(onClickListener);
-		sellSecondaryHouse.setOnClickListener(onClickListener);
+		
+		initExpandBtns(R.id.ll_menu_sell_house, SecondaryHouseListActivity.class);
+		initExpandBtns(R.id.ll_menu_rent_house, RentHouseListActivity.class);
+		initExpandBtns(R.id.ll_menu_apply_rent_house, WantedRentHouseListActivity.class);
+		initExpandBtns(R.id.ll_menu_buy_house, WantedBuyHouseListActivity.class);
+		
 	}
+	
+	
+	
+	private void initExpandBtns(int menuResId, Class cls) {
+		ViewGroup viewGroup = (ViewGroup) findViewById(menuResId);
+		int count = viewGroup.getChildCount();
+		for(int i =0 ; i<count ; i++) {
+			View ll = viewGroup.getChildAt(i);
+			if(ll instanceof LinearLayout) {
+				initExpandBtns((ViewGroup)ll, cls);
+			}
+		}
+	}
+	
+	private void initExpandBtns(ViewGroup viewGroup, final Class cls) {
+		
+		int count = viewGroup.getChildCount();
+		for(int i =0 ; i<count ; i++) {
+			View btn = viewGroup.getChildAt(i);
+			if(btn instanceof Button) {
+				btn.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						
+						TextView tv = (TextView) v; 
+						String text = tv.getText().toString().trim();
+						Intent intent = new Intent(getActivity(), cls);
+						intent.putExtra(BaseHouseListActivity.EXTRA_ACTION_TYPE, text);
+						startActivity(intent);					}
+				});
+			}
+		}
+	}
+	
 
 	private OnClickListener onClickListener = new OnClickListener() {
 
@@ -145,18 +174,6 @@ public class HouseFragment extends BaseFragment{
 				break;
 			case R.id.ll_buy_house:
 				showSenconaryMenu(buyMenuLl);
-				break;
-			case R.id.btn_sell_secondary_house:
-				onClickSellerSecondaryHouse();
-				break;
-			case R.id.btn_apply_rent_house:
-				onClickApplyRentHouse();
-				break;
-			case R.id.btn_rent_house:
-				onClickRentHouse();
-				break;
-			case R.id.btn_wanted_buy_secondary_house:
-				onClickWantedBuySecondary();
 				break;
 			case R.id.btn_publish_fh:
 				onClickPublish();
@@ -190,30 +207,8 @@ public class HouseFragment extends BaseFragment{
 		}
 
 		
-		
-		private void onClickWantedBuySecondary() {
-			
-			Intent intent = new Intent(getActivity(), WantedBuyHouseListActivity.class);
-			startActivity(intent);
-		}
 
-		private void onClickRentHouse() {
-			
-			Intent intent = new Intent(getActivity(), RentHouseListActivity.class);
-			startActivity(intent);
-		}
-
-		private void onClickApplyRentHouse() {
-			
-			Intent intent = new Intent(getActivity(), WantedRentHouseListActivity.class);
-			startActivity(intent);
-		}
-
-		private void onClickSellerSecondaryHouse() {
-			
-			Intent intent = new Intent(getActivity(), SecondaryHouseListActivity.class);
-			startActivity(intent);
-		}
+	
 	};
 	
 	private OnClickListener onClickItemListener = new OnClickListener() {

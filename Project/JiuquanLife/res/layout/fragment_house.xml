@@ -202,6 +202,7 @@
                     <include layout="@layout/divider_ver" />
 
                     <LinearLayout
+                        android:id="@+id/ll_rent_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" >
@@ -285,6 +286,7 @@
                     <include layout="@layout/divider_ver" />
 
                     <LinearLayout
+                        android:id="@+id/ll_seller_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" >
@@ -303,6 +305,7 @@
                         <include layout="@layout/divider_hor" />
 
                         <Button
+                            android:id="@+id/btn_sell_shop_house"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -340,6 +343,7 @@
                     <include layout="@layout/divider_ver" />
 
                     <LinearLayout
+                        android:id="@+id/ll_wanted_rent_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" >
@@ -423,6 +427,7 @@
                     <include layout="@layout/divider_ver" />
 
                     <LinearLayout
+                        android:id="@+id/ll_buy_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" >
