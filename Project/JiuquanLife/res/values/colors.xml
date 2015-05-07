@@ -61,4 +61,8 @@
     <color name="login_btn_pressed">#d85d1f</color>
     <color name="login_divider">#c8c8c8</color>
 
+    <color name="normal">#fff</color>
+    <color name="press">#ff0</color>
+    <color name="focue">#666</color>
+    
 </resources>

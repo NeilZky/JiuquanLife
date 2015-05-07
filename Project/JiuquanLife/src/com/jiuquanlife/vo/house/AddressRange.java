@@ -11,4 +11,10 @@ public class AddressRange implements Serializable {
 	public String level;
 	public String addressName;
 	public ArrayList<AddressRange> subAddressList;
+	
+	@Override
+	public String toString() {
+		
+		return addressName;
+	}
 }

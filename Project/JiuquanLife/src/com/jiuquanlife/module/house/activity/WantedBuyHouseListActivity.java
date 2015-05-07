@@ -62,7 +62,7 @@ public class WantedBuyHouseListActivity extends BaseHouseListActivity {
 	private void initView() {
 
 		setContentView(R.layout.activity_house_list);
-		expandTabView = (ExpandTabView) findViewById(R.id.etv_secondary_house);
+//		expandTabView = (ExpandTabView) findViewById(R.id.etv_secondary_house);
 		houseListLv = (ListView) findViewById(R.id.lv_seconary_house);
 		adapter = new SecondaryHouseAdapter(this);
 		houseListLv.setAdapter(adapter);
