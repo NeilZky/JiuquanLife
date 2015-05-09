@@ -5,6 +5,7 @@ import com.jiuquanlife.module.base.BaseActivity;
 public class BaseHouseListActivity extends BaseActivity{
 	protected String actionType;
 	public static final String EXTRA_ACTION_TYPE = "EXTRA_ACTION_TYPE";
+	public static final String EXTRA_ACTION_RELATION = "EXTRA_ACTION_RELATION";
 
 	protected void initActionType() {
 		

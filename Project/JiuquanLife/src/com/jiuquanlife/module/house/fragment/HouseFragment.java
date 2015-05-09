@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
+import com.jiuquanlife.constance.ActionRelationConstance;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
@@ -115,27 +116,27 @@ public class HouseFragment extends BaseFragment{
 		btn_publish_fh = (Button) findViewById(R.id.btn_publish_fh);
 		btn_publish_fh.setOnClickListener(onClickListener);
 		
-		initExpandBtns(R.id.ll_menu_sell_house, SecondaryHouseListActivity.class);
-		initExpandBtns(R.id.ll_menu_rent_house, RentHouseListActivity.class);
-		initExpandBtns(R.id.ll_menu_apply_rent_house, WantedRentHouseListActivity.class);
-		initExpandBtns(R.id.ll_menu_buy_house, WantedBuyHouseListActivity.class);
+		initExpandBtns(R.id.ll_menu_sell_house, ActionRelationConstance.SELL);
+		initExpandBtns(R.id.ll_menu_rent_house,  ActionRelationConstance.RENT);
+		initExpandBtns(R.id.ll_menu_apply_rent_house,  ActionRelationConstance.APPLY_RENT);
+		initExpandBtns(R.id.ll_menu_buy_house,  ActionRelationConstance.APPLY_BUY);
 		
 	}
 	
 	
 	
-	private void initExpandBtns(int menuResId, Class cls) {
+	private void initExpandBtns(int menuResId, String actionRelation) {
 		ViewGroup viewGroup = (ViewGroup) findViewById(menuResId);
 		int count = viewGroup.getChildCount();
 		for(int i =0 ; i<count ; i++) {
 			View ll = viewGroup.getChildAt(i);
 			if(ll instanceof LinearLayout) {
-				initExpandBtns((ViewGroup)ll, cls);
+				initExpandBtns((ViewGroup)ll, actionRelation);
 			}
 		}
 	}
 	
-	private void initExpandBtns(ViewGroup viewGroup, final Class cls) {
+	private void initExpandBtns(ViewGroup viewGroup, final String actionRelation) {
 		
 		int count = viewGroup.getChildCount();
 		for(int i =0 ; i<count ; i++) {
@@ -148,9 +149,11 @@ public class HouseFragment extends BaseFragment{
 						
 						TextView tv = (TextView) v; 
 						String text = tv.getText().toString().trim();
-						Intent intent = new Intent(getActivity(), cls);
+						Intent intent = new Intent(getActivity(), SecondaryHouseListActivity.class);
 						intent.putExtra(BaseHouseListActivity.EXTRA_ACTION_TYPE, text);
-						startActivity(intent);					}
+						intent.putExtra(BaseHouseListActivity.EXTRA_ACTION_RELATION, actionRelation);
+						startActivity(intent);					
+						}
 				});
 			}
 		}

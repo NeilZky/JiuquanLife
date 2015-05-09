@@ -15,6 +15,7 @@ import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.constance.CommonConstance;
+import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.house.adapter.SecondaryHouseAdapter;
@@ -22,6 +23,8 @@ import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.expand.ExpandTabView;
 import com.jiuquanlife.view.expand.ViewLeft;
 import com.jiuquanlife.view.expand.ViewRight;
+import com.jiuquanlife.view.popuplist.PopupAdapter;
+import com.jiuquanlife.view.popuplist.PopupButton;
 import com.jiuquanlife.vo.house.AddressRange;
 import com.jiuquanlife.vo.house.AreaRange;
 import com.jiuquanlife.vo.house.FromType;
@@ -31,21 +34,26 @@ import com.jiuquanlife.vo.house.HouseItem;
 import com.jiuquanlife.vo.house.LayoutRange;
 import com.jiuquanlife.vo.house.PriceRange;
 import com.jiuquanlife.vo.house.out.GetRentHouseListOut;
+import com.jiuquanlife.vo.house.out.GetSellerHoustListOut;
 
 public class RentHouseListActivity extends BaseHouseListActivity {
 
-	private ExpandTabView expandTabView;
-	private ArrayList<View> mViewArray = new ArrayList<View>();
-	private ViewLeft addressTab;
-	private ViewLeft priceTab;
-	private ViewLeft layoutTab;
-	private ViewLeft areaTab;
-	private ViewLeft fromTypeTab;
-	private ViewRight viewRight;
 	private SecondaryHouseAdapter adapter;
 	private ListView houseListLv;
-	private TextView tv_title_house_list;
-
+	private PopupButton pb_address_ahl;// 区域
+	private PopupButton pb_price_ahl;// 价格
+	private PopupButton pb_layout_ahl;// 户型
+	private PopupButton pb_area_ahl;// 面积
+	private PopupButton pb_from_ahl;//来源
+	private PopupAdapter<AddressRange> addressAdapter;
+	private PopupAdapter<AddressRange> subAddressAdapter;
+	public PopupAdapter<PriceRange> priceRangeAdapter;
+	public PopupAdapter<LayoutRange> layoutRangeAdapter;
+	public PopupAdapter<AreaRange> areaRangeAdapter;
+	public PopupAdapter<FromType> fromTypeAdapter;
+	private boolean initedMenu;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,48 +70,154 @@ public class RentHouseListActivity extends BaseHouseListActivity {
 	private void initView() {
 
 		setContentView(R.layout.activity_house_list);
-//		expandTabView = (ExpandTabView) findViewById(R.id.etv_secondary_house);
 		houseListLv = (ListView) findViewById(R.id.lv_seconary_house);
 		adapter = new SecondaryHouseAdapter(this);
 		houseListLv.setAdapter(adapter);
 		houseListLv.setOnItemClickListener(onItemClickListener);
-		tv_title_house_list = (TextView) findViewById(R.id.tv_title_house_list);
-		tv_title_house_list.setText("房屋出租");
-		// priceTab = new ViewLeft(this);
-		// viewRight = new ViewRight(this);
+		initAddrressPopMenu();
+		initPricePopMenu();
+		initAreaPopMenu();
+		initLayoutPopMenu();
+		initFromPopMenu();
 	}
 
-	private void initVaule() {
+	private void initAddrressPopMenu() {
 
-		mViewArray.add(addressTab);
-		mViewArray.add(priceTab);
-		mViewArray.add(viewRight);
-		ArrayList<String> mTextArray = new ArrayList<String>();
-		mTextArray.add("距离");
-		mTextArray.add("价格");
-		mTextArray.add("距离");
-		expandTabView.setValue(mTextArray, mViewArray);
+		pb_address_ahl = (PopupButton) findViewById(R.id.pb_address_ahl);
+		addressAdapter = new PopupAdapter<AddressRange>(getActivity(),
+				R.layout.popup_item, R.drawable.normal, R.drawable.press2);
+		subAddressAdapter = new PopupAdapter<AddressRange>(getActivity(),
+				R.layout.popup_item, R.drawable.normal, R.drawable.press);
+		View popView = getLayoutInflater().inflate(R.layout.popup2, null);
+		ListView pLv = (ListView) popView.findViewById(R.id.parent_lv);
+		final ListView cLv = (ListView) popView.findViewById(R.id.child_lv);
+		pLv.setAdapter(addressAdapter);
+		cLv.setAdapter(subAddressAdapter);
+		pb_address_ahl.setPopupView(popView);
+		pLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	            @Override
+	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	                addressAdapter.setPressPostion(position);
+	                addressAdapter.notifyDataSetChanged();
+	                AddressRange ar = addressAdapter.getItem(position);
+	                if(ar!=null) {
+		                subAddressAdapter.refresh(ar.subAddressList);
+	                } else {
+		                subAddressAdapter.refresh(null);
+	                }
+	                subAddressAdapter.notifyDataSetChanged();
+	                subAddressAdapter.setPressPostion(-1);
+	                cLv.setSelection(0);
+	            }
+	        });
+
+	        cLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	            @Override
+	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	            	subAddressAdapter.setPressPostion(position);
+	                subAddressAdapter.notifyDataSetChanged();
+	                pb_address_ahl.setText(subAddressAdapter.getItem(position).toString());
+	                pb_address_ahl.hidePopup(); 
+	                getData();
+	            }
+	        });
 	}
 	
+	
+	
+	private void initAreaPopMenu() {
+
+		pb_area_ahl = (PopupButton) findViewById(R.id.pb_area_ahl);
+		areaRangeAdapter = new PopupAdapter<AreaRange>(getActivity(),
+				R.layout.popup_item, R.drawable.normal, R.drawable.press);
+		initPopMenu(pb_area_ahl, areaRangeAdapter);
+	}
+	
+	private void initPricePopMenu() {
+
+		pb_price_ahl = (PopupButton) findViewById(R.id.pb_price_ahl);
+		priceRangeAdapter = new PopupAdapter<PriceRange>(getActivity(),
+				R.layout.popup_item, R.drawable.normal, R.drawable.press);
+		initPopMenu(pb_price_ahl, priceRangeAdapter);
+	}
+	
+
+	private void initLayoutPopMenu() {
+
+		pb_layout_ahl = (PopupButton) findViewById(R.id.pb_layout_ahl);
+		layoutRangeAdapter = new PopupAdapter<LayoutRange>(getActivity(),
+				R.layout.popup_item, R.drawable.normal, R.drawable.press);
+		initPopMenu(pb_layout_ahl, layoutRangeAdapter);
+	}
+	
+	private void initFromPopMenu() {
+
+		pb_from_ahl = (PopupButton) findViewById(R.id.pb_from_ahl);
+		fromTypeAdapter = new PopupAdapter<FromType>(getActivity(),
+				R.layout.popup_item, R.drawable.normal, R.drawable.press);
+		initPopMenu(pb_from_ahl, fromTypeAdapter);
+	}
+	
+	
+	private void initPopMenu(final PopupButton pb,final PopupAdapter<?> pbAdapter) {
+		
+		View areaView = getLayoutInflater().inflate(R.layout.popup, null);
+		ListView areaLv = (ListView) areaView.findViewById(R.id.popup_lv);
+		areaLv.setAdapter(pbAdapter);
+		pb.setPopupView(areaView);
+		areaLv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				pbAdapter.setPressPostion(position);
+				pbAdapter.notifyDataSetChanged();
+				pb.setText(pbAdapter.getItem(position).toString());
+				pb.hidePopup();
+				getData();
+			}
+		});
+	}
+	
+	
+
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			HouseItem houseItem = adapter.getItem(position);
-			Intent intent = new Intent(RentHouseListActivity.this, RentHouseDetailActivity.class);
-			intent.putExtra(RentHouseDetailActivity.INTENT_KEY_HOUSE_ID, houseItem.houseid);
+			Intent intent = new Intent(getActivity(),
+					SellerHouseDetailActivity.class);
+			intent.putExtra(SellerHouseDetailActivity.INTENT_KEY_HOUSE_ID,
+					houseItem.houseid);
 			startActivity(intent);
 		}
 	};
-	
+
 	private void getData() {
 
-		GetRentHouseListOut out = new GetRentHouseListOut();
-		out.actionRelation = "1";
+		GetSellerHoustListOut out = new GetSellerHoustListOut();
+		out.actionRelation = "2";
 		out.actionType = actionType;
-		RequestHelper.getInstance().getRequestEntity(RentHouseListActivity.this,
-				"http://www.5ijq.cn/App/House/getRentalHouseList", out,
+		if(subAddressAdapter.getSelectedItem()!=null) {
+			out.address = subAddressAdapter.getSelectedItem().aid;
+		}
+		if(priceRangeAdapter.getSelectedItem()!=null) {
+			out.price = priceRangeAdapter.getSelectedItem().id;
+		}
+		if(layoutRangeAdapter.getSelectedItem()!=null) {
+			out.layout = layoutRangeAdapter.getSelectedItem().id;
+		}
+		if(areaRangeAdapter.getSelectedItem()!=null) {
+			out.area = areaRangeAdapter.getSelectedItem().id;
+		}
+		if(fromTypeAdapter.getSelectedItem()!=null) {
+			out.from = fromTypeAdapter.getSelectedItem().id;
+		}
+		RequestHelper.getInstance().getRequestEntity(
+				getApplicationContext(),
+				UrlConstance.GET_RENT_HOUSE_LIST, out,
 				new Listener<String>() {
 
 					@Override
@@ -119,132 +233,31 @@ public class RentHouseListActivity extends BaseHouseListActivity {
 							// 请求数据失败
 							return;
 						}
-						initMenu(info.data);
+						if(!initedMenu) {
+							initMenu(info.data);
+							initedMenu = true;
+						}
 						adapter.refresh(info.data.houseList);
 					}
 				});
 	}
 
 	private void initMenu(GetSellHouseListData data) {
-		
-		if(data == null){
+
+		if (data == null) {
 			return;
 		}
-		
-		ArrayList<String> mTextArray = new ArrayList<String>();
-		if ( data.addressList != null
-				&& !data.addressList.isEmpty()) {
-			ArrayList<String> label = new ArrayList<String>();
-			for (AddressRange temp : data.addressList) {
-				label.add(temp.addressName);
-			}
-			addressTab = new ViewLeft(this, label, data.addressList);
-			mTextArray.add("区域");
-			mViewArray.add(addressTab);
+		addressAdapter.refresh(data.addressList);
+		if(data.addressList!=null && !data.addressList.isEmpty()) {
+			addressAdapter.setPressPostion(0);
+			subAddressAdapter.refresh(data.addressList.get(0).subAddressList);
 		}
-		
-		if ( data.priceRangeList != null
-				&& !data.priceRangeList.isEmpty()) {
-			ArrayList<String> label = new ArrayList<String>();
-			for (PriceRange temp : data.priceRangeList) {
-				label.add(temp.priceRange);
-			}
-			priceTab = new ViewLeft(this, label, data.priceRangeList);
-			mTextArray.add("总价");
-			mViewArray.add(priceTab);
-		}
-		
-		if ( data.houseLayoutRangeList != null
-				&& !data.houseLayoutRangeList.isEmpty()) {
-			ArrayList<String> label = new ArrayList<String>();
-			for (LayoutRange temp : data.houseLayoutRangeList) {
-				label.add(temp.layoutRange);
-			}
-			layoutTab = new ViewLeft(this, label, data.houseLayoutRangeList);
-			mTextArray.add("厅室");
-			mViewArray.add(layoutTab);
-		}
-		
-		if ( data.areaRangeList != null
-				&& !data.areaRangeList.isEmpty()) {
-			ArrayList<String> label = new ArrayList<String>();
-			for (AreaRange temp : data.areaRangeList) {
-				label.add(temp.areaRange);
-			}
-			areaTab = new ViewLeft(this, label, data.areaRangeList);
-			mTextArray.add("面积");
-			mViewArray.add(areaTab);
-		}
-		
-		if ( data.fromTypeList != null
-				&& !data.fromTypeList.isEmpty()) {
-			ArrayList<String> label = new ArrayList<String>();
-			for (FromType temp : data.fromTypeList) {
-				label.add(temp.fromType);
-			}
-			fromTypeTab = new ViewLeft(this, label, data.fromTypeList);
-			mTextArray.add("来源");
-			mViewArray.add(fromTypeTab);
-		}
-		
-		expandTabView.setValue(mTextArray, mViewArray);
-
-		
-		initListener();
-
+		areaRangeAdapter.refresh(data.areaRangeList);
+		priceRangeAdapter.refresh(data.priceRangeList);
+		layoutRangeAdapter.refresh(data.houseLayoutRangeList);
+		fromTypeAdapter.refresh(data.fromTypeList);
 	}
 
-	private void initListener() {
 
-		if (addressTab != null) {
-			addressTab.setOnSelectListener(new ViewLeft.OnSelectListener() {
-
-				@Override
-				public void getValue(Object obj) {
-					AddressRange aa = (AddressRange) obj;
-					onRefresh(addressTab, aa.addressName);
-				}
-			});
-		}
-
-		// viewRight.setOnSelectListener(new ViewRight.OnSelectListener() {
-		//
-		// @Override
-		// public void getValue(String distance, String showText) {
-		// onRefresh(viewRight, showText);
-		// }
-		// });
-		//
-	}
-
-	private void onRefresh(View view, String showText) {
-
-		expandTabView.onPressBack();
-		int position = getPositon(view);
-		if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
-			expandTabView.setTitle(showText, position);
-		}
-		Toast.makeText(RentHouseListActivity.this, showText,
-				Toast.LENGTH_SHORT).show();
-
-	}
-
-	private int getPositon(View tView) {
-		for (int i = 0; i < mViewArray.size(); i++) {
-			if (mViewArray.get(i) == tView) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	@Override
-	public void onBackPressed() {
-
-		if (!expandTabView.onPressBack()) {
-			finish();
-		}
-
-	}
 
 }

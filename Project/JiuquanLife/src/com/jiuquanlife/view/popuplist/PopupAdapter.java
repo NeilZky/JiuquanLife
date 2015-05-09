@@ -86,4 +86,13 @@ public class PopupAdapter <T> extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+	
+	public T getSelectedItem() {
+		
+		if(selection!=-1) {
+			return getItem(selection);
+		}
+		return null;
+	}
+	
 }
