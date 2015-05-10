@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.jiuquanlife"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -13,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="8dp"
-            android:text="红叶论坛"
+            android:text="红柳论坛"
             android:textSize="17sp" />
          <Button
             android:layout_width="wrap_content"
@@ -27,23 +28,23 @@
 
     <include layout="@layout/divider" />
 
-    <com.jiuquanlife.view.MyScrollView
+     <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/pts_forum"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        app:pstsShouldExpand="true"
+		app:pstsIndicatorColor="@color/blue_bg"    
+		app:pstsIndicatorHeight="3dp"    
+		app:pstsUnderlineHeight="1px"
+		app:pstsDividerColor="#00000000"
+		app:pstsTextDefalutColor="@android:color/black"
+		app:pstsTextSelectedColor="@color/blue_bg"	
+		app:pstsTextSize="16sp"	
+        android:layout_height="35dip" 
+        android:background="@android:color/white"
+        />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-            
-            
-              <android.support.v4.view.ViewPager
-                    android:id="@+id/forum_viewpagers"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/blue" />
-            
-        </LinearLayout>
-    </com.jiuquanlife.view.MyScrollView>
-
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_forum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

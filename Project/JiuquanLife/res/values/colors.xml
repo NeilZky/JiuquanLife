@@ -2,7 +2,8 @@
 <resources>
 
     <drawable name="blank">#00000000</drawable>
-
+    <color name="background_tab_pressed">#6633B5E5</color>
+    
     <color name="unwhite">#ffffff</color>
     <color name="FlightCXListInfoActivityBg">#DCDCDC</color>
     <color name="popup_char_color">#99ff00ff</color>

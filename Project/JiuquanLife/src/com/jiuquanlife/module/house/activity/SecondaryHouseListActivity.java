@@ -94,7 +94,7 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 			url = UrlConstance.GET_APPLY_RENT_HOUSE_LIST;
 			pb_layout_ahl.setVisibility(View.GONE);
 			pb_area_ahl.setVisibility(View.GONE);
-			tv_title_house_list.setText("求组");
+			tv_title_house_list.setText("求租");
 		} else if(ActionRelationConstance.APPLY_BUY.equals(actionRelation)) {
 			url = UrlConstance.GET_APPLY_BUY_HOUSE_LIST;
 			tv_title_house_list.setText("求购");

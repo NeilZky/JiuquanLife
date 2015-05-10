@@ -6,32 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jiuquanlife.R;
-import com.jiuquanlife.module.base.BaseFragment;
 
-public class MainForumFragment extends BaseFragment {
-
+public class NewForumFragment extends ForumBaseFragment{
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-		View content = inflater.inflate(R.layout.fragment_forum, null);
+		
+		View content = inflater.inflate(R.layout.fragment_forum_new, null);
 		setContent(content);
 		init();
 		return content;
 	}
 
 	private void init() {
-
+		
 		initViews();
-		initData();
 	}
 
 	private void initViews() {
-
+		
 	}
-
-	private void initData() {
-
-	}
-
 }
