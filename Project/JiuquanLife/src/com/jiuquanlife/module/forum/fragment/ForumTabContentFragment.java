@@ -41,7 +41,7 @@ public class ForumTabContentFragment extends BaseFragment {
 		NewForumFragment newForumFragment = new NewForumFragment();
 		newForumFragment.setTitle(getActivity().getString(R.string.title_forum_new));
 		
-		NewForumFragment essenceForumFragment = new NewForumFragment();
+		EssenceForumFragment essenceForumFragment = new EssenceForumFragment();
 		essenceForumFragment.setTitle(getActivity().getString(R.string.title_forum_essence));
 		
 		fragments.add(plateForumFragment);

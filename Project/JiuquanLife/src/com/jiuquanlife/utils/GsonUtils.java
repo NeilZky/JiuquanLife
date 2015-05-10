@@ -33,4 +33,14 @@ public class GsonUtils {
 		return null;	
 	}
 	
+	public static <T> T toObj(String json, Type type) {
+		
+		try {
+			return gson.fromJson(json, type);
+		} catch (JsonSyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

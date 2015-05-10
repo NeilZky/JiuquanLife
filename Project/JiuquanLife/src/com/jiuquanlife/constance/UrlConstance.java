@@ -12,6 +12,14 @@ public class UrlConstance {
 	public static final String GET_RENT_HOUSE_LIST = "http://www.5ijq.cn/App/House/getRentalHouseList";//出租列表
 	public static final String GET_SELL_HOUSE_LIST = "http://www.5ijq.cn/App/House/getSellHouseList";//出租列表
 	public static final String GET_APPLY_RENT_HOUSE_LIST = "http://www.5ijq.cn/App/House/getWantedRentalHouseList";//出租列表
-	public static final String GET_APPLY_BUY_HOUSE_LIST = "http://www.5ijq.cn/App/House/getWantedByHouseList ";//出租列表
-
+	public static final String GET_APPLY_BUY_HOUSE_LIST = "http://www.5ijq.cn/App/House/getWantedByHouseList";//出租列表
+	
+	/*
+	 * ---------------------
+	 * 	论坛
+	 * ---------------------
+	 */
+	public static final String GET_NEW_FORUM_LIST = "http://www.5ijq.cn/App/Index/getNewList";//论坛新帖列表
+	public static final String GET_ESSENCE_FORUM_LIST = "http://www.5ijq.cn/App/Index/getDigestList";//论坛精华列表
+	
 }

@@ -7,9 +7,13 @@ public class BaseFragment extends Fragment{
 	
 	private View content;
 	
-	public void setContent(View content) {
+	protected void setContent(View content) {
 		
 		this.content = content;
+	}
+	
+	protected View getContent(){
+		return content;
 	}
 	
 	public View findViewById(int id) {
