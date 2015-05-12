@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.constance.ActionRelationConstance;
 import com.jiuquanlife.module.base.BaseActivity;
 
 public class PublishHouseActivity extends BaseActivity{
@@ -35,6 +38,10 @@ public class PublishHouseActivity extends BaseActivity{
 		sellMenuLl = (LinearLayout) findViewById(R.id.ll_menu_sell_house);
 		applyRentMenuLl = (LinearLayout) findViewById(R.id.ll_menu_apply_rent_house);
 		buyMenuLl = (LinearLayout) findViewById(R.id.ll_menu_buy_house);
+		initExpandBtns(R.id.ll_menu_sell_house, ActionRelationConstance.SELL);
+		initExpandBtns(R.id.ll_menu_rent_house,  ActionRelationConstance.RENT);
+		initExpandBtns(R.id.ll_menu_apply_rent_house,  ActionRelationConstance.APPLY_RENT);
+		initExpandBtns(R.id.ll_menu_buy_house,  ActionRelationConstance.APPLY_BUY);
 	}
 	
 	public void onClick(View v) {
@@ -52,19 +59,43 @@ public class PublishHouseActivity extends BaseActivity{
 		case R.id.ll_buy_house:
 			showSenconaryMenu(buyMenuLl);
 			break;
-		case R.id.btn_sell_secondary_house:
-			onClickSellSecondaryHouse();
-			break;
 		default:
 			break;
 		}
 	}
 	
-	private void onClickSellSecondaryHouse() {
+	private void initExpandBtns(int menuResId, String actionRelation) {
+		ViewGroup viewGroup = (ViewGroup) findViewById(menuResId);
+		int count = viewGroup.getChildCount();
+		for(int i =0 ; i<count ; i++) {
+			View ll = viewGroup.getChildAt(i);
+			if(ll instanceof LinearLayout) {
+				initExpandBtns((ViewGroup)ll, actionRelation);
+			}
+		}
+	}
+	
+	private void initExpandBtns(ViewGroup viewGroup, final String actionRelation) {
 		
-		Intent intent = new Intent(this, PublishSecondaryHouseActivity.class);
-		startActivity(intent);
-		
+		int count = viewGroup.getChildCount();
+		for(int i =0 ; i<count ; i++) {
+			View btn = viewGroup.getChildAt(i);
+			if(btn instanceof Button) {
+				btn.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						
+						TextView tv = (TextView) v; 
+						String text = tv.getText().toString().trim();
+						Intent intent = new Intent(getActivity(), PublishSecondaryHouseActivity.class);
+						intent.putExtra(PublishSecondaryHouseActivity.EXTRA_ACTION_TYPE, text);
+						intent.putExtra(PublishSecondaryHouseActivity.EXTRA_ACTION_RELATION, actionRelation);
+						startActivity(intent);					
+						}
+				});
+			}
+		}
 	}
 
 	private void showSenconaryMenu(View view) {

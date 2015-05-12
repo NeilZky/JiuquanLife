@@ -147,7 +147,35 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:background="@null"
-                        android:hint="请选择区域"
+                        android:hint="请选择小区"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <include layout="@layout/divider_ver" />
+
+                <LinearLayout
+                    android:id="@+id/ll_content_address_detail_aps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClick"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="详细地址"
+                        android:textSize="14sp" />
+
+                    <include layout="@layout/divider_hor" />
+
+                    <EditText
+                        android:id="@+id/tv_address_detail_aps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:hint="请填写详细地址"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -160,88 +188,307 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:id="@+id/ll_layout_aps"
+                    android:id="@+id/ll_content_layout_aps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
+                    android:orientation="vertical" >
 
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="户    型"
-                        android:textSize="14sp" />
-
-                    <include layout="@layout/divider_hor" />
-
-                    <TextView
-                        android:id="@+id/tv_select_layout_aps"
+                    <LinearLayout
+                        android:id="@+id/ll_layout_aps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="@null"
-                        android:hint="请选择户型"
-                        android:textSize="14sp" />
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="户    型"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <TextView
+                            android:id="@+id/tv_select_layout_aps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:hint="请选择户型"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
                 </LinearLayout>
 
-                <include layout="@layout/divider_ver" />
-
                 <LinearLayout
-                    android:id="@+id/ll_floor_aps"
+                    android:id="@+id/ll_content_floor_aps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
+                    android:orientation="vertical" >
 
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="楼    层"
-                        android:textSize="14sp" />
-
-                    <include layout="@layout/divider_hor" />
-
-                    <TextView
-                        android:id="@+id/tv_select_floor_aps"
+                    <LinearLayout
+                        android:id="@+id/ll_floor_aps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="@null"
-                        android:hint="请选择楼层"
-                        android:textSize="14sp" />
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="楼    层"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <TextView
+                            android:id="@+id/tv_select_floor_aps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:hint="请选择楼层"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
                 </LinearLayout>
 
-                <include layout="@layout/divider_ver" />
-
                 <LinearLayout
-                    android:id="@+id/ll_all_floor_aps"
+                    android:id="@+id/ll_content_all_floor_aps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
+                    android:orientation="vertical" >
 
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="总 楼 层"
-                        android:textSize="14sp" />
-
-                    <include layout="@layout/divider_hor" />
-
-                    <TextView
-                        android:id="@+id/tv_all_floor_aps"
+                    <LinearLayout
+                        android:id="@+id/ll_all_floor_aps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="@null"
-                        android:hint="请选择总楼层"
-                        android:textSize="14sp" />
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="总 楼 层"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <TextView
+                            android:id="@+id/tv_all_floor_aps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:hint="请选择总楼层"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
                 </LinearLayout>
 
-                <include layout="@layout/divider_ver" />
+                <LinearLayout
+                    android:id="@+id/ll_content_area_aps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="面    积"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <EditText
+                            android:id="@+id/et_area_aps"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:text="平米"
+                            android:textColor="@color/gray_light" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_content_rent_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="租    金"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <EditText
+                            android:id="@+id/et_rent_price_aps"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:text="元"
+                            android:textColor="@color/gray_light" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_content_apply_rent_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="期望租金"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <EditText
+                            android:id="@+id/et_apply_rent_price_low_aps"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:text="-"
+                            android:textColor="@color/gray_light" />
+ 						<EditText
+                            android:id="@+id/et_apply_rent_price_high_aps"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:text="元"
+                            android:textColor="@color/gray_light" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_content_apply_buy_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="期望售价"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <EditText
+                            android:id="@+id/et_apply_buy_price_low_aps"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                          <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:text="-"
+                            android:textColor="@color/gray_light" />
+                              <EditText
+                            android:id="@+id/et_apply_buy_price_high_aps"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:text="万元"
+                            android:textColor="@color/gray_light" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_content_sell_aps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_grey_borderl"
+                android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -250,40 +497,7 @@
                     android:padding="10dp" >
 
                     <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="面    积"
-                        android:textSize="14sp" />
-
-                    <include layout="@layout/divider_hor" />
-
-                    <EditText
-                        android:id="@+id/et_area_aps"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:inputType="number"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="40dp"
-                        android:text="平米"
-                        android:textColor="@color/gray_light" />
-                </LinearLayout>
-
-                <include layout="@layout/divider_ver" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
-
-                    <TextView
+                        android:id="@+id/tv_label_house_price"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="售    价"
@@ -312,96 +526,103 @@
                 <include layout="@layout/divider_ver" />
 
                 <LinearLayout
+                    android:id="@+id/ll_content_loan_aps"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
-
-                    <CheckBox
-                        android:id="@+id/cb_is_loan_aps"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="支持贷款" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_pay_content"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <CheckBox
+                            android:id="@+id/cb_is_loan_aps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="支持贷款" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_pay_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical" >
 
-                        <include layout="@layout/divider_ver" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="10dp" >
+                            android:orientation="vertical" >
 
-                            <TextView
-                                android:layout_width="60dp"
+                            <include layout="@layout/divider_ver" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="首    付"
-                                android:textSize="14sp" />
+                                android:orientation="horizontal"
+                                android:padding="10dp" >
 
-                            <include layout="@layout/divider_hor" />
+                                <TextView
+                                    android:layout_width="60dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="首    付"
+                                    android:textSize="14sp" />
 
-                            <EditText
-                                android:id="@+id/et_first_pay_aps"
-                                android:layout_width="0dp"
+                                <include layout="@layout/divider_hor" />
+
+                                <EditText
+                                    android:id="@+id/et_first_pay_aps"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@null"
+                                    android:inputType="number"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="40dp"
+                                    android:text="万元"
+                                    android:textColor="@color/gray_light" />
+                            </LinearLayout>
+
+                            <include layout="@layout/divider_ver" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:background="@null"
-                                android:inputType="number"
-                                android:textSize="14sp" />
+                                android:orientation="horizontal"
+                                android:padding="10dp" >
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="40dp"
-                                android:text="万元"
-                                android:textColor="@color/gray_light" />
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="60dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="月    供"
+                                    android:textSize="14sp" />
 
-                        <include layout="@layout/divider_ver" />
+                                <include layout="@layout/divider_hor" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="10dp" >
+                                <EditText
+                                    android:id="@+id/et_month_pay_aps"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@null"
+                                    android:inputType="number"
+                                    android:textSize="14sp" />
 
-                            <TextView
-                                android:layout_width="60dp"
-                                android:layout_height="wrap_content"
-                                android:text="月    供"
-                                android:textSize="14sp" />
-
-                            <include layout="@layout/divider_hor" />
-
-                            <EditText
-                                android:id="@+id/et_month_pay_aps"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:background="@null"
-                                android:inputType="number"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="40dp"
-                                android:text="元"
-                                android:textColor="@color/gray_light" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="40dp"
+                                    android:text="元"
+                                    android:textColor="@color/gray_light" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -415,88 +636,39 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:id="@+id/ll_select_fit_aps"
+                    android:id="@+id/ll_content_fit_aps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
+                    android:orientation="vertical" >
 
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="装    修"
-                        android:textSize="14sp" />
-
-                    <include layout="@layout/divider_hor" />
-
-                    <TextView
-                        android:id="@+id/tv_select_decorate"
+                    <LinearLayout
+                        android:id="@+id/ll_select_fit_aps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="@null"
-                        android:hint="请选择装修"
-                        android:textSize="14sp" />
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="装    修"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <TextView
+                            android:id="@+id/tv_select_decorate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:hint="请选择装修"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
                 </LinearLayout>
-
-                <include layout="@layout/divider_ver" />
-				
-                 <LinearLayout
-                    android:id="@+id/ll_select_towards_aps"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="朝    向"
-                        android:textSize="14sp" />
-
-                    <include layout="@layout/divider_hor" />
-
-                    <TextView
-                        android:id="@+id/tv_towards_aps"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="@null"
-                        android:hint="请选择朝向"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <include layout="@layout/divider_ver" />
-                
-                <LinearLayout
-                    android:id="@+id/ll_proper_long_aps"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:text="产    权"
-                        android:textSize="14sp" />
-
-                    <include layout="@layout/divider_hor" />
-
-                    <TextView
-                        android:id="@+id/tv_proper_long_aps"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="@null"
-                        android:hint="请选择产权"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <include layout="@layout/divider_ver" />
 
                 <LinearLayout
                     android:id="@+id/ll_select_type_aps"
@@ -523,11 +695,11 @@
                         android:hint="请选择类型"
                         android:textSize="14sp" />
                 </LinearLayout>
-                
+
                 <include layout="@layout/divider_ver" />
 
                 <LinearLayout
-                    android:id="@+id/ll_proper_type_aps"
+                    android:id="@+id/ll_select_towards_aps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
@@ -537,21 +709,112 @@
                     <TextView
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:text="产权性质"
+                        android:text="朝    向"
                         android:textSize="14sp" />
 
                     <include layout="@layout/divider_hor" />
 
                     <TextView
-                        android:id="@+id/tv_proper_type_aps"
+                        android:id="@+id/tv_towards_aps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:background="@null"
-                        android:hint="请选择类型"
+                        android:hint="请选择朝向"
                         android:textSize="14sp" />
                 </LinearLayout>
-                
+
+                <include layout="@layout/divider_ver" />
+
+                <LinearLayout
+                    android:id="@+id/ll_content_proper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:id="@+id/ll_proper_long_aps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="产    权"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <TextView
+                            android:id="@+id/tv_proper_long_aps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:hint="请选择产权"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_building_create_time_aps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="建筑年代"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <EditText
+                            android:id="@+id/et_building_time_aps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:hint="请输入建筑年代"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divider_ver" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_proper_type_aps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:padding="10dp" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="产权性质"
+                            android:textSize="14sp" />
+
+                        <include layout="@layout/divider_hor" />
+
+                        <TextView
+                            android:id="@+id/tv_proper_type_aps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:hint="请选择类型"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

@@ -30,6 +30,8 @@ import android.widget.TextView;
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.PhotoAdapter;
+import com.jiuquanlife.constance.ActionRelationConstance;
+import com.jiuquanlife.constance.ActionTypeConstance;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.entity.Photo;
@@ -57,7 +59,10 @@ import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
 
 public class PublishSecondaryHouseActivity extends BaseActivity {
-
+	
+	public static final String EXTRA_ACTION_TYPE = "EXTRA_ACTION_TYPE";
+	public static final String EXTRA_ACTION_RELATION = "EXTRA_ACTION_RELATION";
+	
 	private static final int REQUEST_CODE_CAMERA = 1;
 	protected static final int REQUEST_SELECT_PHOTOS = 2;
 	protected static final int REQUEST_SELECT_AREA = 3;
@@ -76,6 +81,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private TextView tv_proper_long_aps;
 	private TextView tv_proper_type_aps;
 	private TextView tv_towards_aps;
+	private TextView tv_label_house_price;
 	private EditText et_price_aps;
 	private EditText et_first_pay_aps;
 	private EditText et_month_pay_aps;
@@ -97,7 +103,9 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private EditText et_qq_aps;
 	private RadioButton rb_agent_aps;
 	private String token;
-
+	private String actionRelation;
+	private String actionType;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -108,9 +116,97 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private void init() {
 
 		initViews();
+		initActionType();
+		initInputFields();
 		getData();
 	}
 
+	private void initInputFields() {
+
+		actionRelation = getIntent().getStringExtra(EXTRA_ACTION_RELATION);
+		if(ActionRelationConstance.RENT.equals(actionRelation)) {
+			
+			hideView(R.id.ll_content_sell_aps);
+			hideView(R.id.ll_content_apply_rent_price);
+			hideView(R.id.ll_content_apply_buy_price);
+			
+		}
+		if(ActionRelationConstance.SELL.equals(actionRelation)) {
+			
+			hideView(R.id.ll_content_rent_price);
+			hideView(R.id.ll_content_apply_rent_price);
+			hideView(R.id.ll_content_apply_buy_price);
+		}
+		
+		if(ActionRelationConstance.APPLY_RENT.equals(actionRelation)) {
+			
+			hideView(R.id.ll_community_aps);
+			hideView(R.id.ll_content_address_detail_aps);
+			hideView(R.id.ll_content_area_aps);
+			hideView(R.id.ll_content_fit_aps);
+			hideView(R.id.ll_content_floor_aps);
+			hideView(R.id.ll_content_all_floor_aps);
+			hideView(R.id.ll_content_sell_aps);
+			hideView(R.id.ll_content_rent_price);
+			hideView(R.id.ll_content_apply_buy_price);
+
+
+		}
+		
+		if(ActionRelationConstance.APPLY_BUY.equals(actionRelation)) {
+			
+			hideView(R.id.ll_community_aps);
+			hideView(R.id.ll_content_address_detail_aps);
+			hideView(R.id.ll_content_area_aps);
+			hideView(R.id.ll_content_fit_aps);
+			hideView(R.id.ll_content_floor_aps);
+			hideView(R.id.ll_content_all_floor_aps);
+			hideView(R.id.ll_content_sell_aps);
+			hideView(R.id.ll_content_rent_price);
+			hideView(R.id.ll_content_apply_rent_price);
+		}
+		
+		
+		
+		
+		
+		
+		
+		if(ActionTypeConstance.FACTORY.equals(actionType)||ActionTypeConstance.STORE.equals(actionType)) {
+			hideView(R.id.ll_content_layout_aps);
+			hideView(R.id.ll_content_floor_aps);
+			hideView(R.id.ll_content_all_floor_aps);
+			hideView(R.id.ll_content_loan_aps);
+			hideView(R.id.ll_content_proper);
+
+		}
+		
+	
+	}
+	
+	protected void initActionType() {
+		
+		String btnText = getIntent().getStringExtra(EXTRA_ACTION_TYPE);
+		if("二手房".equals(btnText)) {
+			actionType = "1";
+		} else if("整套".equals(btnText)) {
+			actionType = "2";
+		} else if("单间".equals(btnText)) {
+			actionType = "3";
+		} else if("床位".equals(btnText)) {
+			actionType = "4";
+		} else if("商铺".equals(btnText)) {
+			actionType = "5";
+		} else if("厂房/仓库/土地/车位".equals(btnText)) {
+			actionType = "6";
+		} 
+	}
+	
+	private void hideView(int resId) {
+		
+		findViewById(resId).setVisibility(View.GONE);
+	}
+	
 	private void initViews() {
 
 		setContentView(R.layout.activity_publish_secondary);
@@ -139,6 +235,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		et_contactor_aps = (EditText) findViewById(R.id.et_contactor_aps);
 		et_contact_phone_aps = (EditText) findViewById(R.id.et_contact_phone_aps);
 		et_qq_aps = (EditText) findViewById(R.id.et_qq_aps);
+		tv_label_house_price = (TextView) findViewById(R.id.tv_label_house_price);
 		photoAdapter = new PhotoAdapter(this);
 		photoAdapter.setLlv(llv_photo_aps);
 		llv_photo_aps.setAdapter(photoAdapter);
@@ -341,8 +438,8 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		
 		NewHouse newHouse = new NewHouse();
 		newHouse.uid = String.valueOf(SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class).uid);
-		newHouse.actionRelation = "2";
-		newHouse.actionType = "1";
+		newHouse.actionRelation = actionRelation;
+		newHouse.actionType = actionType;
 		newHouse.devices = "2";
 		newHouse.token= token;
 		newHouse.houseType = ((CommonType)houseTypeDialog.getCheckedItem()).id;
