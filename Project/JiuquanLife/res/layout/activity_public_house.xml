@@ -28,27 +28,6 @@
             android:text="发布"
             android:textSize="17sp" />
 
-        <Button
-            android:id="@+id/btn_create_ashd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_create_new"
-            android:minHeight="0dp"
-            android:minWidth="0dp" />
-
-        <ImageView
-            android:id="@+id/btn_search_ashd"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/btn_create_ashd"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:src="@drawable/icn_search" />
     </RelativeLayout>
     
     <include layout="@layout/divider_ver"/>

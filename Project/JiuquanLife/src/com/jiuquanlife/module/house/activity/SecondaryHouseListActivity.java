@@ -100,7 +100,7 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 			tv_title_house_list.setText("Çó¹º");
 		}
 	}
-
+	
 	private void initAddrressPopMenu() {
 
 		pb_address_ahl = (PopupButton) findViewById(R.id.pb_address_ahl);
@@ -277,6 +277,22 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 		layoutRangeAdapter.refresh(data.houseLayoutRangeList);
 		fromTypeAdapter.refresh(data.fromTypeList);
 	}
+	
+	public void onClick(View v) {
+		
+		switch (v.getId()) {
+		case R.id.btn_back:
+			onClickBack();
+			break;
+		default:
+			break;
+		}
+		
+	}
 
+	private void onClickBack() {
+		
+		finish();
+	}
 
 }

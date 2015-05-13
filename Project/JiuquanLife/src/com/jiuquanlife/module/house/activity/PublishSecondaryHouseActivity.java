@@ -59,10 +59,10 @@ import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
 
 public class PublishSecondaryHouseActivity extends BaseActivity {
-	
+
 	public static final String EXTRA_ACTION_TYPE = "EXTRA_ACTION_TYPE";
 	public static final String EXTRA_ACTION_RELATION = "EXTRA_ACTION_RELATION";
-	
+
 	private static final int REQUEST_CODE_CAMERA = 1;
 	protected static final int REQUEST_SELECT_PHOTOS = 2;
 	protected static final int REQUEST_SELECT_AREA = 3;
@@ -78,16 +78,25 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private TextView tv_all_floor_aps;
 	private TextView tv_select_decorate;
 	private TextView tv_type_aps;
+	private TextView tv_sex_aps;
+	private TextView tv_room_aps;
+	private TextView tv_pay_type_aps;
 	private TextView tv_proper_long_aps;
 	private TextView tv_proper_type_aps;
 	private TextView tv_towards_aps;
 	private TextView tv_label_house_price;
+	private TextView tv_publish_title;
 	private EditText et_price_aps;
 	private EditText et_first_pay_aps;
 	private EditText et_month_pay_aps;
 	private EditText et_title_aps;
 	private EditText et_intro_aps;
 	private EditText et_area_aps;
+	private EditText et_building_time_aps;
+	private EditText et_apply_rent_price_low_aps;
+	private EditText et_apply_rent_price_high_aps;
+	private EditText et_apply_buy_price_high_aps;
+	private EditText et_apply_buy_price_low_aps;
 	private LinearLayout ll_pay_content;
 	private CheckBox cb_is_loan_aps;
 	private ArrayList<AddressRange> addressList;
@@ -95,6 +104,9 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private ArrayList<CommonType> houseTypeList;
 	private ArrayList<CommonType> houseFitList;
 	private ArrayList<CommonType> properLongList;
+	public ArrayList<CommonType> roomList;
+	public ArrayList<CommonType> payTypeList;
+	public ArrayList<CommonType> sexLimitList;
 	private AddressRange subAddressRange;
 	private AddressRange fatherAddressRange;
 	private Community community;
@@ -105,7 +117,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private String token;
 	private String actionRelation;
 	private String actionType;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -124,22 +136,24 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private void initInputFields() {
 
 		actionRelation = getIntent().getStringExtra(EXTRA_ACTION_RELATION);
-		if(ActionRelationConstance.RENT.equals(actionRelation)) {
-			
+		if (ActionRelationConstance.RENT.equals(actionRelation)) {
+
 			hideView(R.id.ll_content_sell_aps);
 			hideView(R.id.ll_content_apply_rent_price);
 			hideView(R.id.ll_content_apply_buy_price);
-			
+			tv_publish_title.setText("出租");
 		}
-		if(ActionRelationConstance.SELL.equals(actionRelation)) {
-			
+		if (ActionRelationConstance.SELL.equals(actionRelation)) {
+
 			hideView(R.id.ll_content_rent_price);
 			hideView(R.id.ll_content_apply_rent_price);
 			hideView(R.id.ll_content_apply_buy_price);
+			hideView(R.id.ll_content_pay_type);
+			tv_publish_title.setText("出售");
 		}
-		
-		if(ActionRelationConstance.APPLY_RENT.equals(actionRelation)) {
-			
+
+		if (ActionRelationConstance.APPLY_RENT.equals(actionRelation)) {
+
 			hideView(R.id.ll_community_aps);
 			hideView(R.id.ll_content_address_detail_aps);
 			hideView(R.id.ll_content_area_aps);
@@ -149,12 +163,11 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			hideView(R.id.ll_content_sell_aps);
 			hideView(R.id.ll_content_rent_price);
 			hideView(R.id.ll_content_apply_buy_price);
-
-
+			tv_publish_title.setText("求租");
 		}
-		
-		if(ActionRelationConstance.APPLY_BUY.equals(actionRelation)) {
-			
+
+		if (ActionRelationConstance.APPLY_BUY.equals(actionRelation)) {
+
 			hideView(R.id.ll_community_aps);
 			hideView(R.id.ll_content_address_detail_aps);
 			hideView(R.id.ll_content_area_aps);
@@ -164,49 +177,64 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			hideView(R.id.ll_content_sell_aps);
 			hideView(R.id.ll_content_rent_price);
 			hideView(R.id.ll_content_apply_rent_price);
+			hideView(R.id.ll_content_pay_type);
+			tv_publish_title.setText("求购");
 		}
-		
-		
-		
-		
-		
-		
-		
-		if(ActionTypeConstance.FACTORY.equals(actionType)||ActionTypeConstance.STORE.equals(actionType)) {
+
+		if (ActionTypeConstance.FACTORY.equals(actionType)
+				|| ActionTypeConstance.STORE.equals(actionType)) {
 			hideView(R.id.ll_content_layout_aps);
 			hideView(R.id.ll_content_floor_aps);
 			hideView(R.id.ll_content_all_floor_aps);
+		}
+
+		if (ActionTypeConstance.ROOM.equals(actionType)
+				|| ActionTypeConstance.BED.equals(actionType)) {
+			showView(R.id.ll_content_room_aps);
+			showView(R.id.ll_content_sex_aps);
+		} else {
+			hideView(R.id.ll_content_room_aps);
+			hideView(R.id.ll_content_sex_aps);
+		}
+
+		if (ActionTypeConstance.SECONDARY.equals(actionType)) {
+			showView(R.id.ll_content_loan_aps);
+			showView(R.id.ll_content_proper);
+		} else {
 			hideView(R.id.ll_content_loan_aps);
 			hideView(R.id.ll_content_proper);
 
 		}
-		
-	
 	}
-	
+
 	protected void initActionType() {
-		
+
 		String btnText = getIntent().getStringExtra(EXTRA_ACTION_TYPE);
-		if("二手房".equals(btnText)) {
+		if ("二手房".equals(btnText)) {
 			actionType = "1";
-		} else if("整套".equals(btnText)) {
+		} else if ("整套".equals(btnText)) {
 			actionType = "2";
-		} else if("单间".equals(btnText)) {
+		} else if ("单间".equals(btnText)) {
 			actionType = "3";
-		} else if("床位".equals(btnText)) {
+		} else if ("床位".equals(btnText)) {
 			actionType = "4";
-		} else if("商铺".equals(btnText)) {
+		} else if ("商铺".equals(btnText)) {
 			actionType = "5";
-		} else if("厂房/仓库/土地/车位".equals(btnText)) {
+		} else if ("厂房/仓库/土地/车位".equals(btnText)) {
 			actionType = "6";
-		} 
+		}
 	}
-	
+
 	private void hideView(int resId) {
-		
+
 		findViewById(resId).setVisibility(View.GONE);
 	}
-	
+
+	private void showView(int resId) {
+
+		findViewById(resId).setVisibility(View.VISIBLE);
+	}
+
 	private void initViews() {
 
 		setContentView(R.layout.activity_publish_secondary);
@@ -236,25 +264,35 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		et_contact_phone_aps = (EditText) findViewById(R.id.et_contact_phone_aps);
 		et_qq_aps = (EditText) findViewById(R.id.et_qq_aps);
 		tv_label_house_price = (TextView) findViewById(R.id.tv_label_house_price);
+		tv_sex_aps = (TextView) findViewById(R.id.tv_sex_aps);
+		tv_room_aps = (TextView) findViewById(R.id.tv_room_aps);
+		tv_pay_type_aps = (TextView) findViewById(R.id.tv_pay_type_aps);
+		tv_publish_title = (TextView) findViewById(R.id.tv_publish_title);
+		et_building_time_aps = (EditText) findViewById(R.id.et_building_time_aps);
+		et_apply_rent_price_low_aps = (EditText) findViewById(R.id.et_apply_rent_price_low_aps);
+		et_apply_rent_price_high_aps = (EditText) findViewById(R.id.et_apply_rent_price_high_aps);
+		et_apply_buy_price_low_aps = (EditText) findViewById(R.id.et_apply_buy_price_low_aps);
+		et_apply_buy_price_high_aps = (EditText) findViewById(R.id.et_apply_buy_price_high_aps);
 		photoAdapter = new PhotoAdapter(this);
 		photoAdapter.setLlv(llv_photo_aps);
 		llv_photo_aps.setAdapter(photoAdapter);
 		photoManager.deletePhotos(PhotoManager.UPLOAD_PHOTO_PATH);
 	}
-	
+
 	private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
-		
+
 		@Override
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-			
-			if(isChecked) {
-				ll_pay_content.setVisibility(View.VISIBLE); 
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+
+			if (isChecked) {
+				ll_pay_content.setVisibility(View.VISIBLE);
 			} else {
 				ll_pay_content.setVisibility(View.GONE);
 			}
 		}
 	};
-	
+
 	public void onClick(View v) {
 
 		switch (v.getId()) {
@@ -294,41 +332,50 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		case R.id.ll_select_towards_aps:
 			onClickSelectTowards();
 			break;
+		case R.id.ll_content_room_aps:
+			roomDialog.show();
+			break;
+		case R.id.ll_content_sex_aps:
+			sexDialog.show();
+			break;
+		case R.id.ll_content_pay_type:
+			payTypeDialog.show();
+			break;
 		default:
 			break;
 		}
 	}
 
 	private void onClickSelectTowards() {
-		
-		if(towardsDialog!=null) {
+
+		if (towardsDialog != null) {
 			towardsDialog.show();
 		}
 	}
 
 	private void onClickSelectProperType() {
-		
+
 		if (properTypeDialog != null) {
 			properTypeDialog.show();
 		}
 	}
 
 	private void onClickSelectProperLong() {
-		
+
 		if (properLongDialog != null) {
 			properLongDialog.show();
 		}
 	}
 
 	private void onClickSelectType() {
-		
+
 		if (houseTypeDialog != null) {
 			houseTypeDialog.show();
 		}
 	}
 
 	private void onClickSelectFit() {
-		
+
 		if (houseFitDialog != null) {
 			houseFitDialog.show();
 		}
@@ -372,7 +419,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 
 	private void onClickPublish() {
 		ArrayList<Photo> uploadPhotos = photoAdapter.getPhotos();
-		if(uploadPhotos == null || uploadPhotos.isEmpty()) {
+		if (uploadPhotos == null || uploadPhotos.isEmpty()) {
 			publishData(null);
 		}
 		new Thread() {
@@ -391,7 +438,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 						try {
 							JSONObject json = new JSONObject(res);
 							String imgUrl = (String) json.get("data");
-							if(!StringUtils.isNullOrEmpty(imgUrl)) {
+							if (!StringUtils.isNullOrEmpty(imgUrl)) {
 								photoUrls.add(imgUrl);
 							}
 						} catch (JSONException e) {
@@ -407,14 +454,13 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			}
 		}.start();
 	}
-	
-	
+
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			
+
 			switch (msg.what) {
 			case MSG_UPLOADED_PHOTOS:
 				onUploadPhotos(msg);
@@ -423,54 +469,73 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			default:
 				break;
 			}
-			
+
 		}
 
 		private void onUploadPhotos(Message msg) {
-			
+
 			publishData((ArrayList<String>) msg.obj);
 		};
 
 	};
-	
-	
+
 	private void publishData(ArrayList<String> imgs) {
-		
+
 		NewHouse newHouse = new NewHouse();
-		newHouse.uid = String.valueOf(SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class).uid);
+		newHouse.uid = String.valueOf(SharePreferenceUtils.getObject(
+				SharePreferenceUtils.USER, User.class).uid);
 		newHouse.actionRelation = actionRelation;
 		newHouse.actionType = actionType;
 		newHouse.devices = "2";
-		newHouse.token= token;
-		newHouse.houseType = ((CommonType)houseTypeDialog.getCheckedItem()).id;
+		newHouse.token = token;
+		newHouse.houseType = ((CommonType) houseTypeDialog.getCheckedItem()).id;
 		newHouse.locationId = fatherAddressRange.aid;
 		newHouse.partLocationId = subAddressRange.aid;
-		newHouse.floor = ((Floor)floorDialog.getCheckedItem()).id;
-		newHouse.totalFloor = ((Floor)allFloorDialog.getCheckedItem()).id;
+		newHouse.floor = ((Floor) floorDialog.getCheckedItem()).id;
+		newHouse.totalFloor = ((Floor) allFloorDialog.getCheckedItem()).id;
 		newHouse.communityId = community.cid;
 		newHouse.houseArea = subAddressRange.aid;
-		newHouse.houseLayout =  ((CommonType)houseLayoutDialog.getCheckedItem()).id;
-		newHouse.fitType = ((CommonType)houseFitDialog.getCheckedItem()).id;
-		newHouse.isFloor = ((CommonType)houseTypeDialog.getCheckedItem()).id;
+		newHouse.houseLayout = ((CommonType) houseLayoutDialog.getCheckedItem()).id;
+		newHouse.fitType = ((CommonType) houseFitDialog.getCheckedItem()).id;
+		newHouse.isFloor = ((CommonType) houseTypeDialog.getCheckedItem()).id;
 		newHouse.houseArea = "130";
-		newHouse.propertyLong =  ((CommonType)properLongDialog.getCheckedItem()).id;
-		newHouse.propertyType =  ((CommonType)properTypeDialog.getCheckedItem()).id;
-		newHouse.toward =  ((CommonType)towardsDialog.getCheckedItem()).id;
+		newHouse.propertyLong = ((CommonType) properLongDialog.getCheckedItem()).id;
+		newHouse.propertyType = ((CommonType) properTypeDialog.getCheckedItem()).id;
+		newHouse.toward = ((CommonType) towardsDialog.getCheckedItem()).id;
 		newHouse.housePrice = et_price_aps.getText().toString().trim();
 		newHouse.monthPay = et_month_pay_aps.getText().toString().trim();
 		newHouse.firstPay = et_first_pay_aps.getText().toString().trim();
-		newHouse.isLoan =cb_is_loan_aps.isChecked()? "1" : "0";
+		newHouse.isLoan = cb_is_loan_aps.isChecked() ? "1" : "0";
 		newHouse.title = et_title_aps.getText().toString().trim();
 		newHouse.intro = et_intro_aps.getText().toString().trim();
 		newHouse.contactor = et_contactor_aps.getText().toString().trim();
-		newHouse.contactPhone = et_contact_phone_aps.getText().toString().trim();
+		newHouse.contactPhone = et_contact_phone_aps.getText().toString()
+				.trim();
 		newHouse.qq = et_qq_aps.getText().toString().trim();
-		newHouse.isLoan = rb_agent_aps.isChecked()? "1" : "0";
-		if(imgs!=null) {
+		newHouse.isLoan = rb_agent_aps.isChecked() ? "1" : "0";
+		newHouse.sexLimit = ((CommonType) sexDialog.getCheckedItem()).id;
+		newHouse.roomType = ((CommonType) roomDialog.getCheckedItem()).id;
+		newHouse.payType = ((CommonType) payTypeDialog.getCheckedItem()).id;
+		newHouse.makeYear = et_building_time_aps.getText().toString();
+		newHouse.houseArea = et_area_aps.getText().toString().trim();
+		if (ActionRelationConstance.APPLY_RENT.equals(actionRelation)) {
+			newHouse.housePrice = et_apply_rent_price_low_aps.getText()
+					.toString().trim()
+					+ "-"
+					+ et_apply_rent_price_high_aps.getText().toString().trim();
+		}
+		if (ActionRelationConstance.APPLY_BUY.equals(actionRelation)) {
+			newHouse.housePrice = et_apply_buy_price_low_aps.getText()
+					.toString().trim()
+					+ "-"
+					+ et_apply_buy_price_high_aps.getText().toString().trim();
+		}
+		
+		if (imgs != null) {
 			boolean first = true;
 			StringBuffer sb = new StringBuffer();
-			for(String img : imgs) {
-				if(first) {
+			for (String img : imgs) {
+				if (first) {
 					sb.append(img);
 					first = false;
 				} else {
@@ -479,13 +544,14 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			}
 			newHouse.imgs = sb.toString();
 		}
-		RequestHelper.getInstance().postRequestEntity(getActivity(), UrlConstance.NEW_HOUSE, newHouse, new Listener<String>() {
+		RequestHelper.getInstance().postRequestEntity(getActivity(),
+				UrlConstance.NEW_HOUSE, newHouse, new Listener<String>() {
 
-			@Override
-			public void onResponse(String response) {
-				ToastHelper.showL(response);
-			}
-		});
+					@Override
+					public void onResponse(String response) {
+						ToastHelper.showL(response);
+					}
+				});
 	}
 
 	private void onClickAddPhoto() {
@@ -592,14 +658,15 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private void getData() {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("actionRelation", "2");
-		map.put("actionType", "1");
-		RequestHelper.getInstance().postRequestMap(getActivity(),UrlConstance.ADD_HOUSE_CONFIG, map,
-				 new Listener<String>() {
+		map.put("actionRelation", actionRelation);
+		map.put("actionType", actionType);
+		RequestHelper.getInstance().getRequestMap(getActivity(),
+				UrlConstance.ADD_HOUSE_CONFIG, map, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
 
+						System.out.println(response);
 						AddHouseInfo info = GsonUtils.toObj(response,
 								AddHouseInfo.class);
 						if (info == null
@@ -614,20 +681,32 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 						houseTypeList = info.data.houseTypeList;
 						houseFitList = info.data.houseFitList;
 						properLongList = info.data.properLongList;
+						roomList = info.data.roomList;
+						payTypeList = info.data.payTypeList;
+						sexLimitList = info.data.sexLimitList;
 						token = info.data.token;
 						createHouseLayoutDialog();
 						createHouseFitDialog();
 						createHouseTypeDialog();
 						createProperLongDialog();
-						if(info.data.towardsList!=null) {
-							towardsDialog = new SingleChoiceDialog(getActivity());
-							createCommonDialog(towardsDialog, info.data.towardsList, tv_towards_aps, "选择朝向");
+						createPayTypeDialog();
+						createRoomTypeDialog();
+						createSexLimitDialog();
+						if (info.data.towardsList != null) {
+							towardsDialog = new SingleChoiceDialog(
+									getActivity());
+							createCommonDialog(towardsDialog,
+									info.data.towardsList, tv_towards_aps,
+									"选择朝向");
 						}
-						if(info.data.properTypeList!=null) {
-							properTypeDialog = new SingleChoiceDialog(getActivity());
-							createCommonDialog(properTypeDialog, info.data.properTypeList, tv_proper_type_aps, "选择产权类型");
+						if (info.data.properTypeList != null) {
+							properTypeDialog = new SingleChoiceDialog(
+									getActivity());
+							createCommonDialog(properTypeDialog,
+									info.data.properTypeList,
+									tv_proper_type_aps, "选择产权类型");
 						}
-						
+
 					}
 				});
 	}
@@ -636,8 +715,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 
 		if (houseLayoutDialog == null) {
 			houseLayoutDialog = new SingleChoiceDialog(getActivity());
-			CommonTypeAdapter hladapter = new CommonTypeAdapter(
-					houseLayoutList);
+			CommonTypeAdapter hladapter = new CommonTypeAdapter(houseLayoutList);
 			houseLayoutDialog.setAdapter(hladapter);
 			houseLayoutDialog.setTitle("选择户型");
 			houseLayoutDialog.setOnDismissListener(new OnDismissListener() {
@@ -657,11 +735,10 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	}
 
 	private void createHouseTypeDialog() {
-		
+
 		if (houseTypeDialog == null) {
 			houseTypeDialog = new SingleChoiceDialog(getActivity());
-			CommonTypeAdapter hladapter = new CommonTypeAdapter(
-					houseTypeList);
+			CommonTypeAdapter hladapter = new CommonTypeAdapter(houseTypeList);
 			houseTypeDialog.setAdapter(hladapter);
 			houseTypeDialog.setTitle("选择类型");
 			houseTypeDialog.setOnDismissListener(new OnDismissListener() {
@@ -678,12 +755,74 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			});
 		}
 	}
-	
+
+	private void createSexLimitDialog() {
+
+		if (sexDialog == null) {
+			sexDialog = new SingleChoiceDialog(getActivity());
+			CommonTypeAdapter hladapter = new CommonTypeAdapter(sexLimitList);
+			sexDialog.setAdapter(hladapter);
+			sexDialog.setTitle("选择性别");
+			sexDialog.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+
+					CommonType hl = (CommonType) sexDialog.getCheckedItem();
+					if (hl != null && hl.name != null) {
+						tv_sex_aps.setText(hl.name);
+					}
+				}
+			});
+		}
+	}
+
+	private void createPayTypeDialog() {
+
+		if (payTypeDialog == null) {
+			payTypeDialog = new SingleChoiceDialog(getActivity());
+			CommonTypeAdapter hladapter = new CommonTypeAdapter(payTypeList);
+			payTypeDialog.setAdapter(hladapter);
+			payTypeDialog.setTitle("选择付款方式");
+			payTypeDialog.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+
+					CommonType hl = (CommonType) payTypeDialog.getCheckedItem();
+					if (hl != null && hl.name != null) {
+						tv_pay_type_aps.setText(hl.name);
+					}
+				}
+			});
+		}
+	}
+
+	private void createRoomTypeDialog() {
+
+		if (roomDialog == null) {
+			roomDialog = new SingleChoiceDialog(getActivity());
+			CommonTypeAdapter hladapter = new CommonTypeAdapter(roomList);
+			roomDialog.setAdapter(hladapter);
+			roomDialog.setTitle("选择房间");
+			roomDialog.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+
+					CommonType hl = (CommonType) roomDialog.getCheckedItem();
+					if (hl != null && hl.name != null) {
+						tv_room_aps.setText(hl.name);
+					}
+				}
+			});
+		}
+	}
+
 	private void createProperLongDialog() {
 		if (properLongDialog == null) {
 			properLongDialog = new SingleChoiceDialog(getActivity());
-			CommonTypeAdapter hladapter = new CommonTypeAdapter(
-					properLongList);
+			CommonTypeAdapter hladapter = new CommonTypeAdapter(properLongList);
 			properLongDialog.setAdapter(hladapter);
 			properLongDialog.setTitle("选择产权");
 			properLongDialog.setOnDismissListener(new OnDismissListener() {
@@ -700,14 +839,12 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			});
 		}
 	}
-	
-	
+
 	private void createHouseFitDialog() {
-		
+
 		if (houseFitDialog == null) {
 			houseFitDialog = new SingleChoiceDialog(getActivity());
-			CommonTypeAdapter hladapter = new CommonTypeAdapter(
-					houseFitList);
+			CommonTypeAdapter hladapter = new CommonTypeAdapter(houseFitList);
 			houseFitDialog.setAdapter(hladapter);
 			houseFitDialog.setTitle("选择装修");
 			houseFitDialog.setOnDismissListener(new OnDismissListener() {
@@ -725,11 +862,12 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		}
 
 	}
-	
-	private void createCommonDialog(final SingleChoiceDialog signleChoiceDialog, ArrayList<CommonType> commonTypes, final TextView tv, String title) {
-		
-		CommonTypeAdapter hladapter = new CommonTypeAdapter(
-				commonTypes);
+
+	private void createCommonDialog(
+			final SingleChoiceDialog signleChoiceDialog,
+			ArrayList<CommonType> commonTypes, final TextView tv, String title) {
+
+		CommonTypeAdapter hladapter = new CommonTypeAdapter(commonTypes);
 		signleChoiceDialog.setAdapter(hladapter);
 		signleChoiceDialog.setTitle(title);
 		signleChoiceDialog.setOnDismissListener(new OnDismissListener() {
@@ -745,8 +883,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			}
 		});
 	}
-	
-	
+
 	private SingleChoiceDialog houseTypeDialog;
 	private SingleChoiceDialog houseFitDialog;
 	private SingleChoiceDialog houseLayoutDialog;
@@ -755,6 +892,9 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private SingleChoiceDialog properLongDialog;
 	private SingleChoiceDialog properTypeDialog;
 	private SingleChoiceDialog towardsDialog;
+	private SingleChoiceDialog sexDialog;
+	private SingleChoiceDialog roomDialog;
+	private SingleChoiceDialog payTypeDialog;
 
 	private void showFloorLayoutDialog() {
 
@@ -798,21 +938,6 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			});
 		}
 		allFloorDialog.show();
-	}
-	
-	
-	
-	private void publishHouse() {
-
-		NewHouse newHouse = new NewHouse();
-		RequestHelper.getInstance().postRequestEntity(getActivity(),
-				UrlConstance.NEW_HOUSE, newHouse, new Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-
-					}
-				});
 	}
 
 }

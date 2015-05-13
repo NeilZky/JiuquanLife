@@ -11,5 +11,8 @@ public class AddHouseData {
 	public ArrayList<CommonType> properLongList;
 	public ArrayList<CommonType> properTypeList;
 	public ArrayList<CommonType> towardsList;
+	public ArrayList<CommonType> roomList;
+	public ArrayList<CommonType> payTypeList;
+	public ArrayList<CommonType> sexLimitList;
 	public String token;
 }
