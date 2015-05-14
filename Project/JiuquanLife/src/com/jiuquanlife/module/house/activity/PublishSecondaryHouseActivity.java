@@ -488,20 +488,20 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		newHouse.actionType = actionType;
 		newHouse.devices = "2";
 		newHouse.token = token;
-		newHouse.houseType = ((CommonType) houseTypeDialog.getCheckedItem()).id;
-		newHouse.locationId = fatherAddressRange.aid;
-		newHouse.partLocationId = subAddressRange.aid;
-		newHouse.floor = ((Floor) floorDialog.getCheckedItem()).id;
-		newHouse.totalFloor = ((Floor) allFloorDialog.getCheckedItem()).id;
-		newHouse.communityId = community.cid;
-		newHouse.houseArea = subAddressRange.aid;
-		newHouse.houseLayout = ((CommonType) houseLayoutDialog.getCheckedItem()).id;
-		newHouse.fitType = ((CommonType) houseFitDialog.getCheckedItem()).id;
-		newHouse.isFloor = ((CommonType) houseTypeDialog.getCheckedItem()).id;
+		if(fatherAddressRange!=null) {
+			newHouse.locationId = fatherAddressRange.aid;
+		}
+		if(subAddressRange!=null) {
+			newHouse.partLocationId = subAddressRange.aid;
+		}
+		if(community!=null) {
+			newHouse.communityId = community.cid;
+		}
+		if(subAddressRange!=null) {
+			newHouse.houseArea = subAddressRange.aid;
+		}
+		
 		newHouse.houseArea = "130";
-		newHouse.propertyLong = ((CommonType) properLongDialog.getCheckedItem()).id;
-		newHouse.propertyType = ((CommonType) properTypeDialog.getCheckedItem()).id;
-		newHouse.toward = ((CommonType) towardsDialog.getCheckedItem()).id;
 		newHouse.housePrice = et_price_aps.getText().toString().trim();
 		newHouse.monthPay = et_month_pay_aps.getText().toString().trim();
 		newHouse.firstPay = et_first_pay_aps.getText().toString().trim();
@@ -513,9 +513,22 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 				.trim();
 		newHouse.qq = et_qq_aps.getText().toString().trim();
 		newHouse.isLoan = rb_agent_aps.isChecked() ? "1" : "0";
-		newHouse.sexLimit = ((CommonType) sexDialog.getCheckedItem()).id;
-		newHouse.roomType = ((CommonType) roomDialog.getCheckedItem()).id;
-		newHouse.payType = ((CommonType) payTypeDialog.getCheckedItem()).id;
+		newHouse.toward = getIdOf(towardsDialog);
+		newHouse.sexLimit = getIdOf(sexDialog);
+		newHouse.roomType = getIdOf(roomDialog);
+		newHouse.payType = getIdOf(payTypeDialog);
+		if(floorDialog!=null && floorDialog.getCheckedItem()!=null) {
+			newHouse.floor = ((Floor) floorDialog.getCheckedItem()).id;
+		}
+		if(allFloorDialog!=null && allFloorDialog.getCheckedItem()!=null) {
+			newHouse.totalFloor = ((Floor) allFloorDialog.getCheckedItem()).id;
+		}
+		newHouse.houseType = getIdOf(houseTypeDialog);
+		newHouse.houseLayout = getIdOf(houseLayoutDialog); 
+		newHouse.fitType =   getIdOf(houseFitDialog);
+		newHouse.isFloor =  getIdOf(houseTypeDialog); 
+		newHouse.propertyLong =   getIdOf(properLongDialog);
+		newHouse.propertyType = getIdOf(properTypeDialog);
 		newHouse.makeYear = et_building_time_aps.getText().toString();
 		newHouse.houseArea = et_area_aps.getText().toString().trim();
 		if (ActionRelationConstance.APPLY_RENT.equals(actionRelation)) {
@@ -544,7 +557,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			}
 			newHouse.imgs = sb.toString();
 		}
-		RequestHelper.getInstance().postRequestEntity(getActivity(),
+		RequestHelper.getInstance().getRequestEntity(getActivity(),
 				UrlConstance.NEW_HOUSE, newHouse, new Listener<String>() {
 
 					@Override
@@ -553,7 +566,15 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 					}
 				});
 	}
-
+	
+	private String getIdOf(SingleChoiceDialog dialog) {
+		
+		if(dialog !=null && dialog.getCheckedItem()!=null) {
+			return ((CommonType) houseTypeDialog.getCheckedItem()).id;
+		}
+		return null;
+	}
+	
 	private void onClickAddPhoto() {
 
 		// TODO 拆分菜单，从相册里选择图片，图片多选控件等等
