@@ -111,6 +111,7 @@
                     android:padding="7dp" >
 
                     <TextView
+                        android:id="@+id/tv_labbel_price_house_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="售价" />

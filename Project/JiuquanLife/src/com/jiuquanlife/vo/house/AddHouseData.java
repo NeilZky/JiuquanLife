@@ -15,4 +15,5 @@ public class AddHouseData {
 	public ArrayList<CommonType> payTypeList;
 	public ArrayList<CommonType> sexLimitList;
 	public String token;
+	public int isAgent;
 }

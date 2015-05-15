@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import android.content.Context;
+import android.net.Uri;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -159,7 +160,7 @@ public class RequestHelper {
 	             		first = false;
 	             		sb.append("?" + paramKey+"=" + values.get(paramKey));
 	             	} else {
-	             		sb.append("&" + paramKey+"=" + values.get(paramKey));
+	             		sb.append("&" + paramKey+"=" + Uri.encode(values.get(paramKey)));
 	             	}
 	             }
 	        }
@@ -193,7 +194,7 @@ public class RequestHelper {
 	             		first = false;
 	             		sb.append("?" + paramKey+"=" + values.get(paramKey));
 	             	} else {
-	             		sb.append("&" + paramKey+"=" + values.get(paramKey));
+	             		sb.append("&" + paramKey+"=" + Uri.encode(values.get(paramKey)));
 	             	}
 	             }
 	        }
@@ -224,7 +225,8 @@ public class RequestHelper {
            Iterator<String> iterator = keys.iterator();
            while(iterator.hasNext()) {
            	String paramKey = iterator.next();
-           	sb.append("&" + paramKey+"=" + values.get(paramKey));
+     		sb.append("&" + paramKey+"=" + Uri.encode(values.get(paramKey)));
+
            }
       }
       String url = sb.toString();

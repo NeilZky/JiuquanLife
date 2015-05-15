@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -117,6 +118,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private String token;
 	private String actionRelation;
 	private String actionType;
+	private View hsv_photo_aps;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +156,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 
 		if (ActionRelationConstance.APPLY_RENT.equals(actionRelation)) {
 
+			hideView(R.id.hsv_photo_aps);
 			hideView(R.id.ll_community_aps);
 			hideView(R.id.ll_content_address_detail_aps);
 			hideView(R.id.ll_content_area_aps);
@@ -168,6 +171,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 
 		if (ActionRelationConstance.APPLY_BUY.equals(actionRelation)) {
 
+			hideView(R.id.hsv_photo_aps);
 			hideView(R.id.ll_community_aps);
 			hideView(R.id.ll_content_address_detail_aps);
 			hideView(R.id.ll_content_area_aps);
@@ -238,9 +242,9 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private void initViews() {
 
 		setContentView(R.layout.activity_publish_secondary);
+		hsv_photo_aps =  findViewById(R.id.hsv_photo_aps);
 		et_area_aps = (EditText) findViewById(R.id.et_area_aps);
 		rb_agent_aps = (RadioButton) findViewById(R.id.rb_agent_aps);
-		rb_agent_aps.setChecked(true);
 		llv_photo_aps = (LinearListView) findViewById(R.id.llv_photo_aps);
 		tv_area_aps = (TextView) findViewById(R.id.tv_area_aps);
 		tv_community_aps = (TextView) findViewById(R.id.tv_community_aps);
@@ -333,13 +337,19 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			onClickSelectTowards();
 			break;
 		case R.id.ll_content_room_aps:
-			roomDialog.show();
+			if(roomDialog!=null) {
+				roomDialog.show();
+			}
 			break;
 		case R.id.ll_content_sex_aps:
-			sexDialog.show();
+			if(sexDialog!=null) {
+				sexDialog.show();
+			}
 			break;
 		case R.id.ll_content_pay_type:
-			payTypeDialog.show();
+			if(payTypeDialog!=null) {
+				payTypeDialog.show();
+			}
 			break;
 		default:
 			break;
@@ -480,7 +490,11 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	};
 
 	private void publishData(ArrayList<String> imgs) {
-
+		
+		if(!verifyInput()) {
+			return;
+		}
+		
 		NewHouse newHouse = new NewHouse();
 		newHouse.uid = String.valueOf(SharePreferenceUtils.getObject(
 				SharePreferenceUtils.USER, User.class).uid);
@@ -566,6 +580,45 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 						ToastHelper.showL(response);
 					}
 				});
+	}
+	
+	private boolean verifyInput() {
+		
+		ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+		TextView textView = findViewHasHint(decorView);
+		if(textView!=null) {
+			ToastHelper.showS(textView.getHint().toString());
+			return false;
+		}
+		String tel = et_contact_phone_aps.getText().toString().trim();
+		if(tel!=null && tel.length()<7) {
+			ToastHelper.showS("联系电话格式错误");
+			return false;
+		}
+		return true;
+	}
+	
+	private TextView findViewHasHint(ViewGroup vg) {
+		
+		if(vg == null || vg.getChildCount() == 0) {
+			return null;
+		}
+		for(int i = 0 ; i< vg.getChildCount(); i++){
+			View child = vg.getChildAt(i);
+			if(child!=null && child instanceof TextView) {
+				TextView childTv = (TextView )child;
+				if(childTv.isShown() && childTv.getHint()!=null && (childTv.getText().toString().trim().isEmpty())) {
+					return childTv;
+				} 
+			}
+			if(child instanceof ViewGroup) {
+				TextView textView = findViewHasHint((ViewGroup) child);
+				if(textView!=null) {
+					return textView;
+				}
+			}
+		}
+		return null;
 	}
 	
 	private String getIdOf(SingleChoiceDialog dialog) {
@@ -682,6 +735,9 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("actionRelation", actionRelation);
 		map.put("actionType", actionType);
+	    String uid = String.valueOf(SharePreferenceUtils.getObject(
+				SharePreferenceUtils.USER, User.class).uid);
+		map.put("uid", uid);
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.ADD_HOUSE_CONFIG, map, new Listener<String>() {
 
@@ -707,6 +763,12 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 						payTypeList = info.data.payTypeList;
 						sexLimitList = info.data.sexLimitList;
 						token = info.data.token;
+						//0 表示是经纪人
+						if(info.data.isAgent == 0) {
+							rb_agent_aps.setEnabled(true);
+						} else {
+							rb_agent_aps.setEnabled(false);
+						}
 						createHouseLayoutDialog();
 						createHouseFitDialog();
 						createHouseTypeDialog();
@@ -728,6 +790,16 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 									info.data.properTypeList,
 									tv_proper_type_aps, "选择产权类型");
 						}
+						
+						if (info.data.payTypeList != null) {
+							payTypeDialog = new SingleChoiceDialog(
+									getActivity());
+							createCommonDialog(payTypeDialog,
+									info.data.payTypeList,
+									tv_pay_type_aps, "选择付款方式");
+						}
+						
+						
 
 					}
 				});

@@ -46,6 +46,7 @@ public class SellerHouseDetailActivity extends BaseActivity {
 	private TextView tv_address_ashd;
 	private TextView tv_community_name_ashd;
 	private TextView tv_description_ashd;
+	private TextView tv_labbel_price_house_detail;
 	private LinearListView llv_same_price_ashd;
 	private SecondaryHouseAdapter secondaryHouseAdapter;
 	
@@ -67,6 +68,7 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		setContentView(R.layout.activity_seller_house_detail);
 		photoVp = (ViewPager) findViewById(R.id.vp_ashd);
 		photoAdapter = new SampleImagePagerAdapter(this, photoVp);
+		tv_labbel_price_house_detail = (TextView) findViewById(R.id.tv_labbel_price_house_detail);
 		tv_title_ashd = (TextView) findViewById(R.id.tv_title_ashd);
 		tv_time_ashd = (TextView) findViewById(R.id.tv_time_ashd);
 		tag1_ashd = (TextView) findViewById(R.id.tag1_ashd);

@@ -65,5 +65,7 @@
     <color name="normal">#fff</color>
     <color name="press">#ff0</color>
     <color name="focue">#666</color>
+    <color name="publish_pressed">#236c8b</color>
+    <color name="publish_normal">#54bcde</color>
     
 </resources>
