@@ -119,6 +119,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private String actionRelation;
 	private String actionType;
 	private View hsv_photo_aps;
+	private RadioButton rb_person_aps;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -243,6 +244,8 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 
 		setContentView(R.layout.activity_publish_secondary);
 		hsv_photo_aps =  findViewById(R.id.hsv_photo_aps);
+		rb_person_aps =  (RadioButton) findViewById(R.id.rb_person_aps);
+		rb_person_aps.setChecked(true);
 		et_area_aps = (EditText) findViewById(R.id.et_area_aps);
 		rb_agent_aps = (RadioButton) findViewById(R.id.rb_agent_aps);
 		llv_photo_aps = (LinearListView) findViewById(R.id.llv_photo_aps);
@@ -702,7 +705,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			fatherAddressRange = (AddressRange) data
 					.getSerializableExtra(SelectSubAreaActivity.RESULT_DATA_FATHER_ADDRESS_RANGE);
 			if (subAddressRange != null && subAddressRange.addressName != null) {
-				tv_area_aps.setText(subAddressRange.addressName);
+				tv_area_aps.setText(fatherAddressRange.addressName + "-" + subAddressRange.addressName);
 				tv_community_aps.setText("");
 				community = null;
 			}
