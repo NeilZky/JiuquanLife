@@ -488,6 +488,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		newHouse.actionType = actionType;
 		newHouse.devices = "2";
 		newHouse.token = token;
+		newHouse.fromType = rb_agent_aps.isChecked() ? "2" : "1";
 		if(fatherAddressRange!=null) {
 			newHouse.locationId = fatherAddressRange.aid;
 		}
