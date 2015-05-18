@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.SampleImagePagerAdapter;
+import com.jiuquanlife.constance.ActionRelationConstance;
+import com.jiuquanlife.constance.ActionTypeConstance;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
@@ -22,7 +25,8 @@ import com.jiuquanlife.vo.house.Img;
 public class SellerHouseDetailActivity extends BaseActivity {
 
 	public static final String INTENT_KEY_HOUSE_ID = "INTENT_KEY_HOUSE_ID";
-	
+	public static final String EXTRA_ACTION_TYPE = "EXTRA_ACTION_TYPE";
+	public static final String EXTRA_ACTION_RELATION = "EXTRA_ACTION_RELATION";
 	private ViewPager photoVp;
 	private SampleImagePagerAdapter photoAdapter;
 	private TextView tv_title_ashd;
@@ -49,6 +53,9 @@ public class SellerHouseDetailActivity extends BaseActivity {
 	private TextView tv_labbel_price_house_detail;
 	private LinearListView llv_same_price_ashd;
 	private SecondaryHouseAdapter secondaryHouseAdapter;
+	private String actionRelation;
+	private String actionType;
+	private String priceUnit;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,94 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		initViews();
 		getData();
 	}
+	
+	protected void initActionType() {
+		
+		actionType = getIntent().getStringExtra(EXTRA_ACTION_TYPE);
+		actionRelation = getIntent().getStringExtra(EXTRA_ACTION_RELATION);
+		
+		if (ActionRelationConstance.RENT.equals(actionRelation)) {
+			photoVp.setVisibility(View.VISIBLE);
+			setText(R.id.tv_labbel_price_house_detail, "租金");
+			priceUnit = "元";
+			tv_community_name_ashd.setVisibility(View.VISIBLE);
+			tv_title_ashd.setText("出租");
+		}
+		if (ActionRelationConstance.SELL.equals(actionRelation)) {
+			photoVp.setVisibility(View.VISIBLE);
+			setText(R.id.tv_labbel_price_house_detail, "售价");
+			priceUnit = "万";
+			tv_community_name_ashd.setVisibility(View.VISIBLE);
+		
+			hideView(R.id.ll_content_pay_type);
+			tv_title_ashd.setText("出售");
+		}
+
+		if (ActionRelationConstance.APPLY_RENT.equals(actionRelation)) {
+			photoVp.setVisibility(View.GONE);
+			setText(R.id.tv_labbel_price_house_detail, "期望租金");
+			priceUnit = "元";
+			tv_community_name_ashd.setVisibility(View.GONE);
+
+			hideView(R.id.ll_content_area_aps);
+			hideView(R.id.ll_content_fit_aps);
+			hideView(R.id.ll_content_floor_aps);
+			hideView(R.id.ll_content_all_floor_aps);
+			hideView(R.id.ll_content_sell_aps);
+			hideView(R.id.ll_content_rent_price);
+			hideView(R.id.ll_content_apply_buy_price);
+			tv_title_ashd.setText("求租");
+		}
+
+		if (ActionRelationConstance.APPLY_BUY.equals(actionRelation)) {
+			photoVp.setVisibility(View.GONE);
+			setText(R.id.tv_labbel_price_house_detail, "期望售价");
+			priceUnit = "万";
+			tv_community_name_ashd.setVisibility(View.GONE);
+			
+			hideView(R.id.ll_content_area_aps);
+			hideView(R.id.ll_content_fit_aps);
+			hideView(R.id.ll_content_floor_aps);
+			hideView(R.id.ll_content_all_floor_aps);
+			hideView(R.id.ll_content_pay_type);
+			tv_title_ashd.setText("求购");
+		}
+
+		if (ActionTypeConstance.FACTORY.equals(actionType)
+				|| ActionTypeConstance.STORE.equals(actionType)) {
+			hideView(R.id.ll_content_layout_aps);
+			hideView(R.id.ll_content_floor_aps);
+			hideView(R.id.ll_content_all_floor_aps);
+		}
+
+		if (ActionTypeConstance.ROOM.equals(actionType)
+				|| ActionTypeConstance.BED.equals(actionType)) {
+			showView(R.id.ll_content_room_aps);
+			showView(R.id.ll_content_sex_aps);
+		} else {
+			hideView(R.id.ll_content_room_aps);
+			hideView(R.id.ll_content_sex_aps);
+		}
+
+		if (ActionTypeConstance.SECONDARY.equals(actionType)) {
+			showView(R.id.ll_content_loan_aps);
+			showView(R.id.ll_content_proper);
+		} else {
+			hideView(R.id.ll_content_loan_aps);
+			hideView(R.id.ll_content_proper);
+		}
+	}
+
+	private void hideView(int resId) {
+
+		findViewById(resId).setVisibility(View.GONE);
+	}
+
+	private void showView(int resId) {
+
+		findViewById(resId).setVisibility(View.VISIBLE);
+	}
+	
 
 	private void initViews() {
 
@@ -98,7 +193,7 @@ public class SellerHouseDetailActivity extends BaseActivity {
 	private void getData() {
 
 		String houseid = getIntent().getStringExtra(INTENT_KEY_HOUSE_ID);
-		RequestHelper.getInstance().postRequestMap(SellerHouseDetailActivity.this,
+		RequestHelper.getInstance().getRequestMap(SellerHouseDetailActivity.this,
 				"http://www.5ijq.cn/App/House/getHoustById/id/" + houseid,
 				null, new Listener<String>() {
 
@@ -127,11 +222,11 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		HouseDetailData data= info.data;
 		setText(tv_title_ashd, data.title);
 		setText(tv_time_ashd, data.dateline);
-		setText(tv_price_ashd , data.housePrice+"万");
+		setText(tv_price_ashd , data.housePrice+priceUnit);
 		setText(tv_house_layout_ashd, data.houseLayout+"㎡");
 		setText(tv_square_ashd, data.square_metre);
 		setText(tv_meter_price,""  + (int)(Double.parseDouble(data.housePrice) * 10000 / Double.parseDouble(data.square_metre)) + "/㎡");
-		setText(tv_first_pay_ashd, data.firstPay + "万");
+		setText(tv_first_pay_ashd, data.firstPay + priceUnit);
 		setText(tv_month_pay_ashd, data.monthPay);
 		setText(tv_property_type_ashd, data.propertyType);
 		setText(tv_fittype_ashd, data.fitType);
@@ -140,27 +235,10 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		setText(tv_make_year_ashd, data.makeYear);
 		setText(tv_towards_ashd, data.towards);
 		setText(tv_description_ashd, data.intro);
-		setText(tv_address_ashd, data.addressName + "-" +data.subAddressName + "-" + data.partAddressName);
+		setText(tv_address_ashd, data.addressName + "-" +data.subAddressName);
 		setText(tv_community_name_ashd, data.communityName);
 		secondaryHouseAdapter.refresh(data.samePriceHouseList);
 		llv_same_price_ashd.notifyDataSetChanged();
-//		if(data.intro!=null) {
-//			String[] tags = data.intro.split("\\s");
-//			if(tags!=null){
-//				if(tags.length >=4) {
-//					setText(tag4_ashd, tags[3]);
-//				}
-//				if(tags.length >=3 ) {
-//					setText(tag3_ashd, tags[2]);
-//				}
-//				if(tags.length >=2 ) {
-//					setText(tag2_ashd, tags[1]);
-//				}
-//				if(tags.length >=1 ) {
-//					setText(tag1_ashd, tags[0]);
-//				}
-//			}
-//		}
 		ArrayList<Img> imgs = info.data.img;
 		if(imgs!=null) {
 			ArrayList<String> urls = new ArrayList<String>();
@@ -172,6 +250,18 @@ public class SellerHouseDetailActivity extends BaseActivity {
 				}
 			}
 		}
+		if("1".equals(data.isLoan)) {
+			setVisiable(R.id.ll_suport_loan, View.GONE);
+			setText(R.id.tv_suport_loan, "不支持贷款");
+		} else {
+			setText(R.id.tv_suport_loan, "支持贷款");
+			setVisiable(R.id.ll_suport_loan, View.VISIBLE);
+		}
 	}
-
+	
+	private void setVisiable(int resId , int visalbe) {
+		
+		findViewById(resId).setVisibility(visalbe);
+	}
+	
 }

@@ -20,4 +20,10 @@
     <string name="title_forum_new">新帖</string>
     <string name="title_forum_plate">板块</string>
     <string name="title_forum_essence">精华</string>
+       <string name="default_pull_down_label">下拉刷新</string>
+    <string name="default_pull_down_release_label">松开后刷新数据</string>
+    <string name="default_pull_down_refreshing_label">正在加载\u2026</string>
+    <string name="default_pull_up_label">上拉加载</string>
+    <string name="default_pull_up_release_label">松开后加载数据</string>
+    <string name="default_pull_up_refreshing_label">正在加载\u2026</string>
 </resources>

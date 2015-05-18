@@ -23,6 +23,14 @@ public class BaseActivity extends Activity{
 		}
 	}
 	
+	protected void setText(int res, String value) {
+		
+		TextView tv = (TextView) findViewById(res);
+		if(!StringUtils.isNullOrEmpty(value)) {
+			tv.setText(value);
+		}
+	}
+	
 	protected Activity getActivity() {
 		
 		return this;

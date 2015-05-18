@@ -209,6 +209,8 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 			HouseItem houseItem = adapter.getItem(position);
 			Intent intent = new Intent(SecondaryHouseListActivity.this,
 					SellerHouseDetailActivity.class);
+			intent.putExtra(SellerHouseDetailActivity.EXTRA_ACTION_TYPE, actionType);
+			intent.putExtra(SellerHouseDetailActivity.EXTRA_ACTION_RELATION, actionRelation);
 			intent.putExtra(SellerHouseDetailActivity.INTENT_KEY_HOUSE_ID,
 					houseItem.houseid);
 			startActivity(intent);
