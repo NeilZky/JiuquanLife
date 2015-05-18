@@ -11,12 +11,13 @@ import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.SampleImagePagerAdapter;
 import com.jiuquanlife.constance.ActionRelationConstance;
-import com.jiuquanlife.constance.ActionTypeConstance;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.house.adapter.SecondaryHouseAdapter;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.StringUtils;
+import com.jiuquanlife.view.DoubleRowLinearlayout;
 import com.jiuquanlife.view.LinearListView;
 import com.jiuquanlife.vo.house.HouseDetailData;
 import com.jiuquanlife.vo.house.HouseDetailInfo;
@@ -31,31 +32,18 @@ public class SellerHouseDetailActivity extends BaseActivity {
 	private SampleImagePagerAdapter photoAdapter;
 	private TextView tv_title_ashd;
 	private TextView tv_time_ashd;
-	private TextView tag1_ashd;
-	private TextView tag2_ashd;
-	private TextView tag3_ashd;
-	private TextView tag4_ashd;
 	private TextView tv_price_ashd;
 	private TextView tv_house_layout_ashd;
 	private TextView tv_square_ashd;
-	private TextView tv_meter_price;
-	private TextView tv_first_pay_ashd;
-	private TextView tv_month_pay_ashd;
-	private TextView tv_property_type_ashd;
-	private TextView tv_fittype_ashd;
-	private TextView tv_property_long_ashd;
-	private TextView tv_floor_ashd;
-	private TextView tv_make_year_ashd;
-	private TextView tv_towards_ashd;
 	private TextView tv_address_ashd;
 	private TextView tv_community_name_ashd;
 	private TextView tv_description_ashd;
-	private TextView tv_labbel_price_house_detail;
 	private LinearListView llv_same_price_ashd;
 	private SecondaryHouseAdapter secondaryHouseAdapter;
 	private String actionRelation;
 	private String actionType;
 	private String priceUnit;
+	private DoubleRowLinearlayout drl_ashd;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +55,7 @@ public class SellerHouseDetailActivity extends BaseActivity {
 	private void init() {
 
 		initViews();
+		initActionType();
 		getData();
 	}
 	
@@ -88,7 +77,6 @@ public class SellerHouseDetailActivity extends BaseActivity {
 			priceUnit = "万";
 			tv_community_name_ashd.setVisibility(View.VISIBLE);
 		
-			hideView(R.id.ll_content_pay_type);
 			tv_title_ashd.setText("出售");
 		}
 
@@ -97,14 +85,6 @@ public class SellerHouseDetailActivity extends BaseActivity {
 			setText(R.id.tv_labbel_price_house_detail, "期望租金");
 			priceUnit = "元";
 			tv_community_name_ashd.setVisibility(View.GONE);
-
-			hideView(R.id.ll_content_area_aps);
-			hideView(R.id.ll_content_fit_aps);
-			hideView(R.id.ll_content_floor_aps);
-			hideView(R.id.ll_content_all_floor_aps);
-			hideView(R.id.ll_content_sell_aps);
-			hideView(R.id.ll_content_rent_price);
-			hideView(R.id.ll_content_apply_buy_price);
 			tv_title_ashd.setText("求租");
 		}
 
@@ -114,74 +94,23 @@ public class SellerHouseDetailActivity extends BaseActivity {
 			priceUnit = "万";
 			tv_community_name_ashd.setVisibility(View.GONE);
 			
-			hideView(R.id.ll_content_area_aps);
-			hideView(R.id.ll_content_fit_aps);
-			hideView(R.id.ll_content_floor_aps);
-			hideView(R.id.ll_content_all_floor_aps);
-			hideView(R.id.ll_content_pay_type);
 			tv_title_ashd.setText("求购");
 		}
 
-		if (ActionTypeConstance.FACTORY.equals(actionType)
-				|| ActionTypeConstance.STORE.equals(actionType)) {
-			hideView(R.id.ll_content_layout_aps);
-			hideView(R.id.ll_content_floor_aps);
-			hideView(R.id.ll_content_all_floor_aps);
-		}
-
-		if (ActionTypeConstance.ROOM.equals(actionType)
-				|| ActionTypeConstance.BED.equals(actionType)) {
-			showView(R.id.ll_content_room_aps);
-			showView(R.id.ll_content_sex_aps);
-		} else {
-			hideView(R.id.ll_content_room_aps);
-			hideView(R.id.ll_content_sex_aps);
-		}
-
-		if (ActionTypeConstance.SECONDARY.equals(actionType)) {
-			showView(R.id.ll_content_loan_aps);
-			showView(R.id.ll_content_proper);
-		} else {
-			hideView(R.id.ll_content_loan_aps);
-			hideView(R.id.ll_content_proper);
-		}
 	}
 
-	private void hideView(int resId) {
-
-		findViewById(resId).setVisibility(View.GONE);
-	}
-
-	private void showView(int resId) {
-
-		findViewById(resId).setVisibility(View.VISIBLE);
-	}
-	
 
 	private void initViews() {
 
 		setContentView(R.layout.activity_seller_house_detail);
+		drl_ashd = (DoubleRowLinearlayout) findViewById(R.id.drl_ashd);
 		photoVp = (ViewPager) findViewById(R.id.vp_ashd);
 		photoAdapter = new SampleImagePagerAdapter(this, photoVp);
-		tv_labbel_price_house_detail = (TextView) findViewById(R.id.tv_labbel_price_house_detail);
 		tv_title_ashd = (TextView) findViewById(R.id.tv_title_ashd);
 		tv_time_ashd = (TextView) findViewById(R.id.tv_time_ashd);
-		tag1_ashd = (TextView) findViewById(R.id.tag1_ashd);
-		tag2_ashd = (TextView) findViewById(R.id.tag2_ashd);
-		tag3_ashd = (TextView) findViewById(R.id.tag3_ashd);
-		tag4_ashd = (TextView) findViewById(R.id.tag4_ashd);
 		tv_price_ashd = (TextView) findViewById(R.id.tv_price_ashd);
 		tv_house_layout_ashd = (TextView) findViewById(R.id.tv_house_layout_ashd);
 		tv_square_ashd = (TextView) findViewById(R.id.tv_square_ashd);
-		tv_meter_price = (TextView) findViewById(R.id.tv_meter_price);
-		tv_first_pay_ashd = (TextView) findViewById(R.id.tv_first_pay_ashd);
-		tv_month_pay_ashd = (TextView) findViewById(R.id.tv_month_pay_ashd);
-		tv_property_type_ashd = (TextView) findViewById(R.id.tv_property_type_ashd);
-		tv_fittype_ashd = (TextView) findViewById(R.id.tv_fittype_ashd);
-		tv_property_long_ashd = (TextView) findViewById(R.id.tv_property_long_ashd);
-		tv_floor_ashd = (TextView) findViewById(R.id.tv_floor_ashd);
-		tv_make_year_ashd = (TextView) findViewById(R.id.tv_make_year_ashd);
-		tv_towards_ashd = (TextView) findViewById(R.id.tv_towards_ashd);
 		tv_address_ashd = (TextView) findViewById(R.id.tv_address_ashd);
 		tv_community_name_ashd = (TextView) findViewById(R.id.tv_community_name_ashd);
 		tv_description_ashd = (TextView) findViewById(R.id.tv_description_ashd);
@@ -219,23 +148,75 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		if(info == null ||info.data == null) {
 			return;
 		}
+		
 		HouseDetailData data= info.data;
 		setText(tv_title_ashd, data.title);
 		setText(tv_time_ashd, data.dateline);
 		setText(tv_price_ashd , data.housePrice+priceUnit);
 		setText(tv_house_layout_ashd, data.houseLayout+"㎡");
 		setText(tv_square_ashd, data.square_metre);
-		setText(tv_meter_price,""  + (int)(Double.parseDouble(data.housePrice) * 10000 / Double.parseDouble(data.square_metre)) + "/㎡");
-		setText(tv_first_pay_ashd, data.firstPay + priceUnit);
-		setText(tv_month_pay_ashd, data.monthPay);
-		setText(tv_property_type_ashd, data.propertyType);
-		setText(tv_fittype_ashd, data.fitType);
-		setText(tv_property_long_ashd, data.propertyLong);
-		setText(tv_floor_ashd, data.floorth + "/" + data.floorTotal);
-		setText(tv_make_year_ashd, data.makeYear);
-		setText(tv_towards_ashd, data.towards);
+		
+		if("1".equals(data.isLoan)) {
+			drl_ashd.addItem("不支持贷款",  "");
+		} else {
+			drl_ashd.addItem("支持贷款",  "");
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.housePrice) && !StringUtils.isNullOrEmpty(data.square_metre)&&ActionRelationConstance.SELL.equals(actionRelation)) {
+			drl_ashd.addItem("单价：",   (int)(Double.parseDouble(data.housePrice) * 10000 / Double.parseDouble(data.square_metre)) + "/㎡");
+		}
+		
+		if( !StringUtils.isNullOrEmpty(data.firstPay)) {
+			drl_ashd.addItem("首付：",  data.firstPay + priceUnit);
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.monthPay)) {
+			drl_ashd.addItem("月供：",  data.monthPay + priceUnit);
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.houseLayout)) {
+			drl_ashd.addItem("面积：",  data.houseLayout+"㎡");
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.propertyType)) {
+			drl_ashd.addItem("类型：",  data.propertyType);
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.fitType)) {
+			drl_ashd.addItem("装修：",  data.fitType);
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.fitType)) {
+			drl_ashd.addItem("装修：",  data.fitType);
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.fitType)) {
+			drl_ashd.addItem("产权：",  data.propertyLong);
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.floorth)&&!StringUtils.isNullOrEmpty(data.floorTotal)) {
+			drl_ashd.addItem("楼层：",  data.floorth + "/" + data.floorTotal);
+		}
+
+		if(!StringUtils.isNullOrEmpty(data.makeYear)) {
+			drl_ashd.addItem("建筑年代：",  data.makeYear);
+		}
+		
+		if(!StringUtils.isNullOrEmpty(data.towards)) {
+			drl_ashd.addItem("朝向：",  data.towards);
+		}
+		
+//		setText(tv_first_pay_ashd, data.firstPay + priceUnit);
+//		setText(tv_month_pay_ashd, data.monthPay);
+//		setText(tv_property_type_ashd, data.propertyType);
+//		setText(tv_fittype_ashd, data.fitType);
+//		setText(tv_property_long_ashd, data.propertyLong);
+//		setText(tv_floor_ashd, data.floorth + "/" + data.floorTotal);
+//		setText(tv_make_year_ashd, data.makeYear);
+//		setText(tv_towards_ashd, data.towards);
+		
 		setText(tv_description_ashd, data.intro);
-		setText(tv_address_ashd, data.addressName + "-" +data.subAddressName);
+		setText(tv_address_ashd, data.addressName + "-" +data.subAddressName+"-");
 		setText(tv_community_name_ashd, data.communityName);
 		secondaryHouseAdapter.refresh(data.samePriceHouseList);
 		llv_same_price_ashd.notifyDataSetChanged();
@@ -249,13 +230,6 @@ public class SellerHouseDetailActivity extends BaseActivity {
 					photoVp.setAdapter(photoAdapter);
 				}
 			}
-		}
-		if("1".equals(data.isLoan)) {
-			setVisiable(R.id.ll_suport_loan, View.GONE);
-			setText(R.id.tv_suport_loan, "不支持贷款");
-		} else {
-			setText(R.id.tv_suport_loan, "支持贷款");
-			setVisiable(R.id.ll_suport_loan, View.VISIBLE);
 		}
 	}
 	
