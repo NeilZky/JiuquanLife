@@ -49,12 +49,13 @@
 
             <TextView
                 android:id="@+id/tv_title_ashd"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tv_time_ashd"
+                android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
