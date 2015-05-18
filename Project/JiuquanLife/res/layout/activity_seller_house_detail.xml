@@ -30,6 +30,9 @@
 
 
     </RelativeLayout>
+    
+    <include 
+        layout="@layout/divider_ver"/>
 
     <com.jiuquanlife.view.MyScrollView
         android:layout_width="match_parent"
@@ -279,15 +282,23 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/tv_contactor_ashd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="杨红梅（经纪人）" />
+                 />
 
             <TextView
+                android:id="@+id/tv_tel_ashd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="13568894244" />
+                 />
+              <TextView
+                android:id="@+id/tv_qq_ashd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                />
         </LinearLayout>
 
         <LinearLayout

@@ -12,6 +12,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.SampleImagePagerAdapter;
 import com.jiuquanlife.constance.ActionRelationConstance;
 import com.jiuquanlife.constance.CommonConstance;
+import com.jiuquanlife.constance.FromTypeConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.house.adapter.SecondaryHouseAdapter;
@@ -19,6 +20,7 @@ import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.view.DoubleRowLinearlayout;
 import com.jiuquanlife.view.LinearListView;
+import com.jiuquanlife.vo.house.FromType;
 import com.jiuquanlife.vo.house.HouseDetailData;
 import com.jiuquanlife.vo.house.HouseDetailInfo;
 import com.jiuquanlife.vo.house.Img;
@@ -155,6 +157,15 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		setText(tv_price_ashd , data.housePrice+priceUnit);
 		setText(tv_house_layout_ashd, data.houseLayout+"㎡");
 		setText(tv_square_ashd, data.square_metre);
+		if(FromTypeConstance.AGENT.equals(data.from_type)) {
+			setText(R.id.tv_contactor_ashd, data.contactor + "(经纪人)");
+		} else {
+			setText(R.id.tv_contactor_ashd, data.contactor + "(个人)");
+		}
+		setText(R.id.tv_tel_ashd, data.contactPhone);
+		if(!StringUtils.isNullOrEmpty(data.qq)) {
+			setText(R.id.tv_qq_ashd, "qq : " +data.qq);
+		}
 		
 		if("1".equals(data.isLoan)) {
 			drl_ashd.addItem("不支持贷款",  "");
