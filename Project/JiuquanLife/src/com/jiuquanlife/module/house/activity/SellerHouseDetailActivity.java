@@ -11,6 +11,7 @@ import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.SampleImagePagerAdapter;
 import com.jiuquanlife.constance.ActionRelationConstance;
+import com.jiuquanlife.constance.ActionTypeConstance;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.FromTypeConstance;
 import com.jiuquanlife.http.RequestHelper;
@@ -36,7 +37,7 @@ public class SellerHouseDetailActivity extends BaseActivity {
 	private TextView tv_time_ashd;
 	private TextView tv_price_ashd;
 	private TextView tv_house_layout_ashd;
-	private TextView tv_square_ashd;
+	private TextView tv_classify_ashd;
 	private TextView tv_address_ashd;
 	private TextView tv_community_name_ashd;
 	private TextView tv_description_ashd;
@@ -112,7 +113,7 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		tv_time_ashd = (TextView) findViewById(R.id.tv_time_ashd);
 		tv_price_ashd = (TextView) findViewById(R.id.tv_price_ashd);
 		tv_house_layout_ashd = (TextView) findViewById(R.id.tv_house_layout_ashd);
-		tv_square_ashd = (TextView) findViewById(R.id.tv_square_ashd);
+		tv_classify_ashd = (TextView) findViewById(R.id.tv_classify_ashd);
 		tv_address_ashd = (TextView) findViewById(R.id.tv_address_ashd);
 		tv_community_name_ashd = (TextView) findViewById(R.id.tv_community_name_ashd);
 		tv_description_ashd = (TextView) findViewById(R.id.tv_description_ashd);
@@ -155,8 +156,8 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		setText(tv_title_ashd, data.title);
 		setText(tv_time_ashd, data.dateline);
 		setText(tv_price_ashd , data.housePrice+priceUnit);
-		setText(tv_house_layout_ashd, data.houseLayout+"㎡");
-		setText(tv_square_ashd, data.square_metre);
+		setText(tv_house_layout_ashd, data.houseLayout);
+		setText(R.id.tv_classify_ashd, data.house_type);
 		if(FromTypeConstance.AGENT.equals(data.from_type)) {
 			setText(R.id.tv_contactor_ashd, data.contactor + "(经纪人)");
 		} else {
@@ -167,10 +168,12 @@ public class SellerHouseDetailActivity extends BaseActivity {
 			setText(R.id.tv_qq_ashd, "qq : " +data.qq);
 		}
 		
-		if("1".equals(data.isLoan)) {
-			drl_ashd.addItem("不支持贷款",  "");
-		} else {
-			drl_ashd.addItem("支持贷款",  "");
+		if(ActionTypeConstance.SECONDARY.equals(actionType)) {
+			if("1".equals(data.isLoan)) {
+				drl_ashd.addItem("不支持贷款",  "");
+			} else {
+				drl_ashd.addItem("支持贷款",  "");
+			}
 		}
 		
 		if(!StringUtils.isNullOrEmpty(data.housePrice) && !StringUtils.isNullOrEmpty(data.square_metre)&&ActionRelationConstance.SELL.equals(actionRelation)) {
@@ -185,24 +188,30 @@ public class SellerHouseDetailActivity extends BaseActivity {
 			drl_ashd.addItem("月供：",  data.monthPay + priceUnit);
 		}
 		
-		if(!StringUtils.isNullOrEmpty(data.houseLayout)) {
-			drl_ashd.addItem("面积：",  data.houseLayout+"㎡");
+		if(!StringUtils.isNullOrEmpty(data.square_metre) && !"0".equals(data.square_metre)) {
+			drl_ashd.addItem("面积：",  data.square_metre+"㎡");
 		}
 		
-		if(!StringUtils.isNullOrEmpty(data.propertyType)) {
-			drl_ashd.addItem("类型：",  data.propertyType);
+		if(!StringUtils.isNullOrEmpty(data.isFloor)&&(ActionRelationConstance.RENT.equals(actionType)||ActionRelationConstance.SELL.equals(actionType))) {
+			if("1".equals(data.isFloor)) {
+				drl_ashd.addItem("建筑类型：",  "楼房");
+			}
+			
+			if("2".equals(data.isFloor)) {
+				drl_ashd.addItem("建筑类型：",  "平房");
+			}
 		}
 		
 		if(!StringUtils.isNullOrEmpty(data.fitType)) {
 			drl_ashd.addItem("装修：",  data.fitType);
 		}
 		
-		if(!StringUtils.isNullOrEmpty(data.fitType)) {
-			drl_ashd.addItem("装修：",  data.fitType);
+		if(!StringUtils.isNullOrEmpty(data.propertyLong)) {
+			drl_ashd.addItem("产权有效期：",  data.propertyLong);
 		}
-		
-		if(!StringUtils.isNullOrEmpty(data.fitType)) {
-			drl_ashd.addItem("产权：",  data.propertyLong);
+
+		if(!StringUtils.isNullOrEmpty(data.propertyLong)) {
+			drl_ashd.addItem("产权类型：",  data.propertyType);
 		}
 		
 		if(!StringUtils.isNullOrEmpty(data.floorth)&&!StringUtils.isNullOrEmpty(data.floorTotal)) {
@@ -244,6 +253,28 @@ public class SellerHouseDetailActivity extends BaseActivity {
 		}
 	}
 	
+	public void onClick(View v) {
+		
+		switch (v.getId()) {
+		case R.id.btn_collect_ashd:
+			onClickCollect();
+			break;
+		case R.id.btn_share_ashd:
+			onClickShare();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void onClickShare() {
+		
+	}
+
+	private void onClickCollect() {
+		
+	}
+
 	private void setVisiable(int resId , int visalbe) {
 		
 		findViewById(resId).setVisibility(visalbe);

@@ -7,6 +7,7 @@ public class AddHouseData {
 	public ArrayList<AddressRange> addressList;
 	public ArrayList<CommonType> houseLayoutList;
 	public ArrayList<CommonType> houseTypeList;
+	public ArrayList<CommonType> houseClassifyList;
 	public ArrayList<CommonType> houseFitList;
 	public ArrayList<CommonType> properLongList;
 	public ArrayList<CommonType> properTypeList;

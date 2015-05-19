@@ -82,6 +82,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	private TextView tv_sex_aps;
 	private TextView tv_room_aps;
 	private TextView tv_pay_type_aps;
+	private TextView tv_classify_aps;
 	private TextView tv_proper_long_aps;
 	private TextView tv_proper_type_aps;
 	private TextView tv_towards_aps;
@@ -274,6 +275,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		tv_sex_aps = (TextView) findViewById(R.id.tv_sex_aps);
 		tv_room_aps = (TextView) findViewById(R.id.tv_room_aps);
 		tv_pay_type_aps = (TextView) findViewById(R.id.tv_pay_type_aps);
+		tv_classify_aps = (TextView) findViewById(R.id.tv_classify_aps);
 		tv_publish_title = (TextView) findViewById(R.id.tv_publish_title);
 		et_building_time_aps = (EditText) findViewById(R.id.et_building_time_aps);
 		et_apply_rent_price_low_aps = (EditText) findViewById(R.id.et_apply_rent_price_low_aps);
@@ -352,6 +354,11 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		case R.id.ll_content_pay_type:
 			if(payTypeDialog!=null) {
 				payTypeDialog.show();
+			}
+			break;
+		case R.id.ll_select_classify_aps:
+			if(houseClassifyDialog!=null) {
+				houseClassifyDialog.show();
 			}
 			break;
 		default:
@@ -541,7 +548,8 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 		if(allFloorDialog!=null && allFloorDialog.getCheckedItem()!=null) {
 			newHouse.totalFloor = ((Floor) allFloorDialog.getCheckedItem()).id;
 		}
-		newHouse.houseType = getIdOf(houseTypeDialog);
+		newHouse.houseType = getIdOf(houseClassifyDialog);
+		newHouse.isFloor = getIdOf(houseTypeDialog);
 		newHouse.houseLayout = getIdOf(houseLayoutDialog); 
 		newHouse.fitType =   getIdOf(houseFitDialog);
 		newHouse.isFloor =  getIdOf(houseTypeDialog); 
@@ -802,7 +810,13 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 									tv_pay_type_aps, "选择付款方式");
 						}
 						
-						
+						if (info.data.houseClassifyList != null) {
+							houseClassifyDialog = new SingleChoiceDialog(
+									getActivity());
+							createCommonDialog(houseClassifyDialog,
+									info.data.houseClassifyList,
+									tv_classify_aps, "选择房屋类型");
+						}
 
 					}
 				});
@@ -837,7 +851,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 			houseTypeDialog = new SingleChoiceDialog(getActivity());
 			CommonTypeAdapter hladapter = new CommonTypeAdapter(houseTypeList);
 			houseTypeDialog.setAdapter(hladapter);
-			houseTypeDialog.setTitle("选择类型");
+			houseTypeDialog.setTitle("选择建筑类型");
 			houseTypeDialog.setOnDismissListener(new OnDismissListener() {
 
 				@Override
@@ -982,6 +996,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	}
 
 	private SingleChoiceDialog houseTypeDialog;
+	private SingleChoiceDialog houseClassifyDialog;
 	private SingleChoiceDialog houseFitDialog;
 	private SingleChoiceDialog houseLayoutDialog;
 	private SingleChoiceDialog floorDialog;
