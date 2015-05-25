@@ -1,8 +1,5 @@
 package com.jiuquanlife.module.house.activity;
 
-import java.util.ArrayList;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,38 +9,29 @@ import android.widget.ListView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
+import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
-import com.jiuquanlife.module.house.adapter.AgentAdapter;
 import com.jiuquanlife.module.house.adapter.CommunityWithPhotoAdapter;
+import com.jiuquanlife.module.house.adapter.SimpleCommunityAdapter;
 import com.jiuquanlife.utils.GsonUtils;
-import com.jiuquanlife.view.expand.ExpandTabView;
-import com.jiuquanlife.view.expand.ViewLeft;
-import com.jiuquanlife.view.expand.ViewRight;
+import com.jiuquanlife.view.popuplist.PopupAdapter;
+import com.jiuquanlife.view.popuplist.PopupButton;
 import com.jiuquanlife.vo.house.AddressRange;
-import com.jiuquanlife.vo.house.Agent;
-import com.jiuquanlife.vo.house.AgentData;
 import com.jiuquanlife.vo.house.Community;
+import com.jiuquanlife.vo.house.CommunityData;
 import com.jiuquanlife.vo.house.CommunityListInfo;
-import com.jiuquanlife.vo.house.out.GetAgent;
+import com.jiuquanlife.vo.house.out.GetCommunity;
 
 public class CommunityListAcitivity extends BaseActivity {
-
-	private ExpandTabView expandTabView;
-	private ArrayList<View> mViewArray = new ArrayList<View>();
-	private ViewLeft addressTab;
-	private ViewLeft priceTab;
-	private ViewLeft layoutTab;
-	private ViewLeft areaTab;
-	private ViewLeft fromTypeTab;
-	private ViewRight viewRight;
 	private CommunityWithPhotoAdapter adapter;
 	private ListView houseListLv;
-	private EditText et_search_aal;
-	private AddressRange addressRange ;
-	private boolean initedMenu;
-
+	private PopupAdapter<AddressRange> addressAdapter;
+	private PopupAdapter<AddressRange> subAddressAdapter;
+	private PopupButton pb_address_aal;// 区域
+	private boolean initedMenu = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,22 +41,60 @@ public class CommunityListAcitivity extends BaseActivity {
 
 	private void init() {
 		initView();
-		// initVaule();
-		// initListener();
+		initAddrressPopMenu();
 		getData();
 	}
 
+	private void initAddrressPopMenu() {
+
+		pb_address_aal = (PopupButton) findViewById(R.id.pb_address_aal);
+		addressAdapter = new PopupAdapter<AddressRange>(getActivity(),
+				R.layout.popup_item, R.drawable.normal, R.drawable.press2);
+		subAddressAdapter = new PopupAdapter<AddressRange>(getActivity(),
+				R.layout.popup_item, R.drawable.normal, R.drawable.press);
+		View popView = getLayoutInflater().inflate(R.layout.popup2, null);
+		ListView pLv = (ListView) popView.findViewById(R.id.parent_lv);
+		final ListView cLv = (ListView) popView.findViewById(R.id.child_lv);
+		pLv.setAdapter(addressAdapter);
+		cLv.setAdapter(subAddressAdapter);
+		pb_address_aal.setPopupView(popView);
+		pLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	            @Override
+	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	                addressAdapter.setPressPostion(position);
+	                addressAdapter.notifyDataSetChanged();
+	                AddressRange ar = addressAdapter.getItem(position);
+	                if(ar!=null) {
+		                subAddressAdapter.refresh(ar.subAddressList);
+	                } else {
+		                subAddressAdapter.refresh(null);
+	                }
+	                subAddressAdapter.notifyDataSetChanged();
+	                subAddressAdapter.setPressPostion(-1);
+	                cLv.setSelection(0);
+	            }
+	        });
+
+	        cLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	            @Override
+	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	            	subAddressAdapter.setPressPostion(position);
+	                subAddressAdapter.notifyDataSetChanged();
+	                pb_address_aal.setText(addressAdapter.getSelectedItem().toString()+ "-" +subAddressAdapter.getItem(position).toString());
+	                pb_address_aal.hidePopup(); 
+	                getData();
+	            }
+	        });
+	}
+	
+	
 	private void initView() {
 
-		setContentView(R.layout.activity_agent_list);
-		expandTabView = (ExpandTabView) findViewById(R.id.etv_agent_list);
+		setContentView(R.layout.activity_community_list);
 		houseListLv = (ListView) findViewById(R.id.lv_agent_list);
-		et_search_aal = (EditText) findViewById(R.id.et_search_aal);
 		adapter = new CommunityWithPhotoAdapter(this);
 		houseListLv.setAdapter(adapter);
 		houseListLv.setOnItemClickListener(onItemClickListener);
-		// priceTab = new ViewLeft(this);
-		// viewRight = new ViewRight(this);
 	}
 
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
@@ -86,116 +112,44 @@ public class CommunityListAcitivity extends BaseActivity {
 	
 	private void getData() {
 		
-		GetAgent	getAgent = new GetAgent();
-		if(addressRange!=null) {
-			getAgent.location = addressRange.aid;
-		} 
-		if(!et_search_aal.getText().toString().trim().isEmpty()) {
-			getAgent.word = et_search_aal.getText().toString().trim();
+		GetCommunity getCommunity = new GetCommunity();
+		AddressRange ar = subAddressAdapter.getSelectedItem();
+		if(ar!=null) {
+			getCommunity.address = ar.aid;
+		} else {
+			getCommunity.address = "-1";
 		}
-		RequestHelper.getInstance().getRequestEntity(CommunityListAcitivity.this,
-				UrlConstance.COMMUNITY, getAgent,
+		RequestHelper.getInstance().postRequestEntity(CommunityListAcitivity.this,
+				UrlConstance.COMMUNITY_LIST, getCommunity,
 				new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
-						
-						CommunityListInfo info = GsonUtils.toObj(response, CommunityListInfo.class);
-						if(info!=null && info.data!=null) {
-							//TODO	解析数据，填充二级菜单
-							adapter.refresh(info.data.communityList);
+
+						CommunityListInfo info = GsonUtils.toObj(response,
+								CommunityListInfo.class);
+						if (info == null
+								|| info.data == null
+								|| !CommonConstance.REQUEST_CODE_SUCCESS
+										.equals(info.code)) {
+							// 请求数据失败
+							return;
 						}
+						if(!initedMenu) {
+							initMenu(info.data);
+							initedMenu = true;
+						}
+						adapter.refresh(info.data.communityList);
 					}
 				});
 	}
 
-	private void initMenu(AgentData data) {
+	private void initMenu(CommunityData data) {
 		
-		if(data == null || initedMenu){
-			return;
-		}
-		initedMenu = true;
-		
-		ArrayList<String> mTextArray = new ArrayList<String>();
-		if ( data.addressList != null
-				&& !data.addressList.isEmpty()) {
-			ArrayList<String> label = new ArrayList<String>();
-			for (AddressRange temp : data.addressList) {
-				label.add(temp.addressName);
-			}
-			addressTab = new ViewLeft(this, label, data.addressList);
-			mTextArray.add("区域");
-			mViewArray.add(addressTab);
-		}
-		
-		expandTabView.setValue(mTextArray, mViewArray);
-		initListener();
-
-	}
-
-	private void initListener() {
-
-		if (addressTab != null) {
-			addressTab.setOnSelectListener(new ViewLeft.OnSelectListener() {
-
-				@Override
-				public void getValue(Object obj) {
-					addressRange = (AddressRange) obj;
-					onRefreshTab(addressTab, addressRange.addressName);
-				}
-			});
-		}
-
-		// viewRight.setOnSelectListener(new ViewRight.OnSelectListener() {
-		//
-		// @Override
-		// public void getValue(String distance, String showText) {
-		// onRefresh(viewRight, showText);
-		// }
-		// });
-		//
-	}
-
-	private void onRefreshTab(View view, String showText) {
-
-		expandTabView.onPressBack();
-		int position = getPositon(view);
-		if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
-			expandTabView.setTitle(showText, position);
-		}
-		getData();
-	}
-
-	private int getPositon(View tView) {
-		for (int i = 0; i < mViewArray.size(); i++) {
-			if (mViewArray.get(i) == tView) {
-				return i;
-			}
-		}
-		return -1;
-	}
-	
-	public void onClick(View v) {
-		
-		switch (v.getId()) {
-		case R.id.btn_search_aal:
-			onClickSearch();
-			break;
-		default:
-			break;
-		}
-	}
-	
-	private void onClickSearch() {
-
-		getData();
-	}
-
-	@Override
-	public void onBackPressed() {
-
-		if (!expandTabView.onPressBack()) {
-			finish();
+		addressAdapter.refresh(data.addressList);
+		if(data.addressList!=null && !data.addressList.isEmpty()) {
+			addressAdapter.setPressPostion(0);
+			subAddressAdapter.refresh(data.addressList.get(0).subAddressList);
 		}
 	}
 

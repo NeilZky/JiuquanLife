@@ -9,11 +9,13 @@ import android.widget.TextView;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
+import com.jiuquanlife.app.App;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.view.UrlTagImageView;
 import com.jiuquanlife.view.UrlTagImageView.OnBitmapLoadedListener;
 import com.jiuquanlife.vo.house.Agent;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class AgentAdapter extends BaseListAdapter<Agent> {
 
@@ -60,22 +62,9 @@ public class AgentAdapter extends BaseListAdapter<Agent> {
 					}
 				}
 			});
-//			imageLoader.displayImage(url, holder.img, App.getOptions());
-//			final ImageView mImageView = holder.img;
-//			mImageView.setTag(url);
-//			imageLoader.loadImage(url, new SimpleImageLoadingListener(){
-//
-//	            @Override
-//	            public void onLoadingComplete(String imageUrl, View view,
-//	                                          Bitmap loadedImage) {
-//	                super.onLoadingComplete(imageUrl, view, loadedImage);
-//	                if (imageUrl.equals(mImageView.getTag())) {
-//	                    mImageView.setImageBitmap(loadedImage);
-//	                }
-//	            }
-//	        });
+			imageLoader.displayImage(url, holder.img, App.getOptions());
 		} else {
-			holder.img.setImageResource(R.drawable.ic_launcher);
+			holder.img.setImageResource(R.drawable.ic_empty);
 		}
 		return convertView;
 	}

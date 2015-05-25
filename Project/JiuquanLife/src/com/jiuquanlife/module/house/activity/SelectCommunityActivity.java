@@ -14,7 +14,7 @@ import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
-import com.jiuquanlife.module.house.adapter.CommunityAdapter;
+import com.jiuquanlife.module.house.adapter.SimpleCommunityAdapter;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.vo.house.Community;
 import com.jiuquanlife.vo.house.CommunityInfo;
@@ -27,7 +27,7 @@ public class SelectCommunityActivity extends BaseActivity {
 	private static final int REQUEST_SUB_AREA = 1;
 
 	private ListView lv_activity_select_community;
-	private CommunityAdapter communityAdapter;
+	private SimpleCommunityAdapter communityAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class SelectCommunityActivity extends BaseActivity {
 
 		setContentView(R.layout.activity_select_community);
 		lv_activity_select_community = (ListView) findViewById(R.id.lv_activity_select_community);
-		communityAdapter = new CommunityAdapter(this);
+		communityAdapter = new SimpleCommunityAdapter(this);
 		lv_activity_select_community.setAdapter(communityAdapter);
 		lv_activity_select_community.setOnItemClickListener(onItemClickListener);
 	}

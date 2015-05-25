@@ -9,16 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" >
 
-        <ImageView
-            android:id="@+id/btn_search_focus"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:src="@drawable/icn_search" />
 
         <TextView
             android:id="@+id/tv_title_house_list"
@@ -26,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="8dp"
-            android:text="经纪人"
+            android:text="小区"
             android:textSize="17sp" />
 
         <Button

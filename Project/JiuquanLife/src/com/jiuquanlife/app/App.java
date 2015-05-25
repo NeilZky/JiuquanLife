@@ -59,7 +59,7 @@ public class App extends Application{
 		.cacheInMemory(true)
 		.cacheOnDisk(true)
 		.considerExifParams(true)
-		.displayer(new RoundedBitmapDisplayer(20))
+		.displayer(new RoundedBitmapDisplayer(0))
 		.build();
 		
 	}

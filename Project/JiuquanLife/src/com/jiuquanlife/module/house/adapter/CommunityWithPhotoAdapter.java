@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
+import com.jiuquanlife.app.App;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.view.UrlTagImageView;
 import com.jiuquanlife.view.UrlTagImageView.OnBitmapLoadedListener;
@@ -50,38 +51,10 @@ public class CommunityWithPhotoAdapter extends BaseListAdapter<Community> {
 			Img img = houseItem.img;
 			if(img != null && !StringUtils.isNullOrEmpty(img.pic)) {
 				final String url = "http://www.5ijq.cn/Public/Uploads/" +img.pic;
-				holder.img.setTag(url);
-				holder.img.loadImage(url, new OnBitmapLoadedListener() {
-					
-					@Override
-					public void onBitmapLoaded(ImageView imageView, Bitmap bitmap) {
-						
-						if (imageView.getTag() != null
-								&& imageView.getTag().equals(url)) {
-							imageView.setImageBitmap(bitmap);
-						} else {
-							imageView.setImageResource(R.drawable.ic_launcher);
-						}
-					}
-				});
+				imageLoader.displayImage(url, holder.img, App.getOptions());
 			}
-			
-//			imageLoader.displayImage(url, holder.img, App.getOptions());
-//			final ImageView mImageView = holder.img;
-//			mImageView.setTag(url);
-//			imageLoader.loadImage(url, new SimpleImageLoadingListener(){
-//
-//	            @Override
-//	            public void onLoadingComplete(String imageUrl, View view,
-//	                                          Bitmap loadedImage) {
-//	                super.onLoadingComplete(imageUrl, view, loadedImage);
-//	                if (imageUrl.equals(mImageView.getTag())) {
-//	                    mImageView.setImageBitmap(loadedImage);
-//	                }
-//	            }
-//	        });
 		} else {
-			holder.img.setImageResource(R.drawable.ic_launcher);
+			holder.img.setImageResource(R.drawable.ic_empty);
 		}
 		return convertView;
 	}

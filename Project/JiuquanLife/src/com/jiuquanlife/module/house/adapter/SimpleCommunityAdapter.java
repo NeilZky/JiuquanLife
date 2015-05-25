@@ -9,9 +9,9 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.vo.house.Community;
 
-public class CommunityAdapter extends BaseListAdapter<Community> {
+public class SimpleCommunityAdapter extends BaseListAdapter<Community> {
 
-	public CommunityAdapter(Context context) {
+	public SimpleCommunityAdapter(Context context) {
 		super(context);
 	}
 
