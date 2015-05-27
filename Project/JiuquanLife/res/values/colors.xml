@@ -69,4 +69,6 @@
     <color name="publish_pressed">#236c8b</color>
     <color name="publish_normal">#54bcde</color>
     
+    <color name="forum_tab_color">#1d2929</color>
+    
 </resources>

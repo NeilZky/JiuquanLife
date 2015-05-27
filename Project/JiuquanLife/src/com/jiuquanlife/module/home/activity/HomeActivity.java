@@ -10,6 +10,7 @@ import android.view.Window;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
+import com.jiuquanlife.module.forum.activity.ForumTabActvity;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
 import com.jiuquanlife.module.home.adapter.HomeAdapter;
 import com.jiuquanlife.module.house.fragment.HouseFragment;
@@ -108,7 +109,7 @@ public class HomeActivity extends Activity {
 
 		private void onClickCommunity() {
 			
-			Intent intent = new Intent(HomeActivity.this, NavTabActivity.class);
+			Intent intent = new Intent(HomeActivity.this, ForumTabActvity.class);
 			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG, ForumTabContentFragment.class.getSimpleName());
 			startActivity(intent);
 		}

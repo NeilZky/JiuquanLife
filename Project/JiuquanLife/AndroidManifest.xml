@@ -33,6 +33,7 @@
         </activity>
         <activity android:name="com.jiuquanlife.module.login.LoginActivity" />
         <activity android:name="com.jiuquanlife.module.tab.NavTabActivity" />
+        <activity android:name="com.jiuquanlife.module.forum.activity.ForumTabActvity" />
         <activity android:name="com.jiuquanlife.module.userhome.activity.UserHomeActivity" />
         <activity android:name="com.jiuquanlife.module.post.PostDetailActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.SecondaryHouseListActivity" />
