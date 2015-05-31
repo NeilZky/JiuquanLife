@@ -1,31 +1,14 @@
 package com.jiuquanlife.module.forum.activity;
 
-import java.util.ArrayList;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
-import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 
-import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
-import com.jiuquanlife.adapter.ImageViewPagerAdapter;
-import com.jiuquanlife.constance.CommonConstance;
-import com.jiuquanlife.constance.UrlConstance;
-import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
-import com.jiuquanlife.module.post.PostDetailActivity;
-import com.jiuquanlife.utils.GsonUtils;
-import com.jiuquanlife.vo.FocusInfo;
-import com.jiuquanlife.vo.PhotoInfo;
-import com.jiuquanlife.vo.convertor.ConvertUtils;
 
 public class ForumTabActvity extends FragmentActivity{
 	

@@ -3,7 +3,7 @@ package com.jiuquanlife.vo.forum;
 import java.util.ArrayList;
 
 import com.jiuquanlife.vo.ImgData;
-
+import com.jiuquanlife.vo.PostInfo;
 
 /**
  * 
@@ -12,5 +12,5 @@ import com.jiuquanlife.vo.ImgData;
 public class ForumIndexData {
 	
 	public ArrayList<ImgData> focusImgs;
-	public ArrayList<ForumIndexData> hotPosts;
+	public ArrayList<PostInfo> hotPosts;
 }

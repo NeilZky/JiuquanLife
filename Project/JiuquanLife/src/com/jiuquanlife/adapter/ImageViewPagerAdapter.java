@@ -84,12 +84,11 @@ public class ImageViewPagerAdapter extends PagerAdapter implements OnPageChangeL
 		dotLl.removeAllViews();
 		dots = new ArrayList<ImageView>();
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-				40, 40);
+				20, 20);
 		layoutParams.setMargins(4, 3, 4, 3);
 
 		for (int i = 0; i < photoInfos.size(); i++) {
 			ImageView dot = new ImageView(context);
-
 			dot.setLayoutParams(layoutParams);
 			dots.add(dot);
 			dot.setOnClickListener(onClickListener);

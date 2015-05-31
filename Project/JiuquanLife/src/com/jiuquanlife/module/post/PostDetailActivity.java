@@ -81,16 +81,16 @@ public class PostDetailActivity extends BaseActivity{
 					//ÇëÇóÊý¾ÝÊ§°Ü
 					return;
 				}
-				if(info.data.content!=null) {
-					contentAdapter.refresh(info.data.content);
-					contentLlv.notifyDataSetChanged();
-				}
+//				if(info.data.content!=null) {
+//					contentAdapter.refresh(info.data.content);
+//					contentLlv.notifyDataSetChanged();
+//				}
 				
 				if(!StringUtils.isNullOrEmpty(info.data.authorid)) {
 					imageLoader.displayImage( UrlUtils.getPhotoUrl(info.data.authorid), photoCiv);
 				}
 				
-				setText(replayCounTv, info.data.replies);
+//				setText(replayCounTv, info.data.replies);
 				setText(viewCountTv, info.data.views);
 				setText(usernameTv, info.data.author);
 				setText(dateTv, info.data.dateline);

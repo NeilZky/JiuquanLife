@@ -1,5 +1,6 @@
 package com.jiuquanlife.module.forum.fragment;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
 import com.astuetz.PagerSlidingTabStrip;
+import com.google.gson.reflect.TypeToken;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.ImageViewPagerAdapter;
 import com.jiuquanlife.constance.CommonConstance;
@@ -24,9 +26,12 @@ import com.jiuquanlife.module.forum.activity.ForumTabActvity;
 import com.jiuquanlife.module.forum.fragment.adapter.ForumFragmentAdapter;
 import com.jiuquanlife.module.post.PostDetailActivity;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.vo.BaseData;
 import com.jiuquanlife.vo.FocusInfo;
 import com.jiuquanlife.vo.PhotoInfo;
+import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.convertor.ConvertUtils;
+import com.jiuquanlife.vo.forum.ForumIndexData;
 
 public class ForumTabContentFragment extends BaseFragment {
 
@@ -75,8 +80,14 @@ public class ForumTabContentFragment extends BaseFragment {
 					@Override
 					public void onResponse(String response) {
 
-						FocusInfo info = GsonUtils.toObj(response,
-								FocusInfo.class);
+//						FocusInfo info = GsonUtils.toObj(response,
+//								FocusInfo.class);
+//						
+						Type type = new TypeToken<BaseData<ForumIndexData>>() {
+						}.getType();
+						BaseData<ForumIndexData> info = GsonUtils.toObj(
+								response, type);
+						
 						if (info == null
 								|| info.data == null
 								|| !CommonConstance.REQUEST_CODE_SUCCESS
@@ -84,8 +95,10 @@ public class ForumTabContentFragment extends BaseFragment {
 							// ÇëÇóÊý¾ÝÊ§°Ü
 							return;
 						}
+						
+						
 						ArrayList<PhotoInfo> focusTopPhotoInfos = ConvertUtils
-								.convertToPhotoInfos(info);
+								.convertToPhotoInfos(info.data.focusImgs);
 						focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
 						topVp.setAdapter(focusTopAdapter);
 					}
@@ -108,15 +121,14 @@ public class ForumTabContentFragment extends BaseFragment {
 		NewForumFragment newForumFragment = new NewForumFragment();
 		newForumFragment.setTitle(getActivity().getString(R.string.title_forum_new));
 		
-		NewForumFragment plateForumFragment = new NewForumFragment();
-		plateForumFragment.setTitle(getActivity().getString(R.string.title_forum_plate));
-		
+		HotPostForumFragment hotPostForumFragment = new HotPostForumFragment();
+		hotPostForumFragment.setTitle(getActivity().getString(R.string.title_forum_hot));
 	
 		EssenceForumFragment essenceForumFragment = new EssenceForumFragment();
 		essenceForumFragment.setTitle(getActivity().getString(R.string.title_forum_essence));
 		
 		fragments.add(newForumFragment);
-		fragments.add(plateForumFragment);
+		fragments.add(hotPostForumFragment);
 		fragments.add(essenceForumFragment);
 		adapter = new ForumFragmentAdapter(getFragmentManager(), fragments);
 		pager.setAdapter(adapter);

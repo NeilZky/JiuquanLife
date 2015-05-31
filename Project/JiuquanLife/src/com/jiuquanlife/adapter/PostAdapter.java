@@ -98,7 +98,7 @@ public class PostAdapter extends BaseAdapter{
 		if(!StringUtils.isNullOrEmpty(postInfo.last_reply_date)) {
 			Calendar date = Calendar.getInstance();
 			date.setTimeInMillis(Long.parseLong(postInfo.last_reply_date));
-			holder.tv_date_post_adapter.setText(TimeUtils.getFormatDate(date));
+			holder.tv_date_post_adapter.setText(TimeUtils.getFormatedDateTime(date));
 		}
 		return convertView;
 	}
