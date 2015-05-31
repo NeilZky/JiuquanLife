@@ -18,12 +18,12 @@ import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
+import com.jiuquanlife.adapter.ImageViewPagerAdapter;
 import com.jiuquanlife.constance.ActionRelationConstance;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
-import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.house.activity.AgentListAcitivity;
 import com.jiuquanlife.module.house.activity.BaseHouseListActivity;
@@ -44,7 +44,7 @@ public class HouseFragment extends BaseFragment{
 
 	
 	private ViewPager topVp;
-	private FocusTopAdapter focusTopAdapter;
+	private ImageViewPagerAdapter focusTopAdapter;
 	private LinearLayout dotLl;
 	private TextView vpTitleTv;
 	private UnScrollListView jhtLv;
@@ -96,7 +96,7 @@ public class HouseFragment extends BaseFragment{
 		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_house);
 		ll_agent_fragment_house = (LinearLayout) findViewById(R.id.ll_agent_fragment_house);
 		ll_community_house_fragment = (LinearLayout) findViewById(R.id.ll_community_house_fragment);
-		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp,
+		focusTopAdapter = new ImageViewPagerAdapter(getActivity(), dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
 		jhtAdapter = new JhtAdapter(getActivity());

@@ -3,5 +3,6 @@
 
     <item android:drawable="@drawable/ic_forum_msg" android:state_selected="false"/>
     <item android:drawable="@drawable/ic_forum_msg_selected" android:state_selected="true"/>
+    <item android:drawable="@drawable/ic_forum_msg_selected" android:state_pressed="true"/>
 
 </selector>

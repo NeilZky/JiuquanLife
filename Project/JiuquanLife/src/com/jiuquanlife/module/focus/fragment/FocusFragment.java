@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
+import com.jiuquanlife.adapter.ImageViewPagerAdapter;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
-import com.jiuquanlife.module.focus.adapter.FocusTopAdapter;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
 import com.jiuquanlife.module.post.PostDetailActivity;
@@ -36,7 +36,7 @@ import com.jiuquanlife.vo.convertor.ConvertUtils;
 public class FocusFragment extends BaseFragment {
 
 	private ViewPager topVp;
-	private FocusTopAdapter focusTopAdapter;
+	private ImageViewPagerAdapter focusTopAdapter;
 	private LinearLayout dotLl;
 	private TextView vpTitleTv;
 	private HorizontalListView ltdrHlv;
@@ -67,7 +67,7 @@ public class FocusFragment extends BaseFragment {
 		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_focus);
 		ltdrHlv = (HorizontalListView) findViewById(R.id.hlv_ltdr_focus);
 		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_focus);
-		focusTopAdapter = new FocusTopAdapter(getActivity(), dotLl, topVp,
+		focusTopAdapter = new ImageViewPagerAdapter(getActivity(), dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
 		ltdrAdapter = new LtdrAdapter(getActivity());

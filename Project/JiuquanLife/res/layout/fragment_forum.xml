@@ -7,44 +7,60 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="180dp" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="8dp"
-            android:text="红柳论坛"
-            android:textSize="17sp" />
-         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-                        android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:text="发帖" />
-        
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_top_focus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:background="#90000000"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_vp_title_focus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="14sp"
+                android:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:id="@+id/ll_dot_top_focus"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
+        </LinearLayout>
     </RelativeLayout>
 
-    <include layout="@layout/divider" />
-
-     <com.astuetz.PagerSlidingTabStrip
+    <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/pts_forum"
         android:layout_width="match_parent"
-        app:pstsShouldExpand="true"
-		app:pstsIndicatorColor="@color/blue_bg"    
-		app:pstsIndicatorHeight="3dp"    
-		app:pstsUnderlineHeight="1px"
-		app:pstsDividerColor="#00000000"
-		app:pstsTextDefalutColor="@android:color/black"
-		app:pstsTextSelectedColor="@color/blue_bg"	
-		app:pstsTextSize="16sp"	
-        android:layout_height="35dip" 
+        android:layout_height="35dip"
         android:background="@android:color/white"
-        />
+        app:pstsDividerColor="#00000000"
+        app:pstsIndicatorColor="@color/blue_bg"
+        app:pstsIndicatorHeight="3dp"
+        app:pstsShouldExpand="true"
+        app:pstsTextDefalutColor="@android:color/black"
+        app:pstsTextSelectedColor="@color/blue_bg"
+        app:pstsTextSize="16sp"
+        app:pstsUnderlineHeight="1px" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_forum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

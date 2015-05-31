@@ -1,4 +1,4 @@
-package com.jiuquanlife.module.focus.adapter;
+package com.jiuquanlife.adapter;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.vo.PhotoInfo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class FocusTopAdapter extends PagerAdapter implements OnPageChangeListener{
+public class ImageViewPagerAdapter extends PagerAdapter implements OnPageChangeListener{
 
 	private Context context;
 	private ArrayList<PhotoInfo> photoInfos;
@@ -30,7 +30,7 @@ public class FocusTopAdapter extends PagerAdapter implements OnPageChangeListene
 	private TextView titleTv;
 	private ImageLoader imageLoader;
 	
-	public FocusTopAdapter(Context context, LinearLayout dotLl, ViewPager viewPager, TextView titleTv) {
+	public ImageViewPagerAdapter(Context context, LinearLayout dotLl, ViewPager viewPager, TextView titleTv) {
 
 		this.context = context;
 		this.dotLl = dotLl;
