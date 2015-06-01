@@ -16,7 +16,6 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.utils.TimeUtils;
 import com.jiuquanlife.utils.UrlUtils;
-import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.forum.PostItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -80,9 +79,15 @@ public class PostAdapter extends BaseAdapter{
 			holder.ll_images_post_adapter.setVisibility(View.GONE);
 		} else {
 			holder.ll_images_post_adapter.setVisibility(View.VISIBLE);
-			for(int i =0; i < postInfo.imageList.size() && i<4; i++) {
+			int i=0;
+			for(; i < postInfo.imageList.size() && i<4; i++) {
 				ImageView iv = (ImageView) holder.ll_images_post_adapter.getChildAt(i);
+				iv.setVisibility(View.VISIBLE);
 				imageLoader.displayImage(postInfo.imageList.get(i),iv);
+			}
+			for(int j = i; j < 4; j++) {
+				ImageView iv = (ImageView) holder.ll_images_post_adapter.getChildAt(j);
+				iv.setVisibility(View.INVISIBLE);
 			}
 		}
 		holder.tv_name_post_adapter.setText(postInfo.user_nick_name);
@@ -119,6 +124,15 @@ public class PostAdapter extends BaseAdapter{
 	public void refresh(ArrayList<PostItem> data) {
 		
 		this.data = data;
+		notifyDataSetChanged();
+	}
+	
+	public void addList(ArrayList<PostItem> addedDatas) {
+		
+		if(this.data == null) {
+			this.data = new ArrayList<PostItem>();
+		}
+		this.data.addAll(addedDatas);
 		notifyDataSetChanged();
 	}
 	
