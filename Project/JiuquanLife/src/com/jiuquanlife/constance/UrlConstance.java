@@ -19,8 +19,8 @@ public class UrlConstance {
 	 * 	论坛
 	 * ---------------------
 	 */
-	public static final String GET_NEW_FORUM_LIST = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/topiclist/sortby/new/isImageList/1";//论坛新帖列表
-	public static final String GET_ESSENCE_FORUM_LIST = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/topiclist/sortby/marrow/isImageList/1";//论坛精华列表
+	public static final String GET_NEW_FORUM_LIST = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/topiclist/sortby/new/isImageList/1/page/";//论坛新帖列表
+	public static final String GET_ESSENCE_FORUM_LIST = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/topiclist/sortby/marrow/isImageList/1/page/";//论坛精华列表
 	public static final String GET_HOT_FORUM = "http://www.5ijq.cn/App/Form" ;//论坛顶部轮播和论坛热点
 	
 }

@@ -72,10 +72,8 @@ public class NewForumFragment extends ForumBaseFragment{
 	
 	public void getData() {
 		page = 1;
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("page", String.valueOf(page));
 		RequestHelper.getInstance().getRequestMap(getActivity(),
-				UrlConstance.GET_NEW_FORUM_LIST, map,new Listener<String>() {
+				UrlConstance.GET_NEW_FORUM_LIST + page, null,new Listener<String>() {
 					
 					
 					@Override
@@ -103,10 +101,8 @@ public class NewForumFragment extends ForumBaseFragment{
 	public void addData() {
 		
 		page++;
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("page", String.valueOf(page));
 		RequestHelper.getInstance().getRequestMap(getActivity(),
-				UrlConstance.GET_NEW_FORUM_LIST, map,new Listener<String>() {
+				UrlConstance.GET_NEW_FORUM_LIST + page, null,new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
