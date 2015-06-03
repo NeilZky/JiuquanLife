@@ -3,7 +3,9 @@ package com.jiuquanlife.adapter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.module.base.PictureViewPagerActivity;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.utils.TimeUtils;
 import com.jiuquanlife.utils.UrlUtils;
@@ -28,9 +31,11 @@ public class PostAdapter extends BaseAdapter{
 	private ArrayList<PostItem> data;
 	private LayoutInflater inflater;
 	private ImageLoader imageLoader;
+	private Context context;
 	
 	public PostAdapter(Context context) {
 		
+		this.context = context;
 		inflater = LayoutInflater.from(context);
 		imageLoader = ImageLoader.getInstance();
 	}
@@ -69,7 +74,7 @@ public class PostAdapter extends BaseAdapter{
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
-		PostItem postInfo = getItem(position);
+		final PostItem postInfo = getItem(position);
 		holder.tv_title_post_adapter.setText(postInfo.title);
 		holder.tv_subject_post_adapter.setText(postInfo.subject);
 		holder.tv_praise_count_post_adapter.setText(String.valueOf(postInfo.vote));
@@ -84,6 +89,16 @@ public class PostAdapter extends BaseAdapter{
 				ImageView iv = (ImageView) holder.ll_images_post_adapter.getChildAt(i);
 				iv.setVisibility(View.VISIBLE);
 				imageLoader.displayImage(postInfo.imageList.get(i),iv);
+				iv.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						
+						Intent intent = new Intent(context, PictureViewPagerActivity.class);
+						intent.putExtra(PictureViewPagerActivity.EXTRA_IMAGE_URLS, postInfo.imageList);
+						context.startActivity(intent);
+					}
+				});
 			}
 			for(int j = i; j < 4; j++) {
 				ImageView iv = (ImageView) holder.ll_images_post_adapter.getChildAt(j);

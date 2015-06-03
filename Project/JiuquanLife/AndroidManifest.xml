@@ -52,6 +52,9 @@
         <activity android:name="com.jiuquanlife.module.house.activity.AgentDetailActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.CommunityListAcitivity" />
         <activity
+            android:name="com.jiuquanlife.module.base.PictureViewPagerActivity"
+            android:theme="@style/ThemeActivity" />
+        <activity
             android:name="com.jiuquanlife.module.house.activity.PublishSecondaryHouseActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
