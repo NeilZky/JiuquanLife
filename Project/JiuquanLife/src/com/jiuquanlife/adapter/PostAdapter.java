@@ -89,6 +89,7 @@ public class PostAdapter extends BaseAdapter{
 				ImageView iv = (ImageView) holder.ll_images_post_adapter.getChildAt(i);
 				iv.setVisibility(View.VISIBLE);
 				imageLoader.displayImage(postInfo.imageList.get(i),iv);
+				final int currentIndex = i;
 				iv.setOnClickListener(new View.OnClickListener() {
 					
 					@Override
@@ -96,6 +97,7 @@ public class PostAdapter extends BaseAdapter{
 						
 						Intent intent = new Intent(context, PictureViewPagerActivity.class);
 						intent.putExtra(PictureViewPagerActivity.EXTRA_IMAGE_URLS, postInfo.imageList);
+						intent.putExtra(PictureViewPagerActivity.EXTRA_CURRENT_ITEM, currentIndex);
 						context.startActivity(intent);
 					}
 				});

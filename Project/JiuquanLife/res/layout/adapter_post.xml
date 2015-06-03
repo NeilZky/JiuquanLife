@@ -73,7 +73,9 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_margin="7dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
                     android:src="@drawable/ic_share" />
             </LinearLayout>
 
@@ -170,7 +172,7 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
-            android:minWidth="20dp"
+            android:text="1"
             android:textSize="12sp" />
     </LinearLayout>
 

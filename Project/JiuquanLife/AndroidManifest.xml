@@ -33,7 +33,7 @@
         </activity>
         <activity android:name="com.jiuquanlife.module.login.LoginActivity" />
         <activity android:name="com.jiuquanlife.module.tab.NavTabActivity" />
-        <activity android:name="com.jiuquanlife.module.forum.activity.ForumTabActvity" />
+        <activity android:name="com.jiuquanlife.module.forum.activity.ForumTabActvity" android:screenOrientation="portrait"  />
         <activity android:name="com.jiuquanlife.module.userhome.activity.UserHomeActivity" />
         <activity android:name="com.jiuquanlife.module.post.PostDetailActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.SecondaryHouseListActivity" />
@@ -52,7 +52,7 @@
         <activity android:name="com.jiuquanlife.module.house.activity.AgentDetailActivity" />
         <activity android:name="com.jiuquanlife.module.house.activity.CommunityListAcitivity" />
         <activity
-            android:name="com.jiuquanlife.module.base.PictureViewPagerActivity"
+            android:name="com.jiuquanlife.module.base.PictureViewPagerActivity" android:configChanges="orientation|keyboardHidden"
             android:theme="@style/ThemeActivity" />
         <activity
             android:name="com.jiuquanlife.module.house.activity.PublishSecondaryHouseActivity"
