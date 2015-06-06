@@ -1,7 +1,5 @@
 package com.jiuquanlife.module.forum.fragment;
 
-import java.util.HashMap;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +51,7 @@ public class NewForumFragment extends ForumBaseFragment{
 		lv_essence_forum.setPullRefreshEnable(true);
 		lv_essence_forum.setPullLoadEnable(false);
 		lv_essence_forum.setXListViewListener(xListViewListener);
+		lv_essence_forum.setOnItemClickListener(postAdapter);
 	}
 	
 	private XListView.IXListViewListener xListViewListener = new IXListViewListener() {

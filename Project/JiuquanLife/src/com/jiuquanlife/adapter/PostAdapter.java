@@ -10,10 +10,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
@@ -21,6 +23,7 @@ import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.PictureViewPagerActivity;
+import com.jiuquanlife.module.forum.activity.PostDetailActivity;
 import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.utils.StringUtils;
@@ -33,7 +36,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  * Ìû×ÓÁÐ±í
  */
-public class PostAdapter extends BaseAdapter{
+public class PostAdapter extends BaseAdapter implements OnItemClickListener{
 
 	private ArrayList<PostItem> data;
 	private LayoutInflater inflater;
@@ -236,6 +239,19 @@ public class PostAdapter extends BaseAdapter{
 		}
 		this.data.addAll(addedDatas);
 		notifyDataSetChanged();
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		
+		if(position == 0) {
+			return;
+		}
+		PostItem postItem = getItem(position-1);
+		Intent intent = new Intent(context, PostDetailActivity.class);
+		intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, postItem.topic_id);
+		context.startActivity(intent);
 	}
 	
 }

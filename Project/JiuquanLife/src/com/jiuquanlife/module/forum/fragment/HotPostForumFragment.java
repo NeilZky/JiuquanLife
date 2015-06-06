@@ -61,6 +61,7 @@ public class HotPostForumFragment extends ForumBaseFragment{
 		lv_essence_forum.setPullRefreshEnable(true);
 		lv_essence_forum.setPullLoadEnable(false);
 		lv_essence_forum.setXListViewListener(xListViewListener);
+		lv_essence_forum.setOnItemClickListener(postAdapter);
 	}
 	
 	private XListView.IXListViewListener xListViewListener = new IXListViewListener() {

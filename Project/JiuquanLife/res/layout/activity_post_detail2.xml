@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_bg" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="吃喝玩乐"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_back_create_announce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:onClick="onClick"
+            android:padding="10dp"
+            android:text="@string/back"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+		
+        <ImageView
+            android:id="@+id/iv_share_apd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:src="@drawable/ic_share"
+            android:onClick="onClick"
+            />
+        
+          <ImageView
+            android:id="@+id/iv_collect_apd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:layout_toLeftOf="@id/iv_share_apd"
+            android:src="@drawable/ic_collect"
+            android:onClick="onClick"
+            />
+        
+    </RelativeLayout>
+
+    <com.jiuquanlife.view.xlistview.XListView
+        android:id="@+id/xlv_apd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
