@@ -1,12 +1,9 @@
 package com.jiuquanlife.module.forum.fragment;
 
-import java.util.HashMap;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;

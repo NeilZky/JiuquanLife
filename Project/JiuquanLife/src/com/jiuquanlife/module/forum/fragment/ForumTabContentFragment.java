@@ -23,7 +23,7 @@ import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.forum.activity.ForumTabActvity;
-import com.jiuquanlife.module.forum.fragment.adapter.ForumFragmentAdapter;
+import com.jiuquanlife.module.forum.fragment.pageradapter.ForumFragmentAdapter;
 import com.jiuquanlife.module.post.PostDetailActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.vo.BaseData;

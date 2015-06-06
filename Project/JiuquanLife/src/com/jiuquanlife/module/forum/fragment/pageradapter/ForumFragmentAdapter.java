@@ -1,4 +1,4 @@
-package com.jiuquanlife.module.forum.fragment.adapter;
+package com.jiuquanlife.module.forum.fragment.pageradapter;
 
 import java.util.ArrayList;
 
