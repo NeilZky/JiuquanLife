@@ -40,11 +40,27 @@ public class PostDetailActivity extends BaseActivity{
 		
 		setContentView(R.layout.activity_post_detail2);
 		xlv_apd = (XListView) findViewById(R.id.xlv_apd);
-		xlv_apd.setPullLoadEnable(true);
+		xlv_apd.setPullLoadEnable(false);
 		xlv_apd.setPullRefreshEnable(true);
 		postDetailAdapter = new PostDetailAdapter(getActivity());
 		xlv_apd.setAdapter(postDetailAdapter);
+		xlv_apd.setXListViewListener(xListViewListener);
 	}
+	
+	private XListView.IXListViewListener xListViewListener = new XListView.IXListViewListener() {
+		
+		@Override
+		public void onRefresh() {
+			
+			getData();
+		}
+		
+		@Override
+		public void onLoadMore() {
+			
+			addData();
+		}
+	};
 	
 	private void initData() {
 		
@@ -70,15 +86,57 @@ public class PostDetailActivity extends BaseActivity{
 							return;
 						}
 						postDetailAdapter.refresh(info.topic, info.list);
+						if(info.has_next  == 1) {
+							xlv_apd.setPullLoadEnable(true);
+						} else {
+							xlv_apd.setPullLoadEnable(false);
+						}
 					}
 				},
 				new RequestHelper.OnFinishListener() {
 					
 					@Override
 					public void onFinish() {
+						xlv_apd.stopRefresh();
 					}
 				});
 	}
+	
+	private void addData() {
+	
+		page++;
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("r", "forum/postlist");
+		map.put("topicId", String.valueOf(topicId));
+		map.put("page", String.valueOf(page));
+		RequestHelper.getInstance().getRequestMap(getActivity(),
+				UrlConstance.FORUM_URL, map,new Listener<String>() {
 
+					@Override
+					public void onResponse(String response) {
+						
+						PostDetailVo info = GsonUtils.toObj(response,
+								PostDetailVo.class);
+						if (info == null ) {
+							return;
+						}
+						if(info.has_next  == 1) {
+							xlv_apd.setPullLoadEnable(true);
+						} else {
+							xlv_apd.setPullLoadEnable(false);
+						}
+						postDetailAdapter.add(info.list);
+						
+					}
+				},
+				new RequestHelper.OnFinishListener() {
+					
+					@Override
+					public void onFinish() {
+						xlv_apd.stopLoadMore();
+					}
+				});
+	}
+	
 	
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
@@ -75,11 +76,44 @@ public class PostDetailAdapter extends BaseAdapter{
 		if(position == 0 ) {
 			return getPostDetailView();
 		} else {
-			if(convertView == null) {
+			if(convertView == null||convertView.getId()!=R.id.ll_root_ar) {
 				convertView = inflater.inflate(R.layout.adapter_reply, null);
 			}
+			Holder holder = getHolder(convertView);
+			Reply reply = (Reply) getItem(position);
+			imageLoader.displayImage(reply.icon, holder.civ_photo_ar);
+			TextViewUtils.setText(holder.tv_name_ar, reply.reply_name);
+			TextViewUtils.setText(holder.tv_user_type_ar, reply.userTitle);
+			TextViewUtils.setText(holder.tv_stair_ar, reply.position + "Â¥");
+			if(!StringUtils.isNullOrEmpty(reply.posts_date)) {
+				long time = Long.parseLong(reply.posts_date);
+				Calendar c = Calendar.getInstance();
+				c.setTimeInMillis(time);
+				TextViewUtils.setText(holder.tv_reply_date_ar, TimeUtils.getFormatedDateTime(c));
+			}
+			//TODO ÆÀÂÛÍ¼ÎÄ»ìÅÅ
+			PostContentAdapter replyContentAdapter = new PostContentAdapter(context);
+			replyContentAdapter.refresh(reply.reply_content);
+			holder.llv_reply_content_ar.setAdapter(replyContentAdapter);
+			holder.llv_reply_content_ar.notifyDataSetChanged();
 			return convertView;
 		}
+	}
+	
+	
+	private Holder getHolder(View convertView) {
+		
+		Holder holder = (Holder) convertView.getTag();
+		if(holder == null) {
+			holder = new Holder();
+			holder.tv_name_ar = (TextView) convertView.findViewById(R.id.tv_name_ar);
+			holder.civ_photo_ar = (ImageView) convertView.findViewById(R.id.civ_photo_ar);
+			holder.llv_reply_content_ar = (LinearListView) convertView.findViewById(R.id.llv_reply_content_ar);
+			holder.tv_reply_date_ar = (TextView) convertView.findViewById(R.id.tv_reply_date_ar);
+			holder.tv_user_type_ar = (TextView) convertView.findViewById(R.id.tv_user_type_ar);
+			holder.tv_stair_ar = (TextView) convertView.findViewById(R.id.tv_stair_ar);
+		}
+		return holder;
 	}
 	
 	private View getPostDetailView() {
@@ -131,6 +165,17 @@ public class PostDetailAdapter extends BaseAdapter{
 	
 		this.replies.addAll(replies);
 		notifyDataSetChanged();
+	}
+	
+	private static class Holder {
+		
+		ImageView civ_photo_ar;
+		TextView tv_name_ar;
+		TextView tv_user_type_ar;
+		TextView tv_stair_ar;
+		TextView tv_reply_date_ar;
+		LinearListView llv_reply_content_ar;
+		
 	}
 	
 }

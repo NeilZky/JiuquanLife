@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/ll_root_ar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -28,15 +30,29 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:textSize="13sp" />
-           <TextView
-            android:id="@+id/tv_user_type_ar"
+
+        <TextView
+            android:id="@+id/tv_stair_ar"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:gravity="right"
             android:textSize="13sp" />
     </LinearLayout>
-    
 
+    <com.jiuquanlife.view.LinearListView
+        android:id="@+id/llv_reply_content_ar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp" />
+
+    <TextView 
+        android:id="@+id/tv_reply_date_ar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:textColor="@color/grey_text"
+        />
+    
 </LinearLayout>
