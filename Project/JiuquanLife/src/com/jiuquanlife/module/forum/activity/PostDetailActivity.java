@@ -3,6 +3,7 @@ package com.jiuquanlife.module.forum.activity;
 import java.util.HashMap;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
@@ -18,7 +19,7 @@ public class PostDetailActivity extends BaseActivity{
 	
 	public static final String EXTRA_TOPIC_ID = "EXTRA_TOPIC_ID";
 	
-	private XListView xlv_apd;
+	private ListView xlv_apd;
 	private PostDetailAdapter postDetailAdapter;
 	private int page = 1;
 	private int topicId;
@@ -39,12 +40,12 @@ public class PostDetailActivity extends BaseActivity{
 	private void initViews() {
 		
 		setContentView(R.layout.activity_post_detail2);
-		xlv_apd = (XListView) findViewById(R.id.xlv_apd);
-		xlv_apd.setPullLoadEnable(false);
-		xlv_apd.setPullRefreshEnable(true);
+		xlv_apd = (ListView) findViewById(R.id.xlv_apd);
+//		xlv_apd.setPullLoadEnable(false);
+//		xlv_apd.setPullRefreshEnable(true);
 		postDetailAdapter = new PostDetailAdapter(getActivity());
 		xlv_apd.setAdapter(postDetailAdapter);
-		xlv_apd.setXListViewListener(xListViewListener);
+//		xlv_apd.setXListViewListener(xListViewListener);
 	}
 	
 	private XListView.IXListViewListener xListViewListener = new XListView.IXListViewListener() {
@@ -86,18 +87,18 @@ public class PostDetailActivity extends BaseActivity{
 							return;
 						}
 						postDetailAdapter.refresh(info.topic, info.list);
-						if(info.has_next  == 1) {
-							xlv_apd.setPullLoadEnable(true);
-						} else {
-							xlv_apd.setPullLoadEnable(false);
-						}
+//						if(info.has_next  == 1) {
+//							xlv_apd.setPullLoadEnable(true);
+//						} else {
+//							xlv_apd.setPullLoadEnable(false);
+//						}
 					}
 				},
 				new RequestHelper.OnFinishListener() {
 					
 					@Override
 					public void onFinish() {
-						xlv_apd.stopRefresh();
+//						xlv_apd.stopRefresh();
 					}
 				});
 	}
@@ -121,9 +122,9 @@ public class PostDetailActivity extends BaseActivity{
 							return;
 						}
 						if(info.has_next  == 1) {
-							xlv_apd.setPullLoadEnable(true);
+//							xlv_apd.setPullLoadEnable(true);
 						} else {
-							xlv_apd.setPullLoadEnable(false);
+//							xlv_apd.setPullLoadEnable(false);
 						}
 						postDetailAdapter.add(info.list);
 						
@@ -133,7 +134,7 @@ public class PostDetailActivity extends BaseActivity{
 					
 					@Override
 					public void onFinish() {
-						xlv_apd.stopLoadMore();
+//						xlv_apd.stopLoadMore();
 					}
 				});
 	}

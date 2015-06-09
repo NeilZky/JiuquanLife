@@ -46,12 +46,6 @@ public class PostContentAdapter extends BaseListAdapter<Content>{
 				public void onLoadingComplete(String imageUri, View view,
 						Bitmap loadedImage) {
 					ImageView imageView = (ImageView) view;
-					int height = loadedImage.getHeight();
-					int width = loadedImage.getWidth();
-					int viewHegiht = height * imageView.getWidth() / width;
-					android.view.ViewGroup.LayoutParams params = imageView.getLayoutParams();  
-				    params.height=viewHegiht;  
-				    imageView.setLayoutParams(params);
 					imageView.setImageBitmap(loadedImage);
 				}
 			});

@@ -45,6 +45,7 @@
         android:id="@+id/llv_reply_content_ar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginLeft="35dp" />
 
     <TextView 
