@@ -47,58 +47,58 @@ public class PostDetailAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 
-		return replies == null ? 1 : replies.size() + 1;
+		return replies == null ? 0 : replies.size() ;
 	}
 
 	@Override
 	public Object getItem(int position) {
 
-		if (position == 0) {
-			return postDetail;
-		}
-		return replies.get(position - 1);
+		return replies.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
 
-		if (position == 0) {
-			return postDetail.topic_id;
-		} else {
-			return replies.get(position - 1).reply_id;
-		}
+		return replies.get(position).reply_id;
+//		if (position == 0) {
+//			return postDetail.topic_id;
+//		} else {
+//			return replies.get(position - 1).reply_id;
+//		}
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		if (position == 0) {
-			return getPostDetailView();
-		} else {
-			if (convertView == null || convertView.getId() != R.id.ll_root_ar) {
-				convertView = inflater.inflate(R.layout.adapter_reply, null);
-			}
-			Holder holder = getHolder(convertView);
-			Reply reply = (Reply) getItem(position);
-			imageLoader.displayImage(reply.icon, holder.civ_photo_ar);
-			TextViewUtils.setText(holder.tv_name_ar, reply.reply_name);
-			TextViewUtils.setText(holder.tv_user_type_ar, reply.userTitle);
-			TextViewUtils.setText(holder.tv_stair_ar, reply.position + "Â¥");
-			if (!StringUtils.isNullOrEmpty(reply.posts_date)) {
-				long time = Long.parseLong(reply.posts_date);
-				Calendar c = Calendar.getInstance();
-				c.setTimeInMillis(time);
-				TextViewUtils.setText(holder.tv_reply_date_ar,
-						TimeUtils.getFormatedDateTime(c));
-			}
-			// TODO ÆÀÂÛÍ¼ÎÄ»ìÅÅ
-			PostContentAdapter replyContentAdapter = new PostContentAdapter(
-					context);
-			replyContentAdapter.refresh(reply.reply_content);
-			holder.llv_reply_content_ar.setAdapter(replyContentAdapter);
-			holder.llv_reply_content_ar.notifyDataSetChanged();
-			return convertView;
+		if (convertView == null || convertView.getId() != R.id.ll_root_ar) {
+			convertView = inflater.inflate(R.layout.adapter_reply, null);
 		}
+		Holder holder = getHolder(convertView);
+		Reply reply = (Reply) getItem(position);
+		imageLoader.displayImage(reply.icon, holder.civ_photo_ar);
+		TextViewUtils.setText(holder.tv_name_ar, reply.reply_name);
+		TextViewUtils.setText(holder.tv_user_type_ar, reply.userTitle);
+		TextViewUtils.setText(holder.tv_stair_ar, reply.position + "Â¥");
+		if (!StringUtils.isNullOrEmpty(reply.posts_date)) {
+			long time = Long.parseLong(reply.posts_date);
+			Calendar c = Calendar.getInstance();
+			c.setTimeInMillis(time);
+			TextViewUtils.setText(holder.tv_reply_date_ar,
+					TimeUtils.getFormatedDateTime(c));
+		}
+		// TODO ÆÀÂÛÍ¼ÎÄ»ìÅÅ
+		PostContentAdapter replyContentAdapter = new PostContentAdapter(
+				context);
+		replyContentAdapter.refresh(reply.reply_content);
+		holder.llv_reply_content_ar.setAdapter(replyContentAdapter);
+		holder.llv_reply_content_ar.notifyDataSetChanged();
+		return convertView;
+		
+//		if (position == 0) {
+//			return getPostDetailView();
+//		} else {
+//			
+//		}
 	}
 
 	private Holder getHolder(View convertView) {
@@ -122,7 +122,7 @@ public class PostDetailAdapter extends BaseAdapter {
 		return holder;
 	}
 
-	private View getPostDetailView() {
+	public View getPostDetailView() {
 
 		if (postDetailView == null) {
 			postDetailView = inflater.inflate(
@@ -142,6 +142,20 @@ public class PostDetailAdapter extends BaseAdapter {
 			}
 			llv_content_apdd.setAdapter(postContentAdapter);
 		}
+		return postDetailView;
+	}
+	
+	
+	public void refresh(PostDetail postDetail, ArrayList<Reply> replies) {
+
+		this.postDetail = postDetail;
+		this.replies = replies;
+		refreshDetail();
+		notifyDataSetChanged();
+	}
+
+	public void refreshDetail() {
+		
 		if (postDetail != null) {
 			imageLoader.displayImage(postDetail.icon, civ_apdd);
 			TextViewUtils.setText(tv_name_apdd, postDetail.user_nick_name);
@@ -155,16 +169,8 @@ public class PostDetailAdapter extends BaseAdapter {
 			postContentAdapter.refresh(postDetail.content);
 			llv_content_apdd.notifyDataSetChanged();
 		}
-		return postDetailView;
 	}
-
-	public void refresh(PostDetail postDetail, ArrayList<Reply> replies) {
-
-		this.postDetail = postDetail;
-		this.replies = replies;
-		notifyDataSetChanged();
-	}
-
+	
 	public void add(ArrayList<Reply> replies) {
 
 		if (replies == null || replies.isEmpty()) {

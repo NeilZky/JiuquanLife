@@ -1,39 +1,114 @@
 package com.jiuquanlife.module.base;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.jiuquanlife.R;
 import com.jiuquanlife.utils.StringUtils;
+import com.jiuquanlife.utils.ToastHelper;
 
-public class BaseActivity extends Activity{
+public class BaseActivity extends Activity {
+
+	private boolean active;
+	private ProgressDialog progressDialog;
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		active = true;
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		active = false;
+	}
+
+	@Override
+	protected void onDestroy() {
+
+		super.onDestroy();
+		dismissDialog(progressDialog);
+
+		progressDialog = null;
+	}
+
+	protected void showProgressDialog() {
+
+		showProgressDialog(true);
+	}
+	
+	private void dismissDialog(Dialog dialog) {
+
+		if (dialog != null) {
+			dialog.dismiss();
+			dialog = null;
+		}
+	}
+
+	public void dismissProgressDialog() {
+
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	
+
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 	}
-	
+
 	protected void setText(TextView tv, String value) {
-		
-		if(!StringUtils.isNullOrEmpty(value)) {
+
+		if (!StringUtils.isNullOrEmpty(value)) {
 			tv.setText(value);
 		}
 	}
-	
+
 	protected void setText(int res, String value) {
-		
+
 		TextView tv = (TextView) findViewById(res);
-		if(!StringUtils.isNullOrEmpty(value)) {
+		if (!StringUtils.isNullOrEmpty(value)) {
 			tv.setText(value);
 		}
 	}
-	
+
 	protected Activity getActivity() {
-		
+
 		return this;
 	}
-	
+
+	public void showProgressDialog(boolean cancelable) {
+
+		if (!active) {
+			return;
+		}
+
+		if (null == progressDialog) {
+			progressDialog = new ProgressDialog(this);
+		}
+		progressDialog.setTitle(null);
+		progressDialog.setMessage(getString(R.string.please_wait));
+		progressDialog.setCancelable(cancelable);
+		progressDialog.setOnCancelListener(onCancelListener);
+		progressDialog.show();
+	}
+
+	private OnCancelListener onCancelListener = new OnCancelListener() {
+
+		@Override
+		public void onCancel(DialogInterface dialog) {
+			dialog.dismiss();
+			ToastHelper.showS(R.string.operation_canceled);
+		}
+	};
+
 }
