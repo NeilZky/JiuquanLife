@@ -1,6 +1,9 @@
 package com.jiuquanlife.module.forum.adapter;
 
+import java.util.ArrayList;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
+import com.jiuquanlife.module.base.PictureViewPagerActivity;
 import com.jiuquanlife.vo.forum.Content;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -17,9 +21,11 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 public class PostContentAdapter extends BaseListAdapter<Content>{
 	
 	private ImageLoader imageLoader;
+	private Context context;
 	
 	public PostContentAdapter(Context context) {
 		super(context);
+		this.context = context;
 		imageLoader = ImageLoader.getInstance();
 	}
 
@@ -40,6 +46,7 @@ public class PostContentAdapter extends BaseListAdapter<Content>{
 		if(content.type == 1) {
 			holder.tv_apc.setVisibility(View.GONE);
 			holder.iv_apc.setVisibility(View.VISIBLE);
+			final String originalInfo = content.originalInfo;
 			imageLoader.displayImage(content.originalInfo, holder.iv_apc, new SimpleImageLoadingListener() {
 				
 				@Override
@@ -47,6 +54,19 @@ public class PostContentAdapter extends BaseListAdapter<Content>{
 						Bitmap loadedImage) {
 					ImageView imageView = (ImageView) view;
 					imageView.setImageBitmap(loadedImage);
+				}
+			});
+			holder.iv_apc.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					ArrayList<String> imgs = new ArrayList<String>();
+					imgs.add(originalInfo);
+					Intent intent = new Intent(context, PictureViewPagerActivity.class);
+					intent.putExtra(PictureViewPagerActivity.EXTRA_IMAGE_URLS, imgs);
+					intent.putExtra(PictureViewPagerActivity.EXTRA_CURRENT_ITEM, 0);
+					context.startActivity(intent);
 				}
 			});
 		} else if(content.type == 0){
