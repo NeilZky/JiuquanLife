@@ -12,6 +12,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private ArrayList<T> data;
+	private Context thisContext;
 	
 	public LayoutInflater getInflater() {
 		return inflater;
@@ -19,7 +20,12 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
 	public BaseListAdapter(Context context) {
 		
+		this.thisContext = context;
 		inflater = LayoutInflater.from(context);
+	}
+	
+	public Context getContext() {
+		return this.thisContext;
 	}
 	
 	@Override

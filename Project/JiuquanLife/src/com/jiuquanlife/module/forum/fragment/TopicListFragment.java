@@ -41,6 +41,7 @@ public class TopicListFragment extends BaseFragment {
 		xlv_topic_list.setPullLoadEnable(false);
 		adapter = new TopicListAdapter(getActivity());
 		xlv_topic_list.setAdapter(adapter);
+		xlv_topic_list.setOnItemClickListener(adapter);
 	}
 
 	public void getData() {
@@ -59,6 +60,7 @@ public class TopicListFragment extends BaseFragment {
 								|| info.list.isEmpty()) {
 							return;
 						}
+						info.list.remove(5);
 						adapter.refresh(info.list);
 					}
 				});
