@@ -89,16 +89,16 @@ public class PostDetailAdapter extends BaseAdapter {
 		// TODO ∆¿¬€ÕºŒƒªÏ≈≈
 		PostContentAdapter replyContentAdapter = new PostContentAdapter(
 				context);
+		if(reply.is_quote == 1 && !StringUtils.isNullOrEmpty(reply.quote_content)) {
+			holder.tv_quote_content.setText(reply.quote_content);
+			holder.ll_quote_content.setVisibility(View.VISIBLE);
+		} else {
+			holder.ll_quote_content.setVisibility(View.GONE);
+		}
 		replyContentAdapter.refresh(reply.reply_content);
 		holder.llv_reply_content_ar.setAdapter(replyContentAdapter);
 		holder.llv_reply_content_ar.notifyDataSetChanged();
 		return convertView;
-		
-//		if (position == 0) {
-//			return getPostDetailView();
-//		} else {
-//			
-//		}
 	}
 
 	private Holder getHolder(View convertView) {
@@ -118,7 +118,10 @@ public class PostDetailAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_user_type_ar);
 			holder.tv_stair_ar = (TextView) convertView
 					.findViewById(R.id.tv_stair_ar);
-		}
+			holder.tv_quote_content = (TextView) convertView.findViewById(R.id.tv_quote_content);
+			holder.ll_quote_content = (LinearListView) convertView.findViewById(R.id.ll_quote_content);
+			convertView.setTag(holder);
+		} 
 		return holder;
 	}
 
@@ -192,7 +195,9 @@ public class PostDetailAdapter extends BaseAdapter {
 		TextView tv_user_type_ar;
 		TextView tv_stair_ar;
 		TextView tv_reply_date_ar;
+		TextView tv_quote_content;
 		LinearListView llv_reply_content_ar;
+		LinearListView ll_quote_content;
 
 	}
 

@@ -11,5 +11,8 @@ public class Reply {
 	public String icon;
 	public String userTitle;
 	public int position;
+	public int is_quote;
+	public String quote_content;
 	public ArrayList<Content> reply_content;
+	
 }

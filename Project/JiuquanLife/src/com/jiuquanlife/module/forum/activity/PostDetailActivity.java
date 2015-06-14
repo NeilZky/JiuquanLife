@@ -2,21 +2,27 @@ package com.jiuquanlife.module.forum.activity;
 
 import java.util.HashMap;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.UrlConstance;
+import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.forum.adapter.PostDetailAdapter;
+import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView.OnFooterRefreshListener;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView.OnHeaderRefreshListener;
 import com.jiuquanlife.view.xlistview.XListView;
 import com.jiuquanlife.vo.forum.PostDetailVo;
+import com.jiuquanlife.vo.forum.PostItem;
 
 public class PostDetailActivity extends BaseActivity{
 	
@@ -164,6 +170,56 @@ public class PostDetailActivity extends BaseActivity{
 						ptrv_apd.onFooterRefreshComplete();
 					}
 				});
+	}
+	
+	public void onClick(View v) {
+		
+		switch (v.getId()) {
+		case R.id.iv_collect_apd:
+			onClickCollect();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	private void onClickCollect() {
+		
+		if(logined()) {
+			collect(topicId);
+		}
+	}
+	
+	protected void collect(int topicId) {
+		
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("r", "user/userfavorite");
+		map.put("action", "favorite");
+		map.put("id", String.valueOf(topicId));
+		map.put("accessToken", user.token);
+		map.put("accessSecret", user.secret);
+		RequestHelper.getInstance().getRequestMap(this, UrlConstance.FORUM_URL, map, new Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				
+				System.out.println(response);
+				//TODO ¸ü¸ÄÊÕ²Ø×´Ì¬
+			}
+		});
+	}
+
+	private boolean logined() {
+		
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		if(user == null) {
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+			return false;
+		} 
+		return true;
 	}
 	
 	

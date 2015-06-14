@@ -3,8 +3,8 @@
     android:id="@id/ll_root_ar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,19 +41,31 @@
             android:textSize="13sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_quote_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_quote_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_light" />
+    </LinearLayout>
+
     <com.jiuquanlife.view.LinearListView
         android:id="@+id/llv_reply_content_ar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="35dp" />
+        android:layout_marginLeft="35dp"
+        android:orientation="vertical" />
 
-    <TextView 
+    <TextView
         android:id="@+id/tv_reply_date_ar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
-        android:textColor="@color/grey_text"
-        />
-    
+        android:textColor="@color/grey_text" />
+
 </LinearLayout>

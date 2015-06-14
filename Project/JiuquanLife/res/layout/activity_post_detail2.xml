@@ -52,6 +52,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/iv_share_apd"
             android:background="@null"
+            android:clickable="true"
             android:onClick="onClick"
             android:src="@drawable/ic_collect" />
     </RelativeLayout>
