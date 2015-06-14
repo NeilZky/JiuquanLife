@@ -9,6 +9,7 @@ import android.widget.TabHost.OnTabChangeListener;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
+import com.jiuquanlife.module.forum.fragment.TopicListFragment;
 
 public class ForumTabActvity extends FragmentActivity{
 	
@@ -36,8 +37,8 @@ public class ForumTabActvity extends FragmentActivity{
         		ForumTabContentFragment.class, null);
         
         View forumPlateIndicator = getLayoutInflater().inflate(R.layout.indicator_forum_plate, null);
-        mTabHost.addTab(mTabHost.newTabSpec(ForumTabContentFragment.class.getSimpleName()).setIndicator(forumPlateIndicator),
-        		ForumTabContentFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec(TopicListFragment.class.getSimpleName()).setIndicator(forumPlateIndicator),
+        		TopicListFragment.class, null);
         
         View newPlateIndicator = getLayoutInflater().inflate(R.layout.indicator_forum_new, null);
         mTabHost.addTab(mTabHost.newTabSpec(ForumTabContentFragment.class.getSimpleName()).setIndicator(newPlateIndicator),
