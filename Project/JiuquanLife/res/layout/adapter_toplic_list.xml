@@ -49,16 +49,16 @@
 	        android:layout_marginLeft="28dp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_triangle"
+	        android:layout_marginBottom="-1px"
+	        android:src="@drawable/ic_trangle"
 	        />
 	    
-	    <com.jiuquanlife.view.LinearListView 
+	    <com.jiuquanlife.view.GridLinearLayout
 	        android:id="@+id/llv_topic_border"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:background="@color/topic_border_bg"
-	        android:orientation="horizontal"
-	        ></com.jiuquanlife.view.LinearListView>
+	        ></com.jiuquanlife.view.GridLinearLayout>
 	        
 	</LinearLayout>
     	

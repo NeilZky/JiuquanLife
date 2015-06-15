@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/shape_grey_borderl"
+                android:background="@drawable/shape_grey_border"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -163,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/shape_grey_borderl"
+                android:background="@drawable/shape_grey_border"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -584,7 +584,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/shape_grey_borderl"
+                android:background="@drawable/shape_grey_border"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -732,7 +732,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/shape_grey_borderl"
+                android:background="@drawable/shape_grey_border"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -951,7 +951,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/shape_grey_borderl"
+                android:background="@drawable/shape_grey_border"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -1009,7 +1009,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/shape_grey_borderl"
+                android:background="@drawable/shape_grey_border"
                 android:orientation="vertical" >
 
                 <LinearLayout
