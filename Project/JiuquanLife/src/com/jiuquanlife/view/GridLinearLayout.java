@@ -36,7 +36,7 @@ public class GridLinearLayout extends LinearLayout {
 			LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			addView(ll, params);
 			ll.setWeightSum(columnCount);
-			for(int i = linearCount*j; i<count&&i<columnCount*(j+1); i++) {
+			for(int i = columnCount*j; i<count&&i<columnCount*(j+1); i++) {
 				View item = adapter.getView(i, null, this);
 				LinearLayout.LayoutParams childParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
 				childParams.weight = 1;

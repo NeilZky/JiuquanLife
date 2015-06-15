@@ -61,5 +61,8 @@
 	        ></com.jiuquanlife.view.GridLinearLayout>
 	        
 	</LinearLayout>
+	<include 
+	    layout="@layout/divider_ver"
+	    />
     	
 </LinearLayout>

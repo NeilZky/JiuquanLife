@@ -12,6 +12,7 @@ import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
+import com.jiuquanlife.http.RequestHelper.OnFinishListener;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.forum.adapter.TopicListAdapter;
 import com.jiuquanlife.utils.GsonUtils;
@@ -42,7 +43,23 @@ public class TopicListFragment extends BaseFragment {
 		adapter = new TopicListAdapter(getActivity());
 		xlv_topic_list.setAdapter(adapter);
 		xlv_topic_list.setOnItemClickListener(adapter);
+		xlv_topic_list.setXListViewListener(xListViewListener);
 	}
+
+	private XListView.IXListViewListener xListViewListener = new XListView.IXListViewListener() {
+
+		@Override
+		public void onRefresh() {
+
+			xlv_topic_list.setRefreshing();
+			getData();
+		}
+
+		@Override
+		public void onLoadMore() {
+
+		}
+	};
 
 	public void getData() {
 
@@ -62,6 +79,12 @@ public class TopicListFragment extends BaseFragment {
 						}
 						info.list.remove(5);
 						adapter.refresh(info.list);
+					}
+				}, new OnFinishListener() {
+
+					@Override
+					public void onFinish() {
+						xlv_topic_list.stopRefresh();
 					}
 				});
 	}
