@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.widget.ListView;
 
@@ -27,7 +28,6 @@ import com.jiuquanlife.vo.forum.PostItem;
 public class PostDetailActivity extends BaseActivity{
 	
 	public static final String EXTRA_TOPIC_ID = "EXTRA_TOPIC_ID";
-	
 	private PullToRefreshView ptrv_apd;
 	private ListView xlv_apd;
 	private PostDetailAdapter postDetailAdapter;

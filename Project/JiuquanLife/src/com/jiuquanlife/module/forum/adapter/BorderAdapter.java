@@ -1,6 +1,7 @@
 package com.jiuquanlife.module.forum.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
+import com.jiuquanlife.module.forum.activity.PostListActivity;
 import com.jiuquanlife.vo.forum.Border;
 
 /**
@@ -35,6 +37,16 @@ public class BorderAdapter extends BaseListAdapter<Border>{
 		} else {
 			iv.setImageResource(imgs[position]);
 		}
+		convertView.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Intent intent = new Intent(getContext(), PostListActivity.class);
+				intent.putExtra(PostListActivity.EXTRA_BORDER, border);
+				getContext().startActivity(intent);
+			}
+		});
 		return convertView;
 	}
 
