@@ -17,9 +17,11 @@
     <string name="taking_pictures">拍摄照片</string>
     <string name="max_img_limit_reached">不能选择超过%d个图像</string>
     <string name="btn_sure">确定</string>
-    <string name="title_forum_new">新帖</string>
+    <string name="title_forum_all">全部</string>
+    <string name="title_forum_new">最新</string>
     <string name="title_forum_hot">热门</string>
     <string name="title_forum_essence">精华</string>
+    <string name="title_forum_top">置顶</string>
        <string name="default_pull_down_label">下拉刷新</string>
     <string name="default_pull_down_release_label">松开后刷新数据</string>
     <string name="default_pull_down_refreshing_label">正在加载\u2026</string>

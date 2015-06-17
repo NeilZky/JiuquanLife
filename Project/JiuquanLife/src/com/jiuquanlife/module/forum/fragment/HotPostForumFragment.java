@@ -130,6 +130,7 @@ public class HotPostForumFragment extends ForumBaseFragment{
 							return;
 						}
 						postAdapter.addList(ConvertUtils.convertPosts(info.data.hotPosts));
+						
 					}
 				},
 				new RequestHelper.OnFinishListener() {

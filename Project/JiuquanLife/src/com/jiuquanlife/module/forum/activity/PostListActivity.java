@@ -60,4 +60,8 @@ public class PostListActivity extends BaseActivity {
 		finish();
 	}
 
+	public Border getBorder() {
+		return border;
+	}
+	
 }
