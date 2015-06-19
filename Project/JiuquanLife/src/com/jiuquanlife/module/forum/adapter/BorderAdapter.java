@@ -32,6 +32,7 @@ public class BorderAdapter extends BaseListAdapter<Border>{
 		ImageView iv = (ImageView) convertView.findViewById(R.id.iv_adapter_border);
 		final Border border = getItem(position);
 		textView.setText(border.board_name);
+		final int itemPosition = position;
 		if(position >=imgs.length) {
 			iv.setImageResource(imgs[imgs.length-1]);
 		} else {
@@ -44,6 +45,8 @@ public class BorderAdapter extends BaseListAdapter<Border>{
 				
 				Intent intent = new Intent(getContext(), PostListActivity.class);
 				intent.putExtra(PostListActivity.EXTRA_BORDER, border);
+				intent.putExtra(PostListActivity.EXTRA_BORDER_POSITION, itemPosition);
+				intent.putExtra(PostListActivity.EXTRA_BORDER_LIST, getData());
 				getContext().startActivity(intent);
 			}
 		});

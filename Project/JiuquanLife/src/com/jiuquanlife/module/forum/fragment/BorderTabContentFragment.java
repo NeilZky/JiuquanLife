@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ public class BorderTabContentFragment extends BaseFragment {
 	private PagerSlidingTabStrip tabs;
 	private ViewPager pager;
 	private ForumFragmentAdapter adapter;
+	private ArrayList<PostListFragment> fragments;
+	private int currentPosition;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +37,7 @@ public class BorderTabContentFragment extends BaseFragment {
 	
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.pts_forum);
 		pager = (ViewPager) findViewById(R.id.vp_forum);
-		ArrayList<ForumBaseFragment> fragments = new ArrayList<ForumBaseFragment>();
+		fragments = new ArrayList<PostListFragment>();
 		
 		PostListFragment allPostFragment = new PostListFragment();
 		allPostFragment.setTitle(getActivity().getString(R.string.title_forum_all));
@@ -58,7 +61,34 @@ public class BorderTabContentFragment extends BaseFragment {
 		fragments.add(topForumFragment);
 		adapter = new ForumFragmentAdapter(getFragmentManager(), fragments);
 		pager.setAdapter(adapter);
+		pager.setOnPageChangeListener(onPageChangeListener);
 		tabs.setViewPager(pager);
 	}
-
+	
+	public void borderChagned() {
+		
+		if(fragments!=null && fragments.get(currentPosition)!=null) {
+			fragments.get(currentPosition).borderChagned();
+		}
+	}
+	
+	private OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
+		
+		@Override
+		public void onPageSelected(int position) {
+			
+			currentPosition = position;
+		}
+		
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			
+		}
+		
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+			
+		}
+	};
+	
 }

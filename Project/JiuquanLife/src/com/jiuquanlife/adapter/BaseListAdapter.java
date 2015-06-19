@@ -2,6 +2,8 @@ package com.jiuquanlife.adapter;
 
 import java.util.ArrayList;
 
+import com.jiuquanlife.vo.forum.Border;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +47,12 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 		// TODO Auto-generated method stub
 		return position;
 	}
-
+	
+	public ArrayList<T> getData() {
+		
+		return data;
+	}
+	
 	@Override
 	public abstract View getView(int position, View convertView, ViewGroup parent);
 		

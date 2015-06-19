@@ -11,10 +11,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class ForumFragmentAdapter extends FragmentPagerAdapter {
 
-	private ArrayList<ForumBaseFragment> fragments;
+	private ArrayList<? extends ForumBaseFragment> fragments;
 
 	public ForumFragmentAdapter(FragmentManager fm,
-			ArrayList<ForumBaseFragment> fragments) {
+			ArrayList<? extends ForumBaseFragment> fragments) {
 		super(fm);
 		this.fragments = fragments;
 	}

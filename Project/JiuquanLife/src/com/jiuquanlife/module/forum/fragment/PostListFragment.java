@@ -46,10 +46,16 @@ public class PostListFragment extends ForumBaseFragment {
 	private void init() {
 
 		initViews();
+		borderChagned();
+	}
+	
+	public void borderChagned() {
+		
 		border =((PostListActivity)getActivity()).getBorder();
+		lv_essence_forum.setRefreshing();
 		getData();
 	}
-
+	
 	private void initViews() {
 
 		lv_essence_forum = (XListView) findViewById(R.id.lv_essence_forum);
