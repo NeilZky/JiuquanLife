@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.TabHost.OnTabChangeListener;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.module.forum.fragment.CreatePostFragment;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
 import com.jiuquanlife.module.forum.fragment.TopicListFragment;
 
@@ -40,9 +41,9 @@ public class ForumTabActvity extends FragmentActivity{
         mTabHost.addTab(mTabHost.newTabSpec(TopicListFragment.class.getSimpleName()).setIndicator(forumPlateIndicator),
         		TopicListFragment.class, null);
         
-        View newPlateIndicator = getLayoutInflater().inflate(R.layout.indicator_forum_new, null);
-        mTabHost.addTab(mTabHost.newTabSpec(ForumTabContentFragment.class.getSimpleName()).setIndicator(newPlateIndicator),
-        		ForumTabContentFragment.class, null);
+        View createPostIndicator = getLayoutInflater().inflate(R.layout.indicator_forum_new, null);
+        mTabHost.addTab(mTabHost.newTabSpec(CreatePostFragment.class.getSimpleName()).setIndicator(createPostIndicator),
+        		CreatePostFragment.class, null);
         
         View msgPlateIndicator = getLayoutInflater().inflate(R.layout.indicator_forum_msg, null);
         mTabHost.addTab(mTabHost.newTabSpec(ForumTabContentFragment.class.getSimpleName()).setIndicator(msgPlateIndicator),
@@ -63,7 +64,6 @@ public class ForumTabActvity extends FragmentActivity{
 		
 		@Override
 		public void onTabChanged(String tag) {
-			System.out.println(tag);
 		}
 	};
 	
