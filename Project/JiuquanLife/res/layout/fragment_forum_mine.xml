@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f0" >
+    android:background="@drawable/ic_forum_my_bg" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,19 +20,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:drawableTop="@drawable/ic_create_text"
+                android:drawableTop="@drawable/ic_user_center"
                 android:gravity="center"
                 android:padding="7dp"
-                android:text="文字" />
+                android:text="个人中心"
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:drawableTop="@drawable/ic_create_local_photo"
+                android:drawableTop="@drawable/ic_nearyby_user"
                 android:gravity="center"
                 android:padding="7dp"
-                android:text="相册" />
+                android:text="附近用户"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -44,19 +46,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:drawableTop="@drawable/ic_create_camera"
+                android:drawableTop="@drawable/ic_user_range"
                 android:gravity="center"
                 android:padding="7dp"
-                android:text="拍照" />
+                android:text="用户排行"
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:drawableTop="@drawable/ic_create_voice"
+                android:drawableTop="@drawable/ic_user_setting"
                 android:gravity="center"
                 android:padding="7dp"
-                android:text="语音" />
+                android:text="用户设置"
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
 

@@ -9,6 +9,8 @@ import android.widget.TabHost.OnTabChangeListener;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.module.forum.fragment.CreatePostFragment;
+import com.jiuquanlife.module.forum.fragment.ForumMineFragment;
+import com.jiuquanlife.module.forum.fragment.ForumMsgFragment;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
 import com.jiuquanlife.module.forum.fragment.TopicListFragment;
 
@@ -46,12 +48,12 @@ public class ForumTabActvity extends FragmentActivity{
         		CreatePostFragment.class, null);
         
         View msgPlateIndicator = getLayoutInflater().inflate(R.layout.indicator_forum_msg, null);
-        mTabHost.addTab(mTabHost.newTabSpec(ForumTabContentFragment.class.getSimpleName()).setIndicator(msgPlateIndicator),
-        		ForumTabContentFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec(ForumMsgFragment.class.getSimpleName()).setIndicator(msgPlateIndicator),
+        		ForumMsgFragment.class, null);
         
         View minePlateIndicator = getLayoutInflater().inflate(R.layout.indicator_forum_mine, null);
-        mTabHost.addTab(mTabHost.newTabSpec(ForumTabContentFragment.class.getSimpleName()).setIndicator(minePlateIndicator),
-        		ForumTabContentFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec(ForumMineFragment.class.getSimpleName()).setIndicator(minePlateIndicator),
+        		ForumMineFragment.class, null);
         
         mTabHost.setOnTabChangedListener(onTabChangeListener);
         mTabHost.getTabWidget().setDividerDrawable(null);
