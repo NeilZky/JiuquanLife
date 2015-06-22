@@ -72,5 +72,7 @@
     <color name="forum_tab_color">#1d2929</color>
     <color name="title_bg">#42b5e8</color>
     <color name="topic_border_bg">#636363</color>
+    <color name="dark_grey">#d9d9d9</color>
+    <color name="bg_user_center">#efefef</color>
     
 </resources>

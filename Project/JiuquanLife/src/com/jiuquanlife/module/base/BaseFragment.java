@@ -21,4 +21,13 @@ public class BaseFragment extends Fragment{
 		return content.findViewById(id);
 	}
 	
+	protected void initClickListener(int resId, View.OnClickListener onClickListener) {
+		
+		if(content == null) {
+			return;
+		}
+		
+		content.findViewById(resId).setOnClickListener(onClickListener);
+	}
+	
 }
