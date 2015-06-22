@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Window;
@@ -113,4 +114,15 @@ public class BaseActivity extends FragmentActivity {
 
 	};
 
+	public void startActivity(Class<?> cls) {
+		
+		Intent intent = new Intent(this, cls);
+		startActivity(intent);
+	}
+	
+	public void startActivityForResult(Class<?> cls, int requestCode) {
+		
+		Intent intent = new Intent(this, cls);
+		super.startActivityForResult(intent, requestCode);
+	}
 }

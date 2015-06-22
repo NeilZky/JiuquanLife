@@ -29,6 +29,13 @@ public class TopicListAdapter extends BaseListAdapter<Topic> implements
 	public TopicListAdapter(Context context) {
 		super(context);
 	}
+	
+	private boolean selectBorder;
+	
+	
+	public void setSelectBorder(boolean selectBorder) {
+		this.selectBorder = selectBorder;
+	}
 
 	private ArrayList<Boolean> childVisiableList;
 
@@ -74,6 +81,7 @@ public class TopicListAdapter extends BaseListAdapter<Topic> implements
 			holder.iv_topic_arrow.setImageResource(R.drawable.ic_arrow_down);
 		}
 		BorderAdapter borderAdapter = new BorderAdapter(getContext());
+		borderAdapter.setSelectBorder(selectBorder);
 		holder.llv_topic_border.setAdapter(borderAdapter);
 		borderAdapter.refresh(topic.board_list);
 		if (position < borderArrays.size()) {

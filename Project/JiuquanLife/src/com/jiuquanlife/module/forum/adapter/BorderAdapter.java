@@ -1,5 +1,6 @@
 package com.jiuquanlife.module.forum.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -19,7 +20,12 @@ import com.jiuquanlife.vo.forum.Border;
 public class BorderAdapter extends BaseListAdapter<Border>{
 
 	private int[] imgs;
+	private boolean selectBorder;
 	
+	public void setSelectBorder(boolean selectBorder) {
+		this.selectBorder = selectBorder;
+	}
+
 	public BorderAdapter(Context context) {
 		super(context);
 	}
@@ -38,18 +44,35 @@ public class BorderAdapter extends BaseListAdapter<Border>{
 		} else {
 			iv.setImageResource(imgs[position]);
 		}
-		convertView.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
+		if(selectBorder) {
+			convertView.setOnClickListener(new View.OnClickListener() {
 				
-				Intent intent = new Intent(getContext(), PostListActivity.class);
-				intent.putExtra(PostListActivity.EXTRA_BORDER, border);
-				intent.putExtra(PostListActivity.EXTRA_BORDER_POSITION, itemPosition);
-				intent.putExtra(PostListActivity.EXTRA_BORDER_LIST, getData());
-				getContext().startActivity(intent);
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					
+					Intent intent = new Intent();
+					intent.putExtra(PostListActivity.EXTRA_BORDER, border);
+					intent.putExtra(PostListActivity.EXTRA_BORDER_POSITION, itemPosition);
+					intent.putExtra(PostListActivity.EXTRA_BORDER_LIST, getData());
+					((Activity)getContext()).setResult(Activity.RESULT_OK, intent);
+					((Activity)getContext()).finish();
+				}
+			});
+		} else {
+			convertView.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					Intent intent = new Intent(getContext(), PostListActivity.class);
+					intent.putExtra(PostListActivity.EXTRA_BORDER, border);
+					intent.putExtra(PostListActivity.EXTRA_BORDER_POSITION, itemPosition);
+					intent.putExtra(PostListActivity.EXTRA_BORDER_LIST, getData());
+					getContext().startActivity(intent);
+				}
+			});
+		}
+		
 		return convertView;
 	}
 

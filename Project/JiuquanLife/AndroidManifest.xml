@@ -54,6 +54,8 @@
         <activity android:name="com.jiuquanlife.module.forum.activity.PostDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.jiuquanlife.module.forum.activity.PostListActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.jiuquanlife.module.forum.activity.UserCenterActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.jiuquanlife.module.forum.activity.CreatePostActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.jiuquanlife.module.forum.activity.SelectTopicActivity" android:screenOrientation="portrait"/>
         
         
         <activity
