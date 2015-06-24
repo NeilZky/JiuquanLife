@@ -8,9 +8,16 @@
         android:minSdkVersion="9"
         android:targetSdkVersion="18" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
     <application
         android:name="com.jiuquanlife.app.App"
@@ -18,6 +25,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="0d6e5ea353151bef5e6e911fa87c5a52" />
+
         <activity
             android:name="com.jiuquanlife.module.splash.activity.SplashActivity"
             android:label="@string/app_name" >
@@ -31,35 +42,84 @@
             android:name="com.jiuquanlife.module.home.activity.HomeActivity"
             android:label="@string/app_name" >
         </activity>
-        <activity android:name="com.jiuquanlife.module.login.LoginActivity"  android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.tab.NavTabActivity"  android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.forum.activity.ForumTabActvity" android:screenOrientation="portrait"  />
-        <activity android:name="com.jiuquanlife.module.userhome.activity.UserHomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.post.PostDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.SecondaryHouseListActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.SellerHouseDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.RentHouseListActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.RentHouseDetailActivity"  android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.WantedRentHouseDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.WantedRentHouseListActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.WantedBuyHouseListActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.WantedBuyHouseDetailActivity"  android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.house.activity.PublishHouseActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.SelectAreaActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.SelectSubAreaActivity"  android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.SelectCommunityActivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.AgentListAcitivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.house.activity.AgentDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.house.activity.CommunityListAcitivity" android:screenOrientation="portrait" />
-        <activity android:name="com.jiuquanlife.module.forum.activity.PostDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.forum.activity.PostListActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.forum.activity.UserCenterActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.forum.activity.CreatePostActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.jiuquanlife.module.forum.activity.SelectTopicActivity" android:screenOrientation="portrait"/>
-        
-        
         <activity
-            android:name="com.jiuquanlife.module.base.PictureViewPagerActivity" android:configChanges="orientation|keyboardHidden"
+            android:name="com.jiuquanlife.module.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.tab.NavTabActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.forum.activity.ForumTabActvity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.userhome.activity.UserHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.post.PostDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.SecondaryHouseListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.SellerHouseDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.RentHouseListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.RentHouseDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.WantedRentHouseDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.WantedRentHouseListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.WantedBuyHouseListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.WantedBuyHouseDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.PublishHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.SelectAreaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.SelectSubAreaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.SelectCommunityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.AgentListAcitivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.AgentDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.house.activity.CommunityListAcitivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.forum.activity.PostDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.forum.activity.PostListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.forum.activity.UserCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.forum.activity.CreatePostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.forum.activity.SelectTopicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.base.PictureViewPagerActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:theme="@style/ThemeActivity" />
         <activity
             android:name="com.jiuquanlife.module.house.activity.PublishSecondaryHouseActivity"

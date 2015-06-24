@@ -131,13 +131,14 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="仅回帖作者可见"
             android:layout_marginRight="7dp"
-            android:textSize="12sp"
-             />
+            android:text="仅回帖作者可见"
+            android:textSize="12sp" />
     </LinearLayout>
-    
-      <LinearLayout
+
+    <LinearLayout
+        android:id="@+id/ll_request_loc"
+        android:onClick="onClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -146,19 +147,18 @@
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:src="@drawable/ic_location" />
-        
-        <TextView 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location" />
+
+        <TextView
+            android:id="@+id/tv_addr_create_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:textSize="12sp"
             android:hint="正在获取地址，请稍后"
-            />
-
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>
