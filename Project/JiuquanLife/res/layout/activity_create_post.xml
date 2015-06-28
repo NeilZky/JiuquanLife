@@ -32,6 +32,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/btn_publish_create_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -41,6 +42,7 @@
             android:minWidth="0dp"
             android:padding="10dp"
             android:text="发布"
+            android:onClick="onClick"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -62,6 +64,7 @@
             android:orientation="horizontal" >
 
             <TextView
+                android:id="@+id/tv_select_topic_create_post"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -78,7 +81,19 @@
 
         <include layout="@layout/divider_ver" />
 
+           <EditText
+            android:id="@+id/et_title_create_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="left|top"
+            android:hint="标题"
+            android:singleLine="true"
+            android:padding="7dp"
+            android:textSize="13sp" />
+                <include layout="@layout/divider_ver" />
         <EditText
+            android:id="@+id/et_content_create_post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -99,12 +114,16 @@
         android:orientation="horizontal" >
 
         <ImageView
+            android:id="@+id/iv_add_photo_create_post"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:onClick="onClick"
+            android:clickable="true"
             android:layout_margin="7dp"
             android:src="@drawable/ic_add_photo" />
 
         <com.jiuquanlife.view.HorizontalListView
+            android:id="@+id/hlv_photo_create_post"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="7dp" />
@@ -129,6 +148,7 @@
             android:textSize="12sp" />
 
         <CheckBox
+            android:id="@+id/cb_is_only_author_create_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"

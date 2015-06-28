@@ -81,6 +81,7 @@ public class TopicListAdapter extends BaseListAdapter<Topic> implements
 			holder.iv_topic_arrow.setImageResource(R.drawable.ic_arrow_down);
 		}
 		BorderAdapter borderAdapter = new BorderAdapter(getContext());
+		borderAdapter.setTopic(topic);
 		borderAdapter.setSelectBorder(selectBorder);
 		holder.llv_topic_border.setAdapter(borderAdapter);
 		borderAdapter.refresh(topic.board_list);

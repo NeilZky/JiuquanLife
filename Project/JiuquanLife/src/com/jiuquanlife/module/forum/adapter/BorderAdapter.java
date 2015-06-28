@@ -12,6 +12,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.module.forum.activity.PostListActivity;
 import com.jiuquanlife.vo.forum.Border;
+import com.jiuquanlife.vo.forum.Topic;
 
 /**
  * LinearListView สนำร
@@ -21,7 +22,10 @@ public class BorderAdapter extends BaseListAdapter<Border>{
 
 	private int[] imgs;
 	private boolean selectBorder;
-	
+	private Topic topic;
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
 	public void setSelectBorder(boolean selectBorder) {
 		this.selectBorder = selectBorder;
 	}
@@ -52,8 +56,7 @@ public class BorderAdapter extends BaseListAdapter<Border>{
 					
 					Intent intent = new Intent();
 					intent.putExtra(PostListActivity.EXTRA_BORDER, border);
-					intent.putExtra(PostListActivity.EXTRA_BORDER_POSITION, itemPosition);
-					intent.putExtra(PostListActivity.EXTRA_BORDER_LIST, getData());
+					intent.putExtra(PostListActivity.EXTRA_TOPIC, topic);
 					((Activity)getContext()).setResult(Activity.RESULT_OK, intent);
 					((Activity)getContext()).finish();
 				}

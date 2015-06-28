@@ -17,6 +17,7 @@ public class PostListActivity extends BaseActivity {
 
 	public static final String EXTRA_BORDER = "EXTRA_BORDER";
 	public static final String EXTRA_BORDER_POSITION = "EXTRA_BORDER_POSITION";
+	public static final String EXTRA_TOPIC= "EXTRA_TOPIC";
 	public static final String EXTRA_BORDER_LIST = "EXTRA_BORDER_LIST";
 	
 	private TitleExpandView tev_post_list_activity;

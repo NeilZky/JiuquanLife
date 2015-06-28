@@ -107,7 +107,9 @@ public class PhotoAdapter extends BaseAdapter implements OnItemClickListener {
 	public void refreshData() {
 		
 		notifyDataSetChanged();
-		llv.notifyDataSetChanged();
+		if(llv!=null) {
+			llv.notifyDataSetChanged();
+		}
 	}
 	
 	private static class ViewHolder {

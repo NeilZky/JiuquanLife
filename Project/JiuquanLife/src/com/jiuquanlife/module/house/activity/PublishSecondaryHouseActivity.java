@@ -64,11 +64,11 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 	public static final String EXTRA_ACTION_TYPE = "EXTRA_ACTION_TYPE";
 	public static final String EXTRA_ACTION_RELATION = "EXTRA_ACTION_RELATION";
 
+	protected static final int MSG_UPLOADED_PHOTOS = 1;
 	private static final int REQUEST_CODE_CAMERA = 1;
 	protected static final int REQUEST_SELECT_PHOTOS = 2;
 	protected static final int REQUEST_SELECT_AREA = 3;
 	protected static final int REQUEST_SELECT_COMMUNITY = 4;
-	protected static final int MSG_UPLOADED_PHOTOS = 1;
 	private PhotoAdapter photoAdapter;
 	private PhotoManager photoManager = PhotoManager.getInstance();
 	private LinearListView llv_photo_aps;
@@ -740,6 +740,7 @@ public class PublishSecondaryHouseActivity extends BaseActivity {
 				PhotoManager.TEMP_PHOTO_BITMAP, PhotoManager.UPLOAD_PHOTO_PATH);
 		photoAdapter.addPhoto(photoPath);
 	}
+	
 
 	private void getData() {
 
