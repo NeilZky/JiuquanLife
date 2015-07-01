@@ -1,8 +1,5 @@
 package com.jiuquanlife.vo.forum.createpost;
 
-import java.util.ArrayList;
-
-import com.jiuquanlife.vo.forum.Content;
 
 public class CreatePostJson {
 	
@@ -17,5 +14,5 @@ public class CreatePostJson {
 	public String location;
 	public String longitude;
 	public String latitude;
-	public ArrayList<Content> content;
+	public String content;
 }

@@ -1,6 +1,7 @@
 package com.jiuquanlife.module.forum.activity;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,27 +24,33 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
+import com.google.gson.reflect.TypeToken;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.PhotoAdapter;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.entity.Photo;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
+import com.jiuquanlife.http.RequestHelper.OnFinishListener;
 import com.jiuquanlife.module.base.BaseActivity;
-import com.jiuquanlife.module.house.activity.PublishSecondaryHouseActivity;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.Md5Utils;
 import com.jiuquanlife.utils.MulityLocationManager;
+import com.jiuquanlife.utils.MulityLocationManager.OnLocationChangedListener;
 import com.jiuquanlife.utils.PhotoManager;
 import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UploadUtils;
-import com.jiuquanlife.utils.MulityLocationManager.OnLocationChangedListener;
 import com.jiuquanlife.view.HorizontalListView;
 import com.jiuquanlife.view.ListDialog;
+import com.jiuquanlife.view.SingleChoiceDialog;
+import com.jiuquanlife.vo.BaseData;
 import com.jiuquanlife.vo.forum.Border;
+import com.jiuquanlife.vo.forum.BorderType;
 import com.jiuquanlife.vo.forum.Content;
+import com.jiuquanlife.vo.forum.ForumIndexData;
 import com.jiuquanlife.vo.forum.Topic;
 import com.jiuquanlife.vo.forum.createpost.CreatePost;
 import com.jiuquanlife.vo.forum.createpost.CreatePostBody;
@@ -67,6 +74,7 @@ public class CreatePostActivity extends BaseActivity{
 	private TextView et_content_create_post;
 	private TextView tv_select_topic_create_post;
 	private TextView et_title_create_post;
+	private TextView tv_select_type_create_post;
 	private CheckBox cb_is_only_author_create_post;
 	private HorizontalListView hlv_photo_create_post;
 	private PhotoAdapter photoAdapter;
@@ -76,7 +84,8 @@ public class CreatePostActivity extends BaseActivity{
 	private Border border;
 	private double longitude;
 	private double latitude;
-	
+	private SingleChoiceDialog typeDialog = new SingleChoiceDialog(getActivity());
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -99,6 +108,7 @@ public class CreatePostActivity extends BaseActivity{
 		et_content_create_post = (EditText) findViewById(R.id.et_content_create_post);
 		et_title_create_post = (EditText) findViewById(R.id.et_title_create_post);
 		hlv_photo_create_post = (HorizontalListView) findViewById(R.id.hlv_photo_create_post);
+		tv_select_type_create_post = (TextView) findViewById(R.id.tv_select_type_create_post);
 		photoAdapter = new PhotoAdapter(getActivity());
 		hlv_photo_create_post.setAdapter(photoAdapter);
 		mulityLocationManager = MulityLocationManager.getInstance(getApplicationContext());
@@ -132,11 +142,49 @@ public class CreatePostActivity extends BaseActivity{
 		case R.id.btn_publish_create_post:
 			onClickPublish();
 			break;
+		case R.id.ll_select_type:
+			onClickSelectType();
+			break;
 		default:
 			break;
 		}
 	}
 
+	private void onClickSelectType() {
+		
+		if(tv_select_topic_create_post.getText().toString().isEmpty()) {
+			ToastHelper.showL("ÇëÏÈÑ¡Ôñ°å¿é");
+			return;
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("fid", String.valueOf(border.board_id));
+		showProgressDialog();
+		RequestHelper.getInstance().getRequestMap(getActivity(),
+				UrlConstance.FORUM_TOPIC_TYPE_LIST, map, new Listener<String>() {
+					
+					@Override
+					public void onResponse(String response) {
+						
+						Type type = new TypeToken<BaseData<List<BorderType>>>() {
+						}.getType();
+						BaseData<List<BorderType>> info = GsonUtils.toObj(
+								response, type);
+						typeDialog.
+						ToastHelper.showL(info.data.toString());
+					}
+					
+				}, new OnFinishListener() {
+					
+					@Override
+					public void onFinish() {
+						
+						dismissProgressDialog();
+					}
+				});
+		
+	}
+	
 	private void requestLoc() {
 		
 		tv_addr_create_post.setText("");
@@ -296,11 +344,17 @@ public class CreatePostActivity extends BaseActivity{
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("r", "forum/topicadmin");
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
 		map.put("accessToken", user.token);
 		map.put("accessSecret", user.secret);
 		map.put("act", "new");
+		String mAppHash = Md5Utils.md5(
+				new StringBuilder(String.valueOf(System
+						.currentTimeMillis())).toString().substring(0,
+						5)
+						+ "appbyme_key").substring(8, 16).toLowerCase();
+		map.put("apphash", mAppHash);
+
 		CreatePost createPost = new CreatePost();
 		createPost.body = new CreatePostBody();
 		CreatePostJson createPostJson= new CreatePostJson();
@@ -321,7 +375,6 @@ public class CreatePostActivity extends BaseActivity{
 		createPostJson.isShowPostion = 1;
 		
 		ArrayList<Content> contents = new ArrayList<Content>();
-		createPostJson.content = contents;
 		if(photos!=null && !photos.isEmpty()) {
 			for(String temp : photos) {
 				Content content = new Content();
@@ -335,10 +388,10 @@ public class CreatePostActivity extends BaseActivity{
 		content.type = 0;
 		content.infor = et_content_create_post.getText().toString();
 		contents.add(content);
-		
+		createPostJson.content = GsonUtils.toJson(contents);
 		map.put("json", GsonUtils.toJson(createPost));
 		RequestHelper.getInstance().postRequestMap(getActivity(),
-				UrlConstance.FORUM_URL, map, new Listener<String>() {
+				UrlConstance.FORUM_CREATE_POST_URL, map, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {

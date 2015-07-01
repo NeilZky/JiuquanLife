@@ -23,4 +23,6 @@ public class UrlConstance {
 	public static final String GET_ESSENCE_FORUM_LIST = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/topiclist/sortby/marrow/isImageList/1/page/";//论坛精华列表
 	public static final String GET_HOT_FORUM = "http://www.5ijq.cn/App/Form" ;//论坛顶部轮播和论坛热点
 	public static final String FORUM_URL = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php";
+	public static final String FORUM_CREATE_POST_URL = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/topicadmin";
+	public static final String FORUM_TOPIC_TYPE_LIST = "http://www.5ijq.cn/App/Form/getTypeListByFormId";
 }
