@@ -12,6 +12,8 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,17 +26,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.PhotoAdapter;
+import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.entity.Photo;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.http.RequestHelper.OnFinishListener;
 import com.jiuquanlife.module.base.BaseActivity;
+import com.jiuquanlife.module.forum.adapter.BorderTypeAdapter;
+import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
-import com.jiuquanlife.utils.Md5Utils;
 import com.jiuquanlife.utils.MulityLocationManager;
 import com.jiuquanlife.utils.MulityLocationManager.OnLocationChangedListener;
 import com.jiuquanlife.utils.PhotoManager;
@@ -43,6 +48,7 @@ import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UploadUtils;
+import com.jiuquanlife.view.ChoiceDialogAdapter;
 import com.jiuquanlife.view.HorizontalListView;
 import com.jiuquanlife.view.ListDialog;
 import com.jiuquanlife.view.SingleChoiceDialog;
@@ -50,11 +56,12 @@ import com.jiuquanlife.vo.BaseData;
 import com.jiuquanlife.vo.forum.Border;
 import com.jiuquanlife.vo.forum.BorderType;
 import com.jiuquanlife.vo.forum.Content;
-import com.jiuquanlife.vo.forum.ForumIndexData;
 import com.jiuquanlife.vo.forum.Topic;
+import com.jiuquanlife.vo.forum.createpost.Attachment;
 import com.jiuquanlife.vo.forum.createpost.CreatePost;
 import com.jiuquanlife.vo.forum.createpost.CreatePostBody;
 import com.jiuquanlife.vo.forum.createpost.CreatePostJson;
+import com.jiuquanlife.vo.forum.createpost.PhotoRes;
 import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
 
@@ -84,7 +91,7 @@ public class CreatePostActivity extends BaseActivity{
 	private Border border;
 	private double longitude;
 	private double latitude;
-	private SingleChoiceDialog typeDialog = new SingleChoiceDialog(getActivity());
+	private SingleChoiceDialog typeDialog ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -152,8 +159,13 @@ public class CreatePostActivity extends BaseActivity{
 
 	private void onClickSelectType() {
 		
+		
 		if(tv_select_topic_create_post.getText().toString().isEmpty()) {
 			ToastHelper.showL("请先选择板块");
+			return;
+		}
+		if(typeDialog !=null) {
+			typeDialog.show();
 			return;
 		}
 		
@@ -163,6 +175,7 @@ public class CreatePostActivity extends BaseActivity{
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.FORUM_TOPIC_TYPE_LIST, map, new Listener<String>() {
 					
+
 					@Override
 					public void onResponse(String response) {
 						
@@ -170,8 +183,11 @@ public class CreatePostActivity extends BaseActivity{
 						}.getType();
 						BaseData<List<BorderType>> info = GsonUtils.toObj(
 								response, type);
-						typeDialog.
-						ToastHelper.showL(info.data.toString());
+						ChoiceDialogAdapter adapter = new BorderTypeAdapter(info.data);
+						typeDialog = new SingleChoiceDialog(getActivity());
+						typeDialog.setAdapter(adapter);
+						typeDialog.setOnDismissListener(onDismissListener);
+						typeDialog.show();
 					}
 					
 				}, new OnFinishListener() {
@@ -185,6 +201,21 @@ public class CreatePostActivity extends BaseActivity{
 		
 	}
 	
+	private OnDismissListener onDismissListener  = new OnDismissListener() {
+		
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+			
+			if(typeDialog!=null) {
+				BorderType borderType = (BorderType) typeDialog.getCheckedItem();
+				if(borderType!=null) {
+					TextViewUtils.setText(tv_select_type_create_post, borderType.name);
+				}
+			}
+		}
+	};
+	
+	
 	private void requestLoc() {
 		
 		tv_addr_create_post.setText("");
@@ -195,6 +226,8 @@ public class CreatePostActivity extends BaseActivity{
 
 	private void onClickSelectTopic() {
 		
+		tv_select_type_create_post.setText("");
+		typeDialog = null;
 		startActivityForResult(SelectTopicActivity.class, REQUEST_SELECT_TOPIC);
 	}
 	
@@ -210,30 +243,75 @@ public class CreatePostActivity extends BaseActivity{
 				super.run();
 				ArrayList<Photo> photos = photoAdapter.getPhotos();
 				ArrayList<String> photoUrls = new ArrayList<String>();
+				ArrayList<Attachment> attachments = new ArrayList<Attachment>();
 				if (photos != null) {
 					for (Photo photo : photos) {
 						String filePath = photo.filePath;
-						String res = UploadUtils.upload(
-								"http://www.5ijq.cn/App/House/addHouseImg",
-								filePath, null);
-						try {
-							JSONObject json = new JSONObject(res);
-							String imgUrl = (String) json.get("data");
-							if (!StringUtils.isNullOrEmpty(imgUrl)) {
-								photoUrls.add(imgUrl);
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						PhotoRes photoRes = uploadPhoto(filePath);
+//						String res = UploadUtils.upload(
+//						"http://www.5ijq.cn/App/House/addHouseImg",
+//						filePath, null);
+						
+						if(photoRes!=null && photoRes.body!=null && photoRes.body.attachment!=null&& photoRes.body.attachment.size() >0) {
+							attachments.add(photoRes.body.attachment.get(0));
 						}
+						
+//						
+//						try {
+//							if(!StringUtils.isNullOrEmpty(res)) {
+//								JSONObject json = new JSONObject(res);
+//								String imgUrl = (String) json.get("data");
+//								if (!StringUtils.isNullOrEmpty(imgUrl)) {
+//									photoUrls.add(imgUrl.substring(1));
+//								} else {
+//									ToastHelper.showL("上传照片失败");
+//								}
+//							}
+//						
+//						} catch (JSONException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
 					}
 					Message msg = handler.obtainMessage();
-					msg.obj = photoUrls;
+					msg.obj = attachments;
 					msg.what = MSG_UPLOADED_PHOTOS;
 					handler.sendMessage(msg);
 				}
 			}
 		}.start();
+	}
+	
+	private PhotoRes uploadPhoto(String path) {
+		
+		String host = UrlConstance.FORUM_UPLOAD_PHOTO;
+		HashMap<String, String> values = new HashMap<String, String>();
+		String mAppHash = AppUtils.getAppHash();
+		values.put("module", "forum");
+		values.put("packageName", "com.appbyme.app139447");
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		values.put("accessToken", user.token);
+		values.put("accessSecret", user.secret);
+		values.put("fid", border.board_id + "");
+		values.put("appHash", mAppHash);
+//		values.put("albumId", "0");
+//		values.put("forumType", "7");
+//		values.put("fid", "52");
+//		values.put("imei", "860311022375042");
+//		values.put("sortId", "0");
+//		values.put("platType", "1");
+//		values.put("type", "image");
+//		values.put("sortId", "0");
+//		values.put("sdkVersion", "2.4.0");
+//		values.put("appName", "红柳论坛");
+//		values.put("forumKey", "Ir8mv2RUsHewrQiiyJ");
+//		values.put("imsi", "460008890619748");
+		String result = UploadUtils.upload(host, path,"uploadFile[]", values);
+		if(StringUtils.isNullOrEmpty(result)) {
+			return null;
+		}
+		PhotoRes res = new Gson().fromJson(result, PhotoRes.class);
+		return res;
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -255,7 +333,7 @@ public class CreatePostActivity extends BaseActivity{
 
 		private void onUploadPhotos(Message msg) {
 
-			publishData((ArrayList<String>) msg.obj);
+			publishData((ArrayList<Attachment>) msg.obj);
 		};
 
 	};
@@ -338,7 +416,7 @@ public class CreatePostActivity extends BaseActivity{
 		}
 	}
 	
-	private void publishData(ArrayList<String> photos) {
+	private void publishDataWithPhotoUrl(ArrayList<String> photos) {
 		
 		if(!verifyInput()) {
 			return;
@@ -348,11 +426,8 @@ public class CreatePostActivity extends BaseActivity{
 		map.put("accessToken", user.token);
 		map.put("accessSecret", user.secret);
 		map.put("act", "new");
-		String mAppHash = Md5Utils.md5(
-				new StringBuilder(String.valueOf(System
-						.currentTimeMillis())).toString().substring(0,
-						5)
-						+ "appbyme_key").substring(8, 16).toLowerCase();
+		String mAppHash = AppUtils.getAppHash();
+
 		map.put("apphash", mAppHash);
 
 		CreatePost createPost = new CreatePost();
@@ -370,20 +445,26 @@ public class CreatePostActivity extends BaseActivity{
 		}
 		
 		createPostJson.title = et_title_create_post.getText().toString();
-		createPostJson.typeId = border.board_id;
-		createPostJson.fid = topic.board_category_id;
+		if(typeDialog!=null && typeDialog.getCheckedItem()!=null) {
+			BorderType bt = (BorderType) typeDialog.getCheckedItem();
+			if(!StringUtils.isNullOrEmpty(bt.typeid)) {
+				createPostJson.typeId = Integer.parseInt(bt.typeid);
+			}
+		}
+		createPostJson.fid = border.board_id;
 		createPostJson.isShowPostion = 1;
-		
 		ArrayList<Content> contents = new ArrayList<Content>();
 		if(photos!=null && !photos.isEmpty()) {
+			StringBuffer sb = new StringBuffer();
 			for(String temp : photos) {
 				Content content = new Content();
 				content.type = 1;
-				content.infor = temp;
+				content.infor =CommonConstance.URL_PREFIX + temp;
 				contents.add(content);
+//				sb.append(temp.id + ", ");
 			}
+//			createPostJson.aid = sb.substring(0, sb.length() -1);
 		}
-		
 		Content content = new Content();
 		content.type = 0;
 		content.infor = et_content_create_post.getText().toString();
@@ -395,10 +476,104 @@ public class CreatePostActivity extends BaseActivity{
 
 					@Override
 					public void onResponse(String response) {
-						ToastHelper.showL(response);
+						int res  = 0;
+						 try {
+							 JSONObject json = new JSONObject(response);
+							res = json.getInt("rs");
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						if(res == 1) {
+							ToastHelper.showL("发帖成功");
+//							finish();
+						} else {
+							ToastHelper.showL("发帖失败");
+						}
 					}
 				});
 	}
+	
+
+	private void publishData(ArrayList<Attachment> photos) {
+		
+		if(!verifyInput()) {
+			return;
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		map.put("accessToken", user.token);
+		map.put("accessSecret", user.secret);
+		map.put("act", "new");
+		String mAppHash = AppUtils.getAppHash();
+
+		map.put("apphash", mAppHash);
+
+		CreatePost createPost = new CreatePost();
+		createPost.body = new CreatePostBody();
+		CreatePostJson createPostJson= new CreatePostJson();
+		createPost.body.json = createPostJson;
+		if(cb_is_only_author_create_post.isChecked()) {
+			createPostJson.isOnlyAuthor = 1;
+		}
+		
+		if(longitude!=0){
+			createPostJson.location = tv_addr_create_post.getText().toString();
+			createPostJson.longitude = String.valueOf(this.longitude);
+			createPostJson.latitude = String.valueOf(this.latitude);
+		}
+		
+		createPostJson.title = et_title_create_post.getText().toString();
+		if(typeDialog!=null && typeDialog.getCheckedItem()!=null) {
+			BorderType bt = (BorderType) typeDialog.getCheckedItem();
+			if(!StringUtils.isNullOrEmpty(bt.typeid)) {
+				createPostJson.typeId = Integer.parseInt(bt.typeid);
+			}
+		}
+		createPostJson.fid = border.board_id;
+		createPostJson.isShowPostion = 1;
+		ArrayList<Content> contents = new ArrayList<Content>();
+		if(photos!=null && !photos.isEmpty()) {
+			StringBuffer sb = new StringBuffer();
+			for(Attachment temp : photos) {
+				Content content = new Content();
+				content.type = 1;
+				content.infor = temp.urlName;
+				contents.add(content);
+				content.aid = temp.id ;
+				sb.append(temp.id + ",");
+			}
+			createPostJson.aid = sb.substring(0, sb.length() -1);
+		}
+		Content content = new Content();
+		content.type = 0;
+		content.infor = et_content_create_post.getText().toString();
+		contents.add(content);
+		createPostJson.content = GsonUtils.toJson(contents);
+		map.put("json", GsonUtils.toJson(createPost));
+		RequestHelper.getInstance().postRequestMap(getActivity(),
+				UrlConstance.FORUM_CREATE_POST_URL, map, new Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						int res  = 0;
+						 try {
+							 JSONObject json = new JSONObject(response);
+							res = json.getInt("rs");
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						if(res == 1) {
+							ToastHelper.showL("发帖成功");
+							finish();
+						} else {
+							ToastHelper.showL("发帖失败");
+						}
+					}
+				});
+	}
+	
 
 	private boolean verifyInput() {
 		
@@ -409,6 +584,10 @@ public class CreatePostActivity extends BaseActivity{
 		
 		if(et_content_create_post.toString().trim().isEmpty()) {
 			ToastHelper.showS("请填写内容");
+			return false;
+		}
+		if(et_content_create_post.toString().trim().length()<15) {
+			ToastHelper.showS("内容不能少于15字");
 			return false;
 		}
 		

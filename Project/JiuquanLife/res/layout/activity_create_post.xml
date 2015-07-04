@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:gravity="left|top"
-            android:hint="不吐不快"
+            android:hint="吐槽内容（最少15字）"
             android:minLines="7"
             android:padding="7dp"
             android:textSize="13sp" />
