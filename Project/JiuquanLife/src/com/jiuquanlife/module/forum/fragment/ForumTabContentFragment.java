@@ -42,19 +42,25 @@ public class ForumTabContentFragment extends BaseFragment {
 	private ImageViewPagerAdapter focusTopAdapter;
 	private LinearLayout dotLl;
 	private TextView vpTitleTv;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		View content = inflater.inflate(R.layout.fragment_forum, null);
-		setContent(content);
-		initViews();
-		getData();
-		return content;
+
+		if (getContent() == null) {
+			View content = inflater.inflate(R.layout.fragment_forum, null);
+			setContent(content);
+			initViews();
+			getData();
+		}
+
+		ViewGroup parent = (ViewGroup) getContent().getParent();
+		if (parent != null) {
+			parent.removeView(getContent());
+		}
+		return getContent();
 	}
-    
-    
+
 	private OnClickListener onClickListener = new OnClickListener() {
 
 		@Override
@@ -70,24 +76,23 @@ public class ForumTabContentFragment extends BaseFragment {
 			}
 		}
 	};
-    
+
 	public void getData() {
 
 		RequestHelper.getInstance().getRequest(getActivity(),
-				UrlConstance.GET_HOT_FORUM,
-				new Listener<String>() {
+				UrlConstance.GET_HOT_FORUM, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
 
-//						FocusInfo info = GsonUtils.toObj(response,
-//								FocusInfo.class);
-//						
+						// FocusInfo info = GsonUtils.toObj(response,
+						// FocusInfo.class);
+						//
 						Type type = new TypeToken<BaseData<ForumIndexData>>() {
 						}.getType();
 						BaseData<ForumIndexData> info = GsonUtils.toObj(
 								response, type);
-						
+
 						if (info == null
 								|| info.data == null
 								|| !CommonConstance.REQUEST_CODE_SUCCESS
@@ -95,8 +100,7 @@ public class ForumTabContentFragment extends BaseFragment {
 							// ÇëÇóÊý¾ÝÊ§°Ü
 							return;
 						}
-						
-						
+
 						ArrayList<PhotoInfo> focusTopPhotoInfos = ConvertUtils
 								.convertToPhotoInfos(info.data.focusImgs);
 						focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
@@ -104,29 +108,32 @@ public class ForumTabContentFragment extends BaseFragment {
 					}
 				});
 	}
-	
-	private void initViews(){
-	
+
+	private void initViews() {
+
 		topVp = (ViewPager) findViewById(R.id.vp_top_focus);
 		dotLl = (LinearLayout) findViewById(R.id.ll_dot_top_focus);
 		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_focus);
-		focusTopAdapter = new ImageViewPagerAdapter(getActivity(), dotLl, topVp,
-				vpTitleTv);
+		focusTopAdapter = new ImageViewPagerAdapter(getActivity(), dotLl,
+				topVp, vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
-//		focusTopAdapter.setOnClickItemListener(onClickListener);
-		
+		// focusTopAdapter.setOnClickItemListener(onClickListener);
+
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.pts_forum);
 		pager = (ViewPager) findViewById(R.id.vp_forum);
 		ArrayList<ForumBaseFragment> fragments = new ArrayList<ForumBaseFragment>();
 		NewForumFragment newForumFragment = new NewForumFragment();
-		newForumFragment.setTitle(getActivity().getString(R.string.title_forum_new));
-		
+		newForumFragment.setTitle(getActivity().getString(
+				R.string.title_forum_new));
+
 		HotPostForumFragment hotPostForumFragment = new HotPostForumFragment();
-		hotPostForumFragment.setTitle(getActivity().getString(R.string.title_forum_hot));
-	
+		hotPostForumFragment.setTitle(getActivity().getString(
+				R.string.title_forum_hot));
+
 		EssenceForumFragment essenceForumFragment = new EssenceForumFragment();
-		essenceForumFragment.setTitle(getActivity().getString(R.string.title_forum_essence));
-		
+		essenceForumFragment.setTitle(getActivity().getString(
+				R.string.title_forum_essence));
+
 		fragments.add(newForumFragment);
 		fragments.add(hotPostForumFragment);
 		fragments.add(essenceForumFragment);

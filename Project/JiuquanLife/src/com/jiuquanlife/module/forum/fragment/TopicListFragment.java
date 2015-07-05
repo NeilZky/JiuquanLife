@@ -27,12 +27,17 @@ public class TopicListFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-		View content = inflater.inflate(R.layout.fragment_topic_list, null);
-		setContent(content);
-		initViews();
-		getData();
-		return content;
+		if(getContent() == null) {
+			View content = inflater.inflate(R.layout.fragment_topic_list, null);
+			setContent(content);
+			initViews();
+			getData();
+		}
+		ViewGroup parent = (ViewGroup) getContent().getParent();
+		if (parent != null) {
+			parent.removeView(getContent());
+		}
+		return getContent();
 	}
 
 	private void initViews() {

@@ -242,36 +242,14 @@ public class CreatePostActivity extends BaseActivity{
 			public void run() {
 				super.run();
 				ArrayList<Photo> photos = photoAdapter.getPhotos();
-				ArrayList<String> photoUrls = new ArrayList<String>();
 				ArrayList<Attachment> attachments = new ArrayList<Attachment>();
 				if (photos != null) {
 					for (Photo photo : photos) {
 						String filePath = photo.filePath;
 						PhotoRes photoRes = uploadPhoto(filePath);
-//						String res = UploadUtils.upload(
-//						"http://www.5ijq.cn/App/House/addHouseImg",
-//						filePath, null);
-						
 						if(photoRes!=null && photoRes.body!=null && photoRes.body.attachment!=null&& photoRes.body.attachment.size() >0) {
 							attachments.add(photoRes.body.attachment.get(0));
 						}
-						
-//						
-//						try {
-//							if(!StringUtils.isNullOrEmpty(res)) {
-//								JSONObject json = new JSONObject(res);
-//								String imgUrl = (String) json.get("data");
-//								if (!StringUtils.isNullOrEmpty(imgUrl)) {
-//									photoUrls.add(imgUrl.substring(1));
-//								} else {
-//									ToastHelper.showL("…œ¥´’’∆¨ ß∞‹");
-//								}
-//							}
-//						
-//						} catch (JSONException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
 					}
 					Message msg = handler.obtainMessage();
 					msg.obj = attachments;
@@ -294,18 +272,6 @@ public class CreatePostActivity extends BaseActivity{
 		values.put("accessSecret", user.secret);
 		values.put("fid", border.board_id + "");
 		values.put("appHash", mAppHash);
-//		values.put("albumId", "0");
-//		values.put("forumType", "7");
-//		values.put("fid", "52");
-//		values.put("imei", "860311022375042");
-//		values.put("sortId", "0");
-//		values.put("platType", "1");
-//		values.put("type", "image");
-//		values.put("sortId", "0");
-//		values.put("sdkVersion", "2.4.0");
-//		values.put("appName", "∫Ï¡¯¬€Ã≥");
-//		values.put("forumKey", "Ir8mv2RUsHewrQiiyJ");
-//		values.put("imsi", "460008890619748");
 		String result = UploadUtils.upload(host, path,"uploadFile[]", values);
 		if(StringUtils.isNullOrEmpty(result)) {
 			return null;

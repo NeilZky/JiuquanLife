@@ -9,6 +9,7 @@ public class CreatePostJson {
 	public int isOnlyAuthor;
 	public int isAnonymous;
 	public int typeId;
+	public int tid;
 	public String aid;
 	public String title;
 	public String location;
