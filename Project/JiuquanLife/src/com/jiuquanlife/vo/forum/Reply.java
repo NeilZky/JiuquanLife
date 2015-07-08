@@ -13,6 +13,7 @@ public class Reply {
 	public int position;
 	public int is_quote;
 	public String quote_content;
+	public String location;
 	public ArrayList<Content> reply_content;
 	
 }

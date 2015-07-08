@@ -125,4 +125,5 @@ public class BaseActivity extends FragmentActivity {
 		Intent intent = new Intent(this, cls);
 		super.startActivityForResult(intent, requestCode);
 	}
+	
 }

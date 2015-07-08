@@ -17,6 +17,7 @@ public class PostDetail {
 	public int is_favor;
 	public String create_date;
 	public String icon;
+	public String location;
 	public int level;
 	public String userTitle;
 	public ArrayList<Content> content;

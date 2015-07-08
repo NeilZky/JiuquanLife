@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
@@ -34,7 +35,10 @@ public class PostDetailAdapter extends BaseAdapter {
 	private TextView tv_time_apdd;
 	private LinearListView llv_content_apdd;
 	private PostContentAdapter postContentAdapter;
+	private TextView tv_location_ar_topic;
+	private LinearLayout ll_location_ar_topic;
 
+	
 	private ImageLoader imageLoader;
 
 	public PostDetailAdapter(Context context) {
@@ -87,8 +91,7 @@ public class PostDetailAdapter extends BaseAdapter {
 					TimeUtils.getFormatedDateTime(c));
 		}
 		// TODO ∆¿¬€ÕºŒƒªÏ≈≈
-		PostContentAdapter replyContentAdapter = new PostContentAdapter(
-				context);
+		PostContentAdapter replyContentAdapter = new PostContentAdapter(context);
 		if(reply.is_quote == 1 && !StringUtils.isNullOrEmpty(reply.quote_content)) {
 			holder.tv_quote_content.setText(reply.quote_content);
 			holder.ll_quote_content.setVisibility(View.VISIBLE);
@@ -98,6 +101,12 @@ public class PostDetailAdapter extends BaseAdapter {
 		replyContentAdapter.refresh(reply.reply_content);
 		holder.llv_reply_content_ar.setAdapter(replyContentAdapter);
 		holder.llv_reply_content_ar.notifyDataSetChanged();
+		if(StringUtils.isNullOrEmpty(reply.location)) {
+			holder.ll_location_ar.setVisibility(View.GONE);
+		} else {
+			holder.ll_location_ar.setVisibility(View.VISIBLE);
+			holder.tv_location_ar.setText(reply.location);
+		}
 		return convertView;
 	}
 
@@ -119,7 +128,9 @@ public class PostDetailAdapter extends BaseAdapter {
 			holder.tv_stair_ar = (TextView) convertView
 					.findViewById(R.id.tv_stair_ar);
 			holder.tv_quote_content = (TextView) convertView.findViewById(R.id.tv_quote_content);
-			holder.ll_quote_content = (LinearListView) convertView.findViewById(R.id.ll_quote_content);
+			holder.ll_quote_content = (LinearLayout) convertView.findViewById(R.id.ll_quote_content);
+			holder.ll_location_ar = (LinearLayout) convertView.findViewById(R.id.ll_location_ar);
+			holder.tv_location_ar = (TextView) convertView.findViewById(R.id.tv_location_ar);
 			convertView.setTag(holder);
 		} 
 		return holder;
@@ -134,8 +145,9 @@ public class PostDetailAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_title_apdd);
 			civ_apdd = (CircleImageView) postDetailView
 					.findViewById(R.id.civ_apdd);
-			tv_name_apdd = (TextView) postDetailView
-					.findViewById(R.id.tv_name_apdd);
+			tv_name_apdd = (TextView) postDetailView.findViewById(R.id.tv_name_apdd);
+			tv_location_ar_topic = (TextView) postDetailView.findViewById(R.id.tv_location_ar_topic);
+			ll_location_ar_topic = (LinearLayout) postDetailView.findViewById(R.id.ll_location_ar_topic);
 			tv_time_apdd = (TextView) postDetailView
 					.findViewById(R.id.tv_time_apdd);
 			llv_content_apdd = (LinearListView) postDetailView
@@ -171,6 +183,12 @@ public class PostDetailAdapter extends BaseAdapter {
 			tv_title_apdd.setText(postDetail.title);
 			postContentAdapter.refresh(postDetail.content);
 			llv_content_apdd.notifyDataSetChanged();
+			if(StringUtils.isNullOrEmpty(postDetail.location)) {
+				ll_location_ar_topic.setVisibility(View.GONE);
+			} else {
+				ll_location_ar_topic.setVisibility(View.VISIBLE);
+				tv_location_ar_topic.setText(postDetail.location);
+			}
 		}
 	}
 	
@@ -197,7 +215,9 @@ public class PostDetailAdapter extends BaseAdapter {
 		TextView tv_reply_date_ar;
 		TextView tv_quote_content;
 		LinearListView llv_reply_content_ar;
-		LinearListView ll_quote_content;
+		LinearLayout ll_quote_content;
+		TextView tv_location_ar;
+		LinearLayout ll_location_ar;
 
 	}
 

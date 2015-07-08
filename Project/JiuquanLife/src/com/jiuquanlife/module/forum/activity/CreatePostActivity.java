@@ -104,6 +104,22 @@ public class CreatePostActivity extends BaseActivity{
 		
 		initViews();
 		requestLoc();
+		initData();
+	}
+	
+	private void initData() {
+		
+		int type = getIntent().getIntExtra(EXTRA_CREATE_TYPE, 0);
+		switch (type) {
+		case TYPE_LOCAL_PHOTO:
+			addLocalPhoto();
+			break;
+		case TYPE_CAMERA:
+			startCamera();
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void initViews() {
@@ -264,14 +280,14 @@ public class CreatePostActivity extends BaseActivity{
 		
 		String host = UrlConstance.FORUM_UPLOAD_PHOTO;
 		HashMap<String, String> values = new HashMap<String, String>();
-		String mAppHash = AppUtils.getAppHash();
 		values.put("module", "forum");
 		values.put("packageName", "com.appbyme.app139447");
+		String mAppHash = AppUtils.getAppHash();
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
 		values.put("accessToken", user.token);
 		values.put("accessSecret", user.secret);
-		values.put("fid", border.board_id + "");
 		values.put("appHash", mAppHash);
+		values.put("fid", border.board_id + "");
 		String result = UploadUtils.upload(host, path,"uploadFile[]", values);
 		if(StringUtils.isNullOrEmpty(result)) {
 			return null;
@@ -319,12 +335,18 @@ public class CreatePostActivity extends BaseActivity{
 			@Override
 			public void onClick(View v) {
 
-				Intent intent = new Intent(getActivity(),
-						PhotoSelectorActivity.class);
-				startActivityForResult(intent, REQUEST_SELECT_PHOTOS);
+				
 			}
 		}).create().show();
 	}
+	
+	private void addLocalPhoto() {
+		
+		Intent intent = new Intent(getActivity(),
+				PhotoSelectorActivity.class);
+		startActivityForResult(intent, REQUEST_SELECT_PHOTOS);
+	}
+	
 
 	private void startCamera() {
 

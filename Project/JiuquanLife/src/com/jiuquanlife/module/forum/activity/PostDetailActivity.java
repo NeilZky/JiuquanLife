@@ -18,10 +18,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Response.Listener;
 import com.google.gson.Gson;
@@ -53,6 +55,7 @@ import com.jiuquanlife.vo.forum.Border;
 import com.jiuquanlife.vo.forum.BorderType;
 import com.jiuquanlife.vo.forum.Content;
 import com.jiuquanlife.vo.forum.PostDetailVo;
+import com.jiuquanlife.vo.forum.Reply;
 import com.jiuquanlife.vo.forum.Topic;
 import com.jiuquanlife.vo.forum.createpost.Attachment;
 import com.jiuquanlife.vo.forum.createpost.CreatePost;
@@ -61,6 +64,7 @@ import com.jiuquanlife.vo.forum.createpost.CreatePostJson;
 import com.jiuquanlife.vo.forum.createpost.PhotoRes;
 import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
+import com.photoselector.ui.PhotoItem.onItemClickListener;
 
 public class PostDetailActivity extends BaseActivity {
 
@@ -84,6 +88,8 @@ public class PostDetailActivity extends BaseActivity {
 	protected static final int REQUEST_SELECT_PHOTOS = 2;
 	private EditText et_content_reply;
 	private int tid;
+	private Reply reply;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -113,6 +119,7 @@ public class PostDetailActivity extends BaseActivity {
 		postDetailAdapter = new PostDetailAdapter(getActivity());
 		xlv_apd.addHeaderView(postDetailAdapter.getPostDetailView());
 		xlv_apd.setAdapter(postDetailAdapter);
+		xlv_apd.setOnItemClickListener(onItemClickListener);
 		ptrv_apd.setOnHeaderRefreshListener(onHeaderRefreshListener);
 		ptrv_apd.setOnFooterRefreshListener(onFooterRefreshListener);
 		mulityLocationManager = MulityLocationManager.getInstance(getApplicationContext());
@@ -120,6 +127,22 @@ public class PostDetailActivity extends BaseActivity {
 		photoAdapter = new PhotoAdapter(getActivity());
 		hlv_photo_create_post.setAdapter(photoAdapter);
 	}
+	
+	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			if(position == 0) {
+				et_content_reply.setHint("评论楼主");
+				reply = null;
+			} else {
+				reply =  (Reply) parent.getItemAtPosition(position);
+				et_content_reply.setHint("回复"+reply.reply_name);
+			}
+		}
+	};
+	
 
 	private PullToRefreshView.OnFooterRefreshListener onFooterRefreshListener = new OnFooterRefreshListener() {
 
@@ -191,6 +214,7 @@ public class PostDetailActivity extends BaseActivity {
 						if(info!=null && info.topic!=null && info.topic.topic_id!=0) {
 							tid = info.topic.topic_id;
 						}
+						ll_more_reply_post_detail.setVisibility(View.GONE);
 					}
 				}, new RequestHelper.OnFinishListener() {
 
@@ -423,7 +447,11 @@ public class PostDetailActivity extends BaseActivity {
 			createPostJson.latitude = String.valueOf(this.latitude);
 		}
 		createPostJson.tid = tid;
+		createPostJson.isQuote = 1;
 		createPostJson.isShowPostion = 1;
+		if(reply!=null) {
+			createPostJson.replyId = reply.reply_posts_id;
+		}
 		ArrayList<Content> contents = new ArrayList<Content>();
 		if(photos!=null && !photos.isEmpty()) {
 			StringBuffer sb = new StringBuffer();
@@ -458,7 +486,8 @@ public class PostDetailActivity extends BaseActivity {
 						}
 						if(res == 1) {
 							ToastHelper.showL("回复成功");
-							finish();
+							ptrv_apd.setRefreshing();
+							et_content_reply.setText("");
 						} else {
 							ToastHelper.showL("回复失败");
 						}
@@ -515,17 +544,27 @@ public class PostDetailActivity extends BaseActivity {
 	
 	private boolean verifyInput() {
 		
-		
-		if(et_content_reply.toString().trim().isEmpty()) {
+
+		if(et_content_reply.getText().toString().trim().isEmpty()) {
 			ToastHelper.showS("请填写内容");
 			return false;
 		}
-		if(et_content_reply.toString().trim().length()<15) {
+		if(et_content_reply.getText().toString().trim().length()<15) {
 			ToastHelper.showS("内容不能少于15字");
 			return false;
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public void onBackPressed() {
+
+		if(ll_more_reply_post_detail.getVisibility() == View.VISIBLE) {
+			ll_more_reply_post_detail.setVisibility(View.GONE);
+		} else {
+			super.onBackPressed();
+		}
 	}
 	
 }

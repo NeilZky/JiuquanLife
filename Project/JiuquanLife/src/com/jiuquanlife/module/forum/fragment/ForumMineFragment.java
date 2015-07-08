@@ -8,8 +8,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.entity.User;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.forum.activity.UserCenterActivity;
+import com.jiuquanlife.module.login.LoginActivity;
+import com.jiuquanlife.utils.SharePreferenceUtils;
 
 public class ForumMineFragment extends BaseFragment {
 
@@ -51,8 +54,14 @@ public class ForumMineFragment extends BaseFragment {
 		}
 
 		private void onClickUserCenter() {
-
-			Intent intent = new Intent(getActivity(), UserCenterActivity.class);
+			
+			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+			Intent intent = new Intent();
+			if(user!=null) {
+				intent.setClass(getActivity(), UserCenterActivity.class);
+			} else {
+				intent.setClass(getActivity(), LoginActivity.class);
+			}
 			startActivity(intent);
 		}
 	};

@@ -17,17 +17,19 @@
             android:orientation="vertical" >
 
             <com.jiuquanlife.view.CircleImageView
+                android:id="@+id/civ_photo_user_center"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:src="@drawable/photo_default" />
 
             <TextView
+                android:id="@+id/tv_user_title_auc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="新手上路"
-                android:textColor="@color/grey_text"
+                android:textColor="@android:color/black"
                 android:textSize="13sp" />
 
             <RelativeLayout
@@ -49,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@id/v_divider_hor"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="13sp" />
 
                 <TextView
@@ -59,7 +61,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@id/tv_score_user_center"
                     android:text="积分:"
-                    android:textColor="@color/grey_text"
+                    android:textColor="@android:color/black"
                     android:textSize="13sp" />
 
                 <TextView
@@ -68,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/v_divider_hor"
                     android:text="金钱:"
-                    android:textColor="@color/grey_text"
+                    android:textColor="@android:color/black"
                     android:textSize="13sp" />
 
                 <TextView
@@ -78,7 +80,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/tv_label_money"
-                    android:textColor="@color/grey_text"
+                    android:textColor="@android:color/black"
                     android:textSize="13sp" />
             </RelativeLayout>
         </LinearLayout>
