@@ -2,7 +2,9 @@ package com.jiuquanlife.module.forum.activity;
 
 import java.util.HashMap;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
@@ -13,6 +15,7 @@ import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.SharePreferenceUtils;
+import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UrlUtils;
 import com.jiuquanlife.view.CircleImageView;
 import com.jiuquanlife.vo.forum.usercenter.UserCenterJson;
@@ -22,6 +25,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class UserCenterActivity extends BaseActivity{
 	
 	private CircleImageView civ_photo_user_center;
+	private UserCenterJson userCenterJson;
 	
 	
 	@Override
@@ -58,8 +62,8 @@ public class UserCenterActivity extends BaseActivity{
 
 					@Override
 					public void onResponse(String response) {
-						UserCenterJson json = GsonUtils.toObj(response, UserCenterJson.class);
-						fillView(json);
+						userCenterJson = GsonUtils.toObj(response, UserCenterJson.class);
+						fillView(userCenterJson);
 					}
 				}, new RequestHelper.OnFinishListener() {
 
@@ -87,5 +91,35 @@ public class UserCenterActivity extends BaseActivity{
 			}
 		}
 	}
+
+	public void onClick(View v) {
+		
+		switch (v.getId()) {
+		case R.id.ll_profile_mine:
+			onClickProfileMine();
+			break;
+		case R.id.ll_album_mine:
+			onClickAlbum();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	private void onClickAlbum() {
+		
+		startActivity(AlbumActivity.class);
+	}
+
+	private void onClickProfileMine() {
+		
+		if(userCenterJson!=null && userCenterJson.body!=null &&userCenterJson.body.profileList!=null && !userCenterJson.body.profileList.isEmpty()) {
+			Intent intent = new Intent(getActivity(), ProfileAcitivity.class);
+			intent.putExtra(ProfileAcitivity.EXTRA_DATA, userCenterJson.body.profileList);
+			startActivity(intent);
+		} 
+	}
+	
 	
 }

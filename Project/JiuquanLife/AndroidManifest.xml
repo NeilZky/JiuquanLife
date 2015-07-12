@@ -112,6 +112,16 @@
             android:name="com.jiuquanlife.module.forum.activity.UserCenterActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.jiuquanlife.module.forum.activity.ProfileAcitivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiuquanlife.module.forum.activity.AlbumActivity"
+            android:screenOrientation="portrait" />
+           <activity
+            android:name="com.jiuquanlife.module.forum.activity.AlbumPhotoListActivity"
+            android:screenOrientation="portrait" />
+        
+        <activity
             android:name="com.jiuquanlife.module.forum.activity.CreatePostActivity"
             android:screenOrientation="portrait" />
         <activity

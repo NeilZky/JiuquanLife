@@ -8,6 +8,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -41,6 +42,34 @@ public class BaseActivity extends FragmentActivity {
 		progressDialog = null;
 	}
 
+	private void initBackBtn() {
+		
+		View backBtn = getWindow().getDecorView().findViewWithTag(getString(R.string.back_tag));
+		if(backBtn!=null) {
+			backBtn.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					finish();
+				}
+			});
+		}
+	}
+	
+	@Override
+	public void setContentView(int layoutResID) {
+		super.setContentView(layoutResID);
+		initBackBtn();
+	}
+	
+	@Override
+	public void setContentView(View view) {
+
+		super.setContentView(view);
+		initBackBtn();
+	}
+	
 	protected void showProgressDialog() {
 
 		showProgressDialog(true);

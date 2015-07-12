@@ -62,5 +62,53 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 		this.data = data;
 		notifyDataSetChanged();
 	}
-	
+
+
+	public void add(ArrayList<T> data) {
+
+		if (data != null && !data.isEmpty()) {
+			if (this.data == null) {
+				this.data = new ArrayList<T>();
+			}
+			this.data.addAll(data);
+			notifyDataSetChanged();
+		}
+	}
+
+	public void addItem(T item) {
+
+		if (this.data == null) {
+			this.data = new ArrayList<T>();
+		}
+		this.data.add(item);
+		notifyDataSetChanged();
+	}
+
+	public void addAtPosition(int position, T item) {
+
+		if (item != null) {
+			if (this.data == null) {
+				this.data = new ArrayList<T>();
+			}
+			this.data.add(position, item);
+			notifyDataSetChanged();
+		}
+	}
+
+	public T getLastItem() {
+
+		if (data != null && !data.isEmpty()) {
+			return data.get(data.size() - 1);
+		}
+		return null;
+	}
+
+	public T getFirstItem() {
+
+		if (data != null && !data.isEmpty()) {
+			return data.get(0);
+		}
+		return null;
+	}
+
 }

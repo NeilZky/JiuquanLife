@@ -86,10 +86,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_profile_mine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/btn_setting_item"
+            android:onClick="onClick"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -114,9 +116,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_album_mine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
+            android:onClick="onClick"
             android:background="@drawable/btn_setting_item"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
