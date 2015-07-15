@@ -101,10 +101,28 @@ public class UserCenterActivity extends BaseActivity{
 		case R.id.ll_album_mine:
 			onClickAlbum();
 			break;
-
+		case R.id.ll_friends_mine:
+			startUserListActivity( UserListActivity.TYPE_FIREND, "我的好友");
+			break;
+		case R.id.ll_follow_mine:
+			startUserListActivity( UserListActivity.TYPE_FOLLOW, "我的关注");
+			break;
+		case R.id.ll_followed_mine:
+			startUserListActivity( UserListActivity.TYPE_FOLLOWED , "我的粉丝");
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void startUserListActivity(int type, String title) {
+
+		Intent intent = new Intent(getActivity(), UserListActivity.class);
+		intent.putExtra(UserListActivity.EXTRA_TYPE, type);
+		intent.putExtra(UserListActivity.EXTRA_TITLE, title);
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
+		startActivity(intent);
 	}
 
 	private void onClickAlbum() {

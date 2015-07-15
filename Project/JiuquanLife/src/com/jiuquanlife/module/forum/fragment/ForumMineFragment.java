@@ -11,6 +11,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.forum.activity.UserCenterActivity;
+import com.jiuquanlife.module.forum.activity.UserListActivity;
 import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.utils.SharePreferenceUtils;
 
@@ -36,6 +37,7 @@ public class ForumMineFragment extends BaseFragment {
 	private void initViews() {
 
 		initClickListener(R.id.tv_to_user_center_, onClickListener);
+		initClickListener(R.id.tv_to_user_nearby, onClickListener);
 	}
 
 	private OnClickListener onClickListener = new OnClickListener() {
@@ -47,10 +49,22 @@ public class ForumMineFragment extends BaseFragment {
 			case R.id.tv_to_user_center_:
 				onClickUserCenter();
 				break;
-
+			case R.id.tv_to_user_nearby:
+				onClickUserNearby();
+				break;
 			default:
 				break;
 			}
+		}
+
+		private void onClickUserNearby() {
+			
+			Intent intent = new Intent(getActivity(), UserListActivity.class);
+			intent.putExtra(UserListActivity.EXTRA_TYPE, UserListActivity.TYPE_ALL);
+			intent.putExtra(UserListActivity.EXTRA_TITLE, "¸½½üÓÃ»§");
+			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+			intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
+			startActivity(intent);
 		}
 
 		private void onClickUserCenter() {
