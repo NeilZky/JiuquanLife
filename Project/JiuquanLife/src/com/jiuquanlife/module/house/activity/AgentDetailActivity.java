@@ -1,6 +1,5 @@
 package com.jiuquanlife.module.house.activity;
 
-import android.app.DownloadManager.Request;
 import android.os.Bundle;
 
 import com.android.volley.Response.Listener;

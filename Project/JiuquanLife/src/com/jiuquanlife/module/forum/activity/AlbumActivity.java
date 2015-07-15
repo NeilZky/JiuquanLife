@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
@@ -19,6 +20,7 @@ import com.jiuquanlife.module.forum.adapter.AlbumAdapter;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.SharePreferenceUtils;
+import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView.OnFooterRefreshListener;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView.OnHeaderRefreshListener;
@@ -27,10 +29,16 @@ import com.jiuquanlife.vo.forum.album.AlbumJson;
 
 public class AlbumActivity extends BaseActivity{
 	
+	public static final String EXTRA_UID = "EXTRA_UID";
+	public static final String EXTRA_TITLE = "EXTRA_TITLE";
+	
 	private PullToRefreshView ptrv_album;
 	private GridView gv_album;
 	private int page = 1;
 	private AlbumAdapter albumAdapter;
+	private int uid;
+	private TextView title_album_photo_list;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,9 @@ public class AlbumActivity extends BaseActivity{
 	private void init() {
 		
 		initViews();
+		uid = getIntent().getIntExtra(EXTRA_UID, 0);
+		String title = getIntent().getStringExtra(EXTRA_TITLE);
+		TextViewUtils.setText(title_album_photo_list, title);
 		ptrv_album.setRefreshing();
 	}
 	
@@ -68,6 +79,7 @@ public class AlbumActivity extends BaseActivity{
 	private void initViews() {
 		
 		setContentView(R.layout.activity_album);
+		title_album_photo_list = (TextView) findViewById(R.id.title_album_photo_list);
 		ptrv_album = (PullToRefreshView) findViewById(R.id.ptrv_album);
 		gv_album = (GridView) findViewById(R.id.gv_album);
 		albumAdapter = new AlbumAdapter(getActivity());
@@ -103,7 +115,7 @@ public class AlbumActivity extends BaseActivity{
 		map.put("accessToken", user.token);
 		map.put("accessSecret", user.secret);
 		map.put("appHash", mAppHash);
-		map.put("uid", user.uid + "");
+		map.put("uid", uid+ "");
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.FORUM_URL, map, new Listener<String>() {
 
@@ -137,7 +149,7 @@ public class AlbumActivity extends BaseActivity{
 		map.put("accessToken", user.token);
 		map.put("accessSecret", user.secret);
 		map.put("appHash", mAppHash);
-		map.put("uid", user.uid + "");
+		map.put("uid", uid+ "");
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.FORUM_URL, map, new Listener<String>() {
 

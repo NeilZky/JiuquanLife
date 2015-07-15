@@ -10,7 +10,6 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.vo.forum.album.AlbumData;
-import com.jiuquanlife.vo.forum.usercenter.UserData;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class AlbumAdapter extends BaseListAdapter<AlbumData>{

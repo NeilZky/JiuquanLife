@@ -1,10 +1,8 @@
 package com.jiuquanlife.module.house.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
@@ -12,10 +10,8 @@ import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.app.App;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.view.UrlTagImageView;
-import com.jiuquanlife.view.UrlTagImageView.OnBitmapLoadedListener;
 import com.jiuquanlife.vo.house.HouseItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 

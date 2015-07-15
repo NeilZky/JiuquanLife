@@ -19,11 +19,11 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Response.Listener;
 import com.google.gson.Gson;
@@ -39,24 +39,20 @@ import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.MulityLocationManager;
+import com.jiuquanlife.utils.MulityLocationManager.OnLocationChangedListener;
 import com.jiuquanlife.utils.PhotoManager;
+import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.utils.StringUtils;
+import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UploadUtils;
-import com.jiuquanlife.utils.MulityLocationManager.OnLocationChangedListener;
-import com.jiuquanlife.utils.SharePreferenceUtils;
-import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.view.HorizontalListView;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView.OnFooterRefreshListener;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView.OnHeaderRefreshListener;
-import com.jiuquanlife.view.xlistview.XListView;
-import com.jiuquanlife.vo.forum.Border;
-import com.jiuquanlife.vo.forum.BorderType;
 import com.jiuquanlife.vo.forum.Content;
 import com.jiuquanlife.vo.forum.PostDetailVo;
 import com.jiuquanlife.vo.forum.Reply;
-import com.jiuquanlife.vo.forum.Topic;
 import com.jiuquanlife.vo.forum.createpost.Attachment;
 import com.jiuquanlife.vo.forum.createpost.CreatePost;
 import com.jiuquanlife.vo.forum.createpost.CreatePostBody;
@@ -64,7 +60,6 @@ import com.jiuquanlife.vo.forum.createpost.CreatePostJson;
 import com.jiuquanlife.vo.forum.createpost.PhotoRes;
 import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
-import com.photoselector.ui.PhotoItem.onItemClickListener;
 
 public class PostDetailActivity extends BaseActivity {
 

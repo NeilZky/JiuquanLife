@@ -16,7 +16,6 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.view.GridLinearLayout;
-import com.jiuquanlife.view.LinearListView;
 import com.jiuquanlife.vo.forum.Topic;
 
 /**

@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
-import com.jiuquanlife.factory.BitmapUtilsFactory;
 import com.jiuquanlife.vo.ContentInfo;
-import com.lidroid.xutils.BitmapUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ContentAdapter extends BaseAdapter{

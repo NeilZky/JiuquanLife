@@ -112,6 +112,10 @@
             android:name="com.jiuquanlife.module.forum.activity.UserCenterActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.jiuquanlife.module.forum.activity.OtherUserCenterActivity"
+            android:screenOrientation="portrait" />
+        
+        <activity
             android:name="com.jiuquanlife.module.forum.activity.ProfileAcitivity"
             android:screenOrientation="portrait" />
         <activity

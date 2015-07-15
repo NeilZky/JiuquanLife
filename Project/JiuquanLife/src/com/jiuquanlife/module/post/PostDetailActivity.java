@@ -6,7 +6,6 @@ import android.widget.TextView;
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
-import com.jiuquanlife.factory.BitmapUtilsFactory;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.post.adapter.ContentAdapter;
@@ -16,7 +15,6 @@ import com.jiuquanlife.utils.UrlUtils;
 import com.jiuquanlife.view.CircleImageView;
 import com.jiuquanlife.view.LinearListView;
 import com.jiuquanlife.vo.GetPostByTidInfo;
-import com.lidroid.xutils.BitmapUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class PostDetailActivity extends BaseActivity{

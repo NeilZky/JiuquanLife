@@ -21,7 +21,7 @@ import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.view.xlistview.XListView;
 import com.jiuquanlife.view.xlistview.XListView.IXListViewListener;
-import com.jiuquanlife.vo.forum.album.AlbumData;
+import com.jiuquanlife.vo.forum.usercenter.UserInfo;
 import com.jiuquanlife.vo.forum.usercenter.UserInfoJson;
 
 public class UserListActivity extends BaseActivity{
@@ -92,6 +92,7 @@ public class UserListActivity extends BaseActivity{
 		userListAdapter = new UserListAdapter(getActivity());
 		xlv_user_list.setAdapter(userListAdapter);
 		tv_title_user_list = (TextView) findViewById(R.id.tv_title_user_list);
+		xlv_user_list.setOnItemClickListener(onItemClickListener);
 	}
 	
 	private XListView.IXListViewListener xListener = new IXListViewListener() {
@@ -114,10 +115,10 @@ public class UserListActivity extends BaseActivity{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			AlbumData albumData = (AlbumData) parent.getItemAtPosition(position);
+			UserInfo albumData = (UserInfo) parent.getItemAtPosition(position);
 			if(albumData!=null) {
-				Intent intent = new Intent(getActivity(), AlbumPhotoListActivity.class);
-				intent.putExtra(AlbumPhotoListActivity.EXTRA_ALBUM, albumData);
+				Intent intent = new Intent(getActivity(), OtherUserCenterActivity.class);
+				intent.putExtra(OtherUserCenterActivity.EXTRA_UID, albumData.uid);
 				startActivity(intent);
 			}
 		}

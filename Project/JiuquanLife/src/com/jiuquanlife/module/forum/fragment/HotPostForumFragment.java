@@ -1,14 +1,12 @@
 package com.jiuquanlife.module.forum.fragment;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.android.volley.Response.Listener;
 import com.google.gson.reflect.TypeToken;
@@ -20,10 +18,8 @@ import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.xlistview.XListView;
 import com.jiuquanlife.view.xlistview.XListView.IXListViewListener;
 import com.jiuquanlife.vo.BaseData;
-import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.convertor.ConvertUtils;
 import com.jiuquanlife.vo.forum.ForumIndexData;
-import com.jiuquanlife.vo.forum.PostListVo;
 
 public class HotPostForumFragment extends ForumBaseFragment{
 	

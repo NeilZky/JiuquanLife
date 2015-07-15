@@ -21,10 +21,13 @@ import com.jiuquanlife.vo.forum.usercenter.UserCenterJson;
 import com.jiuquanlife.vo.forum.usercenter.UserData;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class UserCenterActivity extends BaseActivity{
+public class OtherUserCenterActivity extends BaseActivity{
 	
 	private CircleImageView civ_photo_user_center;
 	private UserCenterJson userCenterJson;
+	private int uid;
+	
+	public static final String EXTRA_UID = "EXTRA_UID";
 	
 	
 	@Override
@@ -37,12 +40,18 @@ public class UserCenterActivity extends BaseActivity{
 	private void init() {
 		
 		initViews();
+		initData();
 		getData();
+	}
+
+	private void initData() {
+		
+		uid = getIntent().getIntExtra(EXTRA_UID, 0);
 	}
 
 	private void initViews() {
 	
-		setContentView(R.layout.activity_user_center);
+		setContentView(R.layout.activity_other_user_center);
 		civ_photo_user_center = (CircleImageView) findViewById(R.id.civ_photo_user_center);
 	}
 	
@@ -55,7 +64,7 @@ public class UserCenterActivity extends BaseActivity{
 		map.put("accessToken", user.token);
 		map.put("accessSecret", user.secret);
 		map.put("appHash", mAppHash);
-		map.put("userId", user.uid + "");
+		map.put("userId", uid + "");
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.FORUM_URL, map, new Listener<String>() {
 
@@ -95,19 +104,16 @@ public class UserCenterActivity extends BaseActivity{
 		
 		switch (v.getId()) {
 		case R.id.ll_profile_mine:
-			onClickProfileMine();
+			onClickProfile();
 			break;
 		case R.id.ll_album_mine:
 			onClickAlbum();
 			break;
-		case R.id.ll_friends_mine:
-			startUserListActivity( UserListActivity.TYPE_FIREND, "我的好友");
-			break;
 		case R.id.ll_follow_mine:
-			startUserListActivity( UserListActivity.TYPE_FOLLOW, "我的关注");
+			startUserListActivity( UserListActivity.TYPE_FOLLOW, "ta的关注");
 			break;
 		case R.id.ll_followed_mine:
-			startUserListActivity( UserListActivity.TYPE_FOLLOWED , "我的粉丝");
+			startUserListActivity( UserListActivity.TYPE_FOLLOWED , "ta的粉丝");
 			break;
 		default:
 			break;
@@ -119,24 +125,24 @@ public class UserCenterActivity extends BaseActivity{
 		Intent intent = new Intent(getActivity(), UserListActivity.class);
 		intent.putExtra(UserListActivity.EXTRA_TYPE, type);
 		intent.putExtra(UserListActivity.EXTRA_TITLE, title);
-		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-		intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
+		intent.putExtra(UserListActivity.EXTRA_UID, uid);
 		startActivity(intent);
 	}
 
 	private void onClickAlbum() {
 		
 		Intent intent =new Intent(getActivity(), AlbumActivity.class);
-		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-		intent.putExtra(AlbumActivity.EXTRA_UID, user.uid);
+		intent.putExtra(AlbumActivity.EXTRA_UID, uid);
+		intent.putExtra(ProfileAcitivity.EXTRA_TITLE, "ta的相册");
 		startActivity(AlbumActivity.class);
 	}
 
-	private void onClickProfileMine() {
+	private void onClickProfile() {
 		
 		if(userCenterJson!=null && userCenterJson.body!=null &&userCenterJson.body.profileList!=null && !userCenterJson.body.profileList.isEmpty()) {
 			Intent intent = new Intent(getActivity(), ProfileAcitivity.class);
 			intent.putExtra(ProfileAcitivity.EXTRA_DATA, userCenterJson.body.profileList);
+			intent.putExtra(ProfileAcitivity.EXTRA_TITLE, "ta的资料");
 			startActivity(intent);
 		} 
 	}

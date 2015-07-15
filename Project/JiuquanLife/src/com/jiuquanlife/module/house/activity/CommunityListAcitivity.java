@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.android.volley.Response.Listener;
@@ -14,7 +13,6 @@ import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.house.adapter.CommunityWithPhotoAdapter;
-import com.jiuquanlife.module.house.adapter.SimpleCommunityAdapter;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.popuplist.PopupAdapter;
 import com.jiuquanlife.view.popuplist.PopupButton;

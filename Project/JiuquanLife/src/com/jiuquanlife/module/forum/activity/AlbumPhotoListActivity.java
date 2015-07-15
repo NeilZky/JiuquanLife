@@ -12,7 +12,6 @@ import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
-import com.jiuquanlife.module.forum.adapter.AlbumAdapter;
 import com.jiuquanlife.module.forum.adapter.AlbumPhotoAdapter;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
@@ -22,7 +21,6 @@ import com.jiuquanlife.view.pulltorefresh.PullToRefreshView;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView.OnFooterRefreshListener;
 import com.jiuquanlife.view.pulltorefresh.PullToRefreshView.OnHeaderRefreshListener;
 import com.jiuquanlife.vo.forum.album.AlbumData;
-import com.jiuquanlife.vo.forum.album.AlbumJson;
 import com.jiuquanlife.vo.forum.photo.AlbumPhotoJson;
 
 public class AlbumPhotoListActivity extends BaseActivity{

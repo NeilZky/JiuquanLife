@@ -2,11 +2,11 @@ package com.jiuquanlife.module.forum.fragment.pageradapter;
 
 import java.util.ArrayList;
 
-import com.jiuquanlife.module.forum.fragment.ForumBaseFragment;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.jiuquanlife.module.forum.fragment.ForumBaseFragment;
 
 
 public class ForumFragmentAdapter extends FragmentPagerAdapter {

@@ -2,8 +2,6 @@ package com.jiuquanlife.adapter;
 
 import java.util.ArrayList;
 
-import com.jiuquanlife.vo.forum.Border;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

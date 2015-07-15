@@ -15,7 +15,6 @@ import com.jiuquanlife.view.UrlTagImageView;
 import com.jiuquanlife.view.UrlTagImageView.OnBitmapLoadedListener;
 import com.jiuquanlife.vo.house.Agent;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class AgentAdapter extends BaseListAdapter<Agent> {
 

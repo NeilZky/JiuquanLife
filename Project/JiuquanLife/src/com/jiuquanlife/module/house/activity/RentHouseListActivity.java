@@ -1,28 +1,19 @@
 package com.jiuquanlife.module.house.activity;
 
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
-import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
-import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.house.adapter.SecondaryHouseAdapter;
 import com.jiuquanlife.utils.GsonUtils;
-import com.jiuquanlife.view.expand.ExpandTabView;
-import com.jiuquanlife.view.expand.ViewLeft;
-import com.jiuquanlife.view.expand.ViewRight;
 import com.jiuquanlife.view.popuplist.PopupAdapter;
 import com.jiuquanlife.view.popuplist.PopupButton;
 import com.jiuquanlife.vo.house.AddressRange;
@@ -33,7 +24,6 @@ import com.jiuquanlife.vo.house.GetSellHouseListInfo;
 import com.jiuquanlife.vo.house.HouseItem;
 import com.jiuquanlife.vo.house.LayoutRange;
 import com.jiuquanlife.vo.house.PriceRange;
-import com.jiuquanlife.vo.house.out.GetRentHouseListOut;
 import com.jiuquanlife.vo.house.out.GetSellerHoustListOut;
 
 public class RentHouseListActivity extends BaseHouseListActivity {

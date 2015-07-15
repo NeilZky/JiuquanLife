@@ -21,7 +21,6 @@ import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.view.DoubleRowLinearlayout;
 import com.jiuquanlife.view.LinearListView;
-import com.jiuquanlife.vo.house.FromType;
 import com.jiuquanlife.vo.house.HouseDetailData;
 import com.jiuquanlife.vo.house.HouseDetailInfo;
 import com.jiuquanlife.vo.house.Img;

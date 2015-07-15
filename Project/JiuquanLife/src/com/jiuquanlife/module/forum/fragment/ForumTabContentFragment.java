@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,14 +22,11 @@ import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
-import com.jiuquanlife.module.forum.activity.ForumTabActvity;
 import com.jiuquanlife.module.forum.fragment.pageradapter.ForumFragmentAdapter;
 import com.jiuquanlife.module.post.PostDetailActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.vo.BaseData;
-import com.jiuquanlife.vo.FocusInfo;
 import com.jiuquanlife.vo.PhotoInfo;
-import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.convertor.ConvertUtils;
 import com.jiuquanlife.vo.forum.ForumIndexData;
 

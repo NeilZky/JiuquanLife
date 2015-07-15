@@ -1,7 +1,5 @@
 package com.jiuquanlife.view;
 
-import java.text.AttributedCharacterIterator.Attribute;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
