@@ -41,7 +41,7 @@ public class ReplyToMeAdapter extends BaseListAdapter<Reply>{
 		}
 		Reply item = getItem(position);
 		TextViewUtils.setText(holder.tv_reply_nick_name_adapter, item.reply_nick_name);
-		TextViewUtils.setText(holder.tv_reply_date_adapter, TimeUtils.convertToTime(item.replied_date));
+//		TextViewUtils.setText(holder.tv_reply_date_adapter, TimeUtils.convertToTime(item.replied_date));
 		TextViewUtils.setText(holder.tv_reply_content_adapter, TimeUtils.convertToTime(item.reply_content));
 		ImageLoader.getInstance().displayImage(item.icon, holder.iv_icon_adapter);
 		return convertView;
