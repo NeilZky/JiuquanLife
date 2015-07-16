@@ -17,34 +17,9 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/ic_mession_me" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="提到我的" />
-
-        <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginRight="7dp"
-            android:background="@drawable/ic_arrow_go" />
-    </LinearLayout>
-
-    <include layout="@layout/divider_ver" />
 
     <LinearLayout
+        android:id="@+id/ll_reply_to_me"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -60,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="评论" />
+            android:text="评论我的" />
 
         <ImageView
             android:layout_width="12dp"
@@ -87,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="好友" />
+            android:text="好友会话" />
 
         <ImageView
             android:layout_width="12dp"

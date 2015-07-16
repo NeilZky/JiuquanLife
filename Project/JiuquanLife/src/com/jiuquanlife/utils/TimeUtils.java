@@ -204,4 +204,14 @@ public class TimeUtils {
 		return date.before(today);
 	}
 	
+	public static String convertToTime(String timeMillions) {
+		
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(Long.parseLong(timeMillions));
+		Time time = new Time();
+		time.set(c.getTimeInMillis());
+		return time.format("%m-%d %H:%M");
+		
+	}
+	
 }
