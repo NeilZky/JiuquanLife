@@ -8,11 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:background="@drawable/shape_grey_border"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="horizontal" >
 
             <ImageView
@@ -25,7 +27,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                 >
 
                 <TextView
                     android:id="@+id/tv_reply_nick_name_adapter"
@@ -37,6 +40,7 @@
                     android:id="@+id/tv_reply_date_adapter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
@@ -49,20 +53,24 @@
             android:text="被回复内容"
             android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/et_reply_back_adapter"
+        <TextView
+            android:id="@+id/tv_topic_subject_replyt_to_me_adapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#d9d9d9"
-            android:hint="添加回复"
+            android:background="@drawable/shape_grey"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginBottom="7dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
             android:lines="2"
-            android:padding="10dp"
             android:textSize="14sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+             >
 
             <Button
                 android:id="@+id/btn_jump_post_adapter"
@@ -71,6 +79,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:padding="5dp"
+                android:layout_margin="7dp"
                 android:background="@drawable/shape_black"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
@@ -87,7 +96,9 @@
                 android:minHeight="0dp"
                 android:minWidth="0dp"
                 android:text="回复"
+                android:visibility="gone"
                 android:padding="5dp"
+                                android:layout_margin="7dp"
                 android:background="@drawable/btn_blue"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
