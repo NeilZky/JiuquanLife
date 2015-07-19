@@ -38,6 +38,7 @@ public class ForumMineFragment extends BaseFragment {
 
 		initClickListener(R.id.tv_to_user_center_, onClickListener);
 		initClickListener(R.id.tv_to_user_nearby, onClickListener);
+		initClickListener(R.id.tv_to_user_rank, onClickListener);
 	}
 
 	private OnClickListener onClickListener = new OnClickListener() {
@@ -52,9 +53,22 @@ public class ForumMineFragment extends BaseFragment {
 			case R.id.tv_to_user_nearby:
 				onClickUserNearby();
 				break;
+			case R.id.tv_to_user_rank:
+				onClickUserRank();
+				break;
 			default:
 				break;
 			}
+		}
+
+		private void onClickUserRank() {
+			
+			Intent intent = new Intent(getActivity(), UserListActivity.class);
+			intent.putExtra(UserListActivity.EXTRA_TYPE, UserListActivity.TYPE_RANK);
+			intent.putExtra(UserListActivity.EXTRA_TITLE, "”√ªß≈≈––");
+			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+			intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
+			startActivity(intent);
 		}
 
 		private void onClickUserNearby() {

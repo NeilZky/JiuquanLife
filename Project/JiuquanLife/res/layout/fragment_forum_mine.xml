@@ -35,6 +35,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
+                android:id="@+id/tv_to_user_rank"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"

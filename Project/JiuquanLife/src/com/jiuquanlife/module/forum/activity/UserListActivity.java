@@ -33,6 +33,7 @@ public class UserListActivity extends BaseActivity{
 	public static final int TYPE_ALL = 2;//¸½½ü
 	public static final int TYPE_FOLLOW = 3;//¹Ø×¢
 	public static final int TYPE_FOLLOWED = 4;//·ÛË¿
+	public static final int TYPE_RANK = 5;//·ÛË¿
 	private int uid;
 	private XListView xlv_user_list;
 	private UserListAdapter userListAdapter;
@@ -40,6 +41,7 @@ public class UserListActivity extends BaseActivity{
 	private String orderBy = "dateline";
 	private String type;
 	private TextView tv_title_user_list;
+	private String url;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,9 @@ public class UserListActivity extends BaseActivity{
 		case TYPE_ALL:
 			type = "all";
 			orderBy = "distance";
+			break;
+		case TYPE_RANK:
+			url = "http://www.5ijq.cn/App/Form/topUsers";
 			break;
 		}
 		uid = getIntent().getIntExtra(EXTRA_UID, 0);
@@ -137,8 +142,13 @@ public class UserListActivity extends BaseActivity{
 		map.put("uid", uid + "");
 		map.put("orderBy", orderBy);
 		map.put("type", type);
+		if(url == null) {
+			url = UrlConstance.FORUM_URL;
+		} else {
+			map = null;
+		}
 		RequestHelper.getInstance().getRequestMap(getActivity(),
-				UrlConstance.FORUM_URL, map, new Listener<String>() {
+				url, map, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -173,8 +183,13 @@ public class UserListActivity extends BaseActivity{
 		map.put("uid", uid + "");
 		map.put("orderBy", orderBy);
 		map.put("type", type);
+		if(url == null) {
+			url = UrlConstance.FORUM_URL;
+		} else {
+			map = null;
+		}
 		RequestHelper.getInstance().getRequestMap(getActivity(),
-				UrlConstance.FORUM_URL, map, new Listener<String>() {
+				url, map, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
