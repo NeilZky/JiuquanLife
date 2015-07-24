@@ -47,13 +47,14 @@
             and:texts="@string/house" />
 
         <com.jiuquanlife.view.SexangleImageView
+             android:id="@+id/siv_readliy_take"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/color_flight"
             and:pressedcolor="@color/color_setting"
             and:src="@drawable/icon_flight"
             and:textSize="12sp"
-            and:texts="@string/house" />
+            and:texts="@string/readliy_take" />
 
         <com.jiuquanlife.view.SexangleImageView
             android:layout_width="wrap_content"

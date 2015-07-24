@@ -26,4 +26,5 @@ public class UrlConstance {
 	public static final String FORUM_CREATE_POST_URL = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/topicadmin";
 	public static final String FORUM_TOPIC_TYPE_LIST = "http://www.5ijq.cn/App/Form/getTypeListByFormId";
 	public static final String FORUM_UPLOAD_PHOTO = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/sendattachmentex";
+	public static final String FORUM_READLIY_TAKE = "http://www.5ijq.cn/app/Form/readilyTake";
 }

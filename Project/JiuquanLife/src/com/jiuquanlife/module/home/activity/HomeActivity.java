@@ -11,6 +11,7 @@ import android.view.Window;
 import com.jiuquanlife.R;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
 import com.jiuquanlife.module.forum.activity.ForumTabActvity;
+import com.jiuquanlife.module.forum.activity.ReadliyTakeActivity;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
 import com.jiuquanlife.module.home.adapter.HomeAdapter;
 import com.jiuquanlife.module.house.fragment.HouseFragment;
@@ -24,6 +25,7 @@ public class HomeActivity extends Activity {
 	private SexangleImageView homeSiv;
 	private SexangleImageView houseSiv;
 	private SexangleImageView hotelSiv;
+	private SexangleImageView readliyTakeSiv;
 	private MovingView mv;
 	private ViewPager homeVp;
 	private View leftHomeView ;
@@ -57,15 +59,16 @@ public class HomeActivity extends Activity {
 		homeVp.setAdapter(homeAdapter);
 	}
 	
-	
 	private void initSixAngelView() {
 		
 		homeSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_main);
 		houseSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_house);
 		hotelSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_community);
+		readliyTakeSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_readliy_take);
 		homeSiv.setOnSexangleImageClick(listener);
 		houseSiv.setOnSexangleImageClick(listener);
 		hotelSiv.setOnSexangleImageClick(listener);
+		readliyTakeSiv.setOnSexangleImageClick(listener);
 	}
 	
 	private void initMovingView() {
@@ -90,7 +93,19 @@ public class HomeActivity extends Activity {
 			case R.id.siv_house:
 				onClickHouse();
 				break;
+			case R.id.siv_readliy_take:
+				onClickReadliyTake();
+				break;
 			}
+		}
+
+		/**
+		 * ÀÊ ÷≈ƒ
+		 */
+		private void onClickReadliyTake() {
+			
+			Intent intent = new Intent(HomeActivity.this, ReadliyTakeActivity.class);
+			startActivity(intent);
 		}
 
 		private void onClickHouse() {
