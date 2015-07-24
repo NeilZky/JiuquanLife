@@ -206,11 +206,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_publish_mine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/btn_setting_item"
             android:gravity="center_vertical"
+            android:onClick="onClick"
             android:orientation="horizontal" >
 
             <ImageView
@@ -234,11 +236,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_reply_mine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:background="@drawable/btn_setting_item"
             android:gravity="center_vertical"
+            android:onClick="onClick"
             android:orientation="horizontal" >
 
             <ImageView
@@ -260,8 +264,6 @@
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_arrow_to" />
         </LinearLayout>
-
-
     </LinearLayout>
 
 </ScrollView>

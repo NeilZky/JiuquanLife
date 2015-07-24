@@ -11,9 +11,12 @@ import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.PostAdapter;
 import com.jiuquanlife.constance.UrlConstance;
+import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.forum.activity.PostListActivity;
+import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.view.xlistview.XListView;
 import com.jiuquanlife.view.xlistview.XListView.IXListViewListener;
 import com.jiuquanlife.vo.forum.Border;
@@ -26,6 +29,9 @@ public class PostListFragment extends ForumBaseFragment {
 	private int page;
 	private String sortBy;
 	private Border border;
+	private String r;
+	private String type;
+	private int uid;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,7 +57,9 @@ public class PostListFragment extends ForumBaseFragment {
 	
 	public void borderChagned() {
 		
-		border =((PostListActivity)getActivity()).getBorder();
+		if(getActivity() instanceof PostListActivity) {
+			border =((PostListActivity)getActivity()).getBorder();
+		}
 		lv_essence_forum.setRefreshing();
 		getData();
 	}
@@ -85,11 +93,22 @@ public class PostListFragment extends ForumBaseFragment {
 	public void getData() {
 		page = 1;
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("r", "forum/topiclist");
-		map.put("sortby", sortBy);
-		map.put("isImageList", String.valueOf(1));
+		if(r!=null) {
+			map.put("r", r);
+			map.put("type", type);
+			map.put("uid", uid+"");
+			String mAppHash = AppUtils.getAppHash();
+			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+			map.put("accessToken", user.token);
+			map.put("accessSecret", user.secret);
+			map.put("appHash", mAppHash);
+		} else {
+			map.put("r", "forum/topiclist");
+			map.put("sortby", sortBy);
+			map.put("isImageList", String.valueOf(1));
+			map.put("boardId", String.valueOf(border.board_id) );
+		}
 		map.put("page", String.valueOf(page));
-		map.put("boardId", String.valueOf(border.board_id) );
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.FORUM_URL, map,new Listener<String>() {
 
@@ -124,11 +143,23 @@ public class PostListFragment extends ForumBaseFragment {
 	public void addData() {
 		page++;
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("r", "forum/topiclist");
-		map.put("sortby", sortBy);
-		map.put("isImageList", String.valueOf(1));
+		if(r!=null) {
+			map.put("r", r);
+			map.put("type", type);
+			map.put("uid", uid+"");
+			String mAppHash = AppUtils.getAppHash();
+			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+			map.put("accessToken", user.token);
+			map.put("accessSecret", user.secret);
+			map.put("appHash", mAppHash);
+		} else {
+			map.put("r", "forum/topiclist");
+			map.put("sortby", sortBy);
+			map.put("isImageList", String.valueOf(1));
+			map.put("boardId", String.valueOf(border.board_id) );
+		}
 		map.put("page", String.valueOf(page));
-		map.put("boardId", String.valueOf(border.board_id) );
+		
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.FORUM_URL,map,new Listener<String>() {
 
@@ -162,4 +193,18 @@ public class PostListFragment extends ForumBaseFragment {
 		this.sortBy = sortBy;
 	}
 	
+	public void setR(String r) {
+		
+		this.r = r;
+	}
+	
+	public void setType(String type) {
+		
+		this.type = type;
+	}
+	
+	public void setUid(int uid) {
+		
+		this.uid = uid;
+	}
 }

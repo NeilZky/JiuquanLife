@@ -18,17 +18,23 @@ import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.forum.adapter.UserListAdapter;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.MulityLocationManager;
+import com.jiuquanlife.utils.MulityLocationManager.OnLocationChangedListener;
 import com.jiuquanlife.utils.SharePreferenceUtils;
+import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.view.xlistview.XListView;
 import com.jiuquanlife.view.xlistview.XListView.IXListViewListener;
+import com.jiuquanlife.vo.forum.Border;
+import com.jiuquanlife.vo.forum.Topic;
 import com.jiuquanlife.vo.forum.usercenter.UserInfo;
 import com.jiuquanlife.vo.forum.usercenter.UserInfoJson;
 
-public class UserListActivity extends BaseActivity{
+public class UserListActivity extends BaseActivity implements OnLocationChangedListener{
 	
 	public static final String EXTRA_TYPE= "EXTRA_TYPE";
 	public static final String EXTRA_UID= "EXTRA_UID";
 	public static final String EXTRA_TITLE= "EXTRA_TITLE";
+	public static final String EXTRA_NEED_LOCATION = "EXTRA_NEED_LOCATION";
 	public static final int TYPE_FIREND = 1;//好友
 	public static final int TYPE_ALL = 2;//附近
 	public static final int TYPE_FOLLOW = 3;//关注
@@ -42,6 +48,10 @@ public class UserListActivity extends BaseActivity{
 	private String type;
 	private TextView tv_title_user_list;
 	private String url;
+	private MulityLocationManager mulityLocationManager;
+	private double longitude;
+	private double latitude;
+	private boolean needLocation;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +66,18 @@ public class UserListActivity extends BaseActivity{
 		initViews();
 		xlv_user_list.setRefreshing();
 		initData();
-		getData();
+		if(needLocation) {
+			requestLoc();
+		} else {
+			getData();
+		}
 	}
 	
 	
 	
 	private void initData() {
 		
+		needLocation = getIntent().getBooleanExtra(EXTRA_NEED_LOCATION, false);
 		int queryType = getIntent().getIntExtra(EXTRA_TYPE, 0);
 		switch (queryType) {
 		case TYPE_FIREND:
@@ -98,6 +113,8 @@ public class UserListActivity extends BaseActivity{
 		xlv_user_list.setAdapter(userListAdapter);
 		tv_title_user_list = (TextView) findViewById(R.id.tv_title_user_list);
 		xlv_user_list.setOnItemClickListener(onItemClickListener);
+		mulityLocationManager = MulityLocationManager.getInstance(getApplicationContext());
+		mulityLocationManager.setOnLocationChangedListener(this);
 	}
 	
 	private XListView.IXListViewListener xListener = new IXListViewListener() {
@@ -105,7 +122,11 @@ public class UserListActivity extends BaseActivity{
 		@Override
 		public void onRefresh() {
 			
-			getData();
+			if(!needLocation ||(latitude!=0 && longitude!=0)) {
+				getData();
+			} else {
+				requestLoc();
+			}
 		}
 		
 		@Override
@@ -129,11 +150,20 @@ public class UserListActivity extends BaseActivity{
 		}
 	};
 	
+	private void requestLoc() {
+		
+		mulityLocationManager.requestLocation();
+		this.longitude = 0;
+		this.latitude = 0;
+	}
+
+	
 	private void getData() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("r", "user/userlist");
 		page = 1;
 		map.put("page", page+"");
+		map.put("pageSize", 20+"");
 		String mAppHash = AppUtils.getAppHash();
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
 		map.put("accessToken", user.token);
@@ -142,13 +172,18 @@ public class UserListActivity extends BaseActivity{
 		map.put("uid", uid + "");
 		map.put("orderBy", orderBy);
 		map.put("type", type);
-		if(url == null) {
-			url = UrlConstance.FORUM_URL;
+		if(needLocation) {
+			map.put("longitude", longitude+"");
+			map.put("latitude",  latitude + "");
+		}
+		String postUrl = url;
+		if(postUrl == null) {
+			postUrl = UrlConstance.FORUM_URL;
 		} else {
 			map = null;
 		}
 		RequestHelper.getInstance().getRequestMap(getActivity(),
-				url, map, new Listener<String>() {
+				postUrl, map, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -157,6 +192,10 @@ public class UserListActivity extends BaseActivity{
 						if(json!=null) {
 							userListAdapter.refresh(json.list);
 							xlv_user_list.setPullLoadEnable(json.has_next ==1);
+							if(json.list == null || json.list.isEmpty()) {
+								xlv_user_list.setPullLoadEnable(false);
+								ToastHelper.showS("没有数据");
+							}
 						}
 						
 					}
@@ -175,6 +214,7 @@ public class UserListActivity extends BaseActivity{
 		map.put("r", "user/userlist");
 		page++;
 		map.put("page", page+"");
+		map.put("pageSize", 20+"");
 		String mAppHash = AppUtils.getAppHash();
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
 		map.put("accessToken", user.token);
@@ -183,13 +223,18 @@ public class UserListActivity extends BaseActivity{
 		map.put("uid", uid + "");
 		map.put("orderBy", orderBy);
 		map.put("type", type);
-		if(url == null) {
-			url = UrlConstance.FORUM_URL;
+		if(needLocation) {
+			map.put("longitude", longitude+"");
+			map.put("latitude",  latitude + "");
+		}
+		String postUrl = url;
+		if(postUrl == null) {
+			postUrl = UrlConstance.FORUM_URL;
 		} else {
 			map = null;
 		}
 		RequestHelper.getInstance().getRequestMap(getActivity(),
-				url, map, new Listener<String>() {
+				postUrl, map, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -208,5 +253,15 @@ public class UserListActivity extends BaseActivity{
 						xlv_user_list.stopLoadMore();
 					}
 				});
+	}
+
+
+	@Override
+	public void onLocationChanged(double latitude, double longitude,
+			double accyarcy, String addr) {
+		
+		this.longitude = longitude;
+		this.latitude = latitude;
+		getData();
 	}
 }

@@ -109,9 +109,29 @@ public class UserCenterActivity extends BaseActivity{
 		case R.id.ll_followed_mine:
 			startUserListActivity( UserListActivity.TYPE_FOLLOWED , "我的粉丝");
 			break;
+		case R.id.ll_publish_mine:
+			startPostListActivity("我的发表",  "topic", "user/topiclist");
+			break;
+		case R.id.ll_reply_mine:
+			startPostListActivity("我的回复",  "reply", "user/topiclist");
+			break;
+		case R.id.ll_favorite_mine:
+			startPostListActivity("我的收藏",  "favorite", "user/topiclist");
+			break;
 		default:
 			break;
 		}
+	}
+	
+	private void startPostListActivity(String title, String type, String r) {
+		
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		Intent intent = new Intent(getActivity(), ForumPostListActivity.class);
+		intent.putExtra(ForumPostListActivity.EXTRA_TITLE, title);
+		intent.putExtra(ForumPostListActivity.EXTRA_TYPE, type);
+		intent.putExtra(ForumPostListActivity.EXTRA_URL_R, r);
+		intent.putExtra(ForumPostListActivity.EXTRA_UID, user.uid);
+		startActivity(intent);
 	}
 
 	private void startUserListActivity(int type, String title) {

@@ -76,6 +76,7 @@ public class ForumMineFragment extends BaseFragment {
 			Intent intent = new Intent(getActivity(), UserListActivity.class);
 			intent.putExtra(UserListActivity.EXTRA_TYPE, UserListActivity.TYPE_ALL);
 			intent.putExtra(UserListActivity.EXTRA_TITLE, "¸½½üÓÃ»§");
+			intent.putExtra(UserListActivity.EXTRA_NEED_LOCATION, true);
 			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
 			intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
 			startActivity(intent);

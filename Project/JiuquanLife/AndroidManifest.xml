@@ -130,7 +130,10 @@
          <activity
             android:name="com.jiuquanlife.module.forum.activity.UserListActivity"
             android:screenOrientation="portrait" />
-           
+             <activity
+            android:name="com.jiuquanlife.module.forum.activity.ForumPostListActivity"
+            android:screenOrientation="portrait" />
+         
            
         <activity
             android:name="com.jiuquanlife.module.forum.activity.CreatePostActivity"

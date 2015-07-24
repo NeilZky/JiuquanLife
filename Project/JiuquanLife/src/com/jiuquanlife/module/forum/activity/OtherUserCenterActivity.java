@@ -115,11 +115,27 @@ public class OtherUserCenterActivity extends BaseActivity{
 		case R.id.ll_followed_mine:
 			startUserListActivity( UserListActivity.TYPE_FOLLOWED , "ta的粉丝");
 			break;
+		case R.id.ll_publish_mine:
+			startPostListActivity("ta的发表",  "topic", "user/topiclist");
+			break;
+		case R.id.ll_reply_mine:
+			startPostListActivity("ta的回复",  "reply", "user/topiclist");
+			break;
 		default:
 			break;
 		}
 	}
 
+private void startPostListActivity(String title, String type, String r) {
+		
+		Intent intent = new Intent(getActivity(), ForumPostListActivity.class);
+		intent.putExtra(ForumPostListActivity.EXTRA_TITLE, title);
+		intent.putExtra(ForumPostListActivity.EXTRA_TYPE, type);
+		intent.putExtra(ForumPostListActivity.EXTRA_URL_R, r);
+		intent.putExtra(ForumPostListActivity.EXTRA_UID, uid);
+		startActivity(intent);
+	}
+	
 	private void startUserListActivity(int type, String title) {
 
 		Intent intent = new Intent(getActivity(), UserListActivity.class);

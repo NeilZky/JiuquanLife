@@ -138,8 +138,8 @@ public class PhotoSelectorActivity extends Activity implements
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
 				// default
 				.denyCacheImageMultipleSizesInMemory()
-				.memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-				.memoryCacheSize(2 * 1024 * 1024)
+				.memoryCache(new LruMemoryCache(50 * 1024 * 1024))
+				.memoryCacheSize(50 * 1024 * 1024)
 				.memoryCacheSizePercentage(13)
 				// default
 				.diskCache(
