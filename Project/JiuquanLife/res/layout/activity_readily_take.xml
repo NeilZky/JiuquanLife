@@ -5,6 +5,78 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:id="@+id/rl_title_readliy"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_bg" >
+
+        <com.jiuquanlife.view.titleexpand.TitleExpandView
+            android:id="@+id/tev_title_readliy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="10dp"
+            android:tag="@string/back_tag"
+            android:text="@string/back"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+        
+          <Button
+              android:id="@+id/btn_publish_readliy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:onClick="onClick"
+            android:padding="10dp"
+            android:text="发表"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_type_order_readliy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <com.jiuquanlife.view.titleexpand.TitleExpandView
+            android:id="@+id/tev_order_readliy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp" />
+
+        <include
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="7dp"
+             layout="@layout/divider_hor" />
+
+        <com.jiuquanlife.view.titleexpand.TitleExpandView
+            android:id="@+id/tev_type_readliy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp" />
+    </LinearLayout>
+
+     <include
+             layout="@layout/divider_ver" />
     <com.jiuquanlife.view.pulltorefresh.PullToRefreshView
         android:id="@+id/ptrv_sgv_readliy_take"
         android:layout_width="match_parent"

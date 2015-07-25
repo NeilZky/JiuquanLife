@@ -190,6 +190,13 @@ import com.jiuquanlife.view.CustomPopupWindow;
 		clickedTv.setTextColor(context.getResources().getColorStateList(R.color.text_drop_down_menu));
 	}
 	
+	public void changeItemColor(int position) {
+		
+		View view = content.getChildAt(position);
+		changeItemColor(view);
+	}
+	
+	
 	void refreshBadge(int position, boolean isShow) {
 		
 		if(dialog==null) {

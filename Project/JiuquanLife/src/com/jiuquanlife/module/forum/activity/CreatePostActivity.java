@@ -68,6 +68,7 @@ import com.photoselector.ui.PhotoSelectorActivity;
 public class CreatePostActivity extends BaseActivity{
 	
 	public static final String EXTRA_CREATE_TYPE = "EXTRA_CREATE_TYPE";
+	public static final String EXTRA_IS_READLIY_TAKE = "EXTRA_IS_READLIY_TAKE";//ÀÊ ÷≈ƒ
 	public static final int TYPE_TEXT = 0;
 	public static final int TYPE_LOCAL_PHOTO = 1;
 	public static final int TYPE_CAMERA = 2;
@@ -92,6 +93,7 @@ public class CreatePostActivity extends BaseActivity{
 	private double longitude;
 	private double latitude;
 	private SingleChoiceDialog typeDialog ;
+	private View ll_select_topic;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,14 @@ public class CreatePostActivity extends BaseActivity{
 	
 	private void initData() {
 		
+		boolean isReadliyTake = getIntent().getBooleanExtra(EXTRA_IS_READLIY_TAKE, false);
+		if(isReadliyTake) {
+			border = new Border();
+			border.board_id = 97;
+			tv_select_topic_create_post.setEnabled(false);
+			ll_select_topic.setEnabled(false);
+			tv_select_topic_create_post.setText("ÀÊ ÷≈ƒ");
+		}
 		int type = getIntent().getIntExtra(EXTRA_CREATE_TYPE, 0);
 		switch (type) {
 		case TYPE_LOCAL_PHOTO:
@@ -125,6 +135,7 @@ public class CreatePostActivity extends BaseActivity{
 	private void initViews() {
 		
 		setContentView(R.layout.activity_create_post);
+		ll_select_topic = findViewById(R.id.ll_select_topic);
 		cb_is_only_author_create_post = (CheckBox) findViewById(R.id.cb_is_only_author_create_post);
 		tv_addr_create_post = (TextView) findViewById(R.id.tv_addr_create_post);
 		tv_select_topic_create_post = (TextView) findViewById(R.id.tv_select_topic_create_post);
@@ -252,6 +263,7 @@ public class CreatePostActivity extends BaseActivity{
 		if (uploadPhotos == null || uploadPhotos.isEmpty()) {
 			publishData(null);
 		}
+		showProgressDialog();
 		new Thread() {
 
 			@Override
@@ -404,88 +416,88 @@ public class CreatePostActivity extends BaseActivity{
 		}
 	}
 	
-	private void publishDataWithPhotoUrl(ArrayList<String> photos) {
-		
-		if(!verifyInput()) {
-			return;
-		}
-		Map<String, String> map = new HashMap<String, String>();
-		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-		map.put("accessToken", user.token);
-		map.put("accessSecret", user.secret);
-		map.put("act", "new");
-		String mAppHash = AppUtils.getAppHash();
-
-		map.put("apphash", mAppHash);
-
-		CreatePost createPost = new CreatePost();
-		createPost.body = new CreatePostBody();
-		CreatePostJson createPostJson= new CreatePostJson();
-		createPost.body.json = createPostJson;
-		if(cb_is_only_author_create_post.isChecked()) {
-			createPostJson.isOnlyAuthor = 1;
-		}
-		
-		if(longitude!=0){
-			createPostJson.location = tv_addr_create_post.getText().toString();
-			createPostJson.longitude = String.valueOf(this.longitude);
-			createPostJson.latitude = String.valueOf(this.latitude);
-		}
-		
-		createPostJson.title = et_title_create_post.getText().toString();
-		if(typeDialog!=null && typeDialog.getCheckedItem()!=null) {
-			BorderType bt = (BorderType) typeDialog.getCheckedItem();
-			if(!StringUtils.isNullOrEmpty(bt.typeid)) {
-				createPostJson.typeId = Integer.parseInt(bt.typeid);
-			}
-		}
-		createPostJson.fid = border.board_id;
-		createPostJson.isShowPostion = 1;
-		ArrayList<Content> contents = new ArrayList<Content>();
-		if(photos!=null && !photos.isEmpty()) {
-			StringBuffer sb = new StringBuffer();
-			for(String temp : photos) {
-				Content content = new Content();
-				content.type = 1;
-				content.infor =CommonConstance.URL_PREFIX + temp;
-				contents.add(content);
-//				sb.append(temp.id + ", ");
-			}
-//			createPostJson.aid = sb.substring(0, sb.length() -1);
-		}
-		Content content = new Content();
-		content.type = 0;
-		content.infor = et_content_create_post.getText().toString();
-		contents.add(content);
-		createPostJson.content = GsonUtils.toJson(contents);
-		map.put("json", GsonUtils.toJson(createPost));
-		RequestHelper.getInstance().postRequestMap(getActivity(),
-				UrlConstance.FORUM_CREATE_POST_URL, map, new Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						int res  = 0;
-						 try {
-							 JSONObject json = new JSONObject(response);
-							res = json.getInt("rs");
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						if(res == 1) {
-							ToastHelper.showL("∑¢Ã˚≥…π¶");
-//							finish();
-						} else {
-							ToastHelper.showL("∑¢Ã˚ ß∞‹");
-						}
-					}
-				});
-	}
+//	private void publishDataWithPhotoUrl(ArrayList<String> photos) {
+//		
+//		if(!verifyInput()) {
+//			return;
+//		}
+//		Map<String, String> map = new HashMap<String, String>();
+//		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+//		map.put("accessToken", user.token);
+//		map.put("accessSecret", user.secret);
+//		map.put("act", "new");
+//		String mAppHash = AppUtils.getAppHash();
+//
+//		map.put("apphash", mAppHash);
+//
+//		CreatePost createPost = new CreatePost();
+//		createPost.body = new CreatePostBody();
+//		CreatePostJson createPostJson= new CreatePostJson();
+//		createPost.body.json = createPostJson;
+//		if(cb_is_only_author_create_post.isChecked()) {
+//			createPostJson.isOnlyAuthor = 1;
+//		}
+//		
+//		if(longitude!=0){
+//			createPostJson.location = tv_addr_create_post.getText().toString();
+//			createPostJson.longitude = String.valueOf(this.longitude);
+//			createPostJson.latitude = String.valueOf(this.latitude);
+//		}
+//		
+//		createPostJson.title = et_title_create_post.getText().toString();
+//		if(typeDialog!=null && typeDialog.getCheckedItem()!=null) {
+//			BorderType bt = (BorderType) typeDialog.getCheckedItem();
+//			if(!StringUtils.isNullOrEmpty(bt.typeid)) {
+//				createPostJson.typeId = Integer.parseInt(bt.typeid);
+//			}
+//		}
+//		createPostJson.fid = border.board_id;
+//		createPostJson.isShowPostion = 1;
+//		ArrayList<Content> contents = new ArrayList<Content>();
+//		if(photos!=null && !photos.isEmpty()) {
+//			StringBuffer sb = new StringBuffer();
+//			for(String temp : photos) {
+//				Content content = new Content();
+//				content.type = 1;
+//				content.infor =CommonConstance.URL_PREFIX + temp;
+//				contents.add(content);
+////				sb.append(temp.id + ", ");
+//			}
+////			createPostJson.aid = sb.substring(0, sb.length() -1);
+//		}
+//		Content content = new Content();
+//		content.type = 0;
+//		content.infor = et_content_create_post.getText().toString();
+//		contents.add(content);
+//		createPostJson.content = GsonUtils.toJson(contents);
+//		map.put("json", GsonUtils.toJson(createPost));
+//		RequestHelper.getInstance().postRequestMap(getActivity(),
+//				UrlConstance.FORUM_CREATE_POST_URL, map, new Listener<String>() {
+//
+//					@Override
+//					public void onResponse(String response) {
+//						int res  = 0;
+//						 try {
+//							 JSONObject json = new JSONObject(response);
+//							res = json.getInt("rs");
+//						} catch (JSONException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//						if(res == 1) {
+//							ToastHelper.showL("∑¢Ã˚≥…π¶");
+////							finish();
+//						} else {
+//							ToastHelper.showL("∑¢Ã˚ ß∞‹");
+//						}
+//					}
+//				});
+//	}
 	
 
 	private void publishData(ArrayList<Attachment> photos) {
 		
-		if(!verifyInput()) {
+		if(!verifyInput(photos)) {
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
@@ -539,11 +551,14 @@ public class CreatePostActivity extends BaseActivity{
 		contents.add(content);
 		createPostJson.content = GsonUtils.toJson(contents);
 		map.put("json", GsonUtils.toJson(createPost));
+		showProgressDialog();
 		RequestHelper.getInstance().postRequestMap(getActivity(),
 				UrlConstance.FORUM_CREATE_POST_URL, map, new Listener<String>() {
 
+			
 					@Override
 					public void onResponse(String response) {
+						dismissProgressDialog();
 						int res  = 0;
 						 try {
 							 JSONObject json = new JSONObject(response);
@@ -563,7 +578,7 @@ public class CreatePostActivity extends BaseActivity{
 	}
 	
 
-	private boolean verifyInput() {
+	private boolean verifyInput(ArrayList<Attachment> photos) {
 		
 		if(et_title_create_post.getText().toString().trim().isEmpty()) {
 			ToastHelper.showS("«ÎÃÓ–¥±ÍÃ‚");
@@ -581,6 +596,10 @@ public class CreatePostActivity extends BaseActivity{
 		
 		if(tv_select_topic_create_post.toString().trim().isEmpty()) {
 			ToastHelper.showS("«Î—°‘Ò∞ÂøÈ");
+			return false;
+		}
+		if(border!=null && border.board_id == 97 && (photos == null || photos.isEmpty())) {
+			ToastHelper.showS("«Î—°‘Ò’’∆¨,ÀÊ ÷≈ƒ∞ÂøÈ±ÿ–Î…œ¥´Õº∆¨");
 			return false;
 		}
 		return true;
