@@ -2,101 +2,112 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#d0d0d0"
     android:orientation="vertical" >
-
-    <ImageView
-        android:id="@+id/iv_adapter_readliy_take"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:scaleType="fitXY" />
-
-    <TextView
-        android:id="@+id/tv_title_adapter_readliy_take"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:singleLine="true"
-        android:textColor="@color/grey_text" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#cccccc" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:orientation="vertical" >
 
         <ImageView
-            android:id="@+id/iv_icon_adapter_readliy"
-            android:layout_width="45dp"
-            android:layout_height="45dp" />
+            android:id="@+id/iv_adapter_readliy_take"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tv_title_adapter_readliy_take"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:textColor="@color/grey_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:orientation="vertical" >
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/tv_name_adapter_readliy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/grey_text" />
+            <ImageView
+                android:id="@+id/iv_icon_adapter_readliy"
+                android:layout_width="45dp"
+                android:layout_height="45dp" 
+                android:scaleType="centerCrop"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/tv_time_adapter_readliy"
+                    android:id="@+id/tv_name_adapter_readliy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/grey_text"
-                    android:textSize="10sp" />
+                    android:textColor="@color/grey_text" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right|center_vertical"
-                    android:orientation="horizontal"
-                    >
-
-                    <ImageView
-                        android:id="@+id/iv_praise_post_adapter"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_reply"
-                        android:visibility="gone" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
 
                     <TextView
-                        android:id="@+id/tv_view_count_adapter_readliy"
+                        android:id="@+id/tv_time_adapter_readliy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:minWidth="20dp"
-                        android:textSize="10sp"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_reply" />
-
-                    <TextView
-                        android:id="@+id/tv_reply_count_adapter_readliy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
+                        android:textColor="@color/grey_text"
                         android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/iv_praise_post_adapter"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/ic_reply"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_view_count_adapter_readliy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:minWidth="20dp"
+                            android:textSize="10sp"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/ic_reply" />
+
+                        <TextView
+                            android:id="@+id/tv_reply_count_adapter_readliy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:textSize="10sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
