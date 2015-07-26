@@ -30,9 +30,9 @@
             android:text="@string/back"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
-        
-          <Button
-              android:id="@+id/btn_publish_readliy"
+
+        <Button
+            android:id="@+id/btn_publish_readliy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -45,7 +45,6 @@
             android:text="发表"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
-        
     </RelativeLayout>
 
     <LinearLayout
@@ -65,7 +64,7 @@
         <include
             android:layout_marginBottom="7dp"
             android:layout_marginTop="7dp"
-             layout="@layout/divider_hor" />
+            layout="@layout/divider_hor" />
 
         <com.jiuquanlife.view.titleexpand.TitleExpandView
             android:id="@+id/tev_type_readliy"
@@ -75,13 +74,12 @@
             android:padding="8dp" />
     </LinearLayout>
 
-     <include
-             layout="@layout/divider_ver" />
-    <com.jiuquanlife.view.pulltorefresh.PullToRefreshView
-        android:id="@+id/ptrv_sgv_readliy_take"
+    <include layout="@layout/divider_ver" />
+
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/srl_sgv_readliy_take"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
         <com.etsy.android.grid.StaggeredGridView
             android:id="@+id/sgv_readliy_take"
@@ -89,6 +87,6 @@
             android:layout_height="match_parent"
             app:column_count="2"
             app:item_margin="8dp" />
-    </com.jiuquanlife.view.pulltorefresh.PullToRefreshView>
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
 </LinearLayout>
