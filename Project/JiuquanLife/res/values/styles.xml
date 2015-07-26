@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -17,23 +17,39 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-      <style name="PopupWindowAnimation">  
-        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>  
-        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>  
+    <style name="PopupWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
     </style>
-    
-       <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
+
+    <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@color/transparent_white</item>
     </style>
-	<style name="AnimationActivity" parent="@android:style/Animation.Activity">  
-    <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>  
-    <item name="android:activityOpenExitAnimation">@anim/fade_out</item>  
-    <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>  
-    <item name="android:activityCloseExitAnimation">@anim/fade_out</item>  
-</style>  
-       <style name="ThemeActivity">  
-    <item name="android:windowAnimationStyle">@style/AnimationActivity</item>  
-    <item name="android:windowNoTitle">true</item>  
-</style>  
-       
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="ThemeActivity">
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppActionBarTheme" parent="Theme.AppCompat.Light">
+        <item name="actionBarStyle">@style/ActionBar</item>
+    </style>
+
+    <style name="ActionBar" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/title_bg</item>
+        <item name="background">@color/title_bg</item>
+        <item name="titleTextStyle">@style/ActionBarTextStyle</item>
+    </style>
+
+    <style name="ActionBarTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

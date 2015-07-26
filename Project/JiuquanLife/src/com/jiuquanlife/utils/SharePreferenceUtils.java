@@ -15,6 +15,7 @@ public class SharePreferenceUtils {
 	private static App app = App.getInstance();
 	
 	public static final String USER = "USER";
+	public static final String RONGYUN_TOKEN = "RONGYUN_TOKEN";
 	
 	static {
 		sp = app.getSharedPreferences("settings", Context.MODE_PRIVATE);

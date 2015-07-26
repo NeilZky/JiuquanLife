@@ -15,6 +15,11 @@ public class UrlConstance {
 	public static final String GET_APPLY_BUY_HOUSE_LIST = "http://www.5ijq.cn/App/House/getWantedByHouseList";//出租列表
 	
 	/*
+	 * 融云
+	 */
+	public static final String GET_RONGYUN_TOKEN = "http://www.5ijq.cn/App/RongClound/getRongCloundToken";//出租列表
+	
+	/*
 	 * ---------------------
 	 * 	论坛
 	 * ---------------------

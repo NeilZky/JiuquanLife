@@ -1,5 +1,7 @@
 package com.jiuquanlife.app;
 
+import io.rong.imkit.RongIM;
+
 import java.io.File;
 
 import android.app.Application;
@@ -30,8 +32,16 @@ public class App extends Application {
 
 		super.onCreate();
 		instance = this;
+		initRongyun();
 		// initImageLoader(this);
 		initImageLoader();
+	}
+
+	
+	private void initRongyun() {
+
+		RongIM.init(this);
+		RongCloudEvent.init(this);
 	}
 
 	public static void initImageLoader(Context context) {

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.google.gson.JsonObject;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.entity.User;
@@ -75,6 +76,7 @@ public class LoginActivity extends BaseActivity{
 		map.put("username", username);
 		map.put("password", password);
 		map.put("type", "login");
+		showProgressDialog();
 		RequestHelper.getInstance().postRequest(this, UrlConstance.LOGIN, map, new Listener<String>() {
 
 			@Override
@@ -96,7 +98,7 @@ public class LoginActivity extends BaseActivity{
 							user.photoUrl = photoUrl;
 							SharePreferenceUtils.putObject(SharePreferenceUtils.USER, user);
 							setResult(Activity.RESULT_OK);
-							finish();
+							getRongyunToken();
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -112,5 +114,48 @@ public class LoginActivity extends BaseActivity{
 			}
 		});
 	}
+	
+	
+	private void getRongyunToken() {
+		
+		User user =  SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("uid", user.uid + "");
+		map.put("username", user.userName);
+		RequestHelper.getInstance().getRequestMap(this, UrlConstance.GET_RONGYUN_TOKEN, map, new Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				
+				dismissProgressDialog();
+				if(response!=null) {
+					String token  = null;
+					try {
+						JSONObject json = new JSONObject(response);
+						token = json.getJSONObject("data").getString("token");
+						
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					
+					try {
+						JSONObject json = new JSONObject(response);
+						if(token == null) {
+							token = json.getString("data");
+						}
+						
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					SharePreferenceUtils.setValue(SharePreferenceUtils.RONGYUN_TOKEN, token);
+					finish();
+					
+				}
+			}
+		});
+	}
+	
 	
 }
