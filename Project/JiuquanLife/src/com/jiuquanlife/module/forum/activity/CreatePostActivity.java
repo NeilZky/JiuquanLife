@@ -38,6 +38,7 @@ import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.http.RequestHelper.OnFinishListener;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.forum.adapter.BorderTypeAdapter;
+import com.jiuquanlife.module.house.activity.PublishSecondaryHouseActivity;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.MulityLocationManager;
@@ -77,7 +78,7 @@ public class CreatePostActivity extends BaseActivity{
 	protected static final int MSG_UPLOADED_PHOTOS = 1;
 	private static final int REQUEST_CODE_CAMERA = 1;
 	protected static final int REQUEST_SELECT_PHOTOS = 2;
-	
+
 	private TextView tv_addr_create_post;
 	private TextView et_content_create_post;
 	private TextView tv_select_topic_create_post;
@@ -179,6 +180,9 @@ public class CreatePostActivity extends BaseActivity{
 		case R.id.ll_select_type:
 			onClickSelectType();
 			break;
+		case R.id.btn_cancel_create_post:
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -262,6 +266,7 @@ public class CreatePostActivity extends BaseActivity{
 		ArrayList<Photo> uploadPhotos = photoAdapter.getPhotos();
 		if (uploadPhotos == null || uploadPhotos.isEmpty()) {
 			publishData(null);
+			return;
 		}
 		showProgressDialog();
 		new Thread() {
@@ -346,8 +351,8 @@ public class CreatePostActivity extends BaseActivity{
 
 			@Override
 			public void onClick(View v) {
-
 				
+				addLocalPhoto();
 			}
 		}).create().show();
 	}
@@ -569,6 +574,7 @@ public class CreatePostActivity extends BaseActivity{
 						}
 						if(res == 1) {
 							ToastHelper.showL("发帖成功");
+							setResult(Activity.RESULT_OK);
 							finish();
 						} else {
 							ToastHelper.showL("发帖失败");

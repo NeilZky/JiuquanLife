@@ -19,6 +19,7 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/btn_cancel_create_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -26,6 +27,7 @@
             android:background="@null"
             android:minHeight="0dp"
             android:minWidth="0dp"
+            android:onClick="onClick"
             android:padding="10dp"
             android:text="取消"
             android:textColor="@android:color/white"
@@ -152,7 +154,9 @@
             android:id="@+id/iv_add_photo_create_post"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp"
             android:clickable="true"
             android:onClick="onClick"
             android:src="@drawable/ic_add_photo" />
@@ -161,7 +165,9 @@
             android:id="@+id/hlv_photo_create_post"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_margin="7dp" />
+            android:layout_marginBottom="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp" />
     </LinearLayout>
 
     <LinearLayout
