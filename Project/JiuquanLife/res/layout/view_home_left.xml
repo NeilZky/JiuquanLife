@@ -57,6 +57,7 @@
             and:texts="@string/readliy_take" />
 
         <com.jiuquanlife.view.SexangleImageView
+            android:id="@+id/siv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/color_flight"

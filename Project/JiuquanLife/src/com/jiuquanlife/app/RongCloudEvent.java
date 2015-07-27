@@ -303,10 +303,10 @@ public final class RongCloudEvent implements
 	public UserInfo getUserInfo(String userId) {
 
 		UserInfo res = null;
-		User emp = new UserDao().getById(userId);
+		com.jiuquanlife.vo.forum.usercenter.UserInfo user = new UserDao().getById(userId);
 		String name = null;
-		if (emp != null) {
-			name = emp.userName;
+		if (user != null) {
+			name = user.name;
 		}
 		Uri photo = null;
 		if (!StringUtils.isNullOrEmpty(userId)) {

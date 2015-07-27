@@ -1,5 +1,7 @@
 package com.jiuquanlife.module.home.activity;
 
+import io.rong.imlib.RongIMClient.ConnectCallback;
+import io.rong.imlib.RongIMClient.ErrorCode;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -15,6 +17,8 @@ import com.jiuquanlife.module.forum.activity.ReadliyTakeActivity;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
 import com.jiuquanlife.module.home.adapter.HomeAdapter;
 import com.jiuquanlife.module.house.fragment.HouseFragment;
+import com.jiuquanlife.module.im.RongCloudBll;
+import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.module.tab.NavTabActivity;
 import com.jiuquanlife.view.MovingView;
 import com.jiuquanlife.view.SexangleImageView;
@@ -26,6 +30,7 @@ public class HomeActivity extends Activity {
 	private SexangleImageView houseSiv;
 	private SexangleImageView hotelSiv;
 	private SexangleImageView readliyTakeSiv;
+	private SexangleImageView loginSiv;
 	private MovingView mv;
 	private ViewPager homeVp;
 	private View leftHomeView ;
@@ -46,7 +51,27 @@ public class HomeActivity extends Activity {
 		initViewPager();
 		initSixAngelView();
 		initMovingView();
+		RongCloudBll.getInstance().reconnectRongCloud(callBack);
 	}
+	
+	private ConnectCallback callBack = new ConnectCallback() {
+		
+		@Override
+		public void onSuccess(String arg0) {
+			
+		}
+		
+		@Override
+		public void onError(ErrorCode arg0) {
+			
+		}
+		
+		@Override
+		public void onTokenIncorrect() {
+			
+		}
+	};
+	
 	
 	private void initViewPager() {
 		
@@ -65,10 +90,12 @@ public class HomeActivity extends Activity {
 		houseSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_house);
 		hotelSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_community);
 		readliyTakeSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_readliy_take);
+		loginSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_login);
 		homeSiv.setOnSexangleImageClick(listener);
 		houseSiv.setOnSexangleImageClick(listener);
 		hotelSiv.setOnSexangleImageClick(listener);
 		readliyTakeSiv.setOnSexangleImageClick(listener);
+		loginSiv.setOnSexangleImageClick(listener);
 	}
 	
 	private void initMovingView() {
@@ -95,6 +122,10 @@ public class HomeActivity extends Activity {
 				break;
 			case R.id.siv_readliy_take:
 				onClickReadliyTake();
+				break;
+			case R.id.siv_login:
+				Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+				startActivity(intent);
 				break;
 			}
 		}

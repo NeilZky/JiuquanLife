@@ -14,14 +14,18 @@ import android.widget.EditText;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.google.gson.JsonObject;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.UrlConstance;
+import com.jiuquanlife.dao.UserDao;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
+import com.jiuquanlife.module.im.RongCloudBll;
+import com.jiuquanlife.utils.AppUtils;
+import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.utils.ToastHelper;
+import com.jiuquanlife.vo.forum.usercenter.UserInfoJson;
 
 public class LoginActivity extends BaseActivity{
 
@@ -134,7 +138,7 @@ public class LoginActivity extends BaseActivity{
 					try {
 						JSONObject json = new JSONObject(response);
 						token = json.getJSONObject("data").getString("token");
-						
+						getUserData();
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -150,6 +154,8 @@ public class LoginActivity extends BaseActivity{
 						e.printStackTrace();
 					}
 					SharePreferenceUtils.setValue(SharePreferenceUtils.RONGYUN_TOKEN, token);
+					getUserData();
+					RongCloudBll.getInstance().connectRongCloud(null);
 					finish();
 					
 				}
@@ -157,5 +163,37 @@ public class LoginActivity extends BaseActivity{
 		});
 	}
 	
-	
+	private void getUserData() {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("r", "user/userlist");
+		map.put("page", "1");
+		map.put("pageSize", 200000+"");
+		String mAppHash = AppUtils.getAppHash();
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		map.put("accessToken", user.token);
+		map.put("accessSecret", user.secret);
+		map.put("appHash", mAppHash);
+		map.put("uid", user.uid + "");
+		map.put("orderBy", "dateline");
+		map.put("type", "friend");
+		String postUrl = UrlConstance.FORUM_URL;
+		RequestHelper.getInstance().getRequestMap(getActivity(),
+				postUrl, map, new Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						
+						UserInfoJson json = GsonUtils.toObj(response, UserInfoJson.class);
+						if(json!=null && json.list!=null && !json.list.isEmpty()) {
+							new UserDao().save(json.list);
+						}
+						
+					}
+				}, new RequestHelper.OnFinishListener() {
+
+					@Override
+					public void onFinish() {
+					}
+				});
+	}
 }
