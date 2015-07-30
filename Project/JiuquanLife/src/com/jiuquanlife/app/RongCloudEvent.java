@@ -36,7 +36,6 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 
-
 /**
  * Created by zhjchen on 1/29/15.
  */
@@ -58,10 +57,10 @@ public final class RongCloudEvent implements
 		RongIM.ConversationBehaviorListener,
 		RongIMClient.ConnectionStatusListener, RongIM.LocationProvider,
 		RongIMClient.OnReceivePushMessageListener,
-		RongIM.ConversationListBehaviorListener ,
+		RongIM.ConversationListBehaviorListener,
 		RongIM.OnReceiveUnreadCountChangedListener
-		
-		{
+
+{
 
 	private static final String TAG = RongCloudEvent.class.getSimpleName();
 
@@ -71,7 +70,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 初始化 RongCloud.
-	 *
+	 * 
 	 * @param context
 	 *            上下文。
 	 */
@@ -90,7 +89,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 构造方法。
-	 *
+	 * 
 	 * @param context
 	 *            上下文。
 	 */
@@ -105,7 +104,7 @@ public final class RongCloudEvent implements
 	private void initDefaultListener() {
 
 		RongIM.setUserInfoProvider(this, true);// 设置用户信息提供者。
-//		RongIM.setGroupInfoProvider(this, true);// 设置群组信息提供者。
+		// RongIM.setGroupInfoProvider(this, true);// 设置群组信息提供者。
 		RongIM.setConversationBehaviorListener(this);// 设置会话界面操作的监听器。
 		RongIM.setLocationProvider(this);// 设置地理位置提供者,不用位置的同学可以注掉此行代码
 		// RongIM.setPushMessageBehaviorListener(this);//自定义 push 通知。
@@ -120,7 +119,8 @@ public final class RongCloudEvent implements
 		RongIM.getInstance().setSendMessageListener(this);// 设置发出消息接收监听器.
 		RongIM.getInstance().getRongIMClient()
 				.setConnectionStatusListener(this);// 设置连接状态监听器。
-		RongIM.getInstance().setOnReceiveUnreadCountChangedListener(this, Conversation.ConversationType.PRIVATE);
+		RongIM.getInstance().setOnReceiveUnreadCountChangedListener(this,
+				Conversation.ConversationType.PRIVATE);
 
 		// 扩展功能自定义
 		InputProvider.ExtendProvider[] provider = {
@@ -139,7 +139,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 自定义 push 通知。
-	 *
+	 * 
 	 * @param msg
 	 * @return
 	 */
@@ -211,7 +211,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 获取RongCloud 实例。
-	 *
+	 * 
 	 * @return RongCloud。
 	 */
 	public static RongCloudEvent getInstance() {
@@ -220,7 +220,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 接收消息的监听器：OnReceiveMessageListener 的回调方法，接收到消息后执行。
-	 *
+	 * 
 	 * @param message
 	 *            接收到的消息的实体信息。
 	 * @param left
@@ -263,7 +263,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 消息在UI展示后执行/自己的消息发出后执行,无论成功或失败。
-	 *
+	 * 
 	 * @param message
 	 *            消息。
 	 */
@@ -294,7 +294,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 用户信息的提供者：GetUserInfoProvider 的回调方法，获取用户信息。
-	 *
+	 * 
 	 * @param userId
 	 *            用户 Id。
 	 * @return 用户信息，（注：由开发者提供用户信息）。
@@ -303,7 +303,8 @@ public final class RongCloudEvent implements
 	public UserInfo getUserInfo(String userId) {
 
 		UserInfo res = null;
-		com.jiuquanlife.vo.forum.usercenter.UserInfo user = new UserDao().getById(userId);
+		com.jiuquanlife.vo.forum.usercenter.UserInfo user = new UserDao()
+				.getById(userId);
 		String name = null;
 		if (user != null) {
 			name = user.name;
@@ -318,7 +319,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 群组信息的提供者：GetGroupInfoProvider 的回调方法， 获取群组信息。
-	 *
+	 * 
 	 * @param groupId
 	 *            群组 Id.
 	 * @return 群组信息，（注：由开发者提供群组信息）。
@@ -338,7 +339,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 会话界面操作的监听器：ConversationBehaviorListener 的回调方法，当点击用户头像后执行。
-	 *
+	 * 
 	 * @param context
 	 *            应用当前上下文。
 	 * @param conversationType
@@ -353,15 +354,15 @@ public final class RongCloudEvent implements
 		Log.d(TAG, "onUserPortraitClick");
 
 		Log.d("Begavior", conversationType.getName() + ":" + user.getName());
-//		String userId = user.getUserId();
-//		User emp = new UserDao().getById(userId);
-//		if (emp != null) {
-//			Intent in = new Intent(context, EmployeeInfoActivity.class);
-//			in.putExtra(EmployeeInfoActivity.INTENT_KEY_EMPLOYEE, emp);
-//			in.putExtra(EmployeeInfoActivity.EXTRA_HIDE_MSG_BUTTON, true);
-//			context.startActivity(in);
-//			return true;
-//		}
+		// String userId = user.getUserId();
+		// User emp = new UserDao().getById(userId);
+		// if (emp != null) {
+		// Intent in = new Intent(context, EmployeeInfoActivity.class);
+		// in.putExtra(EmployeeInfoActivity.INTENT_KEY_EMPLOYEE, emp);
+		// in.putExtra(EmployeeInfoActivity.EXTRA_HIDE_MSG_BUTTON, true);
+		// context.startActivity(in);
+		// return true;
+		// }
 		return false;
 	}
 
@@ -373,7 +374,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 会话界面操作的监听器：ConversationBehaviorListener 的回调方法，当点击消息时执行。
-	 *
+	 * 
 	 * @param context
 	 *            应用当前上下文。
 	 * @param message
@@ -390,14 +391,14 @@ public final class RongCloudEvent implements
 		if (message.getContent() instanceof LocationMessage) {
 			LocationMessage msg = (LocationMessage) message.getContent();
 			msg.getLat();
-//			double lat = LocationUtils.convertToBdLat(msg.getLat(),
-//					msg.getLng());
-//			double lon = LocationUtils.convertToBdLon(msg.getLat(),
-//					msg.getLng());
-//			Intent intent = new Intent(context, ViewLocOnMapActivity.class);
-//			intent.putExtra(ViewLocOnMapActivity.INTENT_KEY_LATITUDE, lat);
-//			intent.putExtra(ViewLocOnMapActivity.INTENT_KEY_LONGITUDE, lon);
-//			context.startActivity(intent);
+			// double lat = LocationUtils.convertToBdLat(msg.getLat(),
+			// msg.getLng());
+			// double lon = LocationUtils.convertToBdLon(msg.getLat(),
+			// msg.getLng());
+			// Intent intent = new Intent(context, ViewLocOnMapActivity.class);
+			// intent.putExtra(ViewLocOnMapActivity.INTENT_KEY_LATITUDE, lat);
+			// intent.putExtra(ViewLocOnMapActivity.INTENT_KEY_LONGITUDE, lon);
+			// context.startActivity(intent);
 
 		} else if (message.getContent() instanceof RichContentMessage) {
 			RichContentMessage mRichContentMessage = (RichContentMessage) message
@@ -432,7 +433,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 连接状态监听器，以获取连接相关状态:ConnectionStatusListener 的回调方法，网络状态变化时执行。
-	 *
+	 * 
 	 * @param status
 	 *            网络状态。
 	 */
@@ -446,7 +447,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 位置信息提供者:LocationProvider 的回调方法，打开第三方地图页面。
-	 *
+	 * 
 	 * @param context
 	 *            上下文
 	 * @param callback
@@ -461,16 +462,16 @@ public final class RongCloudEvent implements
 		// TODO
 		// context.startActivity(new Intent(context,
 		// SOSOLocationActivity.class));//SOSO地图
-//		mLastLocationCallback = callback;
-//		Intent intent = new Intent(context, ImLocationActivity.class);
-//		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//		context.startActivity(intent);
+		// mLastLocationCallback = callback;
+		// Intent intent = new Intent(context, ImLocationActivity.class);
+		// intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		// context.startActivity(intent);
 
 	}
 
 	/**
 	 * 点击会话列表 item 后执行。
-	 *
+	 * 
 	 * @param context
 	 *            上下文。
 	 * @param view
@@ -487,7 +488,7 @@ public final class RongCloudEvent implements
 
 	/**
 	 * 长按会话列表 item 后执行。
-	 *
+	 * 
 	 * @param context
 	 *            上下文。
 	 * @param view
@@ -515,10 +516,11 @@ public final class RongCloudEvent implements
 
 	@Override
 	public void onMessageIncreased(int count) {
-		
-		//TODO
-//		 if(CheckInApplication.getInstance().navTabActivity!=null) {
-//			 CheckInApplication.getInstance().navTabActivity.refresImMsgBadge(count);
-//		 }
+
+		App.getInstance().imCount = count;
+		if (App.getInstance().forumTabActvity != null) {
+			App.getInstance().forumTabActvity.refresMsgBadge();
+		}
 	}
+
 }

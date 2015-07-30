@@ -7,7 +7,9 @@
         android:id="@+id/tv_apc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:lineSpacingMultiplier="1.4"
+        android:textSize="13sp" />
 
     <com.jiuquanlife.view.ResizableImageView
         android:id="@+id/iv_apc"

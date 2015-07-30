@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.module.forum.activity.ForumTabActvity;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -26,6 +27,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 public class App extends Application {
 
 	private static App instance;
+	public ForumTabActvity forumTabActvity;
 
 	@Override
 	public void onCreate() {
@@ -137,5 +139,7 @@ public class App extends Application {
 	public static void setOptions(DisplayImageOptions options) {
 		App.options = options;
 	}
+	public int imCount ;
+	public int replyMsgCount ;
 
 }

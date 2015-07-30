@@ -17,7 +17,6 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-
     <LinearLayout
         android:id="@+id/ll_reply_to_me"
         android:layout_width="match_parent"
@@ -38,10 +37,22 @@
             android:text="评论我的" />
 
         <ImageView
+            android:id="@+id/iv_msg_arrow"
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginRight="7dp"
             android:background="@drawable/ic_arrow_go" />
+
+        <TextView
+            android:id="@+id/tv_msg_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:background="@drawable/number"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <include layout="@layout/divider_ver" />
@@ -66,10 +77,23 @@
             android:text="好友会话" />
 
         <ImageView
+            android:id="@+id/iv_im_msg_arrow"
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginRight="7dp"
             android:background="@drawable/ic_arrow_go" />
+        
+           <TextView
+            android:id="@+id/tv_im_msg_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:background="@drawable/number"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:visibility="gone" />
+        
     </LinearLayout>
 
     <include layout="@layout/divider_ver" />
