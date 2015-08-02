@@ -18,7 +18,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btn_back_create_announce"
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

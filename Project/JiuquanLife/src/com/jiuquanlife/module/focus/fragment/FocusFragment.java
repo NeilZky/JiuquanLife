@@ -22,7 +22,7 @@ import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
-import com.jiuquanlife.module.post.PostDetailActivity;
+import com.jiuquanlife.module.forum.activity.PostDetailActivity;
 import com.jiuquanlife.module.userhome.activity.UserHomeActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.view.HorizontalListView;
@@ -87,10 +87,8 @@ public class FocusFragment extends BaseFragment {
 
 			PhotoInfo photoInfo = focusTopAdapter.getCurrentItem();
 			if (photoInfo != null) {
-				Intent intent = new Intent(getActivity(),
-						PostDetailActivity.class);
-				intent.putExtra(PostDetailActivity.INTENT_KEY_TID,
-						photoInfo.tid);
+				Intent intent = new Intent(getActivity(), PostDetailActivity.class);
+				intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, Integer.parseInt(photoInfo.tid));
 				startActivity(intent);
 			}
 		}
@@ -127,7 +125,7 @@ public class FocusFragment extends BaseFragment {
 
 			PostInfo postInfo = jhtAdapter.getItem(position);
 			Intent intent = new Intent(getActivity(), PostDetailActivity.class);
-			intent.putExtra(PostDetailActivity.INTENT_KEY_TID, postInfo.tid);
+			intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, Integer.parseInt(postInfo.tid));
 			startActivity(intent);
 		}
 	};

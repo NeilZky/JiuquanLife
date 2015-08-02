@@ -6,6 +6,7 @@
     
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@color/house_title"
         android:layout_height="50dp" >
 
         <ImageView
@@ -18,13 +19,15 @@
             android:layout_marginRight="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:src="@drawable/icn_back" />
+            android:tag="@string/back_tag"
+            android:src="@drawable/ic_back_white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="8dp"
+            android:textColor="@android:color/white"
             android:text="发布"
             android:textSize="17sp" />
 

@@ -64,8 +64,8 @@
     <color name="black_header">#333333</color>
     
     <color name="normal">#fff</color>
-    <color name="press">#ff0</color>
-    <color name="focue">#666</color>
+    <color name="press">#EBEBEB</color>
+    <color name="focue">#EBEBEB</color>
     <color name="publish_pressed">#236c8b</color>
     <color name="publish_normal">#54bcde</color>
     
@@ -74,5 +74,10 @@
     <color name="topic_border_bg">#636363</color>
     <color name="dark_grey">#d9d9d9</color>
     <color name="bg_user_center">#efefef</color>
-    
+    <color name="house_title">#4DD2E3</color>
+    <color name="house_filter">#7a7a7a</color>
+    <color name="house_filter_selected_bg">#EBEBEB</color>
+    <color name="house_adapter_amount">#EE6C27</color>
+    <color name="house_adapter_grey">#ADADAD</color>
+    <color name="towards_border">#94DEA9</color>
 </resources>

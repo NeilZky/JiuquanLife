@@ -9,6 +9,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.app.App;
 import com.jiuquanlife.utils.StringUtils;
+import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.view.UrlTagImageView;
 import com.jiuquanlife.vo.house.HouseItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -34,6 +35,7 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 			holder.createdateTv = (TextView) convertView.findViewById(R.id.tv_create_date_adapter_secondary_house);
 			holder.housePriceTv = (TextView) convertView.findViewById(R.id.tv_price_adapter_secondary_house);
 			holder.fromTypeTv = (TextView) convertView.findViewById(R.id.tv_fromtype_adapter_secondary_house);
+			holder.areaTv = (TextView) convertView.findViewById(R.id.tv_area_adapater_secondary_house);
 			holder.img = (UrlTagImageView) convertView
 					.findViewById(R.id.iv_img_adapater_secondary_house);
 			convertView.setTag(holder);
@@ -42,11 +44,43 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 		}
 		HouseItem houseItem = getItem(position);
 		holder.titleTv.setText(houseItem.title);
-		holder.towardsTv.setText(houseItem.towards);
-		holder.fromTypeTv.setText("个人");
+		if(StringUtils.isNullOrEmpty(houseItem.towards)) {
+			holder.towardsTv.setVisibility(View.GONE);
+		} else {
+			holder.towardsTv.setVisibility(View.VISIBLE);
+		}
+		StringBuffer areaSb = new StringBuffer();
+		if(!StringUtils.isNullOrEmpty(houseItem.addressName)) {
+			areaSb.append(houseItem.addressName + "-");
+		}
+		if(!StringUtils.isNullOrEmpty(houseItem.subAddressName)) {
+			areaSb.append(houseItem.subAddressName + "-");
+		}
+		if(!StringUtils.isNullOrEmpty(houseItem.communityName)) {
+			areaSb.append(houseItem.communityName + "-");
+		}
+		if(!StringUtils.isNullOrEmpty(houseItem.houseLayout)) {
+			areaSb.append(houseItem.houseLayout + "-");
+		}
+		if(areaSb.length() > 0) {
+			String area = areaSb.toString().substring(0, areaSb.length() - 2);
+			holder.areaTv.setVisibility(View.VISIBLE);
+			TextViewUtils.setText(holder.areaTv, area);
+		} else {
+			holder.areaTv.setVisibility(View.GONE);
+		}
+		
+		TextViewUtils.setText(holder.towardsTv, houseItem.towards);
+		String fromType = "未知-";
+		if("1".equals(houseItem.fromType)) {
+			fromType = "个人-";
+		} else {
+			fromType = "中介-";
+		}
+		holder.fromTypeTv.setText(fromType);
 		holder.housePriceTv.setText(String.valueOf(houseItem.housePrice));
 		holder.createdateTv.setText(String.valueOf(houseItem.dateline));
-
+		
 		if(houseItem.img!=null && !StringUtils.isNullOrEmpty(houseItem.img.pic)) {
 			final String url = "http://www.5ijq.cn/Public/Uploads/" +houseItem.img.pic;
 //			holder.img.setTag(url);
@@ -65,7 +99,7 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 //			});
 			imageLoader.displayImage(url, holder.img, App.getOptions());
 		} else {
-			holder.img.setImageResource(R.drawable.ic_empty);
+			holder.img.setImageResource(R.drawable.ic_default_house);
 		}
 		return convertView;
 	}
@@ -78,6 +112,7 @@ public class SecondaryHouseAdapter extends BaseListAdapter<HouseItem> {
 		TextView fromTypeTv;
 		TextView housePriceTv;
 		TextView createdateTv;
+		TextView areaTv;
 		UrlTagImageView img;
 		
 	}

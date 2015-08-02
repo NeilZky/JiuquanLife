@@ -74,9 +74,9 @@ public class App extends Application {
 	private static void initOption() {
 
 		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.ic_stub)
-				.showImageForEmptyUri(R.drawable.ic_empty)
-				.showImageOnFail(R.drawable.ic_error).cacheInMemory(true)
+				.showImageOnLoading(R.drawable.ic_default_house)
+				.showImageForEmptyUri(R.drawable.ic_default_house)
+				.showImageOnFail(R.drawable.ic_default_house).cacheInMemory(true)
 				.cacheOnDisk(true).considerExifParams(true)
 				.displayer(new RoundedBitmapDisplayer(0)).build();
 

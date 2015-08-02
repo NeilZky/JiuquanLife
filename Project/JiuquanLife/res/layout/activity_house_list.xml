@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="50dp"
+        android:background="@color/house_title" >
 
         <ImageView
             android:id="@+id/btn_search_focus"
@@ -18,7 +19,7 @@
             android:layout_marginRight="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:src="@drawable/icn_search" />
+            android:src="@drawable/ic_search_white" />
 
         <TextView
             android:id="@+id/tv_title_house_list"
@@ -27,20 +28,21 @@
             android:layout_centerInParent="true"
             android:padding="8dp"
             android:text="二手房出售"
+            android:textColor="@android:color/white"
             android:textSize="17sp" />
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="26dp"
-            android:onClick="onClick"
-            android:layout_height="26dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:src="@drawable/icn_back" />
+            android:onClick="onClick"
+            android:src="@drawable/ic_back_white" />
     </RelativeLayout>
 
     <LinearLayout
@@ -53,60 +55,101 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="4"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:singleLine="true"
             android:text="区域"
+            android:textColor="@color/house_filter"
+            android:textSize="13sp"
             popupbtn:normalBg="@drawable/tab_bkg_line"
-            popupbtn:normalIcon="@drawable/arrow_down_shop"
+            popupbtn:normalIcon="@drawable/ic_arrow_down_house"
             popupbtn:pressBg="@drawable/tab_bkg_selected"
-            popupbtn:pressIcon="@drawable/arrow_up_shop" />
+            popupbtn:pressIcon="@drawable/ic_arrow_up_house" />
 
         <com.jiuquanlife.view.popuplist.PopupButton
             android:id="@+id/pb_price_ahl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="4"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:singleLine="true"
             android:text="价格"
+            android:textColor="@color/house_filter"
+            android:textSize="13sp"
             popupbtn:normalBg="@drawable/tab_bkg_line"
-            popupbtn:normalIcon="@drawable/arrow_down_shop"
+            popupbtn:normalIcon="@drawable/ic_arrow_down_house"
             popupbtn:pressBg="@drawable/tab_bkg_selected"
-            popupbtn:pressIcon="@drawable/arrow_up_shop" />
+            popupbtn:pressIcon="@drawable/ic_arrow_up_house" />
 
         <com.jiuquanlife.view.popuplist.PopupButton
             android:id="@+id/pb_layout_ahl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="4"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:singleLine="true"
             android:text="户型"
+            android:textColor="@color/house_filter"
+            android:textSize="13sp"
             popupbtn:normalBg="@drawable/tab_bkg_line"
-            popupbtn:normalIcon="@drawable/arrow_down_shop"
+            popupbtn:normalIcon="@drawable/ic_arrow_down_house"
             popupbtn:pressBg="@drawable/tab_bkg_selected"
-            popupbtn:pressIcon="@drawable/arrow_up_shop" />
+            popupbtn:pressIcon="@drawable/ic_arrow_up_house" />
 
         <com.jiuquanlife.view.popuplist.PopupButton
             android:id="@+id/pb_area_ahl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="4"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:singleLine="true"
             android:text="面积"
+            android:textColor="@color/house_filter"
+            android:textSize="13sp"
             popupbtn:normalBg="@drawable/tab_bkg_line"
-            popupbtn:normalIcon="@drawable/arrow_down_shop"
+            popupbtn:normalIcon="@drawable/ic_arrow_down_house"
             popupbtn:pressBg="@drawable/tab_bkg_selected"
-            popupbtn:pressIcon="@drawable/arrow_up_shop" />
+            popupbtn:pressIcon="@drawable/ic_arrow_up_house" />
 
         <com.jiuquanlife.view.popuplist.PopupButton
             android:id="@+id/pb_from_ahl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="4"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:singleLine="true"
             android:text="来源"
+            android:textColor="@color/house_filter"
+            android:textSize="13sp"
             popupbtn:normalBg="@drawable/tab_bkg_line"
-            popupbtn:normalIcon="@drawable/arrow_down_shop"
+            popupbtn:normalIcon="@drawable/ic_arrow_down_house"
             popupbtn:pressBg="@drawable/tab_bkg_selected"
-            popupbtn:pressIcon="@drawable/arrow_up_shop" />
+            popupbtn:pressIcon="@drawable/ic_arrow_up_house" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lv_seconary_house"
-        android:layout_width="wrap_content"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

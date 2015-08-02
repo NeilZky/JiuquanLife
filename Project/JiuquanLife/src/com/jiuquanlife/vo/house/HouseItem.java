@@ -17,7 +17,9 @@ public class HouseItem {
 	public String token;
 	public String dateline;
 	public String addressName;
+	public String communityName;
 	public String subAddressName;
+	public String fromType;
 	public Img img;
 	public String imgCount;
 }

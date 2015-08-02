@@ -2,59 +2,87 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_vertical"
     android:orientation="horizontal" >
 
     <com.jiuquanlife.view.UrlTagImageView
         android:id="@+id/iv_img_adapater_secondary_house"
-        android:layout_width="70dp"
-        android:scaleType="fitXY"
-        android:layout_marginRight="10dp"
-        android:layout_height="70dp"/>
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_weight="3.2"
-        android:orientation="vertical" >
-        
-        	<TextView
-        	    android:id="@+id/tv_title_adapater_secondary_house"
-        		android:layout_width="wrap_content"
-        		android:layout_height="wrap_content"
-        		android:text="金地 小区   2室2厅   169m2"
-        	/>
-        	<TextView 
-        	    android:id="@+id/tv_towawrds_adapater_secondary_house"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:text="最适合的婚房  家具家电全 拎包入住"
-        	    />
-        	<LinearLayout 
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:orientation="horizontal"
-        	    >
-        	    <TextView 
-        	        android:id="@+id/tv_price_adapter_secondary_house"
-        	        android:layout_width="wrap_content"
-        	        android:layout_height="wrap_content"
-        	        android:text="38万"
-        	        />
-        	    
-        	     <TextView 
-        	        android:id="@+id/tv_fromtype_adapter_secondary_house"
-        	        android:layout_width="wrap_content"
-        	        android:layout_height="wrap_content"
-        	        android:text="个人"
-        	        />
-        	       <TextView 
-        	        android:id="@+id/tv_create_date_adapter_secondary_house"
-        	        android:layout_width="wrap_content"
-        	        android:layout_height="wrap_content"
-        	        android:text="今天"
-        	        />
-        	</LinearLayout>
-        	
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingRight="7dp" >
+
+        <TextView
+            android:id="@+id/tv_title_adapater_secondary_house"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:singleLine="true"
+            android:paddingBottom="5dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_towawrds_adapater_secondary_house"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_towards_border"
+            android:singleLine="true"
+            android:textColor="#5b5b5b"
+            android:textSize="13sp"
+             />
+
+        <TextView
+            android:id="@+id/tv_area_adapater_secondary_house"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:textColor="@color/house_adapter_grey"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
+
+            <TextView
+                android:id="@+id/tv_price_adapter_secondary_house"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:textColor="@color/house_adapter_amount"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_fromtype_adapter_secondary_house"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="个人"
+                android:textColor="@color/house_adapter_grey"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_create_date_adapter_secondary_house"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="今天"
+                android:textColor="@color/house_adapter_grey"
+                android:textSize="13sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

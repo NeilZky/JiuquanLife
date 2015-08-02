@@ -277,6 +277,9 @@ public class PostDetailActivity extends BaseActivity {
 		case R.id.btn_send_reply:
 			onClickPublish();
 			break;
+		case R.id.btn_back:
+			finish();
+			break;
 		default:
 			break;
 		}

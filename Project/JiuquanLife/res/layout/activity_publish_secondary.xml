@@ -6,7 +6,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="50dp" 
+        android:background="@color/house_title"
+        >
 
         <ImageView
             android:id="@+id/btn_back_ashd"
@@ -18,13 +20,15 @@
             android:layout_marginRight="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:src="@drawable/icn_back" />
+            android:tag="@string/back_tag"
+            android:src="@drawable/ic_back_white" />
 
         <TextView
             android:id="@+id/tv_publish_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
             android:padding="8dp"
             android:textSize="17sp" />
 

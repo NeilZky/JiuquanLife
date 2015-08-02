@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.app.App;
 import com.jiuquanlife.vo.PhotoInfo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -138,7 +139,7 @@ public class ImageViewPagerAdapter extends PagerAdapter implements OnPageChangeL
 		iv.setScaleType(ScaleType.FIT_XY);
 		((ViewPager) container).addView(iv, 0);
 		PhotoInfo photoInfo = photoInfos.get(position);
-		imageLoader.displayImage(photoInfo.url, iv);
+		imageLoader.displayImage(photoInfo.url, iv, App.getOptions());
 		iv.setOnClickListener(onClickImageListener);
 		return iv;
 	}

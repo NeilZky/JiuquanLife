@@ -25,13 +25,13 @@ import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
+import com.jiuquanlife.module.forum.activity.PostDetailActivity;
 import com.jiuquanlife.module.house.activity.AgentListAcitivity;
 import com.jiuquanlife.module.house.activity.BaseHouseListActivity;
 import com.jiuquanlife.module.house.activity.CommunityListAcitivity;
 import com.jiuquanlife.module.house.activity.PublishHouseActivity;
 import com.jiuquanlife.module.house.activity.SecondaryHouseListActivity;
 import com.jiuquanlife.module.login.LoginActivity;
-import com.jiuquanlife.module.post.PostDetailActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.view.UnScrollListView;
@@ -107,6 +107,7 @@ public class HouseFragment extends BaseFragment{
 		sellView.setOnClickListener(onClickListener);
 		applyView.setOnClickListener(onClickListener);
 		buyView.setOnClickListener(onClickListener);
+		initClickListener(R.id.btn_back, onClickListener);
 		ll_agent_fragment_house.setOnClickListener(onClickListener);
 		ll_community_house_fragment.setOnClickListener(onClickListener);
 		
@@ -163,6 +164,9 @@ public class HouseFragment extends BaseFragment{
 		public void onClick(View v) {
 
 			switch (v.getId()) {
+			case R.id.btn_back:
+				getActivity().finish();
+				break;
 			case R.id.ll_rent_house:
 				showSenconaryMenu(rentMenuLl);
 				break;
@@ -220,8 +224,8 @@ public class HouseFragment extends BaseFragment{
 			if (photoInfo != null) {
 				Intent intent = new Intent(getActivity(),
 						PostDetailActivity.class);
-				intent.putExtra(PostDetailActivity.INTENT_KEY_TID,
-						photoInfo.tid);
+				intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID,
+						Integer.parseInt(photoInfo.tid));
 				startActivity(intent);
 			}
 		}
@@ -313,7 +317,7 @@ public class HouseFragment extends BaseFragment{
 				long id) {
 
 			switch (parent.getId()) {
-			case R.id.uslv_jht_focus:
+			case R.id.uslv_jht_house:
 				onClickJhtItem(position);
 				break;
 			default:
@@ -327,7 +331,7 @@ public class HouseFragment extends BaseFragment{
 
 			PostInfo postInfo = jhtAdapter.getItem(position);
 			Intent intent = new Intent(getActivity(), PostDetailActivity.class);
-			intent.putExtra(PostDetailActivity.INTENT_KEY_TID, postInfo.tid);
+			intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, Integer.parseInt(postInfo.tid));
 			startActivity(intent);
 		}
 	};
