@@ -136,6 +136,11 @@
         <activity
             android:name="com.jiuquanlife.module.house.activity.CommunityListAcitivity"
             android:screenOrientation="portrait" />
+           <activity
+            android:name="com.jiuquanlife.module.house.activity.CommunityActivity"
+            android:screenOrientation="portrait" />
+        
+        
         <activity
             android:name="com.jiuquanlife.module.forum.activity.PostDetailActivity"
             android:screenOrientation="portrait" />

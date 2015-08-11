@@ -1,5 +1,6 @@
 package com.jiuquanlife.module.house.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -100,11 +101,11 @@ public class CommunityListAcitivity extends BaseActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			Community agent = adapter.getItem(position);
-			//TODO
-//			Intent intent = new Intent(CommunityListAcitivity.this, AgentDetailActivity.class);
-//			intent.putExtra(AgentDetailActivity.INTENT_KEY_AGENT_ID, agent.agid);
-//			startActivity(intent);
+			Community community = adapter.getItem(position);
+			
+			Intent intent = new Intent(CommunityListAcitivity.this, CommunityActivity.class);
+			intent.putExtra(CommunityActivity.EXTRA_COMMUNITY, community);
+			startActivity(intent);
 		}
 	};
 	

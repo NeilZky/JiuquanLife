@@ -48,22 +48,9 @@ public class AgentAdapter extends BaseListAdapter<Agent> {
 		if(houseItem.headimg!=null && !StringUtils.isNullOrEmpty(houseItem.headimg.pic)) {
 			final String url = "http://www.5ijq.cn/Public/Uploads/" +houseItem.headimg.pic;
 			holder.img.setTag(url);
-			holder.img.loadImage(url, new OnBitmapLoadedListener() {
-				
-				@Override
-				public void onBitmapLoaded(ImageView imageView, Bitmap bitmap) {
-					
-					if (imageView.getTag() != null
-							&& imageView.getTag().equals(url)) {
-						imageView.setImageBitmap(bitmap);
-					} else {
-						imageView.setImageResource(R.drawable.ic_launcher);
-					}
-				}
-			});
 			imageLoader.displayImage(url, holder.img, App.getOptions());
 		} else {
-			holder.img.setImageResource(R.drawable.ic_empty);
+			holder.img.setImageResource(R.drawable.ic_default_house);
 		}
 		return convertView;
 	}

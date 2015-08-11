@@ -13,6 +13,8 @@ public class UrlConstance {
 	public static final String GET_SELL_HOUSE_LIST = "http://www.5ijq.cn/App/House/getSellHouseList";//出租列表
 	public static final String GET_APPLY_RENT_HOUSE_LIST = "http://www.5ijq.cn/App/House/getWantedRentalHouseList";//出租列表
 	public static final String GET_APPLY_BUY_HOUSE_LIST = "http://www.5ijq.cn/App/House/getWantedByHouseList";//出租列表
+	public static final String GET_COMUUNITY = "http://www.5ijq.cn/App/House/communityDetial/id/";//小区详情
+	
 	
 	/*
 	 * 融云
@@ -32,4 +34,7 @@ public class UrlConstance {
 	public static final String FORUM_TOPIC_TYPE_LIST = "http://www.5ijq.cn/App/Form/getTypeListByFormId";
 	public static final String FORUM_UPLOAD_PHOTO = "http://www.5ijq.cn/hongliu/mobcent/app/web/index.php?r=forum/sendattachmentex";
 	public static final String FORUM_READLIY_TAKE = "http://www.5ijq.cn/app/Form/readilyTake";
+	
+	
+	
 }

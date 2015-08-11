@@ -50,7 +50,7 @@ public class CommunityWithPhotoAdapter extends BaseListAdapter<Community> {
 				imageLoader.displayImage(url, holder.img, App.getOptions());
 			}
 		} else {
-			holder.img.setImageResource(R.drawable.ic_empty);
+			holder.img.setImageResource(R.drawable.ic_default_house);
 		}
 		return convertView;
 	}

@@ -1,5 +1,7 @@
 package com.jiuquanlife.vo.house;
 
+import java.util.ArrayList;
+
 public class HouseItem {
 
 	public String houseid;
@@ -22,4 +24,5 @@ public class HouseItem {
 	public String fromType;
 	public Img img;
 	public String imgCount;
+	public ArrayList<String> spanList;
 }
