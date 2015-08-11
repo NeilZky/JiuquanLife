@@ -131,7 +131,7 @@
             android:name="com.jiuquanlife.module.house.activity.AgentListAcitivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiuquanlife.module.house.activity.AgentDetailActivity"
+            android:name="com.jiuquanlife.module.house.activity.AgentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.jiuquanlife.module.house.activity.CommunityListAcitivity"

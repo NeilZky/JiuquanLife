@@ -103,8 +103,8 @@ public class AgentListAcitivity extends BaseActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			Agent agent = adapter.getItem(position);
-			Intent intent = new Intent(AgentListAcitivity.this, AgentDetailActivity.class);
-			intent.putExtra(AgentDetailActivity.INTENT_KEY_AGENT_ID, agent.agid);
+			Intent intent = new Intent(AgentListAcitivity.this, AgentActivity.class);
+			intent.putExtra(AgentActivity.EXTRA_AGENT, agent);
 			startActivity(intent);
 		}
 	};

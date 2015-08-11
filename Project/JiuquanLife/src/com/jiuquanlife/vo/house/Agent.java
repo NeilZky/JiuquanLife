@@ -1,7 +1,11 @@
 package com.jiuquanlife.vo.house;
 
-public class Agent {
+import java.io.Serializable;
+
+public class Agent implements Serializable{
 	
+	private static final long serialVersionUID = 5193141692426502980L;
+
 	public String agid;
 	public String uid;
 	public String trueName;

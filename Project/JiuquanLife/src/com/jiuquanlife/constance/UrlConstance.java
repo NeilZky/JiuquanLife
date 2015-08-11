@@ -7,7 +7,7 @@ public class UrlConstance {
 	public static final String GET_COMMUNITY_BY_ADDRESS_ID = "http://www.5ijq.cn/App/House/community/addressId/";//根据区域获取小区列表
 	public static final String NEW_HOUSE = "http://www.5ijq.cn/App/House/newHouse";//添加房源
 	public static final String AGENT_LIST = "http://www.5ijq.cn/App/House/agentList";//经纪人列表
-	public static final String AGENT_DETAIL = "http://www.5ijq.cn/App/House/agentDetial";//经纪人详情
+	public static final String AGENT_DETAIL = "http://www.5ijq.cn/App/House/agentDetial/id/";//经纪人详情
 	public static final String COMMUNITY_LIST = "http://www.5ijq.cn/App/House/communityList";//小区列表筛选传值：{address,currentLon，currentLat(当前手机用户定位的经纬度)}
 	public static final String GET_RENT_HOUSE_LIST = "http://www.5ijq.cn/App/House/getRentalHouseList";//出租列表
 	public static final String GET_SELL_HOUSE_LIST = "http://www.5ijq.cn/App/House/getSellHouseList";//出租列表
