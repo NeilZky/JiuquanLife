@@ -15,6 +15,7 @@ public class CommunityDetail {
 	public String makeYear;
 	public String peopleNum;
 	public String propertyPrice;
+	public String price;
 	public String mapPoint;
 	public ArrayList<String> spanList;
 	public ArrayList<Img> communityImg;

@@ -150,7 +150,7 @@ public class CommunityActivity extends BaseActivity {
 		TextViewUtils.setText(tv_quality_community, communityDetail.communityQuality);
 		TextViewUtils.setText(tv_unit_num_community, communityDetail.unitNum);
 		TextViewUtils.setText(tv_make_year_community, communityDetail.makeYear);
-		TextViewUtils.setText(tv_price_community, communityDetail.propertyPrice);
+		TextViewUtils.setText(tv_price_community, communityDetail.price);
 		if(communityDetail.spanList!=null &&!communityDetail.spanList.isEmpty()) {
 			tagAdapter.refresh(communityDetail.spanList);
 			hlv_tag_community.setVisibility(View.VISIBLE);
