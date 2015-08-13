@@ -85,23 +85,23 @@
                     <TextView
                         android:id="@+id/tv_agent_name_detail"
                         android:layout_width="wrap_content"
-                        android:padding="7dp"
                         android:layout_height="wrap_content"
+                        android:padding="7dp"
                         android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/tv_company_name_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="7dp"
                         android:textColor="@color/orange"
-                                                android:padding="7dp"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_recent_info_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                                                android:padding="7dp"
+                        android:padding="7dp"
                         android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -114,8 +114,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="门店服务"
                 android:padding="10dp"
+                android:text="门店服务"
                 android:textSize="16sp" />
 
             <include layout="@layout/divider_ver" />
@@ -123,6 +123,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -141,6 +142,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -159,6 +161,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
