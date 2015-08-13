@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.SampleImagePagerAdapter;
+import com.jiuquanlife.app.App;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
@@ -20,45 +23,35 @@ import com.jiuquanlife.module.house.adapter.SecondaryHouseAdapter;
 import com.jiuquanlife.module.house.adapter.TagAdapter;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.TextViewUtils;
-import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.view.HorizontalListView;
 import com.jiuquanlife.view.UnScrollListView;
 import com.jiuquanlife.vo.house.Agent;
 import com.jiuquanlife.vo.house.AgentDetail;
-import com.jiuquanlife.vo.house.Community;
-import com.jiuquanlife.vo.house.AgentDetail;
 import com.jiuquanlife.vo.house.AgentDetailInfo;
 import com.jiuquanlife.vo.house.HouseItem;
-import com.jiuquanlife.vo.house.Img;
-import com.photoselector.ui.PhotoItem.onItemClickListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class AgentActivity extends BaseActivity {
 
 	public static final String EXTRA_AGENT = "EXTRA_AGENT";
 	private Agent agent;
 	
-	private ViewPager photoVp;
-	private SampleImagePagerAdapter photoAdapter;
-	private TagAdapter tagAdapter;
 	
-	private TextView tv_title_community_detail;
-	private TextView tv_name_community;
-	private TextView tv_area_community;
-	private TextView tv_address_community;
-	private TextView tv_make_company_commnity;
-	private TextView tv_people_num_community;
-	private TextView tv_quality_community;
-	private TextView tv_unit_num_community;
-	private TextView tv_make_year_community;
-	private TextView tv_price_community;
-	private HorizontalListView hlv_tag_community;
-	private TextView tv_locaton_community;
 	private UnScrollListView uslv_community;
 	private SecondaryHouseAdapter houseAdapter;
 	private View v_divider_chuzu;
 	private View v_divider_ershou;
 	private TextView tv_watch_more_community;
 
+	private ImageView iv_agent_user;
+	private TextView tv_agent_name_detail;
+	private TextView tv_company_name_detail;
+	private TextView tv_recent_info_detail;
+	private TextView tv_familar_community_agent;
+	private TextView tv_address_agent;
+	private TextView tv_good_at_agent;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,28 +66,22 @@ public class AgentActivity extends BaseActivity {
 	}
 
 	private void initViews() {
-		setContentView(R.layout.activity_community_detail);
-		photoVp = (ViewPager) findViewById(R.id.vp_acd);
-		photoAdapter = new SampleImagePagerAdapter(getActivity(), photoVp);
+		
+		setContentView(R.layout.activity_agent_detail);
+		iv_agent_user = (ImageView) findViewById(R.id.iv_agent_user);
+		tv_agent_name_detail = (TextView) findViewById(R.id.tv_agent_name_detail);
+		tv_company_name_detail = (TextView) findViewById(R.id.tv_company_name_detail);
+		tv_recent_info_detail = (TextView) findViewById(R.id.tv_recent_info_detail);
+		tv_familar_community_agent = (TextView) findViewById(R.id.tv_familar_community_agent);
+		tv_address_agent = (TextView) findViewById(R.id.tv_address_agent);
+		tv_good_at_agent = (TextView) findViewById(R.id.tv_good_at_agent);
 		agent = (Agent) getIntent().getSerializableExtra(
 				EXTRA_AGENT);
-		tv_title_community_detail = (TextView) findViewById(R.id.tv_title_community_detail);
-		tv_name_community = (TextView) findViewById(R.id.tv_name_community);
-		tv_area_community = (TextView) findViewById(R.id.tv_area_community);
-		tv_address_community = (TextView) findViewById(R.id.tv_address_community);
-		tv_make_company_commnity = (TextView) findViewById(R.id.tv_make_company_commnity);
-		tv_people_num_community = (TextView) findViewById(R.id.tv_people_num_community);
-		tv_quality_community = (TextView) findViewById(R.id.tv_quality_community);
-		tv_unit_num_community = (TextView) findViewById(R.id.tv_unit_num_community);
-		tv_make_year_community = (TextView) findViewById(R.id.tv_make_year_community);
-		tv_price_community = (TextView) findViewById(R.id.tv_price_community);
-		tv_locaton_community = (TextView) findViewById(R.id.tv_locaton_community);
+		
+		
 		tv_watch_more_community = (TextView) findViewById(R.id.tv_watch_more_community);
-//		TextViewUtils.setText(tv_title_community_detail, agent.);
-//		TextViewUtils.setText(tv_name_community, agent.communityName);
-		hlv_tag_community = (HorizontalListView) findViewById(R.id.hlv_tag_community);
-		tagAdapter = new TagAdapter(getActivity());
-		hlv_tag_community.setAdapter(tagAdapter);
+//		imageLoader.displayImage(url, holder.img, App.getOptions());
+		TextViewUtils.setText(tv_agent_name_detail, agent.trueName);
 		uslv_community = (UnScrollListView) findViewById(R.id.uslv_community);
 		houseAdapter = new SecondaryHouseAdapter(getActivity());
 		uslv_community.setAdapter(houseAdapter);
@@ -144,15 +131,20 @@ public class AgentActivity extends BaseActivity {
 	private void fillViews(AgentDetail agentDetail) {
 		
 		this.agentDetail = agentDetail;
-//		TextViewUtils.setText(tv_area_community, agentDetail.buildsquare);
-//		TextViewUtils.setText(tv_address_community, agentDetail.locationName + "-" +agentDetail.partLocationName);
-//		TextViewUtils.setText(tv_locaton_community, agentDetail.locationName + "-" +agentDetail.partLocationName);
-//		TextViewUtils.setText(tv_make_company_commnity, agentDetail.makeCompany);
-//		TextViewUtils.setText(tv_people_num_community, agentDetail.peopleNum);
-//		TextViewUtils.setText(tv_quality_community, agentDetail.communityQuality);
-//		TextViewUtils.setText(tv_unit_num_community, agentDetail.unitNum);
-//		TextViewUtils.setText(tv_make_year_community, agentDetail.makeYear);
-//		TextViewUtils.setText(tv_price_community, agentDetail.propertyPrice);
+		TextViewUtils.setText(tv_agent_name_detail, agentDetail.trueName);
+		TextViewUtils.setText(tv_company_name_detail, agentDetail.compName);
+		if(TextUtils.isEmpty(agentDetail.viewNum)) {
+			agentDetail.viewNum = "0";
+		}
+		if(TextUtils.isEmpty(agentDetail.teachNum)) {
+			agentDetail.teachNum = "0";
+		}
+		String recentInfo = "从业年限: " + agentDetail.workAge + " 年   " + "近30天带看: " + agent.teachNum +"次 点击次数  " + 
+		agentDetail.viewNum + "次 ";
+		TextViewUtils.setText(tv_recent_info_detail, recentInfo);
+		TextViewUtils.setText(tv_familar_community_agent, agentDetail.serveLocation);
+		TextViewUtils.setText(tv_good_at_agent, agentDetail.shopServe);
+		TextViewUtils.setText(tv_address_agent, agentDetail.locationName +agentDetail.partLocationName + agentDetail.shopAddr);
 		onClickErshou();
 	}
 	

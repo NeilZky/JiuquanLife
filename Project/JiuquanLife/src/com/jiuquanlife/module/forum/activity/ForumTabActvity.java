@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -24,10 +25,9 @@ import com.jiuquanlife.module.forum.fragment.ForumMineFragment;
 import com.jiuquanlife.module.forum.fragment.ForumMsgFragment;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
 import com.jiuquanlife.module.forum.fragment.TopicListFragment;
+import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.utils.AppUtils;
-import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.SharePreferenceUtils;
-import com.jiuquanlife.vo.forum.usercenter.UserCenterJson;
 
 public class ForumTabActvity extends FragmentActivity{
 	
@@ -98,6 +98,11 @@ public class ForumTabActvity extends FragmentActivity{
 		map.put("r", "message/heart");
 		String mAppHash = AppUtils.getAppHash();
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		if(user == null) {
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+			return;
+		}
 		map.put("accessToken", user.token);
 		map.put("accessSecret", user.secret);
 		map.put("appHash", mAppHash);

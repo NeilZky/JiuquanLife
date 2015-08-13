@@ -8,6 +8,7 @@ public class AgentDetail {
 	public String uid;
 	public String trueName;
 	public String compName;
+	public String workAge;
 	public String teachNum;
 	public String viewNum;
 	public String serveLocation;
