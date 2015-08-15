@@ -1,4 +1,7 @@
+
 package com.jiuquanlife.module.house.activity;
+
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +15,14 @@ import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.ActionRelationConstance;
 import com.jiuquanlife.constance.CommonConstance;
+import com.jiuquanlife.constance.ExtraConstance;
 import com.jiuquanlife.constance.UrlConstance;
+import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
+import com.jiuquanlife.http.RequestHelper.OnFinishListener;
 import com.jiuquanlife.module.house.adapter.SecondaryHouseAdapter;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.view.popuplist.PopupAdapter;
 import com.jiuquanlife.view.popuplist.PopupButton;
 import com.jiuquanlife.vo.house.AddressRange;
@@ -26,9 +33,11 @@ import com.jiuquanlife.vo.house.GetSellHouseListInfo;
 import com.jiuquanlife.vo.house.HouseItem;
 import com.jiuquanlife.vo.house.LayoutRange;
 import com.jiuquanlife.vo.house.PriceRange;
-import com.jiuquanlife.vo.house.out.GetSellerHoustListOut;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout.OnRefreshListener;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
-public class SecondaryHouseListActivity extends BaseHouseListActivity {
+public class HouseListActivity extends BaseHouseListActivity implements OnRefreshListener {
 
 	private SecondaryHouseAdapter adapter;
 	private TextView tv_title_house_list;
@@ -45,9 +54,9 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 	public PopupAdapter<AreaRange> areaRangeAdapter;
 	public PopupAdapter<FromType> fromTypeAdapter;
 	private boolean initedMenu;
-	private String url;
 	private String actionRelation;
 	
+	private SwipyRefreshLayout srl_house_mine;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +74,12 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 
 	private void initView() {
 
-		setContentView(R.layout.activity_house_list);
+		setContentView(R.layout.activity_house_list_mine);
+		srl_house_mine = (SwipyRefreshLayout) findViewById(R.id.srl_house_mine);
+		srl_house_mine.setOnRefreshListener(this);
+		srl_house_mine.setDirection(SwipyRefreshLayoutDirection.BOTH);
+		View houseFilter =  findViewById(R.id.ll_filter_house_mine);
+		houseFilter.setVisibility(View.GONE);
 		houseListLv = (ListView) findViewById(R.id.lv_seconary_house);
 		adapter = new SecondaryHouseAdapter(this);
 		houseListLv.setAdapter(adapter);
@@ -81,23 +95,19 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 
 	private void initByActionRelation() {
 		
-		actionRelation = getIntent().getStringExtra(EXTRA_ACTION_RELATION);
+		actionRelation = getIntent().getStringExtra(ExtraConstance.ActionRelation);
 		if(ActionRelationConstance.RENT.equals(actionRelation)) {
-			url = UrlConstance.GET_RENT_HOUSE_LIST;
 			pb_layout_ahl.setVisibility(View.GONE);
 			pb_area_ahl.setVisibility(View.GONE);
-			tv_title_house_list.setText("出租");
+			tv_title_house_list.setText("我的出租");
 		} else if(ActionRelationConstance.SELL.equals(actionRelation)) {
-			url = UrlConstance.GET_SELL_HOUSE_LIST;
-			tv_title_house_list.setText("出售");
+			tv_title_house_list.setText("我的出售");
 		} else if(ActionRelationConstance.APPLY_RENT.equals(actionRelation)) {
-			url = UrlConstance.GET_APPLY_RENT_HOUSE_LIST;
 			pb_layout_ahl.setVisibility(View.GONE);
 			pb_area_ahl.setVisibility(View.GONE);
-			tv_title_house_list.setText("求租");
+			tv_title_house_list.setText("我的求租");
 		} else if(ActionRelationConstance.APPLY_BUY.equals(actionRelation)) {
-			url = UrlConstance.GET_APPLY_BUY_HOUSE_LIST;
-			tv_title_house_list.setText("求购");
+			tv_title_house_list.setText("我的求购");
 		}
 	}
 	
@@ -207,7 +217,7 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			HouseItem houseItem = adapter.getItem(position);
-			Intent intent = new Intent(SecondaryHouseListActivity.this,
+			Intent intent = new Intent(getActivity(),
 					SellerHouseDetailActivity.class);
 			intent.putExtra(SellerHouseDetailActivity.EXTRA_ACTION_TYPE, actionType);
 			intent.putExtra(SellerHouseDetailActivity.EXTRA_ACTION_RELATION, actionRelation);
@@ -219,27 +229,15 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 
 	private void getData() {
 
-		GetSellerHoustListOut out = new GetSellerHoustListOut();
-		out.actionRelation = actionRelation;
-		out.actionType = actionType;
-		if(subAddressAdapter.getSelectedItem()!=null) {
-			out.address = subAddressAdapter.getSelectedItem().aid;
-		}
-		if(priceRangeAdapter.getSelectedItem()!=null) {
-			out.price = priceRangeAdapter.getSelectedItem().id;
-		}
-		if(layoutRangeAdapter.getSelectedItem()!=null) {
-			out.layout = layoutRangeAdapter.getSelectedItem().id;
-		}
-		if(areaRangeAdapter.getSelectedItem()!=null) {
-			out.area = areaRangeAdapter.getSelectedItem().id;
-		}
-		if(fromTypeAdapter.getSelectedItem()!=null) {
-			out.from = fromTypeAdapter.getSelectedItem().id;
-		}
-		RequestHelper.getInstance().getRequestEntity(
-				SecondaryHouseListActivity.this,
-				url, out,
+		page = 1;
+		HashMap<String, String> map = new HashMap<String, String> ();
+		map.put("action", actionRelation);
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		map.put("uid", user.uid + "");
+		map.put("uid", page+ "");
+		RequestHelper.getInstance().getRequestMap(
+				getActivity(),
+				UrlConstance.GET_MY_HOUSE_LIST, map,
 				new Listener<String>() {
 
 					@Override
@@ -261,9 +259,59 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 						}
 						adapter.refresh(info.data.houseList);
 					}
+				}, new OnFinishListener() {
+					
+					@Override
+					public void onFinish() {
+						
+						srl_house_mine.setRefreshing(false);
+					}
 				});
 	}
+	
+	private int page = 1;
+	
+	private void addData() {
 
+		HashMap<String, String> map = new HashMap<String, String> ();
+		map.put("action", actionRelation);
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		map.put("uid", user.uid + "");
+		map.put("page", page + 1 + "");
+		RequestHelper.getInstance().getRequestMap(
+				getActivity(),
+				UrlConstance.GET_MY_HOUSE_LIST, map,
+				new Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						
+						page ++;
+						GetSellHouseListInfo info = GsonUtils.toObj(response,
+								GetSellHouseListInfo.class);
+						if (info == null
+								|| info.data == null
+								|| !CommonConstance.REQUEST_CODE_SUCCESS
+										.equals(info.code)) {
+							// 请求数据失败
+							return;
+						}
+						if(!initedMenu) {
+							initMenu(info.data);
+							initedMenu = true;
+						}
+						adapter.add(info.data.houseList);
+					}
+				}, new OnFinishListener() {
+					
+					@Override
+					public void onFinish() {
+						
+						srl_house_mine.setRefreshing(false);
+					}
+				});
+	}
+	
 	private void initMenu(GetSellHouseListData data) {
 
 		if (data == null) {
@@ -295,6 +343,16 @@ public class SecondaryHouseListActivity extends BaseHouseListActivity {
 	private void onClickBack() {
 		
 		finish();
+	}
+
+	@Override
+	public void onRefresh(SwipyRefreshLayoutDirection direction) {
+		
+		if(direction == SwipyRefreshLayoutDirection.TOP) {
+			getData();
+		} else  {
+			addData();
+		}
 	}
 
 }

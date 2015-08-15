@@ -11,6 +11,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
 import com.jiuquanlife.module.forum.fragment.ForumTabContentFragment;
 import com.jiuquanlife.module.house.fragment.HouseFragment;
+import com.jiuquanlife.module.house.fragment.HouseMineFragment;
 
 public class NavTabActivity extends FragmentActivity{
 	
@@ -34,6 +35,9 @@ public class NavTabActivity extends FragmentActivity{
         View houseIndicator = getLayoutInflater().inflate(R.layout.indicator_house, null);
         mTabHost.addTab(mTabHost.newTabSpec(HouseFragment.class.getSimpleName()).setIndicator(houseIndicator),
         		HouseFragment.class, null);
+        View houseMineIndicator = getLayoutInflater().inflate(R.layout.indicator_house, null);
+        mTabHost.addTab(mTabHost.newTabSpec(HouseMineFragment.class.getSimpleName()).setIndicator(houseMineIndicator),
+        		HouseMineFragment.class, null);
         mTabHost.setOnTabChangedListener(onTabChangeListener);
         mTabHost.getTabWidget().setDividerDrawable(null);
         String tag = getIntent().getStringExtra(INTENT_KEY_TAB_TAG);

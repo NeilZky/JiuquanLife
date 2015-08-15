@@ -14,6 +14,7 @@ public class UrlConstance {
 	public static final String GET_APPLY_RENT_HOUSE_LIST = "http://www.5ijq.cn/App/House/getWantedRentalHouseList";//出租列表
 	public static final String GET_APPLY_BUY_HOUSE_LIST = "http://www.5ijq.cn/App/House/getWantedByHouseList";//出租列表
 	public static final String GET_COMUUNITY = "http://www.5ijq.cn/App/House/communityDetial/id/";//小区详情
+	public static final String GET_MY_HOUSE_LIST = "http://www.5ijq.cn/App/House/myHouseList";//我的租房，出租。。
 	
 	
 	/*

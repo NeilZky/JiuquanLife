@@ -30,7 +30,7 @@ import com.jiuquanlife.module.house.activity.AgentListAcitivity;
 import com.jiuquanlife.module.house.activity.BaseHouseListActivity;
 import com.jiuquanlife.module.house.activity.CommunityListAcitivity;
 import com.jiuquanlife.module.house.activity.PublishHouseActivity;
-import com.jiuquanlife.module.house.activity.SecondaryHouseListActivity;
+import com.jiuquanlife.module.house.activity.FilteredHouseListActivity;
 import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.SharePreferenceUtils;
@@ -147,7 +147,7 @@ public class HouseFragment extends BaseFragment{
 						
 						TextView tv = (TextView) v; 
 						String text = tv.getText().toString().trim();
-						Intent intent = new Intent(getActivity(), SecondaryHouseListActivity.class);
+						Intent intent = new Intent(getActivity(), FilteredHouseListActivity.class);
 						intent.putExtra(BaseHouseListActivity.EXTRA_ACTION_TYPE, text);
 						intent.putExtra(BaseHouseListActivity.EXTRA_ACTION_RELATION, actionRelation);
 						startActivity(intent);					

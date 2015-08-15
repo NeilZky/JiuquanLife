@@ -94,15 +94,14 @@ public class ForumTabActvity extends FragmentActivity{
 
 	
 	public void getData() {
+
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		if(user == null) {
+			return;
+		}
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("r", "message/heart");
 		String mAppHash = AppUtils.getAppHash();
-		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-		if(user == null) {
-			Intent intent = new Intent(this, LoginActivity.class);
-			startActivity(intent);
-			return;
-		}
 		map.put("accessToken", user.token);
 		map.put("accessSecret", user.secret);
 		map.put("appHash", mAppHash);

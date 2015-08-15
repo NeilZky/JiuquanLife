@@ -92,8 +92,13 @@
             android:name="com.jiuquanlife.module.post.PostDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiuquanlife.module.house.activity.SecondaryHouseListActivity"
+            android:name="com.jiuquanlife.module.house.activity.FilteredHouseListActivity"
             android:screenOrientation="portrait" />
+        
+          <activity
+            android:name="com.jiuquanlife.module.house.activity.HouseListActivity"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.jiuquanlife.module.house.activity.SellerHouseDetailActivity"
             android:screenOrientation="portrait" />

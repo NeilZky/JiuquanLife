@@ -91,21 +91,28 @@ public class RongCloudBll {
 					connectSuccess = true;
 					RongCloudEvent.getInstance().setOtherListener();
 					ToastHelper.showL("连接会话服务器成功");
-					callBack.onSuccess(arg0);
+					if(callBack!=null) {
+						callBack.onSuccess(arg0);
+						
+					}
 				}
 				
 				@Override
 				public void onError(ErrorCode arg0) {
 					
 					ToastHelper.showL("连接会话服务器错误");
-					callBack.onError(arg0);
-					
+					if(callBack!=null) {
+						callBack.onError(arg0);
+						
+					}
 				}
 				
 				@Override
 				public void onTokenIncorrect() {
 					ToastHelper.showL("会话服务器身份令牌验证失败");
-					callBack.onTokenIncorrect();
+					if(callBack!=null) {
+						callBack.onTokenIncorrect();
+					}
 				}
 			});
 

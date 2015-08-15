@@ -19,8 +19,8 @@
             android:layout_marginRight="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:src="@drawable/ic_search_white"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:src="@drawable/ic_search_white" />
 
         <TextView
             android:id="@+id/tv_title_house_list"
@@ -47,6 +47,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_filter_house_mine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -147,10 +148,16 @@
             popupbtn:pressIcon="@drawable/ic_arrow_up_house" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/lv_seconary_house"
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/srl_house_mine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white" />
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lv_seconary_house"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" />
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
 </LinearLayout>
