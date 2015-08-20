@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.module.base.FragmentContentActivity;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
 import com.jiuquanlife.module.forum.activity.ForumTabActvity;
 import com.jiuquanlife.module.forum.activity.ReadliyTakeActivity;
@@ -148,8 +149,8 @@ public class HomeActivity extends Activity {
 
 		private void onClickFocus() {
 			
-			Intent intent = new Intent(HomeActivity.this, NavTabActivity.class);
-			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG, FocusFragment.class.getSimpleName());
+			Intent intent = new Intent(HomeActivity.this, FragmentContentActivity.class);
+			intent.putExtra(FragmentContentActivity.EXTRA_FRAGMENT_NAME, FocusFragment.class.getName());
 			startActivity(intent);
 		}
 

@@ -98,6 +98,9 @@
           <activity
             android:name="com.jiuquanlife.module.house.activity.HouseListActivity"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.jiuquanlife.module.base.FragmentContentActivity"
+            android:screenOrientation="portrait" />
         
         <activity
             android:name="com.jiuquanlife.module.house.activity.SellerHouseDetailActivity"

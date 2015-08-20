@@ -1,5 +1,7 @@
 package com.jiuquanlife.module.house.activity;
 
+import java.util.HashMap;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -111,15 +113,15 @@ public class CommunityListAcitivity extends BaseActivity {
 	
 	private void getData() {
 		
-		GetCommunity getCommunity = new GetCommunity();
+		HashMap<String, String> map = new HashMap<String, String>();
 		AddressRange ar = subAddressAdapter.getSelectedItem();
 		if(ar!=null) {
-			getCommunity.address = ar.aid;
+			map.put("address", ar.aid);
 		} else {
-			getCommunity.address = "-1";
+			map.put("address", "-1");
 		}
-		RequestHelper.getInstance().postRequestEntity(CommunityListAcitivity.this,
-				UrlConstance.COMMUNITY_LIST, getCommunity,
+		RequestHelper.getInstance().postRequestMap(CommunityListAcitivity.this,
+				UrlConstance.COMMUNITY_LIST, map,
 				new Listener<String>() {
 
 					@Override
