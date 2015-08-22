@@ -96,9 +96,9 @@ public class App extends Application {
 		
 
 		empImageOption = new DisplayImageOptions.Builder()
-				.showImageForEmptyUri(R.drawable.ic_user_center)
-				.showImageOnLoading(R.drawable.ic_user_center)
-				.showImageOnFail(R.drawable.ic_user_center)
+				.showImageForEmptyUri(R.drawable.photo_default)
+				.showImageOnLoading(R.drawable.photo_default)
+				.showImageOnFail(R.drawable.photo_default)
 				.cacheInMemory(true).cacheOnDisk(true)
 				.resetViewBeforeLoading(true).considerExifParams(false)
 				.displayer(new RoundedBitmapDisplayer(1000))
