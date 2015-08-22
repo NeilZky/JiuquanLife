@@ -6,17 +6,17 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:layout_width="37dp"
-        android:layout_height="37dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:src="@drawable/iv_focus" />
+        android:src="@drawable/iv_house_publish" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
-        android:layout_marginTop="-5dp"
-        android:text="聚焦"
+        android:layout_marginTop="3dp"
+        android:text="发布"
         android:textColor="@drawable/text_tab"
         android:textSize="14sp" />
 

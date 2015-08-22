@@ -28,6 +28,7 @@ public class App extends Application {
 
 	private static App instance;
 	public ForumTabActvity forumTabActvity;
+	public DisplayImageOptions empImageOption;
 
 	@Override
 	public void onCreate() {
@@ -92,7 +93,17 @@ public class App extends Application {
 				.considerExifParams(false).bitmapConfig(Bitmap.Config.RGB_565)
 				.displayer(new SimpleBitmapDisplayer())
 				.build();
+		
 
+		empImageOption = new DisplayImageOptions.Builder()
+				.showImageForEmptyUri(R.drawable.ic_user_center)
+				.showImageOnLoading(R.drawable.ic_user_center)
+				.showImageOnFail(R.drawable.ic_user_center)
+				.cacheInMemory(true).cacheOnDisk(true)
+				.resetViewBeforeLoading(true).considerExifParams(false)
+				.displayer(new RoundedBitmapDisplayer(1000))
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				this)
 				.memoryCacheExtraOptions(400, 400)

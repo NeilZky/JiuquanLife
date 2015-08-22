@@ -81,4 +81,12 @@
     <color name="house_adapter_grey">#ADADAD</color>
     <color name="house_val_black">#444444</color>
     <color name="towards_border">#94DEA9</color>
+    
+    <color name="home_yellow">#F3C937</color>
+    <color name="home_red">#F26A5C</color>
+    <color name="home_green">#9CD14D</color>
+    <color name="home_orange">#F3A344</color>
+    <color name="home_green_dark">#7FD675</color>
+    <color name="home_green_blue">#6CD8B8</color>
+    
 </resources>

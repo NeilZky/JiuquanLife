@@ -23,7 +23,6 @@ import com.jiuquanlife.vo.house.AddressRange;
 import com.jiuquanlife.vo.house.Community;
 import com.jiuquanlife.vo.house.CommunityData;
 import com.jiuquanlife.vo.house.CommunityListInfo;
-import com.jiuquanlife.vo.house.out.GetCommunity;
 
 public class CommunityListAcitivity extends BaseActivity {
 	private CommunityWithPhotoAdapter adapter;
@@ -118,9 +117,9 @@ public class CommunityListAcitivity extends BaseActivity {
 		if(ar!=null) {
 			map.put("address", ar.aid);
 		} else {
-			map.put("address", "-1");
+			map.put("address", "0");
 		}
-		RequestHelper.getInstance().postRequestMap(CommunityListAcitivity.this,
+		RequestHelper.getInstance().getRequestMap(CommunityListAcitivity.this,
 				UrlConstance.COMMUNITY_LIST, map,
 				new Listener<String>() {
 

@@ -1,13 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:and="http://schemas.android.com/apk/res/com.jiuquanlife"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     >
-	<com.jiuquanlife.view.MovingView 
-	    android:id="@+id/mv"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    />    
+    android:layout_height="match_parent" >
 
     <com.jiuquanlife.view.SexangleViewGroup
         android:id="@+id/sexangleView"
@@ -17,73 +11,57 @@
         android:layout_marginTop="40dp" >
 
         <com.jiuquanlife.view.SexangleImageView
-            android:id="@+id/siv_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/home_yellow"
             and:pressedcolor="@color/home_yellow"
-            and:src="@drawable/ic_menu_home"
+            and:src="@drawable/ic_menu_trip"
             and:textSize="12sp"
-            and:texts="@string/home" />
-		
-                 
+            and:texts="@string/trip" />
+
         <com.jiuquanlife.view.SexangleImageView
-             android:id="@+id/siv_readliy_take"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            and:bgcolor="@color/color_flight"
-            and:pressedcolor="@color/color_setting"
-            and:src="@drawable/icon_flight"
-            and:textSize="12sp"
-            and:texts="@string/readliy_take" />
-        
-         <com.jiuquanlife.view.SexangleImageView
-            android:id="@+id/siv_house"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            and:bgcolor="@color/home_green"
-            and:pressedcolor="@color/home_green"
-            and:src="@drawable/ic_menu_house"
-            and:textSize="12sp"
-            and:texts="@string/house" />
-        
-         <com.jiuquanlife.view.SexangleImageView
-            android:id="@+id/siv_marriage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/home_red"
             and:pressedcolor="@color/home_red"
-            and:src="@drawable/ic_menu_marriage"
+            and:src="@drawable/ic_menu_service"
             and:textSize="12sp"
-            and:texts="爱上你" />
-         
-           <com.jiuquanlife.view.SexangleImageView
+            and:texts="@string/service" />
+
+        <com.jiuquanlife.view.SexangleImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            and:bgcolor="@color/home_green"
+            and:pressedcolor="@color/home_green"
+            and:src="@drawable/ic_menu_car"
+            and:textSize="12sp"
+            and:texts="@string/car" />
+
+        <com.jiuquanlife.view.SexangleImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/home_orange"
             and:pressedcolor="@color/home_orange"
             and:src="@drawable/ic_menu_shop"
             and:textSize="12sp"
-            and:texts="@string/shop" />
-         
-            <com.jiuquanlife.view.SexangleImageView
-            android:id="@+id/siv_community"
+            and:texts="@string/quanzi" />
+
+        <com.jiuquanlife.view.SexangleImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/home_green_dark"
             and:pressedcolor="@color/home_green_dark"
-            and:src="@drawable/ic_menu_forum"
+            and:src="@drawable/ic_menu_food"
             and:textSize="12sp"
-            and:texts="@string/community" />
-		
-            <com.jiuquanlife.view.SexangleImageView
+            and:texts="@string/food" />
+         <com.jiuquanlife.view.SexangleImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/home_green_blue"
             and:pressedcolor="@color/home_green_blue"
-            and:src="@drawable/ic_menu_pubish"
+            and:src="@drawable/ic_menu_job"
             and:textSize="12sp"
-            and:texts="@string/publish" />
+            and:texts="@string/job" />
+    </com.jiuquanlife.view.SexangleViewGroup>
 
-	</com.jiuquanlife.view.SexangleViewGroup>
 </FrameLayout>

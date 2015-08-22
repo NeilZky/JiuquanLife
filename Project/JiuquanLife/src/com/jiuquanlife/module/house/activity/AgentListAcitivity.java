@@ -115,7 +115,7 @@ public class AgentListAcitivity extends BaseActivity {
 		if(subAddressAdapter.getSelectedItem()!=null) {
 			getAgent.location = subAddressAdapter.getSelectedItem().aid;
 		}
-		RequestHelper.getInstance().postRequestEntity(AgentListAcitivity.this,
+		RequestHelper.getInstance().getRequestEntity(AgentListAcitivity.this,
 				UrlConstance.AGENT_LIST, getAgent,
 				new Listener<String>() {
 

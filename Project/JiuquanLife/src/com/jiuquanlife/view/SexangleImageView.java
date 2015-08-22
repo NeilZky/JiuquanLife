@@ -78,7 +78,7 @@ public class SexangleImageView extends ImageView {
 			paint.setStyle(Style.FILL);
 			//paint.setColor(Color.BLACK);
 			paint.setColor(bgColor);
-			paint.setAlpha(100);
+			paint.setAlpha(255);
 		}
 		//画六边形
 		Path path = new Path();
@@ -138,7 +138,7 @@ public class SexangleImageView extends ImageView {
 					* (event.getY() - getHeight() / 2);
 			if (dist <= radiusSquare) {// 点中六边形区域
 				paint.setColor(pressedColor);
-				paint.setAlpha(50);
+				paint.setAlpha(255);
 				invalidate();
 			}
 
@@ -147,7 +147,7 @@ public class SexangleImageView extends ImageView {
 		case MotionEvent.ACTION_UP:
 			this.startAnimation(endAnimation);
 			paint.setColor(bgColor);
-			paint.setAlpha(100);
+			paint.setAlpha(255);
 			if(listener!=null){
 				listener.onClick(this);
 			}
@@ -159,7 +159,7 @@ public class SexangleImageView extends ImageView {
 			this.startAnimation(endAnimation);
 			paint.setColor(Color.BLACK);
 			//paint.setColor(color);
-			paint.setAlpha(50);
+			paint.setAlpha(255);
 
 			invalidate();
 			break;

@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.entity.User;
 import com.jiuquanlife.module.base.FragmentContentActivity;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
 import com.jiuquanlife.module.forum.activity.ForumTabActvity;
@@ -21,12 +24,17 @@ import com.jiuquanlife.module.house.fragment.HouseFragment;
 import com.jiuquanlife.module.im.RongCloudBll;
 import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.module.tab.NavTabActivity;
+import com.jiuquanlife.utils.ImageLoaderHelper;
+import com.jiuquanlife.utils.SharePreferenceUtils;
+import com.jiuquanlife.utils.TextViewUtils;
+import com.jiuquanlife.utils.UrlUtils;
 import com.jiuquanlife.view.MovingView;
 import com.jiuquanlife.view.SexangleImageView;
 import com.jiuquanlife.view.SexangleImageView.OnSexangleImageClickListener;
 
 public class HomeActivity extends Activity {
 
+	protected static final int REQUEST_LOGIN = 1;
 	private SexangleImageView homeSiv;
 	private SexangleImageView houseSiv;
 	private SexangleImageView hotelSiv;
@@ -37,7 +45,8 @@ public class HomeActivity extends Activity {
 	private View leftHomeView ;
 	private View rightHomeView ;
 	private HomeAdapter homeAdapter;
-	
+	private ImageView empPhotoIv;
+	private TextView empNameTv;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +58,32 @@ public class HomeActivity extends Activity {
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_home);
+		initLoginView();
 		initViewPager();
 		initSixAngelView();
 		initMovingView();
 		RongCloudBll.getInstance().reconnectRongCloud(callBack);
 	}
+	
+	private void initLoginView() {
+		
+		empNameTv = (TextView) findViewById(R.id.tv_emp_name_home);
+		empPhotoIv = (ImageView) findViewById(R.id.iv_emp_photo_home);
+		refreshLoginBtn();
+	}
+	
+	private void refreshLoginBtn() {
+		
+		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+		if(user == null) {
+			TextViewUtils.setText(empNameTv, "µÇÂ½");
+			empPhotoIv.setImageResource(R.drawable.ic_home_login);
+		} else {
+			ImageLoaderHelper.loadRectPhoto(empPhotoIv, UrlUtils.getPhotoUrl(user.uid +""));
+			TextViewUtils.setText(empNameTv, user.userName);
+		}
+	}
+	
 	
 	private ConnectCallback callBack = new ConnectCallback() {
 		
@@ -79,7 +109,7 @@ public class HomeActivity extends Activity {
 		homeVp = (ViewPager) findViewById(R.id.vp_home);
 		homeAdapter = new HomeAdapter();
 		leftHomeView = getLayoutInflater().inflate(R.layout.view_home_left, null);
-		rightHomeView = getLayoutInflater().inflate(R.layout.view_home_left, null);
+		rightHomeView = getLayoutInflater().inflate(R.layout.view_home_right, null);
 		homeAdapter.addView(leftHomeView);
 		homeAdapter.addView(rightHomeView);
 		homeVp.setAdapter(homeAdapter);
@@ -91,12 +121,12 @@ public class HomeActivity extends Activity {
 		houseSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_house);
 		hotelSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_community);
 		readliyTakeSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_readliy_take);
-		loginSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_login);
+//		loginSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_login);
 		homeSiv.setOnSexangleImageClick(listener);
 		houseSiv.setOnSexangleImageClick(listener);
 		hotelSiv.setOnSexangleImageClick(listener);
 		readliyTakeSiv.setOnSexangleImageClick(listener);
-		loginSiv.setOnSexangleImageClick(listener);
+//		loginSiv.setOnSexangleImageClick(listener);
 	}
 	
 	private void initMovingView() {
@@ -104,7 +134,15 @@ public class HomeActivity extends Activity {
 		mv = (MovingView) findViewById(R.id.mv);
 		Rect rect= new Rect();  
 		this.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);  
-		mv.setBitmap(R.drawable.bg_nav);
+		mv.setBitmap(R.drawable.ic_home_bg);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(requestCode == REQUEST_LOGIN) {
+			refreshLoginBtn();
+		}
 	}
 	
 	OnSexangleImageClickListener listener=new OnSexangleImageClickListener() {
@@ -124,9 +162,17 @@ public class HomeActivity extends Activity {
 			case R.id.siv_readliy_take:
 				onClickReadliyTake();
 				break;
-			case R.id.siv_login:
-				Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-				startActivity(intent);
+			case R.id.ll_home_login:
+				
+				User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
+				if(user == null) {
+					Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+					startActivityForResult(intent, REQUEST_LOGIN);
+				} else {
+					//TODO USERCENTER PAGE
+					
+				}
+			
 				break;
 			}
 		}
