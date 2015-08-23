@@ -29,7 +29,7 @@
             android:gravity="center_horizontal"
             android:orientation="vertical" >
 
-            <ImageView
+            <com.jiuquanlife.view.CircleImageView
                 android:id="@+id/iv_emp_photo_home"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
@@ -64,5 +64,22 @@
                 android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
+    
+    <TextView 
+        android:id="@+id/tv_page_home"
+        android:layout_width="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="7dp"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="1/2"
+        android:textColor="@android:color/black"
+        android:background="@drawable/shape_white"
+        />
 
 </RelativeLayout>

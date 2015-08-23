@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             and:bgcolor="@color/color_flight"
             and:pressedcolor="@color/color_setting"
-            and:src="@drawable/icon_flight"
+            and:src="@drawable/ic_menu_camera"
             and:textSize="12sp"
             and:texts="@string/readliy_take" />
         

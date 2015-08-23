@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -32,7 +33,7 @@ import com.jiuquanlife.view.MovingView;
 import com.jiuquanlife.view.SexangleImageView;
 import com.jiuquanlife.view.SexangleImageView.OnSexangleImageClickListener;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends Activity implements OnPageChangeListener {
 
 	protected static final int REQUEST_LOGIN = 1;
 	private SexangleImageView homeSiv;
@@ -47,6 +48,7 @@ public class HomeActivity extends Activity {
 	private HomeAdapter homeAdapter;
 	private ImageView empPhotoIv;
 	private TextView empNameTv;
+	private TextView pageTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class HomeActivity extends Activity {
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_home);
+		pageTv = (TextView) findViewById(R.id.tv_page_home);
 		initLoginView();
 		initViewPager();
 		initSixAngelView();
@@ -78,7 +81,7 @@ public class HomeActivity extends Activity {
 				User.class);
 		if (user == null) {
 			TextViewUtils.setText(empNameTv, "µÇÂ½");
-			empPhotoIv.setImageResource(R.drawable.ic_home_login);
+			empPhotoIv.setImageResource(R.drawable.login_user);
 		} else {
 			ImageLoaderHelper.loadRectPhoto(empPhotoIv,
 					UrlUtils.getPhotoUrl(user.uid + ""));
@@ -107,6 +110,7 @@ public class HomeActivity extends Activity {
 	private void initViewPager() {
 
 		homeVp = (ViewPager) findViewById(R.id.vp_home);
+		homeVp.setOnPageChangeListener(this);
 		homeAdapter = new HomeAdapter();
 		leftHomeView = getLayoutInflater().inflate(R.layout.view_home_left,
 				null);
@@ -226,5 +230,27 @@ public class HomeActivity extends Activity {
 			break;
 		}
 
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPageScrolled(int arg0, float arg1, int arg2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+		
+		if(position == 0) {
+			pageTv.setText("1/2");
+		} else {
+			pageTv.setText("2/2");
+		}
 	}
 }

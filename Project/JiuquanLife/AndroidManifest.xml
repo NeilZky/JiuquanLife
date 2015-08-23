@@ -79,6 +79,10 @@
         <activity
             android:name="com.jiuquanlife.module.login.LoginActivity"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.jiuquanlife.module.login.RegisterActivity"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.jiuquanlife.module.tab.NavTabActivity"
             android:screenOrientation="portrait" />

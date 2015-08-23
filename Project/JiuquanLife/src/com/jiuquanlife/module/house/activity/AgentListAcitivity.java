@@ -7,7 +7,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
@@ -22,8 +24,11 @@ import com.jiuquanlife.vo.house.Agent;
 import com.jiuquanlife.vo.house.AgentData;
 import com.jiuquanlife.vo.house.AgentInfo;
 import com.jiuquanlife.vo.house.out.GetAgent;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout.OnRefreshListener;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
-public class AgentListAcitivity extends BaseActivity {
+public class AgentListAcitivity extends BaseActivity implements OnRefreshListener {
 
 	private AgentAdapter adapter;
 	private ListView houseListLv;
@@ -31,7 +36,8 @@ public class AgentListAcitivity extends BaseActivity {
 	private PopupAdapter<AddressRange> subAddressAdapter;
 	private PopupButton pb_address_aal;// 区域
 	private boolean initedMenu = false;
-	
+	private SwipyRefreshLayout srl;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,6 +48,7 @@ public class AgentListAcitivity extends BaseActivity {
 	private void init() {
 		initView();
 		initAddrressPopMenu();
+		srl.setRefreshing(true);
 		getData();
 	}
 
@@ -59,35 +66,37 @@ public class AgentListAcitivity extends BaseActivity {
 		cLv.setAdapter(subAddressAdapter);
 		pb_address_aal.setPopupView(popView);
 		pLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	            @Override
-	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	                addressAdapter.setPressPostion(position);
-	                addressAdapter.notifyDataSetChanged();
-	                AddressRange ar = addressAdapter.getItem(position);
-	                if(ar!=null) {
-		                subAddressAdapter.refresh(ar.subAddressList);
-	                } else {
-		                subAddressAdapter.refresh(null);
-	                }
-	                subAddressAdapter.notifyDataSetChanged();
-	                subAddressAdapter.setPressPostion(-1);
-	                cLv.setSelection(0);
-	            }
-	        });
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				addressAdapter.setPressPostion(position);
+				addressAdapter.notifyDataSetChanged();
+				AddressRange ar = addressAdapter.getItem(position);
+				if (ar != null) {
+					subAddressAdapter.refresh(ar.subAddressList);
+				} else {
+					subAddressAdapter.refresh(null);
+				}
+				subAddressAdapter.notifyDataSetChanged();
+				subAddressAdapter.setPressPostion(-1);
+				cLv.setSelection(0);
+			}
+		});
 
-	        cLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	            @Override
-	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	            	subAddressAdapter.setPressPostion(position);
-	                subAddressAdapter.notifyDataSetChanged();
-	                pb_address_aal.setText(subAddressAdapter.getItem(position).toString());
-	                pb_address_aal.hidePopup(); 
-	                getData();
-	            }
-	        });
+		cLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				subAddressAdapter.setPressPostion(position);
+				subAddressAdapter.notifyDataSetChanged();
+				pb_address_aal.setText(subAddressAdapter.getItem(position)
+						.toString());
+				pb_address_aal.hidePopup();
+				getData();
+			}
+		});
 	}
-	
-	
+
 	private void initView() {
 
 		setContentView(R.layout.activity_agent_list);
@@ -95,6 +104,9 @@ public class AgentListAcitivity extends BaseActivity {
 		adapter = new AgentAdapter(this);
 		houseListLv.setAdapter(adapter);
 		houseListLv.setOnItemClickListener(onItemClickListener);
+		srl = (SwipyRefreshLayout) findViewById(R.id.srl_agent_list);
+		srl.setDirection(SwipyRefreshLayoutDirection.BOTH);
+		srl.setOnRefreshListener(this);
 	}
 
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
@@ -103,25 +115,32 @@ public class AgentListAcitivity extends BaseActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			Agent agent = adapter.getItem(position);
-			Intent intent = new Intent(AgentListAcitivity.this, AgentActivity.class);
+			Intent intent = new Intent(AgentListAcitivity.this,
+					AgentActivity.class);
 			intent.putExtra(AgentActivity.EXTRA_AGENT, agent);
 			startActivity(intent);
 		}
 	};
 	
+	private int page;
+	
 	private void getData() {
-		
-		GetAgent	getAgent = new GetAgent();
-		if(subAddressAdapter.getSelectedItem()!=null) {
+
+		GetAgent getAgent = new GetAgent();
+		if (subAddressAdapter.getSelectedItem() != null) {
 			getAgent.location = subAddressAdapter.getSelectedItem().aid;
+		} else {
+			getAgent.location = "-1";
 		}
+		page = 1;
+		getAgent.page = page + "";
 		RequestHelper.getInstance().getRequestEntity(AgentListAcitivity.this,
-				UrlConstance.AGENT_LIST, getAgent,
-				new Listener<String>() {
+				UrlConstance.AGENT_LIST, getAgent, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
 
+						srl.setRefreshing(false);
 						AgentInfo info = GsonUtils.toObj(response,
 								AgentInfo.class);
 						if (info == null
@@ -131,24 +150,76 @@ public class AgentListAcitivity extends BaseActivity {
 							// 请求数据失败
 							return;
 						}
-						if(!initedMenu) {
+						if (!initedMenu) {
 							initMenu(info.data);
 							initedMenu = true;
 						}
 						adapter.refresh(info.data.agentList);
 					}
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						srl.setRefreshing(false);
+					}
 				});
 	}
+	
+	
+	private void addData() {
 
+		GetAgent getAgent = new GetAgent();
+		if (subAddressAdapter.getSelectedItem() != null) {
+			getAgent.location = subAddressAdapter.getSelectedItem().aid;
+		} else {
+			getAgent.location = "-1";
+		}
+		page++;
+		getAgent.page = page + "";
+		RequestHelper.getInstance().getRequestEntity(AgentListAcitivity.this,
+				UrlConstance.AGENT_LIST, getAgent, new Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+
+						srl.setRefreshing(false);
+						AgentInfo info = GsonUtils.toObj(response,
+								AgentInfo.class);
+						if (info == null
+								|| info.data == null
+								|| !CommonConstance.REQUEST_CODE_SUCCESS
+										.equals(info.code)) {
+							// 请求数据失败
+							return;
+						}
+						adapter.add(info.data.agentList);
+					}
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						srl.setRefreshing(false);
+					}
+				});
+	}
+	
 	private void initMenu(AgentData data) {
-		
+
 		addressAdapter.refresh(data.addressList);
-		if(data.addressList!=null && !data.addressList.isEmpty()) {
+		if (data.addressList != null && !data.addressList.isEmpty()) {
 			addressAdapter.setPressPostion(0);
 			subAddressAdapter.refresh(data.addressList.get(0).subAddressList);
 		}
-		
+
 	}
-
-
+	
+	@Override
+	public void onRefresh(SwipyRefreshLayoutDirection direction) {
+		
+		if(direction == SwipyRefreshLayoutDirection.TOP) {
+			getData();
+		} else if(direction == SwipyRefreshLayoutDirection.BOTTOM) {
+			addData();
+		}
+	}
 }

@@ -265,8 +265,13 @@ public class RequestHelper {
       if(values!=null) {
       	 Set<String> keys = values.keySet();
            Iterator<String> iterator = keys.iterator();
+           boolean first = true;
            while(iterator.hasNext()) {
            	String paramKey = iterator.next();
+           	if(first) {
+         		sb.append("?" + paramKey+"=" + Uri.encode(values.get(paramKey)));
+           		first = false;
+           	}
      		sb.append("&" + paramKey+"=" + Uri.encode(values.get(paramKey)));
 
            }

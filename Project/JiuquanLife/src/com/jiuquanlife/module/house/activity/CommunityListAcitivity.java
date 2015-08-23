@@ -14,6 +14,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
+import com.jiuquanlife.http.RequestHelper.OnFinishListener;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.house.adapter.CommunityWithPhotoAdapter;
 import com.jiuquanlife.utils.GsonUtils;
@@ -23,14 +24,19 @@ import com.jiuquanlife.vo.house.AddressRange;
 import com.jiuquanlife.vo.house.Community;
 import com.jiuquanlife.vo.house.CommunityData;
 import com.jiuquanlife.vo.house.CommunityListInfo;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout.OnRefreshListener;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
-public class CommunityListAcitivity extends BaseActivity {
+public class CommunityListAcitivity extends BaseActivity implements OnRefreshListener {
 	private CommunityWithPhotoAdapter adapter;
 	private ListView houseListLv;
 	private PopupAdapter<AddressRange> addressAdapter;
 	private PopupAdapter<AddressRange> subAddressAdapter;
 	private PopupButton pb_address_aal;// 区域
+	private SwipyRefreshLayout srl;
 	private boolean initedMenu = false;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class CommunityListAcitivity extends BaseActivity {
 	private void init() {
 		initView();
 		initAddrressPopMenu();
+		srl.setRefreshing(true);
 		getData();
 	}
 
@@ -91,6 +98,9 @@ public class CommunityListAcitivity extends BaseActivity {
 	private void initView() {
 
 		setContentView(R.layout.activity_community_list);
+		srl = (SwipyRefreshLayout) findViewById(R.id.srl_community_list);
+		srl.setDirection(SwipyRefreshLayoutDirection.BOTH);
+		srl.setOnRefreshListener(this);
 		houseListLv = (ListView) findViewById(R.id.lv_agent_list);
 		adapter = new CommunityWithPhotoAdapter(this);
 		houseListLv.setAdapter(adapter);
@@ -110,6 +120,8 @@ public class CommunityListAcitivity extends BaseActivity {
 		}
 	};
 	
+	private int page;
+	
 	private void getData() {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -119,6 +131,8 @@ public class CommunityListAcitivity extends BaseActivity {
 		} else {
 			map.put("address", "0");
 		}
+		page = 1;
+		map.put("page", page + "");
 		RequestHelper.getInstance().getRequestMap(CommunityListAcitivity.this,
 				UrlConstance.COMMUNITY_LIST, map,
 				new Listener<String>() {
@@ -141,15 +155,68 @@ public class CommunityListAcitivity extends BaseActivity {
 						}
 						adapter.refresh(info.data.communityList);
 					}
+				}, new OnFinishListener() {
+					
+					@Override
+					public void onFinish() {
+						srl.setRefreshing(false);
+					}
 				});
 	}
+	
+private void addData() {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		AddressRange ar = subAddressAdapter.getSelectedItem();
+		if(ar!=null) {
+			map.put("address", ar.aid);
+		} else {
+			map.put("address", "0");
+		}
+		map.put("page", ++page + "");
+		RequestHelper.getInstance().getRequestMap(CommunityListAcitivity.this,
+				UrlConstance.COMMUNITY_LIST, map,
+				new Listener<String>() {
 
+					@Override
+					public void onResponse(String response) {
+						
+						CommunityListInfo info = GsonUtils.toObj(response,
+								CommunityListInfo.class);
+						if (info == null
+								|| info.data == null
+								|| !CommonConstance.REQUEST_CODE_SUCCESS
+										.equals(info.code)) {
+							// 请求数据失败
+							return;
+						}
+						adapter.add(info.data.communityList);
+					}
+				}, new OnFinishListener() {
+					
+					@Override
+					public void onFinish() {
+						srl.setRefreshing(false);
+					}
+				});
+	}
+	
 	private void initMenu(CommunityData data) {
 		
 		addressAdapter.refresh(data.addressList);
 		if(data.addressList!=null && !data.addressList.isEmpty()) {
 			addressAdapter.setPressPostion(0);
 			subAddressAdapter.refresh(data.addressList.get(0).subAddressList);
+		}
+	}
+
+	@Override
+	public void onRefresh(SwipyRefreshLayoutDirection direction) {
+		
+		if(direction == SwipyRefreshLayoutDirection.TOP) {
+			getData();
+		} else if(direction == SwipyRefreshLayoutDirection.BOTTOM) {
+			addData();
 		}
 	}
 

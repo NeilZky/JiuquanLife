@@ -7,9 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp" 
-         android:background="@color/house_title" 
-        >
+        android:layout_height="50dp"
+        android:background="@color/house_title" >
 
         <TextView
             android:id="@+id/tv_title_house_list"
@@ -22,7 +21,7 @@
             android:textSize="17sp" />
 
         <ImageView
-             android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
@@ -30,8 +29,8 @@
             android:layout_marginRight="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:tag="@string/back_tag"
-            android:src="@drawable/ic_back_white" />
+            android:src="@drawable/ic_back_white"
+            android:tag="@string/back_tag" />
     </RelativeLayout>
 
     <com.jiuquanlife.view.popuplist.PopupButton
@@ -52,11 +51,16 @@
         popupbtn:pressBg="@drawable/tab_bkg_selected"
         popupbtn:pressIcon="@drawable/ic_arrow_up_house" />
 
-    <ListView
-        android:id="@+id/lv_agent_list"
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/srl_community_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:background="@android:color/white"
-        />
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lv_agent_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" />
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.jiuquanlife.R;
+import com.jiuquanlife.constance.ExtraConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.dao.UserDao;
 import com.jiuquanlife.entity.User;
@@ -24,11 +26,13 @@ import com.jiuquanlife.module.im.RongCloudBll;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.SharePreferenceUtils;
+import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.vo.forum.usercenter.UserInfoJson;
 
 public class LoginActivity extends BaseActivity{
 
+	private static final int REQUEST_REGISTER = 1;
 	private EditText usernameEt;
 	private EditText pwdEt;
 	
@@ -57,6 +61,13 @@ public class LoginActivity extends BaseActivity{
 			login();
 		}
 	}
+	
+	public void onClickRegister(View v) {
+		
+		Intent intent = new Intent(getActivity(), RegisterActivity.class);
+		startActivityForResult(intent, REQUEST_REGISTER);
+	}
+	
 	
 	private boolean verify() {
 		
@@ -195,5 +206,17 @@ public class LoginActivity extends BaseActivity{
 					public void onFinish() {
 					}
 				});
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == REQUEST_REGISTER && resultCode == Activity.RESULT_OK) {
+			String name = data.getStringExtra(ExtraConstance.NAME);
+			String pwd = data.getStringExtra(ExtraConstance.PWD);
+			TextViewUtils.setText(usernameEt, name);
+			TextViewUtils.setText(pwdEt, pwd);
+		}
 	}
 }

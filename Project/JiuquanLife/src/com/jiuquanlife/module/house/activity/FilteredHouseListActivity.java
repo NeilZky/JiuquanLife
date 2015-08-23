@@ -8,7 +8,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.jiuquanlife.R;
 import com.jiuquanlife.constance.ActionRelationConstance;
 import com.jiuquanlife.constance.CommonConstance;
@@ -27,8 +29,11 @@ import com.jiuquanlife.vo.house.HouseItem;
 import com.jiuquanlife.vo.house.LayoutRange;
 import com.jiuquanlife.vo.house.PriceRange;
 import com.jiuquanlife.vo.house.out.GetSellerHoustListOut;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout.OnRefreshListener;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
-public class FilteredHouseListActivity extends BaseHouseListActivity {
+public class FilteredHouseListActivity extends BaseHouseListActivity implements OnRefreshListener {
 
 	private SecondaryHouseAdapter adapter;
 	private TextView tv_title_house_list;
@@ -47,7 +52,8 @@ public class FilteredHouseListActivity extends BaseHouseListActivity {
 	private boolean initedMenu;
 	private String url;
 	private String actionRelation;
-	
+	private SwipyRefreshLayout srl;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,9 @@ public class FilteredHouseListActivity extends BaseHouseListActivity {
 
 		setContentView(R.layout.activity_house_list);
 		houseListLv = (ListView) findViewById(R.id.lv_seconary_house);
+		srl = (SwipyRefreshLayout) findViewById(R.id.srl_house_list);
+		srl.setDirection(SwipyRefreshLayoutDirection.BOTH);
+		srl.setOnRefreshListener(this);
 		adapter = new SecondaryHouseAdapter(this);
 		houseListLv.setAdapter(adapter);
 		houseListLv.setOnItemClickListener(onItemClickListener);
@@ -216,7 +225,9 @@ public class FilteredHouseListActivity extends BaseHouseListActivity {
 			startActivity(intent);
 		}
 	};
-
+	
+	private int page ;
+	
 	private void getData() {
 
 		GetSellerHoustListOut out = new GetSellerHoustListOut();
@@ -237,6 +248,8 @@ public class FilteredHouseListActivity extends BaseHouseListActivity {
 		if(fromTypeAdapter.getSelectedItem()!=null) {
 			out.from = fromTypeAdapter.getSelectedItem().id;
 		}
+		page = 1;
+		out.page = page + "";
 		RequestHelper.getInstance().getRequestEntity(
 				FilteredHouseListActivity.this,
 				url, out,
@@ -244,8 +257,8 @@ public class FilteredHouseListActivity extends BaseHouseListActivity {
 
 					@Override
 					public void onResponse(String response) {
-
-						System.out.println(response);
+						
+						srl.setRefreshing(false);
 						GetSellHouseListInfo info = GsonUtils.toObj(response,
 								GetSellHouseListInfo.class);
 						if (info == null
@@ -261,9 +274,71 @@ public class FilteredHouseListActivity extends BaseHouseListActivity {
 						}
 						adapter.refresh(info.data.houseList);
 					}
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						srl.setRefreshing(false);
+					}
 				});
 	}
+	
+	private void addData() {
 
+		GetSellerHoustListOut out = new GetSellerHoustListOut();
+		out.actionRelation = actionRelation;
+		out.actionType = actionType;
+		if(subAddressAdapter.getSelectedItem()!=null) {
+			out.address = subAddressAdapter.getSelectedItem().aid;
+		}
+		if(priceRangeAdapter.getSelectedItem()!=null) {
+			out.price = priceRangeAdapter.getSelectedItem().id;
+		}
+		if(layoutRangeAdapter.getSelectedItem()!=null) {
+			out.layout = layoutRangeAdapter.getSelectedItem().id;
+		}
+		if(areaRangeAdapter.getSelectedItem()!=null) {
+			out.area = areaRangeAdapter.getSelectedItem().id;
+		}
+		if(fromTypeAdapter.getSelectedItem()!=null) {
+			out.from = fromTypeAdapter.getSelectedItem().id;
+		}
+		page++;
+		out.page = page + "";
+		RequestHelper.getInstance().getRequestEntity(
+				FilteredHouseListActivity.this,
+				url, out,
+				new Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						
+						srl.setRefreshing(false);
+						GetSellHouseListInfo info = GsonUtils.toObj(response,
+								GetSellHouseListInfo.class);
+						if (info == null
+								|| info.data == null
+								|| !CommonConstance.REQUEST_CODE_SUCCESS
+										.equals(info.code)) {
+							// ÇëÇóÊý¾ÝÊ§°Ü
+							return;
+						}
+						if(!initedMenu) {
+							initMenu(info.data);
+							initedMenu = true;
+						}
+						adapter.add(info.data.houseList);
+					}
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						srl.setRefreshing(false);
+					}
+				});
+	}
+	
+	
 	private void initMenu(GetSellHouseListData data) {
 
 		if (data == null) {
@@ -297,4 +372,13 @@ public class FilteredHouseListActivity extends BaseHouseListActivity {
 		finish();
 	}
 
+	@Override
+	public void onRefresh(SwipyRefreshLayoutDirection direction) {
+		
+		if(direction == SwipyRefreshLayoutDirection.TOP) {
+			getData();
+		} else if(direction == SwipyRefreshLayoutDirection.BOTTOM) {
+			addData();
+		}
+	}
 }

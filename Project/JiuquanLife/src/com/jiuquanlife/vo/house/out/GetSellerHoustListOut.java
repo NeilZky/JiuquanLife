@@ -7,4 +7,5 @@ public class GetSellerHoustListOut extends BaseHouseOut{
 	public String layout;
 	public String area;
 	public String from;
+	public String page;
 }
