@@ -24,7 +24,7 @@ import com.jiuquanlife.module.home.adapter.HomeAdapter;
 import com.jiuquanlife.module.house.fragment.HouseFragment;
 import com.jiuquanlife.module.im.RongCloudBll;
 import com.jiuquanlife.module.login.LoginActivity;
-import com.jiuquanlife.module.tab.NavTabActivity;
+import com.jiuquanlife.module.tab.HouseTabActivity;
 import com.jiuquanlife.utils.ImageLoaderHelper;
 import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.utils.TextViewUtils;
@@ -88,7 +88,13 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 			TextViewUtils.setText(empNameTv, user.userName);
 		}
 	}
-
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		refreshLoginBtn();
+	}
+	
 	private ConnectCallback callBack = new ConnectCallback() {
 
 		@Override
@@ -187,8 +193,8 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 
 		private void onClickHouse() {
 
-			Intent intent = new Intent(HomeActivity.this, NavTabActivity.class);
-			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG,
+			Intent intent = new Intent(HomeActivity.this, HouseTabActivity.class);
+			intent.putExtra(HouseTabActivity.INTENT_KEY_TAB_TAG,
 					HouseFragment.class.getSimpleName());
 			startActivity(intent);
 		}
@@ -205,7 +211,7 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 		private void onClickCommunity() {
 
 			Intent intent = new Intent(HomeActivity.this, ForumTabActvity.class);
-			intent.putExtra(NavTabActivity.INTENT_KEY_TAB_TAG,
+			intent.putExtra(HouseTabActivity.INTENT_KEY_TAB_TAG,
 					ForumTabContentFragment.class.getSimpleName());
 			startActivity(intent);
 		}
@@ -222,8 +228,9 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 						LoginActivity.class);
 				startActivityForResult(intent, REQUEST_LOGIN);
 			} else {
-				// TODO USERCENTER PAGE
-
+				Intent intent = new Intent(HomeActivity.this,
+						HomeUserCenterActivity.class);
+				startActivity(intent);
 			}
 
 		default:

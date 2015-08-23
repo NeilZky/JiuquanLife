@@ -14,7 +14,7 @@ import com.jiuquanlife.module.house.fragment.HouseFragment;
 import com.jiuquanlife.module.house.fragment.HouseMineFragment;
 import com.jiuquanlife.module.house.fragment.PublishHouseTypeFragment;
 
-public class NavTabActivity extends FragmentActivity {
+public class HouseTabActivity extends FragmentActivity {
 
 	public static final String INTENT_KEY_TAB_TAG = "tab_tag";
 

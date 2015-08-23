@@ -82,9 +82,13 @@
           <activity
             android:name="com.jiuquanlife.module.login.RegisterActivity"
             android:screenOrientation="portrait" />
+           <activity
+            android:name="com.jiuquanlife.module.home.activity.HomeUserCenterActivity"
+            android:screenOrientation="portrait" />
+          
         
         <activity
-            android:name="com.jiuquanlife.module.tab.NavTabActivity"
+            android:name="com.jiuquanlife.module.tab.HouseTabActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.jiuquanlife.module.forum.activity.ForumTabActvity"
