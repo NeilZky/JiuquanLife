@@ -5,9 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.BaseListAdapter;
 import com.jiuquanlife.app.App;
+import com.jiuquanlife.utils.LocationUtils;
 import com.jiuquanlife.utils.StringUtils;
 import com.jiuquanlife.view.UrlTagImageView;
 import com.jiuquanlife.vo.house.Community;
@@ -22,6 +25,16 @@ public class CommunityWithPhotoAdapter extends BaseListAdapter<Community> {
 		super(context);
 		imageLoader = ImageLoader.getInstance();
 	}
+	
+	private double lon;
+	private double lat;
+	
+	public void refreshLoc(double lon, double lat) {
+		
+		this.lat = lat;
+		this.lon = lon;
+		notifyDataSetChanged();
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -32,7 +45,7 @@ public class CommunityWithPhotoAdapter extends BaseListAdapter<Community> {
 			holder = new Holder();
 			holder.trueName = (TextView) convertView.findViewById(R.id.tv_first_line);
 			holder.companyName = (TextView) convertView.findViewById(R.id.tv_second_line);
-			holder.shopName = (TextView) convertView.findViewById(R.id.tv_third_line);
+			holder.distance = (TextView) convertView.findViewById(R.id.tv_third_line);
 			holder.img = (UrlTagImageView) convertView
 					.findViewById(R.id.iv_img_adapater);
 			convertView.setTag(holder);
@@ -41,8 +54,15 @@ public class CommunityWithPhotoAdapter extends BaseListAdapter<Community> {
 		}
 		Community houseItem = getItem(position);
 		holder.trueName.setText(houseItem.communityName);
-		holder.companyName.setText(houseItem.shequName);
-		holder.shopName.setText(houseItem.address);
+		holder.companyName.setText(houseItem.shequName + "-" + houseItem.address);
+		if(StringUtils.isNullOrEmpty(houseItem.px) || StringUtils.isNullOrEmpty(houseItem.py) || this.lat== 0 || this.lon == 0) {
+			holder.distance.setText("¾àÀëÎ´Öª");
+		} else {
+			LatLng here = new LatLng(lat, lon);
+			LatLng there = new LatLng(Double.parseDouble(houseItem.py), Double.parseDouble(houseItem.px));
+			int distance =  (int) DistanceUtil.getDistance(here, there);
+			holder.distance.setText(distance + "Ã×");
+		}
 		if(houseItem.img!=null ) {
 			Img img = houseItem.img;
 			if(img != null && !StringUtils.isNullOrEmpty(img.pic)) {
@@ -60,7 +80,7 @@ public class CommunityWithPhotoAdapter extends BaseListAdapter<Community> {
 
 		TextView trueName;
 		TextView companyName;
-		TextView shopName;
+		TextView distance;
 		UrlTagImageView img;
 	}
 

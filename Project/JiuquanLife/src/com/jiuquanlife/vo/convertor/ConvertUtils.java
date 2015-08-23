@@ -60,6 +60,7 @@ public class ConvertUtils {
 			postItem.replies = Integer.parseInt(postInfo.replies);
 			postItem.title = postInfo.title;
 			postItem.subject = postInfo.subject;
+			postItem.topic_id = Integer.parseInt(postInfo.tid);
 			if(!StringUtils.isNullOrEmpty(postInfo.dateline)) {
 				Date date = TimeUtils.getDateFromString(postInfo.dateline);
 				if(date!=null) {

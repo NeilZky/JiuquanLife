@@ -178,7 +178,24 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 			case R.id.siv_readliy_take:
 				onClickReadliyTake();
 				break;
+			case R.id.siv_marriage:
+				onClickMarriage();
 			}
+		}
+
+		//TODO 跳转到爱上你
+		private void onClickMarriage() {
+			
+		}
+		
+		//TODO 跳转到找好店
+		private void onClickStore() {
+			
+		}
+		
+		//TODO 跳转到爱发布
+		private void onClickPublish() {
+					
 		}
 
 		/**

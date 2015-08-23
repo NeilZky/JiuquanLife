@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.ImageViewPagerAdapter;
+import com.jiuquanlife.adapter.PostAdapter;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
@@ -32,6 +33,7 @@ import com.jiuquanlife.vo.PhotoInfo;
 import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.UserInfo;
 import com.jiuquanlife.vo.convertor.ConvertUtils;
+import com.jiuquanlife.vo.forum.PostItem;
 
 public class FocusFragment extends BaseFragment {
 
@@ -42,7 +44,7 @@ public class FocusFragment extends BaseFragment {
 	private HorizontalListView ltdrHlv;
 	private LtdrAdapter ltdrAdapter;
 	private UnScrollListView jhtLv;
-	private JhtAdapter jhtAdapter;
+	private PostAdapter jhtAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,9 +75,9 @@ public class FocusFragment extends BaseFragment {
 		ltdrAdapter = new LtdrAdapter(getActivity());
 		ltdrHlv.setAdapter(ltdrAdapter);
 
-		jhtAdapter = new JhtAdapter(getActivity());
+		jhtAdapter = new PostAdapter(getActivity());
 		jhtLv.setAdapter(jhtAdapter);
-		jhtLv.setOnItemClickListener(onItemClickListener);
+		jhtLv.setOnItemClickListener(jhtAdapter);
 		ltdrHlv.setOnItemClickListener(onItemClickListener);
 		focusTopAdapter.setOnClickItemListener(onClickListener);
 	}
@@ -101,9 +103,9 @@ public class FocusFragment extends BaseFragment {
 				long id) {
 
 			switch (parent.getId()) {
-			case R.id.uslv_jht_focus:
-				onClickJhtItem(position);
-				break;
+//			case R.id.uslv_jht_focus:
+//				onClickJhtItem(position);
+//				break;
 			case R.id.hlv_ltdr_focus:
 				onClickLtdrItem(position);
 				break;
@@ -123,9 +125,9 @@ public class FocusFragment extends BaseFragment {
 
 		private void onClickJhtItem(int position) {
 
-			PostInfo postInfo = jhtAdapter.getItem(position);
+			PostItem postInfo = jhtAdapter.getItem(position);
 			Intent intent = new Intent(getActivity(), PostDetailActivity.class);
-			intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, Integer.parseInt(postInfo.tid));
+			intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, postInfo.topic_id);
 			startActivity(intent);
 		}
 	};
@@ -153,7 +155,7 @@ public class FocusFragment extends BaseFragment {
 						focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
 						topVp.setAdapter(focusTopAdapter);
 						ltdrAdapter.refresh(info.data.userStar);
-						jhtAdapter.refresh(info.data.focusPost);
+						jhtAdapter.refresh(ConvertUtils.convertPosts(info.data.focusPost));
 					}
 				});
 	}

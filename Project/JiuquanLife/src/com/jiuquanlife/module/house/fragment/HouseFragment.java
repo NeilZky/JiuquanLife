@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.ImageViewPagerAdapter;
+import com.jiuquanlife.adapter.PostAdapter;
 import com.jiuquanlife.constance.ActionRelationConstance;
 import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.entity.User;
@@ -38,6 +39,7 @@ import com.jiuquanlife.view.UnScrollListView;
 import com.jiuquanlife.vo.PhotoInfo;
 import com.jiuquanlife.vo.PostInfo;
 import com.jiuquanlife.vo.convertor.ConvertUtils;
+import com.jiuquanlife.vo.forum.PostItem;
 import com.jiuquanlife.vo.house.HouseInfo;
 
 public class HouseFragment extends BaseFragment{
@@ -48,7 +50,7 @@ public class HouseFragment extends BaseFragment{
 	private LinearLayout dotLl;
 	private TextView vpTitleTv;
 	private UnScrollListView jhtLv;
-	private JhtAdapter jhtAdapter;
+	private PostAdapter jhtAdapter;
 	private LinearLayout rentMenuLl;
 	private LinearLayout sellMenuLl;
 	private LinearLayout applyRentMenuLl;
@@ -99,9 +101,9 @@ public class HouseFragment extends BaseFragment{
 		focusTopAdapter = new ImageViewPagerAdapter(getActivity(), dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
-		jhtAdapter = new JhtAdapter(getActivity());
+		jhtAdapter = new PostAdapter(getActivity());
 		jhtLv.setAdapter(jhtAdapter);
-		jhtLv.setOnItemClickListener(onItemClickListener);
+		jhtLv.setOnItemClickListener(jhtAdapter);
 		focusTopAdapter.setOnClickItemListener(onClickItemListener);
 		rentView.setOnClickListener(onClickListener);
 		sellView.setOnClickListener(onClickListener);
@@ -310,31 +312,31 @@ public class HouseFragment extends BaseFragment{
 	
 	
 	
-	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-
-			switch (parent.getId()) {
-			case R.id.uslv_jht_house:
-				onClickJhtItem(position);
-				break;
-			default:
-				break;
-			}
-
-		}
-
-
-		private void onClickJhtItem(int position) {
-
-			PostInfo postInfo = jhtAdapter.getItem(position);
-			Intent intent = new Intent(getActivity(), PostDetailActivity.class);
-			intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, Integer.parseInt(postInfo.tid));
-			startActivity(intent);
-		}
-	};
+//	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
+//
+//		@Override
+//		public void onItemClick(AdapterView<?> parent, View view, int position,
+//				long id) {
+//
+//			switch (parent.getId()) {
+//			case R.id.uslv_jht_house:
+//				onClickJhtItem(position);
+//				break;
+//			default:
+//				break;
+//			}
+//
+//		}
+//
+//
+//		private void onClickJhtItem(int position) {
+//
+//			PostItem postInfo = jhtAdapter.getItem(position);
+//			Intent intent = new Intent(getActivity(), PostDetailActivity.class);
+//			intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, postInfo.topic_id);
+//			startActivity(intent);
+//		}
+//	};
 	
 
 	public void getData() {
@@ -359,7 +361,7 @@ public class HouseFragment extends BaseFragment{
 								.convertToPhotoInfos(info.data.HouseImgs);
 						focusTopAdapter.setPhotoInfos(focusTopPhotoInfos);
 						topVp.setAdapter(focusTopAdapter);
-						jhtAdapter.refresh(info.data.HousePost);
+						jhtAdapter.refresh(ConvertUtils.convertPosts(info.data.HousePost));
 					}
 				});
 	}

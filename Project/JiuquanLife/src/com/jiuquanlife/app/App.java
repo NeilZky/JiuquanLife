@@ -8,6 +8,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.jiuquanlife.R;
 import com.jiuquanlife.module.forum.activity.ForumTabActvity;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -35,6 +36,7 @@ public class App extends Application {
 
 		super.onCreate();
 		instance = this;
+		SDKInitializer.initialize(getApplicationContext());
 		initRongyun();
 		// initImageLoader(this);
 		initImageLoader();

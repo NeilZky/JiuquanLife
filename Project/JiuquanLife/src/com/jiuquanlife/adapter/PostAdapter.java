@@ -244,13 +244,13 @@ public class PostAdapter extends BaseAdapter implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		
-		if(position == 0) {
-			return;
+		PostItem postItem = (PostItem) parent.getItemAtPosition(position);
+		if(postItem!=null) {
+			Intent intent = new Intent(context, PostDetailActivity.class);
+			intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, postItem.topic_id);
+			context.startActivity(intent);
 		}
-		PostItem postItem = getItem(position-1);
-		Intent intent = new Intent(context, PostDetailActivity.class);
-		intent.putExtra(PostDetailActivity.EXTRA_TOPIC_ID, postItem.topic_id);
-		context.startActivity(intent);
+	
 	}
 	
 }

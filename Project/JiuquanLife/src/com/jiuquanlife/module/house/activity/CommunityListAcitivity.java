@@ -16,8 +16,12 @@ import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.http.RequestHelper.OnFinishListener;
 import com.jiuquanlife.module.base.BaseActivity;
+import com.jiuquanlife.module.forum.activity.CreatePostActivity;
 import com.jiuquanlife.module.house.adapter.CommunityWithPhotoAdapter;
 import com.jiuquanlife.utils.GsonUtils;
+import com.jiuquanlife.utils.MulityLocationManager;
+import com.jiuquanlife.utils.MulityLocationManager.OnLocationChangedListener;
+import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.view.popuplist.PopupAdapter;
 import com.jiuquanlife.view.popuplist.PopupButton;
 import com.jiuquanlife.vo.house.AddressRange;
@@ -36,7 +40,9 @@ public class CommunityListAcitivity extends BaseActivity implements OnRefreshLis
 	private PopupButton pb_address_aal;// ÇøÓò
 	private SwipyRefreshLayout srl;
 	private boolean initedMenu = false;
-	
+	private MulityLocationManager mulityLocationManager;
+	private double longitude;
+	private double latitude;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,7 @@ public class CommunityListAcitivity extends BaseActivity implements OnRefreshLis
 		initView();
 		initAddrressPopMenu();
 		srl.setRefreshing(true);
+		requestLoc();
 		getData();
 	}
 
@@ -105,6 +112,30 @@ public class CommunityListAcitivity extends BaseActivity implements OnRefreshLis
 		adapter = new CommunityWithPhotoAdapter(this);
 		houseListLv.setAdapter(adapter);
 		houseListLv.setOnItemClickListener(onItemClickListener);
+		mulityLocationManager = MulityLocationManager.getInstance(getApplicationContext());
+		mulityLocationManager.setOnLocationChangedListener(onLocationChangedListener);
+	}
+	
+	
+	
+	private OnLocationChangedListener onLocationChangedListener = new OnLocationChangedListener() {
+		
+		@Override
+		public void onLocationChanged(double latitude, double longitude,
+				double accyarcy, String addr) {
+			CommunityListAcitivity.this.longitude = longitude;
+			CommunityListAcitivity.this.latitude = latitude;
+			adapter.refreshLoc(longitude, latitude);
+			getData();
+		}
+	};
+	
+	private void requestLoc() {
+		
+		this.longitude = 0;
+		this.latitude = 0;
+		mulityLocationManager.requestLocation();
+		
 	}
 
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
@@ -132,6 +163,8 @@ public class CommunityListAcitivity extends BaseActivity implements OnRefreshLis
 			map.put("address", "0");
 		}
 		page = 1;
+		map.put("currentLon", this.longitude + "");
+		map.put("currentLat", this.latitude + "");
 		map.put("page", page + "");
 		RequestHelper.getInstance().getRequestMap(CommunityListAcitivity.this,
 				UrlConstance.COMMUNITY_LIST, map,

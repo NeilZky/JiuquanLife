@@ -1,18 +1,27 @@
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:ignore="ContentDescription" >
 
-    <ImageView
-        android:id="@+id/activity_splash_logo"
-        android:layout_width="wrap_content"
+	    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+	    
+     <Button
+         android:id="@+id/btn_jump_splash"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:scaleType="center"
-        android:src="@drawable/ic_jiuquan_logo" />
-
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:background="@color/login_btn"
+        android:minHeight="0dp"
+        android:visibility="gone"
+        android:onClick="onClickJump"
+        android:padding="10dp"
+        android:text="开启酒泉生活"
+        android:textColor="@android:color/white"
+        android:textSize="17sp" />
+	    
+</RelativeLayout>
