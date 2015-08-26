@@ -1,15 +1,19 @@
 package com.jiuquanlife.module.home.activity;
 
 
+import io.rong.imkit.RongIM;
+
 import java.util.HashMap;
 
 import android.app.backup.SharedPreferencesBackupHelper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.android.volley.Response.Listener;
 import com.jiuquanlife.R;
+import com.jiuquanlife.app.App;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
@@ -17,6 +21,7 @@ import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.forum.activity.ProfileAcitivity;
 import com.jiuquanlife.module.house.fragment.HouseFragment;
 import com.jiuquanlife.module.house.fragment.HouseMineFragment;
+import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.module.tab.HouseTabActivity;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
@@ -31,6 +36,8 @@ public class HomeUserCenterActivity extends BaseActivity{
 	
 	private CircleImageView civ_photo_user_center;
 	private UserCenterJson userCenterJson;
+	private ImageView msgBadgeIv;
+	private ImageView msgArrowIv;
 	
 	
 	@Override
@@ -50,8 +57,22 @@ public class HomeUserCenterActivity extends BaseActivity{
 	
 		setContentView(R.layout.activity_home_user_center);
 		civ_photo_user_center = (CircleImageView) findViewById(R.id.civ_photo_user_center);
+		msgBadgeIv = (ImageView) findViewById(R.id.iv_msg_badge_home);
+		msgArrowIv = (ImageView) findViewById(R.id.iv_msg_arrow_home);
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(App.getInstance().imCount!=0) {
+			msgBadgeIv.setVisibility(View.VISIBLE);
+			msgArrowIv.setVisibility(View.GONE);
+		} else {
+			msgBadgeIv.setVisibility(View.GONE);
+			msgArrowIv.setVisibility(View.VISIBLE);
+		}
+
+	}
 	
 	public void getData() {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -121,6 +142,9 @@ public class HomeUserCenterActivity extends BaseActivity{
 		case R.id.ll_settings_home_user_center:
 			onClickSetting();
 			break;	
+		case R.id.ll_msg_home_user_center:
+			onClickConversation();
+			break;
 		case R.id.btn_login_out_home_user_center:
 			onClickLogout();
 			break;
@@ -129,6 +153,17 @@ public class HomeUserCenterActivity extends BaseActivity{
 		}
 	}
 	
+	private void onClickConversation() {
+		
+		User user = SharePreferenceUtils.getObject(
+				SharePreferenceUtils.USER, User.class);
+		if (user == null) {
+			startActivity(LoginActivity.class);
+		} else if (RongIM.getInstance() != null) {
+			RongIM.getInstance().startConversationList(getActivity());
+		}
+	}
+
 	private void onClickLogout() {
 		
 		SharePreferenceUtils.clearAll();

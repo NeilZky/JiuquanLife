@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiuquanlife.R;
+import com.jiuquanlife.app.App;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.module.base.FragmentContentActivity;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
@@ -47,6 +48,7 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 	private View rightHomeView;
 	private HomeAdapter homeAdapter;
 	private ImageView empPhotoIv;
+	private ImageView badgeIv;
 	private TextView empNameTv;
 	private TextView pageTv;
 
@@ -61,6 +63,7 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_home);
 		pageTv = (TextView) findViewById(R.id.tv_page_home);
+		badgeIv = (ImageView) findViewById(R.id.iv_badge_home);
 		initLoginView();
 		initViewPager();
 		initSixAngelView();
@@ -93,6 +96,12 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 	protected void onResume() {
 		super.onResume();
 		refreshLoginBtn();
+		if(App.getInstance().imCount!=0) {
+			badgeIv.setVisibility(View.VISIBLE);
+		} else {
+			badgeIv.setVisibility(View.GONE);
+		}
+		
 	}
 	
 	private ConnectCallback callBack = new ConnectCallback() {

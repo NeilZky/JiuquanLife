@@ -264,7 +264,49 @@
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_arrow_to" />
         </LinearLayout>
+		
+        <LinearLayout
+            android:id="@+id/ll_msg_home_user_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_setting_item"
+            android:gravity="center_vertical"
+            android:onClick="onClick"
+            android:orientation="horizontal" >
 
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_wnfw_6_wszx" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="消息" />
+			
+            <ImageView 
+                android:id="@+id/iv_msg_badge_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/new_msg"
+                android:visibility="gone"
+                android:layout_margin="10dp"
+                />
+            
+             <ImageView
+                 android:id="@+id/iv_msg_arrow_home"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_margin="10dp"
+                android:visibility="visible"
+                android:src="@drawable/ic_arrow_to" />
+            
+        </LinearLayout>
+        
         <LinearLayout
             android:id="@+id/ll_settings_home_user_center"
             android:layout_width="match_parent"
