@@ -79,14 +79,12 @@
         <activity
             android:name="com.jiuquanlife.module.login.LoginActivity"
             android:screenOrientation="portrait" />
-          <activity
+        <activity
             android:name="com.jiuquanlife.module.login.RegisterActivity"
             android:screenOrientation="portrait" />
-           <activity
+        <activity
             android:name="com.jiuquanlife.module.home.activity.HomeUserCenterActivity"
             android:screenOrientation="portrait" />
-          
-        
         <activity
             android:name="com.jiuquanlife.module.tab.HouseTabActivity"
             android:screenOrientation="portrait" />
@@ -102,14 +100,12 @@
         <activity
             android:name="com.jiuquanlife.module.house.activity.FilteredHouseListActivity"
             android:screenOrientation="portrait" />
-        
-          <activity
+        <activity
             android:name="com.jiuquanlife.module.house.activity.HouseListActivity"
             android:screenOrientation="portrait" />
-          <activity
+        <activity
             android:name="com.jiuquanlife.module.base.FragmentContentActivity"
             android:screenOrientation="portrait" />
-        
         <activity
             android:name="com.jiuquanlife.module.house.activity.SellerHouseDetailActivity"
             android:screenOrientation="portrait" />
@@ -152,11 +148,9 @@
         <activity
             android:name="com.jiuquanlife.module.house.activity.CommunityListAcitivity"
             android:screenOrientation="portrait" />
-           <activity
+        <activity
             android:name="com.jiuquanlife.module.house.activity.CommunityActivity"
             android:screenOrientation="portrait" />
-        
-        
         <activity
             android:name="com.jiuquanlife.module.forum.activity.PostDetailActivity"
             android:screenOrientation="portrait" />
@@ -355,7 +349,7 @@
         
           <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="tdrvipksr8w55" />
+            android:value="tdrvipksr8w55" />
         -->
 
 
@@ -364,13 +358,30 @@
         
           <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="k51hidwq1mpbb" />
+            android:value="k51hidwq1mpbb" />
         -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="8luwapkvufsgl" />
         <!-- end rongcloud -->
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55d9b27c67e58ee002004662" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="PublicWeb" />
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

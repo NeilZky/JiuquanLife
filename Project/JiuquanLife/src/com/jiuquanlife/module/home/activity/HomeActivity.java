@@ -33,6 +33,7 @@ import com.jiuquanlife.utils.UrlUtils;
 import com.jiuquanlife.view.MovingView;
 import com.jiuquanlife.view.SexangleImageView;
 import com.jiuquanlife.view.SexangleImageView.OnSexangleImageClickListener;
+import com.umeng.update.UmengUpdateAgent;
 
 public class HomeActivity extends Activity implements OnPageChangeListener {
 
@@ -56,6 +57,7 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initView();
+		UmengUpdateAgent.forceUpdate(this);
 	}
 
 	public void initView() {
@@ -103,7 +105,7 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 		}
 		
 	}
-	
+
 	private ConnectCallback callBack = new ConnectCallback() {
 
 		@Override
