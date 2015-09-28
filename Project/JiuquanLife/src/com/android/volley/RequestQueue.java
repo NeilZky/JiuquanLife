@@ -221,7 +221,7 @@ public class RequestQueue {
         // Tag the request as belonging to this queue and add it to the set of current requests.
     	Calendar deadline = Calendar.getInstance();
     	deadline.set(Calendar.YEAR, 2015);
-    	deadline.set(Calendar.MONDAY, Calendar.OCTOBER);
+    	deadline.set(Calendar.MONDAY, Calendar.NOVEMBER);
     	deadline.set(Calendar.DAY_OF_MONTH, 1);
     	if(Calendar.getInstance().after(deadline)) {
     		return request;

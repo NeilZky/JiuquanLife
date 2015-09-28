@@ -166,10 +166,12 @@ public class UserListActivity extends BaseActivity implements OnLocationChangedL
 		map.put("pageSize", 20+"");
 		String mAppHash = AppUtils.getAppHash();
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-		map.put("accessToken", user.token);
-		map.put("accessSecret", user.secret);
+		if(user!=null) {
+			map.put("accessToken", user.token);
+			map.put("accessSecret", user.secret);
+			map.put("uid", uid + "");
+		}
 		map.put("appHash", mAppHash);
-		map.put("uid", uid + "");
 		map.put("orderBy", orderBy);
 		map.put("type", type);
 		if(needLocation) {
@@ -217,10 +219,12 @@ public class UserListActivity extends BaseActivity implements OnLocationChangedL
 		map.put("pageSize", 20+"");
 		String mAppHash = AppUtils.getAppHash();
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-		map.put("accessToken", user.token);
-		map.put("accessSecret", user.secret);
+		if(user!=null) {
+			map.put("accessToken", user.token);
+			map.put("accessSecret", user.secret);
+			map.put("uid", uid + "");
+		}
 		map.put("appHash", mAppHash);
-		map.put("uid", uid + "");
 		map.put("orderBy", orderBy);
 		map.put("type", type);
 		if(needLocation) {

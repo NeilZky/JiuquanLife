@@ -26,7 +26,9 @@ import com.jiuquanlife.module.forum.activity.PostDetailActivity;
 import com.jiuquanlife.module.login.LoginActivity;
 import com.jiuquanlife.utils.SharePreferenceUtils;
 import com.jiuquanlife.utils.StringUtils;
+import com.jiuquanlife.utils.TextViewUtils;
 import com.jiuquanlife.utils.TimeUtils;
+import com.jiuquanlife.utils.ToastHelper;
 import com.jiuquanlife.utils.UrlUtils;
 import com.jiuquanlife.vo.forum.PostItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -88,7 +90,8 @@ public class PostAdapter extends BaseAdapter implements OnItemClickListener{
 		final PostItem postItem = getItem(position);
 		holder.tv_title_post_adapter.setText(postItem.title);
 		holder.tv_subject_post_adapter.setText(postItem.subject);
-		holder.tv_praise_count_post_adapter.setText(String.valueOf(postItem.vote));
+		TextViewUtils.setText(holder.tv_praise_count_post_adapter, postItem.recommendAdd + "");
+		holder.tv_praise_count_post_adapter.setText(String.valueOf(postItem.recommendAdd));
 		holder.tv_reply_count_jht_adapter.setText(String.valueOf(postItem.replies));
 		imageLoader.displayImage( UrlUtils.getPhotoUrl(String.valueOf(postItem.user_id)),holder.iv_photo_post_dapte);
 		if(postItem.imageList == null || postItem.imageList.isEmpty()) {
@@ -145,6 +148,7 @@ public class PostAdapter extends BaseAdapter implements OnItemClickListener{
 			}
 		});
 		
+		
 		holder.iv_collect_post_adapter.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -173,8 +177,7 @@ public class PostAdapter extends BaseAdapter implements OnItemClickListener{
 			@Override
 			public void onResponse(String response) {
 				
-				System.out.println(response);
-				//TODO 更改收藏状态
+				ToastHelper.showL("收藏成功");
 			}
 		});
 	}
@@ -204,7 +207,8 @@ public class PostAdapter extends BaseAdapter implements OnItemClickListener{
 			@Override
 			public void onResponse(String response) {
 				
-				postItem.vote++;
+				System.out.println(response);
+				postItem.recommendAdd++;
 				notifyDataSetChanged();
 			}
 		});

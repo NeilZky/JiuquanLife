@@ -60,9 +60,13 @@ public class ConvertUtils {
 			postItem.replies = Integer.parseInt(postInfo.replies);
 			postItem.title = postInfo.title;
 			postItem.subject = postInfo.subject;
+			postItem.recommendAdd = Integer.parseInt(postInfo.recommend_add);
 			postItem.topic_id = Integer.parseInt(postInfo.tid);
 			if(!StringUtils.isNullOrEmpty(postInfo.dateline)) {
 				Date date = TimeUtils.getDateFromString(postInfo.dateline);
+				if(date == null) {
+					date = TimeUtils.getDateFromDateString(postInfo.dateline);
+				}
 				if(date!=null) {
 					postItem.last_reply_date = String.valueOf(date.getTime());
 				}

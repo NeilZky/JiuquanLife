@@ -78,7 +78,7 @@ public class UserCenterActivity extends BaseActivity{
 			return;
 		}
 		setText(R.id.tv_user_title_auc, json.userTitle);
-		ImageLoader.getInstance().displayImage( UrlUtils.getPhotoUrl(String.valueOf(json.icon)), civ_photo_user_center);
+		ImageLoader.getInstance().displayImage(json.icon, civ_photo_user_center);
 		if(json.body!=null && json.body.creditShowList!=null) {
 			for(UserData ud : json.body.creditShowList) {
 				if("credits".equals(ud.type)) {
@@ -149,7 +149,7 @@ public class UserCenterActivity extends BaseActivity{
 		Intent intent =new Intent(getActivity(), AlbumActivity.class);
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
 		intent.putExtra(AlbumActivity.EXTRA_UID, user.uid);
-		startActivity(AlbumActivity.class);
+		startActivity(intent);
 	}
 
 	private void onClickProfileMine() {

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:lineSpacingMultiplier="1.4"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <com.jiuquanlife.view.ResizableImageView
         android:id="@+id/iv_apc"

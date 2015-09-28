@@ -12,9 +12,11 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
@@ -127,8 +129,12 @@ public class SexangleImageView extends ImageView {
 		endAnimation.setDuration(100);
 		endAnimation.setFillAfter(true);
 			
+		ViewParent pager = this.getParent().getParent().getParent();
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
+			if(pager instanceof ViewPager) {
+				pager.requestDisallowInterceptTouchEvent(true);
+			}
 			this.startAnimation(scaleAnimation);
 			float edgeLength = ((float) getWidth()) / 2;
 			float radiusSquare = edgeLength * edgeLength * 3 / 4;
@@ -145,6 +151,9 @@ public class SexangleImageView extends ImageView {
 			break;
 
 		case MotionEvent.ACTION_UP:
+			if(pager instanceof ViewPager) {
+				pager.requestDisallowInterceptTouchEvent(false);
+			}
 			this.startAnimation(endAnimation);
 			paint.setColor(bgColor);
 			paint.setAlpha(255);
@@ -156,6 +165,9 @@ public class SexangleImageView extends ImageView {
 			break;
 			// 滑动出去不会调用action_up,调用action_cancel
 		case MotionEvent.ACTION_CANCEL:
+			if(pager instanceof ViewPager) {
+				pager.requestDisallowInterceptTouchEvent(false);
+			}
 			this.startAnimation(endAnimation);
 			paint.setColor(Color.BLACK);
 			//paint.setColor(color);

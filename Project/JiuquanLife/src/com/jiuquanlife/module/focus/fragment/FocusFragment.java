@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Response.Listener;
@@ -23,6 +25,7 @@ import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseFragment;
 import com.jiuquanlife.module.focus.adapter.JhtAdapter;
 import com.jiuquanlife.module.focus.adapter.LtdrAdapter;
+import com.jiuquanlife.module.forum.activity.OtherUserCenterActivity;
 import com.jiuquanlife.module.forum.activity.PostDetailActivity;
 import com.jiuquanlife.module.userhome.activity.UserHomeActivity;
 import com.jiuquanlife.utils.GsonUtils;
@@ -43,7 +46,7 @@ public class FocusFragment extends BaseFragment {
 	private TextView vpTitleTv;
 	private HorizontalListView ltdrHlv;
 	private LtdrAdapter ltdrAdapter;
-	private UnScrollListView jhtLv;
+	private ListView jhtLv;
 	private PostAdapter jhtAdapter;
 
 	@Override
@@ -52,23 +55,26 @@ public class FocusFragment extends BaseFragment {
 
 		View content = inflater.inflate(R.layout.fragment_focus, null);
 		setContent(content);
-		init();
+		init(inflater);
 		return content;
 	}
 
-	private void init() {
+	private void init(LayoutInflater inflater) {
 
-		initViews();
+		initViews(inflater);
 		getData();
 	}
 
-	private void initViews() {
-
+	private void initViews(LayoutInflater inflater) {
+		
+		jhtLv = (ListView) findViewById(R.id.uslv_jht_focus);
+		View header= inflater.inflate(R.layout.header_focus, null);
+		jhtLv.addHeaderView(header);
 		topVp = (ViewPager) findViewById(R.id.vp_top_focus);
 		dotLl = (LinearLayout) findViewById(R.id.ll_dot_top_focus);
 		vpTitleTv = (TextView) findViewById(R.id.tv_vp_title_focus);
 		ltdrHlv = (HorizontalListView) findViewById(R.id.hlv_ltdr_focus);
-		jhtLv = (UnScrollListView) findViewById(R.id.uslv_jht_focus);
+
 		focusTopAdapter = new ImageViewPagerAdapter(getActivity(), dotLl, topVp,
 				vpTitleTv);
 		topVp.setOnPageChangeListener(focusTopAdapter);
@@ -118,9 +124,11 @@ public class FocusFragment extends BaseFragment {
 		private void onClickLtdrItem(int position) {
 
 			UserInfo userInfo = ltdrAdapter.getItem(position);
-			Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-			intent.putExtra(UserHomeActivity.KEY_INTENT_UID, userInfo.uid);
-			startActivity(intent);
+			if(userInfo!=null && !TextUtils.isEmpty(userInfo.uid)) {
+				Intent intent = new Intent(getActivity(), OtherUserCenterActivity.class);
+				intent.putExtra(OtherUserCenterActivity.EXTRA_UID, Integer.parseInt(userInfo.uid));
+				startActivity(intent);
+			}
 		}
 
 		private void onClickJhtItem(int position) {

@@ -12,6 +12,7 @@ public class PostInfo {
 	public String subject;
 	public String dateline;
 	public String views;
+	public String recommend_add;
 	public String replies;
 	public String fName;
 	public String gender;

@@ -150,7 +150,6 @@ public class BaseActivity extends FragmentActivity {
 		@Override
 		public void onCancel(DialogInterface dialog) {
 			dialog.dismiss();
-			ToastHelper.showS(R.string.operation_canceled);
 		}
 
 	};

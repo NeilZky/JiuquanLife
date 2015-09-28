@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
+    android:background="@drawable/btn_setting_item"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -60,7 +61,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="3小时前"
                 android:textColor="@color/grey_text"
                 android:textSize="12sp" />
 			</LinearLayout>
@@ -69,7 +69,6 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_margin="7dp"
-                    android:visibility="gone"
                     android:src="@drawable/ic_collect" />
 
                 <ImageView

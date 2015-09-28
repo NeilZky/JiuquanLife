@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">酒泉生活</string>
-    <string name="home">主页</string>
+    <string name="home">聚焦</string>
     <string name="house">爱房产</string>
     <string name="shop">找好店</string>
     <string name="service">服务</string>

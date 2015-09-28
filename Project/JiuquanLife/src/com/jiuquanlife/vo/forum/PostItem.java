@@ -16,6 +16,7 @@ public class PostItem {
 	public int replies;
 	public int hits;
 	public int vote;
+	public int recommendAdd;
 	public String last_reply_date;
 	public ArrayList<String> imageList;
 }

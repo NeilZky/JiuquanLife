@@ -61,10 +61,12 @@ public class OtherUserCenterActivity extends BaseActivity{
 		map.put("r", "user/userinfo");
 		String mAppHash = AppUtils.getAppHash();
 		User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-		map.put("accessToken", user.token);
-		map.put("accessSecret", user.secret);
+		if(user!=null) {
+			map.put("accessToken", user.token);
+			map.put("accessSecret", user.secret);
+			map.put("userId", uid + "");
+		}
 		map.put("appHash", mAppHash);
-		map.put("userId", uid + "");
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.FORUM_URL, map, new Listener<String>() {
 
@@ -87,7 +89,7 @@ public class OtherUserCenterActivity extends BaseActivity{
 			return;
 		}
 		setText(R.id.tv_user_title_auc, json.userTitle);
-		ImageLoader.getInstance().displayImage( UrlUtils.getPhotoUrl(String.valueOf(json.icon)), civ_photo_user_center);
+		ImageLoader.getInstance().displayImage( json.icon, civ_photo_user_center);
 		if(json.body!=null && json.body.creditShowList!=null) {
 			for(UserData ud : json.body.creditShowList) {
 				if("credits".equals(ud.type)) {

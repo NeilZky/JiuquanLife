@@ -35,8 +35,8 @@
 
                 <ImageView
                     android:id="@+id/iv_emp_photo_home"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp" />
+                    android:layout_width="45dp"
+                    android:layout_height="45dp" />
 
                 <ImageView
                     android:id="@+id/iv_badge_home"
@@ -65,8 +65,8 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@drawable/ic_menu_setting" />
 
             <TextView

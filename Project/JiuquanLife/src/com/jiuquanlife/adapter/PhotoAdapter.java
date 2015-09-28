@@ -82,16 +82,6 @@ public class PhotoAdapter extends BaseAdapter implements OnItemClickListener {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.photo.setImageBitmap(photos.get(position).getBitmap());
-		final ImageView photoIv = holder.photo;
-		final int id = position;
-		holder.photo.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				onItemClick(null, photoIv, id, id);
-			}
-		});
 		return convertView;
 	}
 		

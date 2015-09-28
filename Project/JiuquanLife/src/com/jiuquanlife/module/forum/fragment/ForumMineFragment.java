@@ -67,7 +67,9 @@ public class ForumMineFragment extends BaseFragment {
 			intent.putExtra(UserListActivity.EXTRA_TYPE, UserListActivity.TYPE_RANK);
 			intent.putExtra(UserListActivity.EXTRA_TITLE, "用户排行");
 			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-			intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
+			if(user!=null) {
+				intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
+			}
 			startActivity(intent);
 		}
 
@@ -78,7 +80,9 @@ public class ForumMineFragment extends BaseFragment {
 			intent.putExtra(UserListActivity.EXTRA_TITLE, "附近用户");
 			intent.putExtra(UserListActivity.EXTRA_NEED_LOCATION, true);
 			User user = SharePreferenceUtils.getObject(SharePreferenceUtils.USER, User.class);
-			intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
+			if(user!=null) {
+				intent.putExtra(UserListActivity.EXTRA_UID, user.uid);
+			}
 			startActivity(intent);
 		}
 

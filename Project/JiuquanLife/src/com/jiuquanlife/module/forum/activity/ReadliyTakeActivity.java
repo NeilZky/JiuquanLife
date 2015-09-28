@@ -246,7 +246,7 @@ public class ReadliyTakeActivity extends BaseActivity implements
 
 		if (!mHasRequestedMore) {
 			int lastInScreen = firstVisibleItem + visibleItemCount;
-			if (lastInScreen >= totalItemCount) {
+			if (lastInScreen >= totalItemCount && totalItemCount!=0) {
 				mHasRequestedMore = true;
 				addData();
 			}

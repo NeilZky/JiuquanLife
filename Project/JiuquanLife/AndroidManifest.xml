@@ -54,6 +54,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
+        android:hardwareAccelerated="false"
         android:name="com.jiuquanlife.app.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
