@@ -20,14 +20,14 @@ import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.ToastHelper;
 
 public class RequestHelper {
-	
+
 	private static RequestHelper instance;
 	private static Object lock = new Object();
-	
+
 	private RequestHelper() {
-		
+
 	}
-	
+
 	public static RequestHelper getInstance() {
 		if (null == instance) {
 			synchronized (lock) {
@@ -38,16 +38,16 @@ public class RequestHelper {
 		}
 		return instance;
 	}
-	
-	
-	public void postRequest(Context context,String url, final Object jsonObj, final  Response.Listener<String> listener) {
-		
+
+	public void postRequest(Context context, String url, final Object jsonObj,
+			final Response.Listener<String> listener) {
+
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.POST,
-				url, listener, new Response.ErrorListener() {
+		StringRequest sRequest = new StringRequest(Request.Method.POST, url,
+				listener, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						
+
 						ToastHelper.showL("ÍøÂç´íÎó");
 
 					}
@@ -59,26 +59,37 @@ public class RequestHelper {
 				return params;
 			}
 
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String, String> header = new HashMap<String, String>();
+				header.put(
+						"User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.72 Safari/537.36");
+				return header;
+			}
+
 		};
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
-	public void postRequestMap(Context context,String url, final Map<String, String> params, final  Response.Listener<String> listener) {
-		
+
+	public void postRequestMap(Context context, String url,
+			final Map<String, String> params,
+			final Response.Listener<String> listener) {
+
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.POST,
-				url, listener, new Response.ErrorListener() {
+		StringRequest sRequest = new StringRequest(Request.Method.POST, url,
+				listener, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						
+
 						ToastHelper.showL("ÍøÂç´íÎó");
 
 					}
 				}) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
-				
+
 				return params;
 			}
 
@@ -86,15 +97,18 @@ public class RequestHelper {
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
-	public void postRequest(Context context,String url, final Map<String, String> params, final  Response.Listener<String> listener, final Response.ErrorListener onError) {
-		
+
+	public void postRequest(Context context, String url,
+			final Map<String, String> params,
+			final Response.Listener<String> listener,
+			final Response.ErrorListener onError) {
+
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.POST,
-				url, listener, onError) {
+		StringRequest sRequest = new StringRequest(Request.Method.POST, url,
+				listener, onError) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
-				
+
 				return params;
 			}
 
@@ -102,23 +116,24 @@ public class RequestHelper {
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
-	public void postRequestEntity(Context context,String url, Object entity, final Response.Listener<String> listener) {
-		
+
+	public void postRequestEntity(Context context, String url, Object entity,
+			final Response.Listener<String> listener) {
+
 		final Map<String, String> params = convertObjToMap(entity);
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.POST,
-				url, listener,  new Response.ErrorListener() {
+		StringRequest sRequest = new StringRequest(Request.Method.POST, url,
+				listener, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						
+
 						ToastHelper.showL("ÍøÂç´íÎó");
 
 					}
-				} ) {
+				}) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
-				
+
 				return params;
 			}
 
@@ -126,16 +141,18 @@ public class RequestHelper {
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
-	public void postRequestEntity(Context context,String url, Object entity, final  Response.Listener<String> listener, final Response.ErrorListener onError) {
-		
+
+	public void postRequestEntity(Context context, String url, Object entity,
+			final Response.Listener<String> listener,
+			final Response.ErrorListener onError) {
+
 		final Map<String, String> params = convertObjToMap(entity);
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.POST,
-				url, listener, onError) {
+		StringRequest sRequest = new StringRequest(Request.Method.POST, url,
+				listener, onError) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
-				
+
 				return params;
 			}
 
@@ -143,159 +160,177 @@ public class RequestHelper {
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
-	
-	public void getRequestEntity(Context context,String hostUrl, Object entity, final Response.Listener<String> listener) {
-		
+
+	public void getRequestEntity(Context context, String hostUrl,
+			Object entity, final Response.Listener<String> listener) {
+
 		final Map<String, String> values = convertObjToMap(entity);
-		  StringBuffer sb = new StringBuffer();
-	        sb.append(hostUrl);
-	        if(values!=null) {
-	        	 Set<String> keys = values.keySet();
-	             Iterator<String> iterator = keys.iterator();
-	             boolean first = true;
-	             while(iterator.hasNext()) {
-	             	String paramKey = iterator.next();
-	             	if(first) {
-	             		first = false;
-	             		sb.append("?" + paramKey+"=" + values.get(paramKey));
-	             	} else {
-	             		sb.append("&" + paramKey+"=" + Uri.encode(values.get(paramKey)));
-	             	}
-	             }
-	        }
-	        String url = sb.toString();
+		StringBuffer sb = new StringBuffer();
+		sb.append(hostUrl);
+		if (values != null) {
+			Set<String> keys = values.keySet();
+			Iterator<String> iterator = keys.iterator();
+			boolean first = true;
+			while (iterator.hasNext()) {
+				String paramKey = iterator.next();
+				if (first) {
+					first = false;
+					sb.append("?" + paramKey + "=" + values.get(paramKey));
+				} else {
+					sb.append("&" + paramKey + "="
+							+ Uri.encode(values.get(paramKey)));
+				}
+			}
+		}
+		String url = sb.toString();
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.GET,
-				url, listener,  new Response.ErrorListener() {
+		StringRequest sRequest = new StringRequest(Request.Method.GET, url,
+				listener, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						
+
 						ToastHelper.showL("ÍøÂç´íÎó");
 
 					}
-				} ) {
+				}) {
 		};
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
-	public void getRequestMap(Context context,String hostUrl, final Map<String, String> values, final Response.Listener<String> listener) {
-		
-		  StringBuffer sb = new StringBuffer();
-	        sb.append(hostUrl);
-	        if(values!=null) {
-	        	 Set<String> keys = values.keySet();
-	             Iterator<String> iterator = keys.iterator();
-	             boolean first = true;
-	             while(iterator.hasNext()) {
-	             	String paramKey = iterator.next();
-	             	if(first) {
-	             		first = false;
-	             		sb.append("?" + paramKey+"=" + values.get(paramKey));
-	             	} else {
-	             		sb.append("&" + paramKey+"=" + Uri.encode(values.get(paramKey)));
-	             	}
-	             }
-	        }
-	        String url = sb.toString();
+
+	public void getRequestMap(Context context, String hostUrl,
+			final Map<String, String> values,
+			final Response.Listener<String> listener) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append(hostUrl);
+		if (values != null) {
+			Set<String> keys = values.keySet();
+			Iterator<String> iterator = keys.iterator();
+			boolean first = true;
+			while (iterator.hasNext()) {
+				String paramKey = iterator.next();
+				if (first) {
+					first = false;
+					sb.append("?" + paramKey + "=" + values.get(paramKey));
+				} else {
+					sb.append("&" + paramKey + "="
+							+ Uri.encode(values.get(paramKey)));
+				}
+			}
+		}
+		String url = sb.toString();
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.GET,
-				url, listener,  new Response.ErrorListener() {
+		StringRequest sRequest = new StringRequest(Request.Method.GET, url,
+				listener, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						
+
 						ToastHelper.showL("ÍøÂç´íÎó");
 
 					}
-				} ) {
+				}) {
 		};
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
-	public void getRequestMap(Context context,String hostUrl, final Map<String, String> values, final Response.Listener<String> listener, final OnFinishListener onFinishListener) {
-		
-		  StringBuffer sb = new StringBuffer();
-	        sb.append(hostUrl);
-	        if(values!=null) {
-	        	 Set<String> keys = values.keySet();
-	             Iterator<String> iterator = keys.iterator();
-	             boolean first = true;
-	             while(iterator.hasNext()) {
-	             	String paramKey = iterator.next();
-	             	if(first) {
-	             		first = false;
-	             		sb.append("?" + paramKey+"=" + values.get(paramKey));
-	             	} else {
-	             		sb.append("&" + paramKey+"=" + Uri.encode(values.get(paramKey)));
-	             	}
-	             }
-	        }
-	        String url = sb.toString();
+
+	public void getRequestMap(Context context, String hostUrl,
+			final Map<String, String> values,
+			final Response.Listener<String> listener,
+			final OnFinishListener onFinishListener) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append(hostUrl);
+		if (values != null) {
+			Set<String> keys = values.keySet();
+			Iterator<String> iterator = keys.iterator();
+			boolean first = true;
+			while (iterator.hasNext()) {
+				String paramKey = iterator.next();
+				if (first) {
+					first = false;
+					sb.append("?" + paramKey + "=" + values.get(paramKey));
+				} else {
+					sb.append("&" + paramKey + "="
+							+ Uri.encode(values.get(paramKey)));
+				}
+			}
+		}
+		String url = sb.toString();
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.GET,
-				url, new Response.Listener<String>() {
+		StringRequest sRequest = new StringRequest(Request.Method.GET, url,
+				new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
 						onFinishListener.onFinish();
 						listener.onResponse(response);
 					}
-				},  new Response.ErrorListener() {
+				}, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						
+
 						onFinishListener.onFinish();
 						ToastHelper.showL("ÍøÂç´íÎó");
 
 					}
-				} ) {
+				}) {
+		
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				Map<String, String> header = new HashMap<String, String>();
+				header.put(
+						"User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.72 Safari/537.36");
+				return header;
+			}
 		};
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
-	
-	public void getRequestEntity(Context context,String hostUrl, Object entity, final  Response.Listener<String> listener, final Response.ErrorListener onError) {
-		
-	final Map<String, String> values = convertObjToMap(entity);
-	  StringBuffer sb = new StringBuffer();
-      sb.append(hostUrl);
-      if(values!=null) {
-      	 Set<String> keys = values.keySet();
-           Iterator<String> iterator = keys.iterator();
-           boolean first = true;
-           while(iterator.hasNext()) {
-           	String paramKey = iterator.next();
-           	if(first) {
-         		sb.append("?" + paramKey+"=" + Uri.encode(values.get(paramKey)));
-           		first = false;
-           	}
-     		sb.append("&" + paramKey+"=" + Uri.encode(values.get(paramKey)));
 
-           }
-      }
-      String url = sb.toString();
+	public void getRequestEntity(Context context, String hostUrl,
+			Object entity, final Response.Listener<String> listener,
+			final Response.ErrorListener onError) {
+
+		final Map<String, String> values = convertObjToMap(entity);
+		StringBuffer sb = new StringBuffer();
+		sb.append(hostUrl);
+		if (values != null) {
+			Set<String> keys = values.keySet();
+			Iterator<String> iterator = keys.iterator();
+			boolean first = true;
+			while (iterator.hasNext()) {
+				String paramKey = iterator.next();
+				if (first) {
+					sb.append("?" + paramKey + "="
+							+ Uri.encode(values.get(paramKey)));
+					first = false;
+				}
+				sb.append("&" + paramKey + "="
+						+ Uri.encode(values.get(paramKey)));
+
+			}
+		}
+		String url = sb.toString();
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.POST,
-				url, listener, onError) {
+		StringRequest sRequest = new StringRequest(Request.Method.POST, url,
+				listener, onError) {
 		};
 		sRequest.setShouldCache(false);
 		requestQueue.add(sRequest);
 	}
-	
 
-	
-	
-	public void getRequest(Context context,String url, final  Response.Listener<String> listener) {
-		
+	public void getRequest(Context context, String url,
+			final Response.Listener<String> listener) {
+
 		RequestQueue requestQueue = Volley.newRequestQueue(context);
-		StringRequest sRequest = new StringRequest(Request.Method.GET,
-				url, listener, new Response.ErrorListener() {
+		StringRequest sRequest = new StringRequest(Request.Method.GET, url,
+				listener, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						
+
 						ToastHelper.showL("ÍøÂç´íÎó");
 
 					}
@@ -306,19 +341,19 @@ public class RequestHelper {
 	}
 
 	private HashMap<String, String> convertObjToMap(Object input) {
-		
-		if(input == null) {
+
+		if (input == null) {
 			return null;
 		}
 		Field[] fields = input.getClass().getFields();
-		if(fields!=null) {
+		if (fields != null) {
 			HashMap<String, String> res = new HashMap<String, String>();
-			for(Field field : fields) {
+			for (Field field : fields) {
 				String key = field.getName();
 				field.setAccessible(true);
-				 try {
+				try {
 					Object value = field.get(input);
-					if(value!=null) {
+					if (value != null) {
 						String hashValue = value.toString();
 						res.put(key, hashValue);
 					}
@@ -334,11 +369,9 @@ public class RequestHelper {
 		}
 		return null;
 	}
-	
+
 	public interface OnFinishListener {
-		
+
 		public void onFinish();
 	}
 }
-
-
