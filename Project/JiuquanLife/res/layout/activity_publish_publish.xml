@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E7E7E7"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="#24B558" >
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="60dp"
+            android:drawableLeft="@drawable/abc_ic_clear_normal"
+            android:paddingLeft="5dp"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/btn_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="60dp"
+            android:drawableLeft="@drawable/abc_ic_cab_done_holo_light"
+            android:paddingLeft="5dp"
+            android:text="发布"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical" >
+
+            <Spinner
+                android:id="@+id/sp_address"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/spinner_bg2"
+                android:paddingLeft="10dp" />
+
+            <Spinner
+                android:id="@+id/sp_category"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/spinner_bg2"
+                android:paddingLeft="10dp" />
+
+            <Spinner
+                android:id="@+id/sp_subcategory"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/spinner_bg2"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:hint="标题(15字以内)"
+                android:maxLength="15" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:hint="电话"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="fill_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="10dp"
+                android:gravity="top"
+                android:hint="内容(100字以内)" />
+
+            <GridView
+                android:id="@+id/noScrollgridview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:horizontalSpacing="3dp"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:verticalSpacing="5dp" >
+            </GridView>
+
+            <Button
+                android:id="@+id/btn_publish2"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="#2BAB56"
+                android:text="发布"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#E7E7E7" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

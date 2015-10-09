@@ -1,13 +1,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:and="http://schemas.android.com/apk/res/com.jiuquanlife"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     >
-	<com.jiuquanlife.view.MovingView 
-	    android:id="@+id/mv"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    />    
+    android:layout_height="match_parent" >
+
+    <com.jiuquanlife.view.MovingView
+        android:id="@+id/mv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <com.jiuquanlife.view.SexangleViewGroup
         android:id="@+id/sexangleView"
@@ -25,10 +24,9 @@
             and:src="@drawable/ic_menu_home"
             and:textSize="12sp"
             and:texts="@string/home" />
-		
-                 
+
         <com.jiuquanlife.view.SexangleImageView
-             android:id="@+id/siv_readliy_take"
+            android:id="@+id/siv_readliy_take"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/color_flight"
@@ -36,8 +34,8 @@
             and:src="@drawable/ic_menu_camera"
             and:textSize="12sp"
             and:texts="@string/readliy_take" />
-        
-         <com.jiuquanlife.view.SexangleImageView
+
+        <com.jiuquanlife.view.SexangleImageView
             android:id="@+id/siv_house"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,8 +44,8 @@
             and:src="@drawable/ic_menu_house"
             and:textSize="12sp"
             and:texts="@string/house" />
-        
-         <com.jiuquanlife.view.SexangleImageView
+
+        <com.jiuquanlife.view.SexangleImageView
             android:id="@+id/siv_marriage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,8 +54,9 @@
             and:src="@drawable/ic_menu_marriage"
             and:textSize="12sp"
             and:texts="爱上你" />
-         
-           <com.jiuquanlife.view.SexangleImageView
+
+        <com.jiuquanlife.view.SexangleImageView
+            android:id="@+id/siv_findcompany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/home_orange"
@@ -65,8 +64,8 @@
             and:src="@drawable/ic_menu_shop"
             and:textSize="12sp"
             and:texts="@string/shop" />
-         
-            <com.jiuquanlife.view.SexangleImageView
+
+        <com.jiuquanlife.view.SexangleImageView
             android:id="@+id/siv_community"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,8 +74,9 @@
             and:src="@drawable/ic_menu_forum"
             and:textSize="12sp"
             and:texts="@string/community" />
-		
-            <com.jiuquanlife.view.SexangleImageView
+
+        <com.jiuquanlife.view.SexangleImageView
+            android:id="@+id/siv_publish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             and:bgcolor="@color/home_green_blue"
@@ -84,6 +84,6 @@
             and:src="@drawable/ic_menu_pubish"
             and:textSize="12sp"
             and:texts="@string/publish" />
+    </com.jiuquanlife.view.SexangleViewGroup>
 
-	</com.jiuquanlife.view.SexangleViewGroup>
 </FrameLayout>

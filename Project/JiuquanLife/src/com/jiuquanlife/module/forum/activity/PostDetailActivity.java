@@ -308,13 +308,8 @@ public class PostDetailActivity extends BaseActivity {
 	}
 
 	private void onClickMoreReply() {
-		
-		if(ll_more_reply_post_detail.getVisibility() == View.VISIBLE) {
-			ll_more_reply_post_detail.setVisibility(View.GONE);
-		} else {
-			ll_more_reply_post_detail.setVisibility(View.VISIBLE);
-		}
-		
+
+		ll_more_reply_post_detail.setVisibility(View.VISIBLE);
 
 	}
 
@@ -341,7 +336,8 @@ public class PostDetailActivity extends BaseActivity {
 					@Override
 					public void onResponse(String response) {
 
-						ToastHelper.showL("收藏成功");
+						System.out.println(response);
+						// TODO 更改收藏状态
 					}
 				});
 	}
@@ -499,7 +495,6 @@ public class PostDetailActivity extends BaseActivity {
 	
 	private PhotoRes uploadPhoto(String path) {
 		
-		path = getUploadPath(path);
 		String host = UrlConstance.FORUM_UPLOAD_PHOTO;
 		HashMap<String, String> values = new HashMap<String, String>();
 		String mAppHash = AppUtils.getAppHash();
@@ -518,16 +513,6 @@ public class PostDetailActivity extends BaseActivity {
 		}
 		PhotoRes res = new Gson().fromJson(result, PhotoRes.class);
 		return res;
-	}
-	
-	private String getUploadPath(String path) {
-		
-		File file = new File(path);
-		if(file.length() > 500*1000) {
-			return PhotoManager.getInstance().compressPicture(path, PhotoManager.UPLOAD_PHOTO_PATH);
-		} else {
-			return path;
-		}
 	}
 
 	@SuppressLint("HandlerLeak")

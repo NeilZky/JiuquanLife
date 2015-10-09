@@ -17,6 +17,7 @@ import com.jiuquanlife.R;
 import com.jiuquanlife.app.App;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.module.base.FragmentContentActivity;
+import com.jiuquanlife.module.company.CompanyActivity;
 import com.jiuquanlife.module.focus.fragment.FocusFragment;
 import com.jiuquanlife.module.forum.activity.ForumTabActvity;
 import com.jiuquanlife.module.forum.activity.ReadliyTakeActivity;
@@ -25,6 +26,8 @@ import com.jiuquanlife.module.home.adapter.HomeAdapter;
 import com.jiuquanlife.module.house.fragment.HouseFragment;
 import com.jiuquanlife.module.im.RongCloudBll;
 import com.jiuquanlife.module.login.LoginActivity;
+import com.jiuquanlife.module.love.LoveActivity;
+import com.jiuquanlife.module.publish.PublishActivity;
 import com.jiuquanlife.module.tab.HouseTabActivity;
 import com.jiuquanlife.utils.ImageLoaderHelper;
 import com.jiuquanlife.utils.SharePreferenceUtils;
@@ -43,6 +46,8 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 	private SexangleImageView hotelSiv;
 	private SexangleImageView readliyTakeSiv;
 	private SexangleImageView loginSiv;
+	private SexangleImageView siv_marriage;
+	private SexangleImageView siv_findcompany,siv_publish;
 	private MovingView mv;
 	private ViewPager homeVp;
 	private View leftHomeView;
@@ -93,17 +98,17 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 			TextViewUtils.setText(empNameTv, user.userName);
 		}
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		refreshLoginBtn();
-		if(App.getInstance().imCount!=0) {
+		if (App.getInstance().imCount != 0) {
 			badgeIv.setVisibility(View.VISIBLE);
 		} else {
 			badgeIv.setVisibility(View.GONE);
 		}
-		
+
 	}
 
 	private ConnectCallback callBack = new ConnectCallback() {
@@ -139,6 +144,9 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 	}
 
 	private void initSixAngelView() {
+		siv_marriage=(SexangleImageView) leftHomeView.findViewById(R.id.siv_marriage);
+		siv_findcompany=(SexangleImageView) leftHomeView.findViewById(R.id.siv_findcompany);
+		siv_publish=(SexangleImageView) leftHomeView.findViewById(R.id.siv_publish);
 
 		homeSiv = (SexangleImageView) leftHomeView.findViewById(R.id.siv_main);
 		houseSiv = (SexangleImageView) leftHomeView
@@ -153,6 +161,9 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 		houseSiv.setOnSexangleImageClick(listener);
 		hotelSiv.setOnSexangleImageClick(listener);
 		readliyTakeSiv.setOnSexangleImageClick(listener);
+		siv_marriage.setOnSexangleImageClick(listener);
+		siv_findcompany.setOnSexangleImageClick(listener);
+		siv_publish.setOnSexangleImageClick(listener);
 		// loginSiv.setOnSexangleImageClick(listener);
 	}
 
@@ -191,22 +202,32 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 				break;
 			case R.id.siv_marriage:
 				onClickMarriage();
+				break;
+			case R.id.siv_publish:
+				onClickPublish();
+				break;
+			case R.id.siv_findcompany:
+				onClickStore();
+				break;
 			}
 		}
 
-		//TODO 跳转到爱上你
+		// TODO 跳转到爱上你
 		private void onClickMarriage() {
-			
+			Intent intent = new Intent(HomeActivity.this, LoveActivity.class);
+			startActivity(intent);
 		}
-		
-		//TODO 跳转到找好店
+
+		// TODO 跳转到找好店
 		private void onClickStore() {
-			
+			Intent intent = new Intent(HomeActivity.this, CompanyActivity.class);
+			startActivity(intent);
 		}
-		
-		//TODO 跳转到爱发布
+
+		// TODO 跳转到爱发布
 		private void onClickPublish() {
-					
+			Intent intent = new Intent(HomeActivity.this, PublishActivity.class);
+			startActivity(intent);
 		}
 
 		/**
@@ -221,7 +242,8 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 
 		private void onClickHouse() {
 
-			Intent intent = new Intent(HomeActivity.this, HouseTabActivity.class);
+			Intent intent = new Intent(HomeActivity.this,
+					HouseTabActivity.class);
 			intent.putExtra(HouseTabActivity.INTENT_KEY_TAB_TAG,
 					HouseFragment.class.getSimpleName());
 			startActivity(intent);
@@ -270,19 +292,19 @@ public class HomeActivity extends Activity implements OnPageChangeListener {
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onPageSelected(int position) {
-		
-		if(position == 0) {
+
+		if (position == 0) {
 			pageTv.setText("1/2");
 		} else {
 			pageTv.setText("2/2");

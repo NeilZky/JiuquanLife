@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-
-    <drawable name="blank">#00000000</drawable>
+	<color name="company_title_bg">#FA5951</color>
+	<color name="black_header">#333333</color>
+    <color name="abs__background_holo_light">#fff3f3f3</color>
+    <color name="abs__bright_foreground_holo_dark">@color/abs__background_holo_light</color>
+	<color name="gold">#b89766</color>
+	<color name="select">#98aacc</color>    <drawable name="blank">#00000000</drawable>
     <color name="background_tab_pressed">#6633B5E5</color>
+	<color name="common_bg">#F0EFEF</color>
+	<color name="common_font_black">#727071</color>
+	<color name="common_font">#777576</color>
+    <color name="bg_gray">#ffd6d6d6</color>
     
     <color name="unwhite">#ffffff</color>
     <color name="FlightCXListInfoActivityBg">#DCDCDC</color>
@@ -61,7 +69,7 @@
     <color name="login_btn">#f9671e</color>
     <color name="login_btn_pressed">#d85d1f</color>
     <color name="login_divider">#c8c8c8</color>
-    <color name="black_header">#333333</color>
+
     
     <color name="normal">#fff</color>
     <color name="press">#EBEBEB</color>
@@ -88,5 +96,9 @@
     <color name="home_orange">#F3A344</color>
     <color name="home_green_dark">#7FD675</color>
     <color name="home_green_blue">#6CD8B8</color>
+ 		<color name="item_selected_color">#D9FFFF</color>
+    <color name="item_normal_color">#dbdbdb</color>
+    <color name="shouye_black_color">#3E3A39</color>
+    <color name="gray_line">#E7E7E7</color>
     
 </resources>

@@ -59,9 +59,9 @@ public class UserListAdapter extends BaseListAdapter<UserInfo>{
 //        });
 		
 		if(item.gender == 0) {
-			holder.iv_gender_user_adapter.setImageResource(R.drawable.ic_sex_woman);
-		} else {
 			holder.iv_gender_user_adapter.setImageResource(R.drawable.ic_sex_man);
+		} else {
+			holder.iv_gender_user_adapter.setImageResource(R.drawable.ic_sex_woman);
 		}
 		if(StringUtils.isNullOrEmpty(item.distance)) {
 			holder.tv_distance_user_adapter.setVisibility(View.GONE);

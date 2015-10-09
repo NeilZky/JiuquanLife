@@ -22,6 +22,7 @@ import com.jiuquanlife.dao.UserDao;
 import com.jiuquanlife.entity.User;
 import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.module.base.BaseActivity;
+import com.jiuquanlife.module.company.Common;
 import com.jiuquanlife.module.im.RongCloudBll;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
@@ -111,6 +112,7 @@ public class LoginActivity extends BaseActivity{
 							user.secret = secret;
 							user.userName = userName;
 							user.photoUrl = photoUrl;
+							
 							SharePreferenceUtils.putObject(SharePreferenceUtils.USER, user);
 							setResult(Activity.RESULT_OK);
 							getRongyunToken();

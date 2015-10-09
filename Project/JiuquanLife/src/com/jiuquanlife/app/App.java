@@ -40,6 +40,9 @@ public class App extends Application {
 		initRongyun();
 		// initImageLoader(this);
 		initImageLoader();
+		CrashHandler crashHandler = CrashHandler.getInstance();
+		crashHandler.init(getApplicationContext());
+		// Utils.getPermisson(getApplicationContext());
 	}
 
 	

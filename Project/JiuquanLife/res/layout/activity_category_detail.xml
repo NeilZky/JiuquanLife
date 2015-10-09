@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_category_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <!-- 头部导航 -->
+
+    <RelativeLayout
+        android:id="@+id/rl_first_top"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="@color/company_title_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/ll_first_top"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:background="@color/company_title_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/ll_back"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dip"
+                    android:src="@drawable/ic_comment_photo_browser_back" />
+            </LinearLayout>
+
+            <include layout="@layout/common_search" />
+        </LinearLayout>
+
+        <!-- 头部右边 -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:visibility="gone" >
+
+            <include layout="@layout/top_right" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_category_spinne"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/ll_distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="40.0dip"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="距离"
+                android:textColor="@color/black"
+                android:textSize="14.0sp" />
+
+            <ImageView
+                android:id="@+id/iv_selected_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/takeout_ic_sort_condition_down" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5px"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="wrap_content"
+                android:layout_height="40.0dip"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="类型"
+                android:textColor="@color/black"
+                android:textSize="14.0sp" />
+
+            <ImageView
+                android:id="@+id/iv_selected_status1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/takeout_ic_sort_condition_down" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5px"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_order"
+                android:layout_width="wrap_content"
+                android:layout_height="40.0dip"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="智能排序"
+                android:textColor="@color/black"
+                android:textSize="14.0sp" />
+
+            <ImageView
+                android:id="@+id/iv_selected_status2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/takeout_ic_sort_condition_down" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#BEBEBE" />
+
+    <com.jiuquanlife.module.publish.PullToRefreshView
+        android:id="@+id/pl_pub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/ll_category_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000"
+            android:listSelector="#00000000" >
+        </ListView>
+    </com.jiuquanlife.module.publish.PullToRefreshView>
+
+</LinearLayout>

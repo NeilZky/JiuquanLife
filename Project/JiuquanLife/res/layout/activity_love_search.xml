@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_first_top"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="#F26F9B" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/ic_comment_photo_browser_back" />
+
+        <TextView
+            android:id="@+id/tv_category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="爱上你-找人"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/select" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" android:background="@color/white">
+
+        <FrameLayout
+            android:id="@+id/firstF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/yifaweifahuo"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/shouye_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="离我最近"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_indicator1"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom"
+                android:src="#F06B98"
+                >
+            </ImageView>
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/shuxian" />
+
+        <FrameLayout
+            android:id="@+id/secondF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/yifaweifahuo"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/shouye_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="最近登录"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_indicator2"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom"
+                android:src="#F06B98"
+                android:visibility="invisible"  >
+            </ImageView>
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/shuxian" />
+
+        <FrameLayout
+            android:id="@+id/thirdF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/yifaweifahuo"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/shouye_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="最新注册"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_indicator3"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="bottom"
+                android:src="#F06B98"
+                android:visibility="invisible" >
+            </ImageView>
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.jiuquanlife.module.publish.PullToRefreshView
+        android:id="@+id/pl_pub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/lv_pl"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#EDEDED"
+            android:divider="@null"
+            android:dividerHeight="3dp" />
+    </com.jiuquanlife.module.publish.PullToRefreshView>
+
+</LinearLayout>

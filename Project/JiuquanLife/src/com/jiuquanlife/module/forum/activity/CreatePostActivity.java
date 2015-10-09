@@ -3,7 +3,6 @@ package com.jiuquanlife.module.forum.activity;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
@@ -32,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jiuquanlife.R;
 import com.jiuquanlife.adapter.PhotoAdapter;
+import com.jiuquanlife.constance.CommonConstance;
 import com.jiuquanlife.constance.UrlConstance;
 import com.jiuquanlife.entity.Photo;
 import com.jiuquanlife.entity.User;
@@ -39,6 +38,7 @@ import com.jiuquanlife.http.RequestHelper;
 import com.jiuquanlife.http.RequestHelper.OnFinishListener;
 import com.jiuquanlife.module.base.BaseActivity;
 import com.jiuquanlife.module.forum.adapter.BorderTypeAdapter;
+import com.jiuquanlife.module.house.activity.PublishSecondaryHouseActivity;
 import com.jiuquanlife.utils.AppUtils;
 import com.jiuquanlife.utils.GsonUtils;
 import com.jiuquanlife.utils.MulityLocationManager;
@@ -146,7 +146,6 @@ public class CreatePostActivity extends BaseActivity{
 		tv_select_type_create_post = (TextView) findViewById(R.id.tv_select_type_create_post);
 		photoAdapter = new PhotoAdapter(getActivity());
 		hlv_photo_create_post.setAdapter(photoAdapter);
-		hlv_photo_create_post.setOnItemClickListener(photoAdapter);
 		mulityLocationManager = MulityLocationManager.getInstance(getApplicationContext());
 		mulityLocationManager.setOnLocationChangedListener(onLocationChangedListener);
 		photoManager.deletePhotos(PhotoManager.UPLOAD_PHOTO_PATH);
@@ -182,30 +181,13 @@ public class CreatePostActivity extends BaseActivity{
 			onClickSelectType();
 			break;
 		case R.id.btn_cancel_create_post:
-			onBackPressed();
+			finish();
 			break;
 		default:
 			break;
 		}
 	}
-	
-	@Override
-	public void onBackPressed() {
-		
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setTitle("提示")
-		.setMessage("确定要放弃发布吗?")
-		.setPositiveButton("是", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-				finish();
-			}
-		}).setNegativeButton("否", null).show();
-	}
-	
-	
+
 	private void onClickSelectType() {
 		
 		
@@ -220,7 +202,7 @@ public class CreatePostActivity extends BaseActivity{
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("fid", String.valueOf(border.board_id));
-		showProgressDialog(false);
+		showProgressDialog();
 		RequestHelper.getInstance().getRequestMap(getActivity(),
 				UrlConstance.FORUM_TOPIC_TYPE_LIST, map, new Listener<String>() {
 					
@@ -286,7 +268,7 @@ public class CreatePostActivity extends BaseActivity{
 			publishData(null);
 			return;
 		}
-		showProgressDialog(false);
+		showProgressDialog();
 		new Thread() {
 
 			@Override
@@ -312,8 +294,7 @@ public class CreatePostActivity extends BaseActivity{
 	}
 	
 	private PhotoRes uploadPhoto(String path) {
-
-		path = getUploadPath(path);
+		
 		String host = UrlConstance.FORUM_UPLOAD_PHOTO;
 		HashMap<String, String> values = new HashMap<String, String>();
 		values.put("module", "forum");
@@ -332,17 +313,6 @@ public class CreatePostActivity extends BaseActivity{
 		return res;
 	}
 
-	private String getUploadPath(String path) {
-		
-		File file = new File(path);
-		if(file.length() > 500*1000) {
-			return PhotoManager.getInstance().compressPicture(path, PhotoManager.UPLOAD_PHOTO_PATH);
-		} else {
-			return path;
-		}
-	}
-	
-	
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 
